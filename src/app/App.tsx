@@ -118,10 +118,10 @@ export default function App() {
         <HeroSection />
         <AboutSection />
         <FeaturedProjects />
-        <ThinkingSection />
-        <ExperienceSection />
-        {/* <KnowledgeSection /> */}
         <ValueSection />
+        <ExperienceSection />
+        {/* <ThinkingSection /> */}
+        {/* <KnowledgeSection /> */}
       </main>
       <Footer />
     </div>
