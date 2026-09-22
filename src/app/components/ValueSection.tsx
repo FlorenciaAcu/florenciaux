@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { Mail, Clock } from "lucide-react";
 
 const items = [
   {
@@ -36,8 +35,8 @@ const items = [
 
 export function ValueSection() {
   return (
-    <section id="servicios" className="py-12 lg:py-20 bg-[#F5F5F7]">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="servicios" className="relative py-12 lg:py-20 bg-[#fafafa]/90">
+      <div className="relative max-w-7xl mx-auto px-6">
 
         {/* Header */}
         <motion.div
@@ -55,94 +54,50 @@ export function ValueSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-lg text-gray-500 leading-relaxed mb-8 lg:mb-10"
+          className="text-lg text-gray-600 leading-relaxed mb-8 lg:mb-10"
         >
           Trabajo en productos digitales que necesitan mejorar su experiencia, definir mejor sus flujos o transformar una idea en una solución clara, usable y funcional.
         </motion.p>
 
-        {/* Mini cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 lg:mb-12">
-          {items.map((item, i) => (
-            <motion.div
-              key={item.number}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: i * 0.07 }}
-              className="bg-white rounded-2xl p-6 flex flex-col gap-3"
-            >
-              <span className="text-xs font-semibold tracking-widest text-[#351C75] uppercase">
-                {item.number}
-              </span>
-              <h3 className="text-base font-bold text-gray-900 tracking-tight">{item.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{item.description}</p>
-            </motion.div>
-          ))}
-        </div>
+        {/* System diagram — nodes connected by a spine, not generic cards */}
+        <div className="relative mb-8 lg:mb-12">
+          {/* Spine: vertical on mobile, horizontal on desktop */}
+          <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-[#cc0058]/40 via-gray-300 to-[#00b8d4]/40 lg:left-0 lg:right-0 lg:top-[7px] lg:bottom-auto lg:h-px lg:w-auto lg:bg-gradient-to-r" />
 
-        {/* Divider */}
-        <div className="border-t border-gray-200 mb-8 lg:mb-12" />
-
-        {/* Contact CTA */}
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.55 }}
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
-              ¿Estás construyendo o mejorando un producto digital?
-            </h2>
-            <p className="text-lg text-gray-500 leading-relaxed mb-8">
-              Puedo ayudarte a transformar una idea, necesidad o flujo en una experiencia clara, usable y lista para probar, validar o avanzar hacia desarrollo.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex flex-wrap gap-4 mb-6 lg:mb-8"
-          >
-            <a
-              href="mailto:contact@florenciaux.com"
-              className="inline-flex items-center gap-2 bg-[#351C75] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#2a1660] hover:shadow-[0_4px_20px_rgba(53,28,117,0.35)] hover:-translate-y-0.5 transition-all duration-200"
-            >
-              Contactarme
-            </a>
-            <a
-              href="https://docs.google.com/document/d/1O70FGTcqo2q0tnwgErOQUlcODUc8LEDuZI0w3G4l9do/edit?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-gray-300 bg-white text-gray-800 px-7 py-3.5 rounded-full text-sm font-semibold hover:border-[#C4B5E8] hover:bg-[#F3F0FA] transition-colors duration-200"
-            >
-              Ver CV
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="flex flex-wrap items-center gap-x-6 gap-y-2"
-          >
-            <div className="flex items-center gap-2 text-gray-500">
-              <Mail className="w-4 h-4 text-[#351C75] shrink-0" />
-              <a
-                href="mailto:contact@florenciaux.com"
-                className="text-sm hover:text-gray-900 transition-colors hover:underline underline-offset-4"
+          <div className="flex flex-col gap-8 lg:flex-row lg:gap-4">
+            {items.map((item, i) => (
+              <motion.div
+                key={item.number}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.45, delay: i * 0.08 }}
+                className="relative flex gap-4 pl-0 lg:flex-1 lg:flex-col lg:gap-0 lg:pl-0"
               >
-                contact@florenciaux.com
-              </a>
-            </div>
-            <div className="flex items-center gap-2 text-gray-500">
-              <Clock className="w-4 h-4 shrink-0" />
-              <span className="text-sm">Respondo en 24–48 hs.</span>
-            </div>
-          </motion.div>
+                {/* Node */}
+                <div className="relative z-10 shrink-0 lg:mb-5">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.35, delay: i * 0.08 + 0.15, type: "spring", stiffness: 300 }}
+                    className="w-4 h-4 rounded-full bg-[#fafafa] border-2 border-[#cc0058]"
+                  />
+                </div>
+
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className="glass-panel flex-1 rounded-2xl p-6 flex flex-col gap-3 hover:border-[#cc0058]/40 hover:shadow-lg transition-[border-color,box-shadow] duration-200"
+                >
+                  <span className="text-xs font-semibold tracking-widest text-[#cc0058] uppercase">
+                    {item.number}
+                  </span>
+                  <h3 className="text-base font-bold text-gray-900 tracking-tight">{item.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
       </div>

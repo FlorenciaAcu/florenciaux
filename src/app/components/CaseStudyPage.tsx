@@ -1,6 +1,9 @@
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { WhatsAppFAB } from "./WhatsAppFAB";
+import { DetailHero } from "./DetailHero";
+import { detailSticker } from "./Stickers";
+import { ClosingCTA } from "./ClosingCTA";
+import { CaseStudyDetails, CaseStudyLearned, ExperienceIntro } from "./CaseStudyBlocks";
 import { getProjectBySlug } from "../data/projects";
 import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
@@ -12,7 +15,7 @@ function ImagePlaceholder({ wide = false }: { wide?: boolean }) {
         wide ? "aspect-[21/9]" : "aspect-[16/9]"
       }`}
     >
-      <p className="text-xs text-gray-500 font-medium">Imagen pendiente</p>
+      <p className="text-xs text-gray-700 font-medium">Imagen pendiente</p>
     </div>
   );
 }
@@ -42,16 +45,17 @@ export function CaseStudyPage({ slug }: Props) {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-[#fafafa]">
         <Header />
         <main className="pt-20">
-          <div className="max-w-7xl mx-auto px-6 py-40 text-center">
-            <p className="text-gray-600 mb-6">Proyecto no encontrado.</p>
+          <div className="max-w-7xl mx-auto px-6 py-40 flex flex-col items-center gap-6 text-center">
+            <p className="text-gray-600">Proyecto no encontrado.</p>
             <button
               onClick={handleBackToProjects}
-              className="text-sm font-medium text-[#351C75] hover:underline underline-offset-4"
+              aria-label="Volver a proyectos"
+              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-[#fafafa] text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-colors"
             >
-              ← Volver a proyectos
+              <ArrowLeft className="w-4 h-4" />
             </button>
           </div>
         </main>
@@ -61,41 +65,29 @@ export function CaseStudyPage({ slug }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#fafafa]">
       <Header />
-      <WhatsAppFAB />
 
       <main className="px-[0px] pt-[64px] pb-[0px]">
-        {/* Hero */}
-        <div className="bg-[#F5F5F7] px-[0px] py-[32px]">
-          <div className="max-w-7xl mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55 }}
-            >
-              {/* Back + title + tagline */}
-              <div className="flex items-center gap-4 m-[0px]">
-                <button
-                  onClick={handleBack}
-                  aria-label="Volver"
-                  className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-colors"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </button>
-                <div>
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
-                    {project.name}
-                  </h1>
-                  <p className="text-sm text-gray-500 leading-relaxed mt-1">
-                    {project.tagline}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
+        <DetailHero
+          title={project.name}
+          tagline={project.caseStudy ? undefined : project.tagline}
+          onBack={handleBack}
+          backLabel="Volver"
+          sticker={detailSticker(project.slug)}
+          location={project.location}
+          website={project.website}
+        />
 
+        {project.caseStudy ? (
+          /* Same structure as the experience pages: "Mi trabajo" first, then the case blocks. */
+          <div className="max-w-7xl mx-auto px-6 py-12 space-y-12 lg:space-y-16">
+            <ExperienceIntro data={project.caseStudy} period={project.duration ?? ""} intro={project.roleIntro ?? []} />
+            <CaseStudyDetails data={project.caseStudy} />
+            <CaseStudyLearned data={project.caseStudy} />
+          </div>
+        ) : (
+          <>
         {/* Main image */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -114,7 +106,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold text-[#351C75] uppercase tracking-widest mb-3">
+            <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-3">
               Contexto
             </p>
             <p className="text-gray-700 text-base leading-relaxed">
@@ -128,7 +120,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold text-[#351C75] uppercase tracking-widest mb-3">
+            <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-3">
               Problema o reto
             </p>
             <p className="text-gray-700 text-base leading-relaxed">
@@ -144,7 +136,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold text-[#351C75] uppercase tracking-widest mb-3">
+            <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-3">
               Mi rol
             </p>
             <p className="text-gray-700 text-base leading-relaxed">
@@ -158,7 +150,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold text-[#351C75] uppercase tracking-widest mb-3">
+            <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-3">
               Solución
             </p>
             <p className="text-gray-700 text-base leading-relaxed">
@@ -172,7 +164,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold text-[#351C75] uppercase tracking-widest mb-5">
+            <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-5">
               Evidencia visual
             </p>
             <div className="space-y-4">
@@ -182,25 +174,12 @@ export function CaseStudyPage({ slug }: Props) {
             </div>
           </motion.div>
         </div>
+          </>
+        )}
 
-        {/* Bottom CTA */}
-        <div className="bg-[#F5F5F7] py-12">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
-              ¿Estás construyendo o mejorando un producto digital?
-            </h2>
-            <p className="text-gray-500 text-base leading-relaxed mb-8">
-              Puedo ayudarte a transformar una idea, necesidad o flujo en una experiencia clara, usable y lista para probar, validar o avanzar hacia desarrollo.
-            </p>
-            <a
-              href="mailto:contact@florenciaux.com"
-              className="inline-flex items-center gap-2 bg-[#351C75] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#2a1660] hover:shadow-[0_4px_20px_rgba(53,28,117,0.35)] hover:-translate-y-0.5 transition-all duration-200"
-            >
-              Contactarme
-            </a>
-          </div>
-        </div>
       </main>
+
+      <ClosingCTA />
 
       <Footer />
     </div>

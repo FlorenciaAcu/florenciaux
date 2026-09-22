@@ -1,12 +1,45 @@
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { IsologoFA } from "./IsologoFA";
+import { Button } from "./Button";
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Layout effect: pick the right theme before the first paint (no flash of a light header over the dark hero).
+  useLayoutEffect(() => {
+    // Dark when a dark section sits behind the header's vertical midpoint — i.e. behind most of it, not just grazing its edge.
+    const checkTheme = () => {
+      const mid = (headerRef.current?.offsetHeight ?? 64) / 2;
+      const darkSections = document.querySelectorAll('[data-header-theme="dark"]');
+      let dark = false;
+      darkSections.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= mid && rect.bottom > mid) dark = true;
+      });
+      setIsDark(dark);
+    };
+    checkTheme();
+    window.addEventListener("scroll", checkTheme, { passive: true });
+    window.addEventListener("resize", checkTheme);
+    return () => {
+      window.removeEventListener("scroll", checkTheme);
+      window.removeEventListener("resize", checkTheme);
+    };
+  }, []);
 
   const go = (hash: string) => {
     window.location.hash = hash;
     setIsMobileMenuOpen(false);
+  };
+
+  // Contact options (video call / WhatsApp) live at the bottom of the page; on pages without that block, go home and scroll there.
+  const goContact = () => {
+    setIsMobileMenuOpen(false);
+    const el = document.getElementById("contacto");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+    else window.location.hash = "#/contacto";
   };
 
   const navItems = [
@@ -18,16 +51,16 @@ export function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-gray-100/80">
+    <header ref={headerRef} className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${isDark ? "glass-header-dark" : "glass-header"}`}>
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <button
           onClick={() => go("#/")}
-          className="flex items-center gap-2.5 hover:opacity-80 transition-opacity duration-200"
+          className="flex items-center gap-2.5 rounded-full hover:opacity-80 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff006e] focus-visible:ring-offset-2"
           aria-label="Ir al inicio"
         >
-          <IsologoFA />
-          <span className="font-semibold text-base text-gray-900">
+          <IsologoFA variant={isDark ? "light" : "dark"} />
+          <span className={`font-medium text-base transition-colors duration-300 ${isDark ? "text-white" : "text-gray-900"}`}>
             Florencia Acuña
           </span>
         </button>
@@ -38,23 +71,25 @@ export function Header() {
             <button
               key={item.label}
               onClick={() => go(item.hash)}
-              className="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200"
+              className={`group relative py-1 text-sm transition-colors duration-300 ${
+                isDark ? "text-white/90 hover:text-white" : "text-gray-700 hover:text-gray-900"
+              }`}
             >
               {item.label}
+              <span className="absolute left-0 -bottom-0.5 h-[2px] w-full origin-left scale-x-0 bg-[#cc0058] transition-transform duration-300 ease-out group-hover:scale-x-100" />
             </button>
           ))}
-          <a
-            href="mailto:contact@florenciaux.com"
-            className="text-xs font-semibold bg-[#351C75] text-white px-5 py-2 rounded-full hover:bg-[#2a1660] hover:shadow-[0_4px_16px_rgba(53,28,117,0.3)] transition-all duration-200"
-          >
-            Contacto
-          </a>
+          <Button onClick={goContact}>
+            Contactar
+          </Button>
         </nav>
 
         {/* Mobile menu toggle */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden relative z-50"
+          className={`md:hidden relative z-50 transition-colors duration-300 ${
+            isDark && !isMobileMenuOpen ? "text-white" : "text-gray-900"
+          }`}
           aria-label="Toggle mobile menu"
         >
           <svg
@@ -82,7 +117,7 @@ export function Header() {
 
       {/* Mobile menu */}
       <div
-        className={`fixed top-0 left-0 w-full h-screen z-40 bg-white transform transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed top-0 left-0 w-full h-screen z-40 bg-[#fafafa] transform transition-transform duration-300 ease-in-out md:hidden ${
           isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >
@@ -92,18 +127,15 @@ export function Header() {
               <button
                 key={item.label}
                 onClick={() => go(item.hash)}
-                className="text-left py-5 border-b border-gray-100 text-gray-700 text-lg font-medium hover:text-[#351C75] transition-colors"
+                className="text-left py-5 border-b border-gray-100 text-gray-700 text-lg font-medium hover:text-[#cc0058] transition-colors"
               >
                 {item.label}
               </button>
             ))}
             <div className="pt-6">
-              <a
-                href="mailto:contact@florenciaux.com"
-                className="block text-center w-full bg-[#351C75] text-white py-4 rounded-lg text-base font-medium hover:bg-[#2a1660] transition-all"
-              >
-                Contacto
-              </a>
+              <Button onClick={goContact} className="w-full">
+                Contactar
+              </Button>
             </div>
           </nav>
         </div>

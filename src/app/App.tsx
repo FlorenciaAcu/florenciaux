@@ -1,5 +1,6 @@
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
+import { DesignCodeToggle } from "./components/DesignCodeToggle";
 import { AboutSection } from "./components/AboutSection";
 import { ThinkingSection } from "./components/ThinkingSection";
 import { ValueSection } from "./components/ValueSection";
@@ -11,8 +12,12 @@ import { ProyectosPage } from "./components/ProyectosPage";
 import { ExperiencePage } from "./components/ExperiencePage";
 import { CaseStudyPage } from "./components/CaseStudyPage";
 import { GlobalImagePreloader } from "./components/GlobalImagePreloader";
-import { WhatsAppFAB } from "./components/WhatsAppFAB";
 import { SEOHead } from "./components/SEOHead";
+import { FixedBackdrop } from "./components/FixedBackdrop";
+import { ProcessSection } from "./components/ProcessSection";
+import { ClosingCTA } from "./components/ClosingCTA";
+import { SplashLoader } from "./components/SplashLoader";
+import { MotionConfig } from "motion/react";
 import { useState, useEffect } from "react";
 
 // Mapping from URL slug to DOM element ID
@@ -51,6 +56,15 @@ function parseHash(): Route {
 }
 
 export default function App() {
+  return (
+    <MotionConfig reducedMotion="user">
+      <SplashLoader />
+      <AppRoutes />
+    </MotionConfig>
+  );
+}
+
+function AppRoutes() {
   const [route, setRoute] = useState<Route>(() => parseHash());
 
   useEffect(() => {
@@ -80,6 +94,7 @@ export default function App() {
       <>
         <SEOHead />
         <GlobalImagePreloader />
+        <FixedBackdrop />
         <CaseStudyPage slug={route.slug} />
       </>
     );
@@ -90,6 +105,7 @@ export default function App() {
       <>
         <SEOHead />
         <GlobalImagePreloader />
+        <FixedBackdrop />
         <ExperiencePage slug={route.slug} />
       </>
     );
@@ -103,23 +119,27 @@ export default function App() {
           description="Experiencia profesional y proyectos de Florencia Acuña: consultoría en productos digitales, Cintelink y Folcode."
         />
         <GlobalImagePreloader />
+        <FixedBackdrop />
         <ProyectosPage />
       </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white font-['DM_Sans',sans-serif]">
+    <div className="min-h-screen bg-white">
       <SEOHead />
       <GlobalImagePreloader />
+      <FixedBackdrop />
       <Header />
-      <WhatsAppFAB />
       <main>
         <HeroSection />
+        <DesignCodeToggle />
         <AboutSection />
         <FeaturedProjects />
         <ValueSection />
+        <ProcessSection />
         <ExperienceSection />
+        <ClosingCTA />
         {/* <ThinkingSection /> */}
         {/* <KnowledgeSection /> */}
       </main>

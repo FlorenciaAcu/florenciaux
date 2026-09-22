@@ -1,4 +1,7 @@
-export function IsologoFA({ size = 28 }: { size?: number }) {
+export function IsologoFA({ size = 28, variant = "dark" }: { size?: number; variant?: "dark" | "light" }) {
+  const bg = variant === "dark" ? "#111111" : "#ff006e";
+  const fg = variant === "dark" ? "white" : "#0a0a0a";
+
   return (
     <svg
       width={size}
@@ -8,15 +11,15 @@ export function IsologoFA({ size = 28 }: { size?: number }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-label="FA isologo"
     >
-      <rect width="28" height="28" rx="6" fill="#111111" />
+      <rect width="28" height="28" rx="6" fill={bg} />
       <text
         x="14"
         y="20"
         textAnchor="middle"
-        fontFamily="DM Sans, sans-serif"
+        fontFamily="Space Grotesk, sans-serif"
         fontWeight="700"
         fontSize="13"
-        fill="white"
+        fill={fg}
         letterSpacing="-0.5"
       >
         FA

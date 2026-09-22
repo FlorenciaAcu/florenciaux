@@ -33,7 +33,7 @@ const cards = [
 
 export function ThinkingSection() {
   return (
-    <section className="py-12 lg:py-20 bg-[#F5F5F7]">
+    <section className="py-12 lg:py-20 bg-[#f0f0f0]">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,7 +49,7 @@ export function ThinkingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-lg text-gray-500 leading-relaxed mb-8 lg:mb-12"
+          className="text-lg text-gray-600 leading-relaxed mb-8 lg:mb-12"
         >
           Proceso, criterio y herramientas que aplico en cada proyecto.
         </motion.p>
@@ -62,18 +62,18 @@ export function ThinkingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="bg-white rounded-3xl p-8 flex flex-col gap-5"
+              className="bg-[#fafafa] rounded-3xl p-8 flex flex-col gap-5"
             >
-              <span className="text-xs font-semibold tracking-widest text-[#351C75] uppercase">
+              <span className="text-xs font-semibold tracking-widest text-[#cc0058] uppercase">
                 {card.number}
               </span>
               <h3 className="text-xl font-bold text-gray-900 tracking-tight">{card.title}</h3>
-              <p className="text-gray-500 leading-relaxed text-sm flex-1">{card.description}</p>
+              <p className="text-gray-600 leading-relaxed text-sm flex-1">{card.description}</p>
               <div className="flex flex-wrap gap-1.5 pt-2">
                 {card.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="text-xs text-gray-500 bg-[#F5F5F7] px-2.5 py-1 rounded-full"
+                    className="text-xs text-gray-600 bg-[#f0f0f0] px-2.5 py-1 rounded-full"
                   >
                     {skill}
                   </span>

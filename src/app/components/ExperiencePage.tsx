@@ -1,6 +1,9 @@
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { WhatsAppFAB } from "./WhatsAppFAB";
+import { DetailHero } from "./DetailHero";
+import { detailSticker } from "./Stickers";
+import { ClosingCTA } from "./ClosingCTA";
+import { CaseStudyDetails, CaseStudyLearned, ExperienceIntro, splitSentences } from "./CaseStudyBlocks";
 import { getExperienceBySlug } from "../data/experiences";
 import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
@@ -25,17 +28,17 @@ export function ExperiencePage({ slug }: Props) {
 
   if (!experience) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-[#fafafa]">
         <Header />
         <main className="pt-20">
-          <div className="max-w-7xl mx-auto px-6 py-40 text-center">
-            <p className="text-gray-600 mb-6">Experiencia no encontrada.</p>
+          <div className="max-w-7xl mx-auto px-6 py-40 flex flex-col items-center gap-6 text-center">
+            <p className="text-gray-600">Experiencia no encontrada.</p>
             <button
               onClick={handleBack}
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#351C75] hover:underline underline-offset-4"
+              aria-label="Volver a experiencia"
+              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-[#fafafa] text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              Volver
             </button>
           </div>
         </main>
@@ -45,47 +48,24 @@ export function ExperiencePage({ slug }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#fafafa]">
       <Header />
-      <WhatsAppFAB />
 
       <main className="px-[0px] pt-[64px] pb-[0px]">
 
-        {/* Page header */}
-        <div className="bg-[#F5F5F7] px-[0px] py-[24px]">
-          <div className="max-w-7xl mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55 }}
-            >
-              {/* Back + title + role */}
-              <div className="flex items-center gap-4 mb-6">
-                <button
-                  onClick={handleBack}
-                  aria-label="Volver a experiencia"
-                  className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-colors"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </button>
-                <div>
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
-                    {experience.company}
-                  </h1>
-                  
-                </div>
-              </div>
+        <DetailHero
+          title={experience.company}
+          onBack={handleBack}
+          backLabel="Volver a experiencia"
+          sticker={detailSticker(experience.slug)}
+          location={experience.location}
+          website={experience.website}
+        />
 
-              {/* Bio — full width */}
-              <div className="space-y-4">
-                {experience.bio.map((line, i) => (
-                  <p key={i} className="text-gray-600 text-base leading-relaxed">
-                    {line}
-                  </p>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+        {/* Same structure for every experience: "Mi trabajo" first, then the case study blocks if there are any. */}
+        <div className="max-w-7xl mx-auto px-6 pt-12 space-y-12 lg:space-y-16">
+          <ExperienceIntro data={experience.caseStudy} period={experience.period} intro={experience.bio} />
+          {experience.caseStudy && <CaseStudyDetails data={experience.caseStudy} />}
         </div>
 
         {/* Projects */}
@@ -95,9 +75,9 @@ export function ExperiencePage({ slug }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-2xl font-bold text-gray-900 tracking-tight mb-8"
+            className="text-2xl lg:text-3xl font-bold text-gray-900 tracking-tight mb-8"
           >
-            Proyectos en los que participé
+            Algunos de los proyectos en los que participé
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -108,19 +88,47 @@ export function ExperiencePage({ slug }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.45, delay: i * 0.07 }}
-                className="bg-[#F5F5F7] rounded-3xl p-7 flex flex-col gap-4"
+                className="glass-panel rounded-3xl p-7 flex flex-col gap-4"
               >
                 <h3 className="text-base font-bold text-gray-900">
                   {project.name}
                 </h3>
-                <p className="text-sm text-gray-600 leading-relaxed flex-1">
-                  {project.brief}
-                </p>
+                {project.how ? (
+                  <dl className="flex-1 space-y-4 text-sm leading-relaxed">
+                    {[
+                      { label: "Qué hice", text: project.brief },
+                      { label: "Cómo lo abordamos", text: project.how },
+                      ...(project.example ? [{ label: "Un ejemplo", text: project.example }] : []),
+                    ].map((row, index) => (
+                      <div key={row.label} className={index > 0 ? "border-t border-gray-200 pt-4" : ""}>
+                        <dt className="mb-1.5 text-xs font-semibold uppercase tracking-widest text-[#cc0058]">{row.label}</dt>
+                        {index === 0 ? (
+                          <dd className="text-gray-800">{row.text}</dd>
+                        ) : (
+                          <dd>
+                            <ul className="space-y-2 text-gray-700">
+                              {splitSentences(row.text).map((sentence) => (
+                                <li key={sentence} className="flex gap-2.5">
+                                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#cc0058]" aria-hidden="true" />
+                                  {sentence}
+                                </li>
+                              ))}
+                            </ul>
+                          </dd>
+                        )}
+                      </div>
+                    ))}
+                  </dl>
+                ) : (
+                  <p className="text-sm text-gray-600 leading-relaxed flex-1">
+                    {project.brief}
+                  </p>
+                )}
                 <div className="flex flex-wrap gap-1.5">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-xs text-gray-500 bg-white px-2.5 py-1 rounded-full"
+                      className="text-xs font-medium text-gray-700 bg-white border border-gray-300 px-2.5 py-1 rounded-full"
                     >
                       {tag}
                     </span>
@@ -129,7 +137,7 @@ export function ExperiencePage({ slug }: Props) {
                 {project.slug && (
                   <button
                     onClick={() => navigateToCase(project.slug!)}
-                    className="self-start text-sm font-semibold text-[#351C75] hover:underline underline-offset-4 transition-all mt-1"
+                    className="self-start text-sm font-semibold text-[#cc0058] hover:underline underline-offset-4 transition-all mt-1"
                   >
                     Ver detalle →
                   </button>
@@ -137,29 +145,18 @@ export function ExperiencePage({ slug }: Props) {
               </motion.div>
             ))}
           </div>
+
+          {experience.caseStudy && (
+            <div className="mt-12 lg:mt-16">
+              <CaseStudyLearned data={experience.caseStudy} />
+            </div>
+          )}
         </div>
 
-        {/* Bottom CTA — solo Cintelink */}
-        {slug === "cintelink" && (
-          <div className="bg-[#F5F5F7] py-12">
-            <div className="max-w-3xl mx-auto px-6">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
-                ¿Estás construyendo o mejorando un producto digital?
-              </h2>
-              <p className="text-gray-500 text-base leading-relaxed mb-8">
-                Puedo ayudarte a transformar una idea, necesidad o flujo en una experiencia clara, usable y lista para probar, validar o avanzar hacia desarrollo.
-              </p>
-              <a
-                href="mailto:contact@florenciaux.com"
-                className="inline-flex items-center gap-2 bg-[#351C75] text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-[#2a1660] hover:shadow-[0_4px_20px_rgba(53,28,117,0.35)] hover:-translate-y-0.5 transition-all duration-200"
-              >
-                Contactarme
-              </a>
-            </div>
-          </div>
-        )}
-
       </main>
+
+      {/* Bottom CTA — solo Cintelink */}
+      {slug === "cintelink" && <ClosingCTA />}
 
       <Footer />
     </div>

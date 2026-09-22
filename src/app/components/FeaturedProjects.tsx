@@ -1,71 +1,29 @@
 import { motion } from "motion/react";
+import { ArrowRight } from "lucide-react";
+import { getExperienceBySlug } from "../data/experiences";
+import { getProjectBySlug } from "../data/projects";
 
-interface Project {
-  slug: string;
-  title: string;
-  tagline: string;
-  sector: string;
-  type: string;
-  description: string;
-  tags: string[];
-  route: string;
-}
+const cintelink = getExperienceBySlug("cintelink")!;
 
-const mainProject: Project = {
-  slug: "cintelink",
-  title: "Cintelink",
-  tagline: "Rediseñando una plataforma SaaS para mejorar trazabilidad y claridad operativa",
-  sector: "Energía / Operaciones / Blockchain",
-  type: "SaaS · Plataforma web",
-  description:
-    "Lideré el rediseño de experiencia, definición de flujos, Design System, criterios de voz y tono, y validación de funcionalidades durante casi 3 años.",
-  tags: ["SaaS", "Design System", "Smart Contracts"],
-  route: "#/proyectos/cintelink",
-};
+const secondarySlugs = ["cemico", "buscador-agricola", "juan-gas-gnc"] as const;
+const secondaryProjects = secondarySlugs.map((slug) => getProjectBySlug(slug)!);
 
-const secondaryProjects: Project[] = [
+const caseFile = [
   {
-    slug: "cemico",
-    title: "CEMICO",
-    tagline: "Diseño de experiencia para plataformas de salud",
-    sector: "Industrial / B2B",
-    type: "SaaS · Consultoría",
-    description:
-      "Trabajé en el diseño y mejora de plataformas digitales para pacientes, profesionales de la salud, colaboradores y auditores externos.",
-    tags: ["SaaS", "UX/UI", "Discovery"],
-    route: "#/caso/cemico",
+    slug: cintelink.slug,
+    name: cintelink.company,
+    sector: cintelink.sector ?? "",
+    tagline: cintelink.tagline ?? cintelink.bio[0],
+    route: `#/proyectos/${cintelink.slug}`,
   },
-  {
-    slug: "buscador-agricola",
-    title: "Buscador Agrícola",
-    tagline: "Marketplace agropecuario chileno",
-    sector: "Agropecuario / Agtech",
-    type: "Marketplace · Consultoría",
-    description:
-      "Plataforma que conecta productores, proveedores y profesionales del agro. Búsqueda por categorías, filtros y ubicación geográfica, con perfiles comerciales y planes de suscripción.",
-    tags: ["Marketplace", "Agro", "Search UX"],
-    route: "#/caso/buscador-agricola",
-  },
-  {
-    slug: "juan-gas-gnc",
-    title: "Juan Gas GNC Club",
-    tagline: "MVP de fidelización para clientes recurrentes",
-    sector: "Estación de servicio / GNC",
-    type: "MVP · Producto web",
-    description:
-      "Sistema de fidelización donde los clientes consultan saldo y beneficios ingresando la patente. Pocas pantallas, jerarquía clara, lenguaje cercano.",
-    tags: ["MVP", "Fidelización", "UX/UI"],
-    route: "#/caso/juan-gas-gnc",
-  },
+  ...secondaryProjects.map((project) => ({
+    slug: project.slug,
+    name: project.name,
+    sector: project.sector,
+    tagline: project.tagline,
+    route: `#/caso/${project.slug}`,
+  })),
 ];
-
-function ImagePlaceholder({ className = "" }: { className?: string }) {
-  return (
-    <div className={`bg-[#E8E8ED] flex items-center justify-center ${className}`}>
-      <p className="text-xs text-gray-500 font-medium">Imagen pendiente</p>
-    </div>
-  );
-}
 
 export function FeaturedProjects() {
   const navigate = (route: string) => {
@@ -74,10 +32,9 @@ export function FeaturedProjects() {
     setTimeout(() => window.scrollTo(0, 0), 100);
   };
 
-
   return (
-    <section id="proyectos" className="py-12 lg:py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="proyectos" className="relative py-12 lg:py-20 bg-[#fafafa]/90">
+      <div className="relative max-w-7xl mx-auto px-6">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -93,65 +50,53 @@ export function FeaturedProjects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-lg text-gray-500 leading-relaxed mb-8 lg:mb-12"
+          className="text-lg text-gray-600 leading-relaxed mb-10 lg:mb-14"
         >
           Una selección de proyectos que muestran cómo abordo distintos problemas de producto y las decisiones de diseño detrás de cada solución.
         </motion.p>
 
-        {/* Main project — Cintelink */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55 }}
-          className="bg-[#F5F5F7] rounded-3xl overflow-hidden mb-4 cursor-pointer group"
-          onClick={() => navigate(mainProject.route)}
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            <ImagePlaceholder className="aspect-[4/3] lg:aspect-auto min-h-72" />
-            <div className="p-7 lg:p-14 flex flex-col justify-center gap-5">
-              
-              <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 leading-snug tracking-tight">
-                {mainProject.tagline}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {mainProject.description}
-              </p>
-              
-              <span className="self-start text-sm font-semibold text-[#351C75] group-hover:underline underline-offset-4 transition-all">
-                Ver caso →
-              </span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* 3 secondary projects */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {secondaryProjects.map((project, i) => (
-            <motion.div
-              key={project.slug}
-              initial={{ opacity: 0, y: 24 }}
+        {/* Case file — a list, not a grid. Each case is a row, not a picture card. */}
+        <div className="divide-y divide-gray-200 border-t border-b border-gray-200">
+          {caseFile.map((item, i) => (
+            <motion.a
+              key={item.slug}
+              href={item.route}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-[#F5F5F7] rounded-3xl overflow-hidden flex flex-col cursor-pointer group"
-              onClick={() => navigate(project.route)}
+              transition={{ duration: 0.45, delay: i * 0.08 }}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(item.route);
+              }}
+              className="group cursor-pointer flex items-center gap-5 sm:gap-8 py-6 sm:py-8 lg:py-10 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cc0058]"
             >
-              <ImagePlaceholder className="aspect-[4/3]" />
-              <div className="p-7 flex flex-col gap-3 flex-1">
-                
-                <h3 className="text-lg font-bold text-gray-900 leading-snug tracking-tight">
-                  {project.title}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed flex-1">
-                  {project.description}
+              {/* Case number: purely decorative, drawn with CSS so it is not read as text */}
+              <span
+                aria-hidden="true"
+                data-n={String(i + 1).padStart(2, "0")}
+                className="shrink-0 w-14 sm:w-24 text-3xl sm:text-5xl lg:text-6xl font-bold text-gray-200 group-hover:text-[#cc0058] transition-colors duration-300 tabular-nums before:content-[attr(data-n)]"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              />
+
+              {/* Content */}
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-1.5">
+                  {item.sector}
                 </p>
-                
-                <span className="self-start text-sm font-semibold text-[#351C75] group-hover:underline underline-offset-4 transition-all mt-auto pt-2">
-                  Ver caso →
-                </span>
+                <h3 className="text-lg sm:text-2xl font-bold text-gray-900 tracking-tight mb-1.5 group-hover:translate-x-1 transition-transform duration-300">
+                  {item.name}
+                </h3>
+                <p className="hidden sm:block text-sm text-gray-600 leading-relaxed max-w-xl">
+                  {item.tagline}
+                </p>
               </div>
-            </motion.div>
+
+              {/* Arrow — hidden by default, slides in on hover (same behavior as ExperienceSection) */}
+              <div className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full border border-gray-200 bg-[#fafafa] text-gray-600 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-white group-hover:bg-[#cc0058] group-hover:border-[#cc0058] group-focus-visible:opacity-100 group-focus-visible:translate-x-0 transition-all duration-300 ease-out">
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+              </div>
+            </motion.a>
           ))}
         </div>
 
