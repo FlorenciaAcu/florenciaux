@@ -8,13 +8,13 @@ const cintelink = getExperienceBySlug("cintelink")!;
 const secondarySlugs = ["cemico", "buscador-agricola", "juan-gas-gnc"] as const;
 const secondaryProjects = secondarySlugs.map((slug) => getProjectBySlug(slug)!);
 
-// One short, explanatory line per card, all with the same shape: what I designed. Home-only copy: the pages keep their own taglines.
-// The sector above the name already gives the context, so it is not repeated here.
+// One short line per card, all with the same shape: "lo que diseñé, para quién/qué contexto". Home-only copy: the pages keep their own taglines.
+// The sector above the name already gives the industry, so these add operational or audience detail instead of repeating it.
 const cardSummaries: Record<string, string> = {
-  cintelink: "Plataforma, aplicación de despacho, dashboards operativos y Design System de una operación de abastecimiento.",
-  cemico: "Productos digitales para pacientes, personal de admisión, colaboradores y auditores externos.",
-  "buscador-agricola": "MVP de un marketplace agrícola: búsqueda, fichas de producto y contacto con empresas.",
-  "juan-gas-gnc": "Consulta de saldo de puntos de un club de fidelización, del diseño a la implementación.",
+  cintelink: "Plataforma, aplicación de despacho, dashboards operativos y design system, para una operación de abastecimiento.",
+  cemico: "Productos digitales y un design system, para pacientes, personal de admisión, colaboradores y auditores externos.",
+  "buscador-agricola": "Búsqueda, fichas de producto y contacto con empresas, para el MVP de un marketplace agrícola.",
+  "juan-gas-gnc": "Consulta de saldo de puntos, para un club de fidelización, del diseño a la implementación.",
 };
 
 const caseFile = [

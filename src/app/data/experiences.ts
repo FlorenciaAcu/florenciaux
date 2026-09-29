@@ -42,8 +42,6 @@ export interface CaseStudyFeature {
   title: string;
   /** What the product needed to solve. */
   context: string;
-  /** Business or product rules that already existed: not the designer's decisions. */
-  given: string[];
   /** What the designer designed to solve it inside the experience. */
   did: string[];
   /** A set of alternatives or states worth showing as small cards (e.g. four interaction models). */
@@ -128,7 +126,10 @@ export const experiences: Experience[] = [
     company: "Consultoría en productos digitales",
     aboutTitle: "Qué es la consultoría",
     about: "Es mi trabajo independiente diseñando productos digitales y MVPs, en colaboración con clientes y equipos, en distintas etapas del producto.",
-    workText: ["Incorporo herramientas como Claude, Figma Make y Lovable para explorar alternativas, documentar y crear prototipos funcionales."],
+    workText: [
+      "Trabajo de cerca con el cliente o el equipo en cada proyecto: propongo alternativas, las revisamos juntos y ajusto el diseño a partir de ese feedback, hasta llegar a una solución que se pueda validar o construir.",
+      "Incorporo herramientas como Claude, Figma Make y Lovable para explorar esas alternativas, documentar decisiones y crear prototipos funcionales más rápido.",
+    ],
     period: "Abril 2025 – Actualidad",
     bio: [
       "Diseño productos digitales y MVPs de forma independiente, colaborando con clientes y equipos en distintas etapas del producto. Además, incorporo herramientas como Claude, Figma Make y Lovable para explorar alternativas, documentar y crear prototipos funcionales.",
@@ -296,7 +297,7 @@ export const experiences: Experience[] = [
   {
     slug: "folcode",
     role: "UX Designer / Product Designer",
-    company: "Folcode (now Bridgenext)",
+    company: "Folcode",
     aboutTitle: "Qué es Folcode",
     about: "Folcode, hoy Bridgenext, es la empresa en la que trabajé en proyectos como el sitio institucional, CloudLabs y Respública.",
     period: "Enero 2020 – Marzo 2022",

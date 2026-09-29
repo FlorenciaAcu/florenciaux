@@ -5,25 +5,21 @@ const steps = [
     number: "01",
     title: "Descubrir",
     description: "Relevamiento con stakeholders y usuarios para entender el contexto real y acotar el alcance.",
-    tools: ["Stakeholders", "Discovery", "Alcance"],
   },
   {
     number: "02",
     title: "Definir",
     description: "Traduzco lo relevado en arquitectura de información, flujos y story maps antes de dibujar pantallas.",
-    tools: ["Arquitectura de información", "Flujos", "Story maps"],
   },
   {
     number: "03",
     title: "Diseñar",
-    description: "Prototipos interactivos y alta fidelidad sobre un Design System. Con IA exploro y prototipo más rápido.",
-    tools: ["Figma", "Design System", "IA aplicada"],
+    description: "Prototipos interactivos y alta fidelidad sobre un design system. Con IA exploro y prototipo más rápido.",
   },
   {
     number: "04",
     title: "Entregar",
     description: "Documentación y acompañamiento al equipo de desarrollo durante la implementación.",
-    tools: ["Handoff", "Documentación", "Iteración"],
   },
 ];
 
@@ -65,7 +61,6 @@ export function ProcessSection() {
               <span className="text-gradient-brand text-5xl font-light leading-none tabular-nums">{step.number}</span>
               <h3 className="display-block text-gray-900">{step.title}</h3>
               <p className="text-base leading-relaxed text-gray-600">{step.description}</p>
-              <p className="text-sm leading-relaxed text-gray-600">{step.tools.join(" · ")}</p>
             </motion.li>
           ))}
         </ol>

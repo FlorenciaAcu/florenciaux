@@ -14,7 +14,7 @@ const interests: { name: StickerName; label: string; rotate: number }[] = [
   { name: "swim", label: "Natación", rotate: -6 },
   { name: "pilates", label: "Pilates & TPA", rotate: 5 },
   { name: "mug", label: "Mucho tecito", rotate: -4 },
-  { name: "pizza", label: "Pizza & papas", rotate: 6 },
+  { name: "pizza", label: "Pizza", rotate: 6 },
   { name: "cat", label: "Gatos", rotate: -5 },
 ];
 
@@ -48,7 +48,7 @@ export function AboutSection() {
                 Soy Product Designer con más de 5 años de experiencia diseñando plataformas web, aplicaciones y MVPs. Trabajé dentro de equipos de producto y desarrollo, y también como consultora independiente.
               </p>
               <p>
-                Cuando no estoy diseñando, me encontrás nadando, en Pilates o TPA, tomando un mate cocido —acá le decimos "yerbiado"— o pidiendo pizza con papas fritas.
+                Cuando no estoy diseñando, me encontrás nadando, en Pilates o TPA, tomando un mate cocido —acá le decimos "yerbiado"— o pidiendo pizza.
               </p>
             </motion.div>
 

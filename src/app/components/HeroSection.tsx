@@ -16,7 +16,7 @@ function CollaboratorCursor() {
       </svg>
       <span
         className="mt-4 rounded-full rounded-tl-sm bg-[#00e5ff] px-3 py-1 text-[13px] font-semibold leading-normal tracking-wide text-[#0a0a0a]"
-        style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}
+        style={{ fontFamily: "'Manrope', sans-serif" }}
       >
         Florencia
       </span>

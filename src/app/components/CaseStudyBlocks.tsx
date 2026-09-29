@@ -45,10 +45,10 @@ function MetaList({ meta }: { meta: { label: string; value: string }[] }) {
   );
 }
 
-/** One labelled row of "Mi trabajo": the label on the left, the content on the right, hairlines between rows. */
+/** One labelled row of "Mi trabajo": the label on the left, the content on the right. The vertical rhythm alone separates rows: no hairlines. */
 function WorkRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid gap-4 border-b border-gray-200 py-8 lg:grid-cols-[11rem_1fr] lg:gap-10 lg:py-10">
+    <div className="grid gap-4 py-8 lg:grid-cols-[11rem_1fr] lg:gap-10 lg:py-10">
       <dt className="pt-1 text-xs font-semibold uppercase tracking-widest text-[#cc0058]">{label}</dt>
       <dd>{children}</dd>
     </div>
@@ -56,6 +56,10 @@ function WorkRow({ label, children }: { label: string; children: React.ReactNode
 }
 
 function WorkList({ items }: { items: string[] }) {
+  // A bullet only makes sense when there is something to list: a single item reads as plain text.
+  if (items.length === 1) {
+    return <p className="max-w-3xl text-base leading-relaxed text-gray-800">{items[0]}</p>;
+  }
   return (
     <ul className="max-w-3xl space-y-3">
       {items.map((item) => (
@@ -105,7 +109,7 @@ export function ExperienceIntro({
             <h2 className={h2}>Mi trabajo</h2>
             {!meta && <span className="text-sm text-gray-600">{period}</span>}
           </div>
-          <dl className="border-t border-gray-200">
+          <dl>
             <WorkRow label="Qué hice">
               <div className="max-w-3xl space-y-4 text-base leading-relaxed text-gray-800">
                 {intro.map((line) => (
@@ -144,7 +148,7 @@ export function ExperienceIntro({
             {!data.meta && <span className="text-sm text-gray-600">{period}</span>}
           </div>
           {/* One section, three labelled rows: the challenge, what I designed, how I worked. Each idea appears once. */}
-          <dl className="border-t border-gray-200">
+          <dl>
             {data.challenge && (
               <WorkRow label={data.challengeTitle ?? "El desafío"}>
                 <div className="max-w-3xl space-y-4">{paragraphs(data.challenge)}</div>
@@ -291,8 +295,7 @@ function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
   );
 }
 
-/** Features told in depth: what the product needed -> what already existed vs. what I designed -> how it evolved -> evidence -> what I learned.
- *  The "already defined" column is deliberate: business rules are never presented as my decisions. Open layout, no cards. */
+/** Features told in depth: what the product needed -> what I designed -> how it evolved -> evidence -> what I learned. Open layout, no cards. */
 function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
   return (
     <div className="space-y-20 lg:space-y-32">
@@ -311,29 +314,16 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
             {feature.context}
           </motion.p>
 
-          <motion.div {...reveal} className="mt-12 grid gap-10 border-t border-gray-200 pt-8 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-            <div>
-              <h4 className="text-xs font-semibold uppercase tracking-widest text-gray-600">Ya venía definido</h4>
-              <ul className="mt-5 space-y-3">
-                {feature.given.map((item) => (
-                  <li key={item} className="flex gap-3 text-sm leading-relaxed text-gray-600">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gray-500" aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-xs font-semibold uppercase tracking-widest text-[#cc0058]">Lo que diseñé</h4>
-              <ul className="mt-5 space-y-3">
-                {feature.did.map((item) => (
-                  <li key={item} className="flex gap-3 text-base leading-relaxed text-gray-800">
-                    <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#cc0058]" aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <motion.div {...reveal} className="mt-12 max-w-3xl">
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-[#cc0058]">Lo que diseñé</h4>
+            <ul className="mt-5 space-y-3">
+              {feature.did.map((item) => (
+                <li key={item} className="flex gap-3 text-base leading-relaxed text-gray-800">
+                  <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#cc0058]" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </motion.div>
 
           {feature.options && (
@@ -346,7 +336,7 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
                   {feature.options.intro}
                 </motion.p>
               )}
-              <ul className={`mt-8 grid gap-x-10 gap-y-8 border-t border-gray-200 pt-8 sm:grid-cols-2 ${feature.options.items.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
+              <ul className={`mt-8 grid gap-x-10 gap-y-8 sm:grid-cols-2 ${feature.options.items.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
                 {feature.options.items.map((item, i) => (
                   <motion.li key={item.title} {...reveal} transition={{ duration: 0.5, delay: i * 0.06 }}>
                     <h5 className="text-xl font-normal leading-snug text-gray-900">{item.title}</h5>
@@ -362,7 +352,7 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
               <motion.h4 {...reveal} className="text-xs font-semibold uppercase tracking-widest text-[#cc0058]">
                 {feature.evolutionTitle ?? "Cómo evolucionó"}
               </motion.h4>
-              <ol className={`mt-8 grid gap-x-10 gap-y-8 border-t border-gray-200 pt-8 ${feature.evolution.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
+              <ol className={`mt-8 grid gap-x-10 gap-y-8 ${feature.evolution.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
                 {feature.evolution.map((step, i) => (
                   <motion.li key={step.title} {...reveal} transition={{ duration: 0.5, delay: i * 0.08 }}>
                     <span className="text-sm font-medium tabular-nums text-[#cc0058]">{String(i + 1).padStart(2, "0")}</span>
@@ -459,14 +449,23 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
                       <Icon className="mt-1 h-5 w-5 text-[#00e5ff]" aria-hidden="true" />
                       <div>
                         <h3 className="text-xl font-normal leading-snug text-white">{decision.title}</h3>
-                        <ul className="mt-4 space-y-2 text-sm leading-relaxed text-gray-300">
-                          {splitSentences(decision.text).map((sentence) => (
-                            <li key={sentence} className="flex gap-2.5">
-                              <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#00e5ff]" aria-hidden="true" />
-                              {sentence}
-                            </li>
-                          ))}
-                        </ul>
+                        {(() => {
+                          const sentences = splitSentences(decision.text);
+                          // A single sentence reads as a paragraph, not a one-bullet list.
+                          if (sentences.length === 1) {
+                            return <p className="mt-4 text-sm leading-relaxed text-gray-300">{sentences[0]}</p>;
+                          }
+                          return (
+                            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-gray-300">
+                              {sentences.map((sentence) => (
+                                <li key={sentence} className="flex gap-2.5">
+                                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#00e5ff]" aria-hidden="true" />
+                                  {sentence}
+                                </li>
+                              ))}
+                            </ul>
+                          );
+                        })()}
                       </div>
                     </li>
                   );

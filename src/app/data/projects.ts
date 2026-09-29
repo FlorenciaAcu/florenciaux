@@ -39,9 +39,9 @@ export const projects: ProjectDetail[] = [
     sector: "Salud",
     challenge:
       "La experiencia no termina en la interfaz: muchos de los productos forman parte de servicios que continúan dentro de las clínicas, antes, durante y después de cada interacción digital.",
-    role: "Product Designer. Trabajé en cinco frentes del ecosistema: Design System, Anunciador de Pacientes, Auditoría Médica Externa, Portal del Paciente y Portal Institucional.",
+    role: "Product Designer. Trabajé en cinco frentes del ecosistema: design system, anunciador de pacientes, módulo de auditoría médica externa, portal del paciente y portal institucional.",
     description:
-      "Diseñé flujos, estados e interfaces para cada producto, y un Design System compartido para mantener criterios comunes entre ellos sin perder las particularidades de cada contexto.",
+      "Diseñé flujos, estados e interfaces para cada producto, y un design system compartido para mantener criterios comunes entre ellos sin perder las particularidades de cada contexto.",
     tags: ["Salud", "Design System", "Product Design", "Consultoría"],
     year: "2025",
     imageCount: 2,
@@ -49,11 +49,11 @@ export const projects: ProjectDetail[] = [
     website: { label: "portalsalud.grupocemico.com.ar", url: "https://portalsalud.grupocemico.com.ar/#/auth/login" },
     caseStudy: {
       designed: [
-        "Un Design System compartido.",
-        "El Anunciador de Pacientes.",
-        "La Auditoría Médica Externa.",
-        "El Portal del Paciente.",
-        "El Portal Institucional.",
+        "Un design system compartido.",
+        "El anunciador de pacientes.",
+        "El módulo de auditoría médica externa.",
+        "El portal del paciente.",
+        "El portal institucional.",
       ],
       meta: [
         { label: "Rol", value: "Product Designer" },
@@ -64,12 +64,12 @@ export const projects: ProjectDetail[] = [
         "CEMICO es un grupo de clínicas de Neuquén, Argentina, que reúne distintos productos digitales dentro de su ecosistema de salud. Conviven ahí perfiles muy distintos: pacientes, personal de admisión y recepción, colaboradores internos y auditores médicos externos de obras sociales y prepagas.",
       challengeTitle: "El desafío",
       challenge:
-        "En CEMICO, la experiencia no termina en la interfaz. Muchos de los productos digitales forman parte de servicios que continúan dentro de las clínicas, en los que participan pacientes, personal de admisión, profesionales y otras áreas.\n\nPor eso hubo que considerar qué ocurre antes, durante y después de cada interacción digital: un turno termina en una atención presencial, y la llegada a la clínica conecta un tótem con Admisión y una sala de espera.",
+        "En CEMICO, la experiencia no termina en la interfaz. Muchos de los productos digitales forman parte de servicios que continúan dentro de las clínicas, en los que participan pacientes, personal de admisión, profesionales y otras áreas.\n\nPor eso hubo que considerar qué ocurre antes, durante y después de cada interacción digital: un turno termina en una atención presencial, y la llegada a la clínica conecta un tótem con admisión y una sala de espera.",
       roleTitle: "Mi trabajo",
       role: [
         "Definí la arquitectura de información, los flujos y los estados de cada producto.",
         "Documenté el funcionamiento para acompañar la implementación: comportamientos, reglas, estados y mensajes del sistema.",
-        "Preparé manuales y guías de uso para distintos perfiles, incluyendo personal de Admisión, pacientes y colaboradores.",
+        "Preparé manuales y guías de uso para distintos perfiles, incluyendo personal de admisión, pacientes y colaboradores.",
         "Construí prototipos funcionales y navegables con Figma Make, publicados para que pudieran recorrerse y probarse antes de la implementación.",
       ],
       decisionsEyebrow: "Decisiones de diseño",
@@ -79,13 +79,13 @@ export const projects: ProjectDetail[] = [
       decisions: [
         {
           icon: "physical",
-          title: "¿Cómo conectar un proceso que sucede entre un tótem, Admisión y la sala de espera?",
-          text: "Diseñé el Anunciador de Pacientes como un mismo proceso que atraviesa tres interfaces: un tótem donde la persona se anuncia al llegar, un dashboard desde el que Admisión gestiona esos registros en tiempo real y una pantalla de sala de espera donde se comunica el llamado. Lo que sucede en una interfaz afecta a las demás, así que pensé el recorrido como un sistema continuo y no como pantallas aisladas. Esa continuidad también tenía que sostener casos más complejos: una misma persona podía anunciarse por más de un motivo, cada uno con su propio estado, y la fila del dashboard no se consideraba resuelta hasta completarlos todos.",
+          title: "¿Cómo conectar un proceso que sucede entre un tótem, admisión y la sala de espera?",
+          text: "Diseñé el anunciador de pacientes como un mismo proceso que atraviesa tres interfaces: un tótem donde la persona se anuncia al llegar, un dashboard desde el que admisión gestiona esos registros en tiempo real y una pantalla de sala de espera donde se comunica el llamado. Lo que sucede en una interfaz afecta a las demás, así que pensé el recorrido como un sistema continuo y no como pantallas aisladas. Esa continuidad también tenía que sostener casos más complejos: una misma persona podía anunciarse por más de un motivo, cada uno con su propio estado, y la fila del dashboard no se consideraba resuelta hasta completarlos todos.",
         },
         {
           icon: "context",
           title: "¿Cómo mantener claro quién es el paciente activo cuando una cuenta permite gestionar a más de una persona?",
-          text: "En el Portal del Paciente, una misma cuenta puede actuar en nombre propio o de una persona a cargo, y todas las acciones posteriores —consultar información, gestionar turnos— corresponden a esa persona. Diseñé la experiencia para que el paciente activo quedara siempre visible, evitando que alguien confundiera el contexto en el que está actuando.",
+          text: "En el portal del paciente, una misma cuenta puede actuar en nombre propio o de una persona a cargo, y todas las acciones posteriores —consultar información, gestionar turnos— corresponden a esa persona. Diseñé la experiencia para que el paciente activo quedara siempre visible, evitando que alguien confundiera el contexto en el que está actuando.",
         },
         {
           icon: "data",
@@ -101,9 +101,9 @@ export const projects: ProjectDetail[] = [
       prototypesNote:
         "Construí estos prototipos con Figma Make para que pudieran recorrerse y probarse antes de la implementación. No representan necesariamente la versión final implementada en producción.",
       prototypes: [
-        { label: "Portal del Paciente", url: "https://portal-paciente.figma.site" },
-        { label: "Portal Institucional", url: "https://portal-cemico.figma.site" },
-        { label: "Auditoría Médica Externa", url: "https://modulo-auditoria-externa.figma.site" },
+        { label: "Portal del paciente", url: "https://portal-paciente.figma.site" },
+        { label: "Portal institucional", url: "https://portal-cemico.figma.site" },
+        { label: "Módulo de auditoría médica externa", url: "https://modulo-auditoria-externa.figma.site" },
       ],
       result: {
         title: "Qué quedó definido",
@@ -271,12 +271,12 @@ export const projects: ProjectDetail[] = [
             {
               src: juangasConsultaMobile,
               alt: "Pantalla de consulta de saldo vista desde el navegador del celular: «Consultá el saldo», un campo para ingresar la patente sin espacios y el botón Consultar",
-              caption: "Consulta Saldo: un campo para la patente y un botón.",
+              caption: "Consulta saldo: un campo para la patente y un botón.",
             },
             {
               src: juangasCartelQr,
               alt: "Cartel «Escaneá y consultá tu saldo» de Juan Gas GNC Club con un código QR y la dirección de la web",
-              caption: "Cartel con el código QR que lleva a la web de Consulta Saldo.",
+              caption: "Cartel con el código QR que lleva a la web de Consulta saldo.",
             },
           ],
         },
@@ -300,7 +300,7 @@ export const projects: ProjectDetail[] = [
     tags: ["Sitio web", "Legal", "UX/UI", "Implementación"],
     year: "2026",
     imageCount: 0,
-    location: "La Plata, Buenos Aires, Argentina",
+    location: "Buenos Aires, Argentina",
     website: { label: "audagnoabogado.com", url: "https://audagnoabogado.com" },
     duration: "2 semanas",
     caseStudy: {
@@ -381,11 +381,6 @@ export const projects: ProjectDetail[] = [
           title: "Productos sueltos",
           context:
             "Productos sueltos permitía adquirir un producto o promoción para un inmueble de manera puntual, cuando los cupos incluidos en el plan no alcanzaban.",
-          given: [
-            "Un producto que viene del plan usa un cupo y puede removerse o reasignarse.",
-            "Un producto comprado individualmente es una compra puntual: queda asociado a esa compra y no se remueve ni se reasigna de la misma manera.",
-            "Los productos eran Destacado Black, Gold y Silver, Impulso (Bump) y Etiqueta. Bump se bloqueaba durante 24 horas después de usarlo.",
-          ],
           did: [
             "Trabajé sobre Administrar inmuebles: cómo acceder a estos productos, cómo aplicarlos y cómo se representan en cada inmueble.",
             "En una de las primeras exploraciones separé un «Asignar productos» genérico en tres intenciones más claras: Destacar, Impulsar y Etiquetar.",
@@ -414,11 +409,6 @@ export const projects: ProjectDetail[] = [
           title: "Self-service Upselling",
           context:
             "El objetivo era que una cuenta pudiera mejorar su plan por sí misma, especialmente cuando los cupos disponibles ya no acompañaban su uso.",
-          given: [
-            "El upselling no debía interrumpir la tarea principal: si alguien se quedaba sin cupos en medio de una publicación, la publicación no se bloqueaba y la mejora podía ofrecerse después.",
-            "Los planes eran Esencial, Avanzado y Elite; los cupos eran configurables y el ciclo podía ser mensual o anual.",
-            "El checkout tenía que reutilizar patrones existentes y mostrar con claridad el plan, la cantidad de cupos y el ciclo de facturación.",
-          ],
           did: [
             "Diseñé el flujo «Mejorar mi plan»: configuración de cupos, comparación y selección de planes, y elección entre modalidad mensual y anual.",
             "Diseñé los estados de las cards de plan: plan actual, recomendado y seleccionado.",
@@ -451,10 +441,6 @@ export const projects: ProjectDetail[] = [
           title: "Self-service Churn Prevention",
           context:
             "El requerimiento incluía un flujo de cancelación con distintas instancias de retención antes de completar la baja.",
-          given: [
-            "Las condiciones comerciales y la estrategia de retención venían definidas por el negocio.",
-            "Una suscripción cancelada podía seguir activa hasta la fecha ya abonada.",
-          ],
           did: [
             "Diseñé el flujo de cancelación y la jerarquía de la acción «Cancelar suscripción».",
             "Diseñé los estados posteriores de la suscripción, incluido el detalle de un plan cancelado.",

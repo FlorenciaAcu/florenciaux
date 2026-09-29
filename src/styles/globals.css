@@ -145,7 +145,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Manrope', sans-serif;
   }
 
   h1, h2, h3 {
@@ -355,14 +355,14 @@ html {
   font-weight: 300;
 }
 
-/* Only two typefaces on the whole site: Space Grotesk (display and "code" details) and IBM Plex Sans (text).
+/* Only two typefaces on the whole site: Space Grotesk (display and "code" details) and Manrope (text).
    The monospace utility used by the code toggle and the process input/output maps to Space Grotesk instead of a system font. */
 .font-mono {
   font-family: 'Space Grotesk', sans-serif !important;
   font-variant-numeric: tabular-nums;
 }
 
-/* Weight scale for IBM Plex Sans, one step lighter so the text matches the light display type:
+/* Weight scale for Manrope, one step lighter so the text matches the light display type:
    running text 300 (small text keeps 400 to stay readable), "medium" 400, "semibold/bold" 500. */
 body { font-weight: 300; }
 .text-xs, .text-sm, .text-\[11px\], .text-\[13px\] { font-weight: 400; }

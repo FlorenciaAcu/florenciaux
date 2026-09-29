@@ -102,8 +102,8 @@ export function ExperiencePage({ slug }: Props) {
             Proyectos
           </motion.h2>
 
-          {/* Open rows, not cards: name and tags on the left, what I did on the right */}
-          <div className="border-t border-gray-200">
+          {/* Open rows, not cards: name and tags on the left, what I did on the right. Vertical rhythm alone separates rows: no hairlines. */}
+          <div>
             {experience.projects.map((project, i) => (
               <motion.div
                 key={project.name}
@@ -111,7 +111,7 @@ export function ExperiencePage({ slug }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.45, delay: i * 0.05 }}
-                className="grid gap-6 border-b border-gray-200 py-10 lg:grid-cols-[1fr_2fr] lg:gap-14"
+                className="grid gap-6 py-10 lg:grid-cols-[1fr_2fr] lg:gap-14"
               >
                 <div>
                   <h3 className="text-2xl font-normal leading-tight tracking-tight text-gray-900 lg:text-3xl">{project.name}</h3>
