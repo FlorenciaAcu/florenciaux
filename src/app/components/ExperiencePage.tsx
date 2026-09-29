@@ -97,7 +97,7 @@ export function ExperiencePage({ slug }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="display-block mb-10 text-gray-900"
+            className="type-h2 mb-10 text-gray-900"
           >
             Proyectos
           </motion.h2>
@@ -114,7 +114,7 @@ export function ExperiencePage({ slug }: Props) {
                 className="grid gap-6 py-10 lg:grid-cols-[1fr_2fr] lg:gap-14"
               >
                 <div>
-                  <h3 className="text-2xl font-normal leading-tight tracking-tight text-gray-900 lg:text-3xl">{project.name}</h3>
+                  <h3 className="type-h3 text-gray-900">{project.name}</h3>
                 </div>
                 <div>
                   {project.how ? (
@@ -125,7 +125,7 @@ export function ExperiencePage({ slug }: Props) {
                         ...(project.example ? [{ label: "Un ejemplo", text: project.example }] : []),
                       ].map((row, index) => (
                         <div key={row.label}>
-                          <dt className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#cc0058]">{row.label}</dt>
+                          <dt className="type-eyebrow mb-2 text-[#cc0058]">{row.label}</dt>
                           {index === 0 ? (
                             <dd className="text-gray-800">{row.text}</dd>
                           ) : (
@@ -144,7 +144,7 @@ export function ExperiencePage({ slug }: Props) {
                       ))}
                     </dl>
                   ) : (
-                    <p className="text-base leading-relaxed text-gray-700">{project.brief}</p>
+                    <p className="type-body text-gray-700">{project.brief}</p>
                   )}
                   {project.slug && (
                     <button

@@ -35,7 +35,7 @@ export function ProcessSection() {
           transition={{ duration: 0.55 }}
           className="mb-5"
         >
-          <h2 className="display-section text-gray-900">Cómo trabajo</h2>
+          <h2 className="type-h1 text-gray-900">Cómo trabajo</h2>
         </motion.div>
 
         <motion.p
@@ -43,7 +43,7 @@ export function ProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="lead text-gray-600 max-w-3xl mb-14 lg:mb-20"
+          className="type-s1 text-gray-600 max-w-3xl mb-14 lg:mb-20"
         >
           Un proceso iterativo donde cada etapa alimenta a la siguiente: lo que sale de una es lo que entra en la próxima.
         </motion.p>
@@ -60,23 +60,21 @@ export function ProcessSection() {
               className="relative flex flex-col gap-5"
             >
               <span className="text-gradient-brand text-5xl font-light leading-none tabular-nums">{step.number}</span>
-              <h3 className="display-block text-gray-900">{step.title}</h3>
-              <p className="text-base leading-relaxed text-gray-600">{step.description}</p>
+              <h3 className="type-h2 text-gray-900">{step.title}</h3>
+              <p className="type-body text-gray-600">{step.description}</p>
 
               {i < steps.length - 1 && (
                 <>
-                  <span
+                  <ArrowRight
                     aria-hidden="true"
-                    className="absolute -right-[38px] top-1 hidden h-9 w-9 items-center justify-center rounded-full bg-gray-900 text-cyan-300 shadow-sm lg:flex"
-                  >
-                    <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
-                  </span>
-                  <span
+                    className="absolute left-[calc(50%+1.25rem)] top-4 hidden h-4 w-4 -translate-x-1/2 text-[#cc0058]/50 lg:block"
+                    strokeWidth={1.5}
+                  />
+                  <ArrowDown
                     aria-hidden="true"
-                    className="absolute -bottom-10 left-3 flex h-7 w-7 items-center justify-center rounded-full bg-gray-900 text-cyan-300 shadow-sm lg:hidden"
-                  >
-                    <ArrowDown className="h-3.5 w-3.5" strokeWidth={1.75} />
-                  </span>
+                    className="absolute -bottom-9 left-7 h-4 w-4 -translate-x-1/2 text-[#cc0058]/50 lg:hidden"
+                    strokeWidth={1.5}
+                  />
                 </>
               )}
             </motion.li>

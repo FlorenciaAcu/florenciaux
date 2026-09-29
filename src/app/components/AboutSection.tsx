@@ -32,7 +32,7 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55 }}
-              className="display-section text-gray-900 mb-10"
+              className="type-h1 text-gray-900 mb-10"
             >
               Sobre mí
             </motion.h2>
@@ -42,7 +42,7 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="space-y-5 text-gray-600 text-base leading-relaxed"
+              className="type-body space-y-5 text-gray-600"
             >
               <p>
                 Soy Product Designer con más de 5 años de experiencia diseñando plataformas web, aplicaciones y MVPs. Trabajé dentro de equipos de producto y desarrollo, y también como consultora independiente.

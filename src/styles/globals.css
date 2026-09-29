@@ -324,35 +324,121 @@ html {
   font-size: var(--font-size);
 }
 
-/* Display type: hierarchy by SIZE, not by weight. Big, light, tightly tracked (the "Apple" feel). */
-.display-hero {
-  font-size: clamp(3.25rem, 9vw, 7.5rem);
-  line-height: 0.96;
-  letter-spacing: -0.04em;
-  font-weight: 300;
-}
-.display-section {
-  font-size: clamp(2.5rem, 6vw, 4.75rem);
+/* Shared type scale. Sizes change only at breakpoints so every role stays predictable. */
+.type-display,
+.display-hero,
+.hero-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
   line-height: 1;
-  letter-spacing: -0.035em;
+  letter-spacing: 0;
   font-weight: 300;
 }
-.display-block {
-  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+
+.type-h1,
+.display-section {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
   line-height: 1.08;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
+  font-weight: 300;
+}
+
+.type-h2,
+.display-block {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2rem;
+  line-height: 1.15;
+  letter-spacing: 0;
   font-weight: 400;
 }
+
+.type-h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.375rem;
+  line-height: 1.25;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.type-s1,
 .lead {
-  font-size: clamp(1.125rem, 1.6vw, 1.5rem);
-  line-height: 1.45;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  letter-spacing: 0;
   font-weight: 300;
 }
-.hero-title {
-  font-size: clamp(2.75rem, 5.8vw, 5.25rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
+
+.type-s2,
+.type-body {
+  font-size: 1rem;
+  line-height: 1.65;
+  letter-spacing: 0;
   font-weight: 300;
+}
+
+.type-caption {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.type-eyebrow {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+@media (min-width: 48rem) {
+  .type-display,
+  .display-hero,
+  .hero-title {
+    font-size: 5rem;
+  }
+
+  .type-h1,
+  .display-section {
+    font-size: 3.5rem;
+  }
+
+  .type-h2,
+  .display-block {
+    font-size: 2.5rem;
+  }
+
+  .type-h3 {
+    font-size: 1.5rem;
+  }
+
+  .type-s1,
+  .lead {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .type-display,
+  .display-hero,
+  .hero-title {
+    font-size: 6rem;
+  }
+
+  .type-h1,
+  .display-section {
+    font-size: 4.25rem;
+  }
+
+  .type-h2,
+  .display-block {
+    font-size: 2.75rem;
+  }
+
+  .type-h3 {
+    font-size: 1.75rem;
+  }
 }
 
 /* Only two typefaces on the whole site: Space Grotesk (display and "code" details) and Manrope (text).

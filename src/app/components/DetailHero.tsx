@@ -44,7 +44,7 @@ export function DetailHero({ title, tagline, onBack, backLabel, sticker, locatio
           </button>
 
           <div className="relative">
-            <h1 className="display-section max-w-4xl text-white">
+            <h1 className="type-h1 max-w-4xl text-white">
               <span className="relative inline-block">
                 {title}
 
@@ -95,7 +95,7 @@ export function DetailHero({ title, tagline, onBack, backLabel, sticker, locatio
             </div>
           )}
 
-          {tagline && <p className="mt-6 max-w-2xl text-base leading-relaxed text-gray-300 lg:text-lg">{tagline}</p>}
+          {tagline && <p className="type-s1 mt-6 max-w-2xl text-gray-300">{tagline}</p>}
 
           {children}
         </motion.div>

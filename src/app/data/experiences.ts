@@ -145,7 +145,7 @@ export const experiences: Experience[] = [
       {
         name: "Buscador Agrícola",
         slug: "buscador-agricola",
-        brief: "Diseñé la búsqueda, la navegación y las publicaciones del MVP de un marketplace agrícola para Chile, y la pantalla y el flujo de contacto con la empresa.",
+        brief: "Diseñé el MVP de un marketplace especializado para conectar la oferta y la demanda del sector agrícola en Chile.",
         tags: ["Plataforma", "Agro", "Search UX"],
       },
       {
@@ -163,7 +163,7 @@ export const experiences: Experience[] = [
       {
         name: "InfoCasas",
         slug: "infocasas",
-        brief: "Diseñé flujos de suscripciones, planes y publicaciones para la plataforma web y la app, como Product Designer para HitOcean.",
+        brief: "Diseñé flujos vinculados a suscripciones, planes y productos para la plataforma web y la app, como Product Designer para HitOcean.",
         tags: ["Real estate", "Suscripciones", "UX/UI"],
       },
     ],
@@ -242,7 +242,7 @@ export const experiences: Experience[] = [
       roleLabel: "Cómo trabajé",
       role: [
         "Trabajé en conjunto y de forma constante con el equipo de desarrollo y con producto.",
-        "Definí las funcionalidades junto a negocio y usuarios.",
+        "Participé en la definición de funcionalidades junto a negocio, usuarios y equipo de desarrollo.",
         "También colaboré con el equipo de Smart Contracts en funcionalidades vinculadas a la trazabilidad y seguridad de las operaciones.",
       ],
       decisionsEyebrow: "Decisiones de diseño",
@@ -258,12 +258,12 @@ export const experiences: Experience[] = [
         {
           icon: "device",
           title: "¿Qué ve y qué hace la persona cuando un dato no llega o un dispositivo falla?",
-          text: "Diseñé cada pantalla para cuando la información llega y también para cuando no: estados vacíos, de carga y de error que explican qué pasa y qué se puede hacer. Cuando un dispositivo IoT falla o pierde conexión, la experiencia no puede cortarse, así que diseñé las contingencias de forma integral, tanto lo digital (qué se ve y qué mensaje aparece) como lo físico (cómo continúa quien está operando).",
+          text: "Diseñé cada pantalla para cuando la información llega y también para cuando no: estados vacíos, de carga y de error que explican qué pasa y qué se puede hacer. Cuando un dispositivo IoT falla o pierde conexión, la experiencia no puede cortarse. Diseñé los estados y mensajes necesarios para esos casos considerando también cómo debía continuar quien estaba operando.",
         },
         {
           icon: "physical",
           title: "¿Cómo es la experiencia física entre el operador, el dispositivo IoT y la plataforma?",
-          text: "También diseñé lo que pasa fuera de la pantalla: cómo interactúa quien opera con el dispositivo IoT y con la plataforma o la app, y qué información necesita en cada momento para decidir y actuar.",
+          text: "También tuve que considerar lo que pasaba fuera de la pantalla: cómo interactuaba quien operaba con el dispositivo IoT y con la plataforma o la app, y qué información necesitaba en cada momento para decidir y actuar.",
         },
       ],
       decisionsImage: {
@@ -318,8 +318,8 @@ export const experiences: Experience[] = [
           label: "Ver proyecto en Behance",
           url: "https://www.behance.net/gallery/138977137/CLOUDLABS-DISENO-DE-PRODUCTO",
         },
-        brief: "Trabajé en el rediseño de una plataforma educativa basada en laboratorios gamificados para áreas STEM, con experiencias para estudiantes, docentes e instituciones en mobile, tablet y desktop.",
-        how: "El proyecto incluyó un rediseño de la arquitectura y de la experiencia para integrar los distintos perfiles y sus sistemas dentro de una plataforma común. El desafío fue unificar la experiencia en un solo sistema, con una arquitectura más clara y escalable.",
+        brief: "Trabajé en el rediseño de CloudLabs, una plataforma educativa de laboratorios gamificados para áreas STEM.",
+        how: "El proyecto buscaba unificar en un mismo sistema la experiencia de estudiantes, docentes e instituciones, contemplando mobile, tablet y desktop.",
         tags: ["EdTech", "Rediseño de producto", "Mobile", "Tablet", "Desktop"],
       },
       {

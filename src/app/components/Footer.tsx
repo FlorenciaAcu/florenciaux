@@ -23,7 +23,7 @@ export function Footer() {
 
           {/* Nav */}
           <div className="space-y-3">
-            <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-4">
+            <p className="type-eyebrow text-gray-400 mb-4">
               Navegación
             </p>
             <ul className="space-y-2">
@@ -47,7 +47,7 @@ export function Footer() {
 
           {/* Links */}
           <div className="space-y-3">
-            <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-4">
+            <p className="type-eyebrow text-gray-400 mb-4">
               Contacto
             </p>
             <ul className="space-y-2">

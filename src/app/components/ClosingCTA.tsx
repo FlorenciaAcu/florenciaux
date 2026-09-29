@@ -36,11 +36,11 @@ export function ClosingCTA() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55 }}
         >
-          <p className="text-xs font-semibold text-[#ff006e] uppercase tracking-widest mb-4">Hablemos</p>
-          <h2 className="display-section text-white mb-6">
+          <p className="type-eyebrow text-[#ff006e] mb-4">Hablemos</p>
+          <h2 className="type-h1 text-white mb-6">
             ¿Estás construyendo o mejorando un producto digital?
           </h2>
-          <p className="text-lg text-gray-300 leading-relaxed mb-10 max-w-2xl mx-auto">
+          <p className="type-s1 text-gray-300 mb-10 max-w-2xl mx-auto">
             Puedo ayudarte a transformar una idea, necesidad o flujo en una experiencia clara, usable y lista para probar, validar o avanzar hacia desarrollo.
           </p>
         </motion.div>
@@ -58,7 +58,7 @@ export function ClosingCTA() {
             Compartir “Tu próximo producto”
           </div>
 
-          <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-gray-400">Personas con acceso</p>
+          <p className="type-eyebrow mt-6 text-gray-400">Personas con acceso</p>
           <ul className="mt-2 divide-y divide-white/10">
             <li className="flex items-center gap-3 py-3">
               <img src={avatar} alt="" className="h-11 w-11 shrink-0 rounded-full bg-[#2a2a36] object-cover" />
@@ -66,7 +66,7 @@ export function ClosingCTA() {
                 <p className="text-sm font-semibold text-white">Florencia Acuña</p>
                 <p className="truncate text-xs text-gray-400">Product Designer · San Juan, Argentina</p>
               </div>
-              <span className="shrink-0 rounded-md border border-white/15 px-2.5 py-1 text-xs text-gray-200">Diseña</span>
+              <span className="shrink-0 rounded-md border border-white/15 px-2.5 py-1 text-xs text-gray-200">Diseño</span>
             </li>
             <li className="flex items-center gap-3 py-3">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-dashed border-white/30 text-gray-300">
@@ -76,7 +76,7 @@ export function ClosingCTA() {
                 <p className="text-sm font-semibold text-white">Vos</p>
                 <p className="text-xs text-gray-400">Tenés la idea, el problema o el flujo</p>
               </div>
-              <span className="shrink-0 rounded-md border border-[#ff006e]/50 px-2.5 py-1 text-xs text-[#ff7fb3]">Propone</span>
+              <span className="shrink-0 rounded-md border border-[#ff006e]/50 px-2.5 py-1 text-xs text-[#ff7fb3]">Idea</span>
             </li>
           </ul>
 

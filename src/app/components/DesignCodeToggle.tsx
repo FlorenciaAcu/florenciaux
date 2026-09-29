@@ -34,11 +34,11 @@ export function DesignCodeToggle() {
           transition={{ duration: 0.5 }}
           className="text-center mb-8"
         >
-          <h2 className="display-block text-gray-900">
+          <h2 className="type-h2 text-gray-900">
             Diseño conectando{" "}
             <span className="text-gradient-brand">experiencia, negocio y tecnología.</span>
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-base text-gray-600">
+          <p className="type-s2 mx-auto mt-3 max-w-xl text-gray-600">
             Estudié programación y eso me ayuda a diseñar con una mirada más técnica.
           </p>
         </motion.div>
@@ -85,14 +85,14 @@ export function DesignCodeToggle() {
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="glass-panel rounded-3xl p-8 lg:p-10 text-center"
               >
-                <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-4">
+                <div className="type-eyebrow inline-flex items-center gap-2 text-[#cc0058] mb-4">
                   <Sparkles className="w-3.5 h-3.5" />
                   {profile.name}
                 </div>
-                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 tracking-tight mb-4">
+                <h3 className="type-h3 text-gray-900 mb-4">
                   {profile.role}
                 </h3>
-                <p className="text-gray-600 leading-relaxed mb-6 max-w-md mx-auto">
+                <p className="type-s2 text-gray-600 mb-6 max-w-md mx-auto">
                   {profile.focus}
                 </p>
                 <div className="flex flex-wrap justify-center gap-2">

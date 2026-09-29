@@ -11,10 +11,10 @@ const secondaryProjects = secondarySlugs.map((slug) => getProjectBySlug(slug)!);
 // One short line per card, all with the same shape: "lo que diseñé, para quién/qué contexto". Home-only copy: the pages keep their own taglines.
 // The sector above the name already gives the industry, so these add operational or audience detail instead of repeating it.
 const cardSummaries: Record<string, string> = {
-  cintelink: "Plataforma, aplicación de despacho, dashboards operativos y design system, para una operación de abastecimiento.",
-  cemico: "Productos digitales y un design system, para pacientes, personal de admisión, colaboradores y auditores externos.",
-  "buscador-agricola": "Búsqueda, publicaciones y contacto con empresas, para el MVP de un marketplace agrícola.",
-  "juan-gas-gnc": "Consulta de saldo de puntos, para un club de fidelización, del diseño a la implementación.",
+  cintelink: "Productos digitales para gestionar operaciones de abastecimiento de combustible, conectando la plataforma con lo que ocurre durante cada carga.",
+  cemico: "Productos digitales para distintos momentos y perfiles dentro del ecosistema de salud de Grupo CEMICO.",
+  "buscador-agricola": "MVP de un marketplace especializado para conectar la oferta y la demanda del sector agrícola en Chile.",
+  "juan-gas-gnc": "Consulta de saldo de puntos para un club de fidelización, desde el diseño hasta la implementación.",
 };
 
 const caseFile = [
@@ -52,14 +52,14 @@ export function FeaturedProjects() {
           transition={{ duration: 0.55 }}
           className="mb-5"
         >
-          <h2 className="display-section text-gray-900">Proyectos destacados</h2>
+          <h2 className="type-h1 text-gray-900">Proyectos destacados</h2>
         </motion.div>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="lead text-gray-600 max-w-3xl mb-14 lg:mb-20"
+          className="type-s1 text-gray-600 max-w-3xl mb-14 lg:mb-20"
         >
           Cómo abordo distintos problemas de producto y las decisiones de diseño detrás de cada solución.
         </motion.p>
@@ -90,13 +90,13 @@ export function FeaturedProjects() {
 
               {/* Content */}
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-1.5">
+                <p className="type-eyebrow text-[#cc0058] mb-1.5">
                   {item.sector}
                 </p>
-                <h3 className="display-block text-gray-900 mb-2 group-hover:translate-x-1 transition-transform duration-300">
+                <h3 className="type-h2 text-gray-900 mb-2 group-hover:translate-x-1 transition-transform duration-300">
                   {item.name}
                 </h3>
-                <p className="hidden sm:block text-sm text-gray-600 leading-relaxed max-w-2xl">
+                <p className="type-caption hidden sm:block text-gray-600 max-w-2xl">
                   {item.tagline}
                 </p>
               </div>

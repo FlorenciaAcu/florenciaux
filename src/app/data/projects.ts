@@ -171,7 +171,7 @@ export const projects: ProjectDetail[] = [
         {
           icon: "contact",
           title: "¿Cómo hacer que contactar a una empresa sea simple?",
-          text: "El producto necesitaba captar e identificar tanto la demanda como la oferta, así que parte de la información del proveedor se muestra recién al registrarse. Mi trabajo fue resolver desde UX cómo incorporar el registro dentro del recorrido hacia el contacto, sin perder de vista que la persona había llegado para encontrar una solución.",
+          text: "El contacto era una acción central del MVP, pero mostrar todos los datos del proveedor desde el primer momento permitía que la interacción continuara por fuera de la plataforma sin identificar a la persona interesada. Por eso trabajé el acceso al contacto junto con el registro, buscando facilitar la conexión sin perder la posibilidad de captar esa demanda dentro de Buscador Agrícola.",
         },
       ],
       cover: {
@@ -255,7 +255,7 @@ export const projects: ProjectDetail[] = [
         {
           icon: "physical",
           title: "¿Cómo diseñar una consulta con la menor fricción posible?",
-          text: "Diseñé la experiencia para resolver una sola acción —consultar el saldo— con el menor número de pasos: ingresar, escribir la patente y ver el saldo. Pensada principalmente para mobile, con acceso mediante códigos QR ubicados en la estación.",
+          text: "Diseñé la experiencia para resolver una sola acción —consultar el saldo— con el menor número de pasos: ingresar, escribir la patente y ver el saldo. La experiencia fue pensada principalmente para mobile, con acceso mediante códigos QR ubicados en la estación.",
         },
       ],
       decisionsImage: {
@@ -271,7 +271,7 @@ export const projects: ProjectDetail[] = [
             {
               src: juangasConsultaMobile,
               alt: "Pantalla de consulta de saldo vista desde el navegador del celular: «Consultá el saldo», un campo para ingresar la patente sin espacios y el botón Consultar",
-              caption: "Consulta saldo: un campo para la patente y un botón.",
+              caption: "Consulta de saldo por patente, resuelta en una única acción.",
             },
             {
               src: juangasCartelQr,
@@ -320,7 +320,6 @@ export const projects: ProjectDetail[] = [
         "Diseñé el acceso a WhatsApp, con un botón flotante siempre disponible, y el formulario de consulta.",
         "Diseñé el sitio para que funcione bien en mobile y desktop.",
         "Implementé el sitio y lo publiqué en audagnoabogado.com.",
-        "La primera versión la entregué en una semana; el resto del tiempo fueron ajustes.",
       ],
       cover: {
         src: audagnoDesktopHome,
@@ -380,7 +379,7 @@ export const projects: ProjectDetail[] = [
         {
           title: "Productos sueltos",
           context:
-            "Productos sueltos permitía adquirir un producto o promoción para un inmueble de manera puntual, cuando los cupos incluidos en el plan no alcanzaban.",
+            "La funcionalidad de Productos sueltos permitía adquirir un producto o promoción para un inmueble de manera puntual cuando los cupos incluidos en el plan no alcanzaban.",
           did: [
             "Trabajé sobre Administrar inmuebles: cómo acceder a estos productos, cómo aplicarlos y cómo se representan en cada inmueble.",
             "En una de las primeras exploraciones separé un «Asignar productos» genérico en tres intenciones más claras: Destacar, Impulsar y Etiquetar.",
@@ -447,7 +446,7 @@ export const projects: ProjectDetail[] = [
             "Diseñé la reactivación: método de pago, resumen y consistencia del flujo con los componentes existentes.",
             "Redacté el microcopy de todo el flujo.",
             "«Cancelar suscripción» quedó como acción secundaria dentro de un menú de tres puntos, para que no compitiera con acciones principales como mejorar el plan. Cuando la suscripción está cancelada, reactivar gana relevancia.",
-            "Reactivar no abre un modal: lleva a una pantalla completa con el plan y la modalidad anteriores, el método de pago, el resumen, el total, la renovación automática, los términos y los indicadores de seguridad. Reutilicé las tarjetas de métodos de pago y mantuve la posibilidad de «Mejorar mi plan» en lugar de reactivar el mismo.",
+            "Reactivar no abre un modal: diseñé una pantalla completa que recupera el plan anterior, el método de pago y el resumen de la reactivación, reutilizando patrones existentes del producto. También mantuve la posibilidad de «Mejorar mi plan» en lugar de reactivar el mismo.",
           ],
           options: {
             title: "Tres estados de la suscripción",

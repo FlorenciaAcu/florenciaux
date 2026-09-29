@@ -118,10 +118,10 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-3">
+            <p className="type-eyebrow text-[#cc0058] mb-3">
               Contexto
             </p>
-            <p className="text-gray-700 text-base leading-relaxed">
+            <p className="type-body text-gray-700">
               {project.context}
             </p>
           </motion.div>
@@ -132,10 +132,10 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-3">
+            <p className="type-eyebrow text-[#cc0058] mb-3">
               Problema o reto
             </p>
-            <p className="text-gray-700 text-base leading-relaxed">
+            <p className="type-body text-gray-700">
               {project.challenge}
             </p>
           </motion.div>
@@ -148,10 +148,10 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-3">
+            <p className="type-eyebrow text-[#cc0058] mb-3">
               Mi rol
             </p>
-            <p className="text-gray-700 text-base leading-relaxed">
+            <p className="type-body text-gray-700">
               {project.role}
             </p>
           </motion.div>
@@ -162,10 +162,10 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-3">
+            <p className="type-eyebrow text-[#cc0058] mb-3">
               Solución
             </p>
-            <p className="text-gray-700 text-base leading-relaxed">
+            <p className="type-body text-gray-700">
               {project.description}
             </p>
           </motion.div>
@@ -176,7 +176,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold text-[#cc0058] uppercase tracking-widest mb-5">
+            <p className="type-eyebrow text-[#cc0058] mb-5">
               Evidencia visual
             </p>
             <div className="space-y-4">

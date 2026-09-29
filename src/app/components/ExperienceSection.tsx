@@ -33,7 +33,7 @@ export function ExperienceSection() {
           transition={{ duration: 0.55 }}
           className="mb-5"
         >
-          <h2 className="display-section text-gray-900">
+          <h2 className="type-h1 text-gray-900">
             Experiencia
           </h2>
         </motion.div>
@@ -42,9 +42,9 @@ export function ExperienceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="lead text-gray-600 max-w-3xl mb-14 lg:mb-20"
+          className="type-s1 text-gray-600 max-w-3xl mb-14 lg:mb-20"
         >
-          Más de cinco años trabajando en equipos de producto, consultando con clientes de distintas industrias y construyendo desde el problema hasta la solución.
+          Más de cinco años trabajando en productos digitales, dentro de equipos de producto y desarrollo y también de forma independiente.
         </motion.p>
 
         <div ref={timelineRef} className="relative">
@@ -81,12 +81,12 @@ export function ExperienceSection() {
                   </span>
                 </div>
                 <div className="shrink-0 w-48">
-                  <h3 className="text-base font-semibold text-gray-900 mb-0.5">{exp.company}</h3>
+                  <h3 className="type-s2 font-semibold text-gray-900 mb-0.5">{exp.company}</h3>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="space-y-2">
                     {exp.bio.map((line, idx) => (
-                      <p key={idx} className="text-gray-600 text-sm leading-relaxed">{line}</p>
+                      <p key={idx} className="type-caption text-gray-600">{line}</p>
                     ))}
                   </div>
                 </div>

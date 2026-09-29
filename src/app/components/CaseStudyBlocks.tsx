@@ -29,12 +29,12 @@ export function splitSentences(text: string): string[] {
   return text.split(/(?<=\.)\s+(?=[A-ZÁÉÍÓÚÑ¿])/).filter(Boolean);
 }
 
-const h2 = "display-block text-gray-900";
+const h2 = "type-h2 text-gray-900";
 
 /** Quick facts as a hairline key-value list (role, industry, duration…): only what is confirmed. */
 function MetaList({ meta }: { meta: { label: string; value: string }[] }) {
   return (
-    <motion.dl {...reveal} transition={{ duration: 0.5, delay: 0.1 }} className="self-end border-t border-gray-200 text-sm">
+    <motion.dl {...reveal} transition={{ duration: 0.5, delay: 0.1 }} className="type-caption self-end border-t border-gray-200">
       {meta.map((row) => (
         <div key={row.label} className="flex items-baseline justify-between gap-6 border-b border-gray-200 py-3">
           <dt className="text-gray-600">{row.label}</dt>
@@ -49,7 +49,7 @@ function MetaList({ meta }: { meta: { label: string; value: string }[] }) {
 function WorkRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="grid gap-4 py-8 lg:grid-cols-[11rem_1fr] lg:gap-10 lg:py-10">
-      <dt className="pt-1 text-xs font-semibold uppercase tracking-widest text-[#cc0058]">{label}</dt>
+      <dt className="type-eyebrow pt-1 text-[#cc0058]">{label}</dt>
       <dd>{children}</dd>
     </div>
   );
@@ -58,12 +58,12 @@ function WorkRow({ label, children }: { label: string; children: React.ReactNode
 function WorkList({ items }: { items: string[] }) {
   // A bullet only makes sense when there is something to list: a single item reads as plain text.
   if (items.length === 1) {
-    return <p className="max-w-3xl text-base leading-relaxed text-gray-800">{items[0]}</p>;
+    return <p className="type-body max-w-3xl text-gray-800">{items[0]}</p>;
   }
   return (
     <ul className="max-w-3xl space-y-3">
       {items.map((item) => (
-        <li key={item} className="flex gap-3 text-base leading-relaxed text-gray-800">
+        <li key={item} className="type-body flex gap-3 text-gray-800">
           <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#cc0058]" aria-hidden="true" />
           {item}
         </li>
@@ -98,7 +98,7 @@ export function ExperienceIntro({
             {about && (
               <motion.div {...reveal} id="que-es" className="scroll-mt-28">
                 <h2 className={`${h2} mb-4`}>{about.title}</h2>
-                <p className="text-base leading-relaxed text-gray-700">{about.text}</p>
+                <p className="type-body text-gray-700">{about.text}</p>
               </motion.div>
             )}
             {meta && <MetaList meta={meta} />}
@@ -111,7 +111,7 @@ export function ExperienceIntro({
           </div>
           <dl>
             <WorkRow label="Qué hice">
-              <div className="max-w-3xl space-y-4 text-base leading-relaxed text-gray-800">
+              <div className="type-body max-w-3xl space-y-4 text-gray-800">
                 {intro.map((line) => (
                   <p key={line}>{line}</p>
                 ))}
@@ -125,7 +125,7 @@ export function ExperienceIntro({
 
   const paragraphs = (text: string) =>
     text.split("\n\n").map((p) => (
-      <p key={p} className="text-base leading-relaxed text-gray-700">
+      <p key={p} className="type-body text-gray-700">
         {p}
       </p>
     ));
@@ -153,7 +153,7 @@ export function ExperienceIntro({
               <WorkRow label={data.challengeTitle ?? "El desafío"}>
                 <div className="max-w-3xl space-y-4">{paragraphs(data.challenge)}</div>
                 {data.terms && (
-                  <dl className="mt-6 max-w-3xl space-y-2 text-sm leading-relaxed text-gray-700">
+                  <dl className="type-caption mt-6 max-w-3xl space-y-2 text-gray-700">
                     {data.terms.map((item) => (
                       <div key={item.term}>
                         <dt className="inline font-semibold text-gray-900">{item.term}: </dt>
@@ -231,7 +231,7 @@ export function CaseOutline({ items }: { items: { id: string; label: string; n?:
 
   return (
     <nav aria-label="En esta página">
-      <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-600">En esta página</p>
+      <p className="type-eyebrow mb-3 text-gray-600">En esta página</p>
       <ul className="border-l border-gray-200">
         {items.map((item) => {
           const isActive = item.id === active;
@@ -263,12 +263,12 @@ function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
       {groups.map((group) => (
         <div key={group.title ?? group.images[0].caption}>
           {group.title && (
-            <motion.h3 {...reveal} className={`${group.intro ? "mb-2" : "mb-5"} text-xs font-semibold uppercase tracking-widest text-[#cc0058]`}>
+            <motion.h3 {...reveal} className={`${group.intro ? "mb-2" : "mb-5"} type-eyebrow text-[#cc0058]`}>
               {group.title}
             </motion.h3>
           )}
           {group.intro && (
-            <motion.p {...reveal} className="mb-6 max-w-3xl text-base leading-relaxed text-gray-700">
+            <motion.p {...reveal} className="type-s2 mb-6 max-w-3xl text-gray-700">
               {group.intro}
             </motion.p>
           )}
@@ -285,7 +285,7 @@ function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
                   />
                   <span className="sr-only">Ver pantalla completa (se abre en otra pestaña)</span>
                 </a>
-                <figcaption className="mt-4 text-sm leading-relaxed text-gray-600">{item.caption}</figcaption>
+                <figcaption className="type-caption mt-4 text-gray-600">{item.caption}</figcaption>
               </motion.figure>
             ))}
           </div>
@@ -308,17 +308,17 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
               data-n={String(index + 1).padStart(2, "0")}
               className="text-4xl font-light leading-none text-[#cc0058] before:content-[attr(data-n)] lg:text-5xl"
             />
-            <h3 className="display-block text-gray-900">{feature.title}</h3>
+            <h3 className="type-h2 text-gray-900">{feature.title}</h3>
           </motion.div>
-          <motion.p {...reveal} className="lead mt-6 max-w-3xl text-gray-700">
+          <motion.p {...reveal} className="type-s1 mt-6 max-w-3xl text-gray-700">
             {feature.context}
           </motion.p>
 
           <motion.div {...reveal} className="mt-12 max-w-3xl">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-[#cc0058]">Lo que diseñé</h4>
+            <h4 className="type-eyebrow text-[#cc0058]">Lo que diseñé</h4>
             <ul className="mt-5 space-y-3">
               {feature.did.map((item) => (
-                <li key={item} className="flex gap-3 text-base leading-relaxed text-gray-800">
+                <li key={item} className="type-body flex gap-3 text-gray-800">
                   <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#cc0058]" aria-hidden="true" />
                   {item}
                 </li>
@@ -328,19 +328,19 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
 
           {feature.options && (
             <div className="mt-16">
-              <motion.h4 {...reveal} className="text-xs font-semibold uppercase tracking-widest text-[#cc0058]">
+              <motion.h4 {...reveal} className="type-eyebrow text-[#cc0058]">
                 {feature.options.title}
               </motion.h4>
               {feature.options.intro && (
-                <motion.p {...reveal} className="mt-3 max-w-3xl text-base leading-relaxed text-gray-700">
+                <motion.p {...reveal} className="type-s2 mt-3 max-w-3xl text-gray-700">
                   {feature.options.intro}
                 </motion.p>
               )}
               <ul className={`mt-8 grid gap-x-10 gap-y-8 sm:grid-cols-2 ${feature.options.items.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
                 {feature.options.items.map((item, i) => (
                   <motion.li key={item.title} {...reveal} transition={{ duration: 0.5, delay: i * 0.06 }}>
-                    <h5 className="text-xl font-normal leading-snug text-gray-900">{item.title}</h5>
-                    <p className="mt-2 text-sm leading-relaxed text-gray-600">{item.text}</p>
+                    <h5 className="type-h3 text-gray-900">{item.title}</h5>
+                    <p className="type-caption mt-2 text-gray-600">{item.text}</p>
                   </motion.li>
                 ))}
               </ul>
@@ -349,15 +349,15 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
 
           {feature.evolution && (
             <div className="mt-16">
-              <motion.h4 {...reveal} className="text-xs font-semibold uppercase tracking-widest text-[#cc0058]">
+              <motion.h4 {...reveal} className="type-eyebrow text-[#cc0058]">
                 {feature.evolutionTitle ?? "Cómo evolucionó"}
               </motion.h4>
               <ol className={`mt-8 grid gap-x-10 gap-y-8 ${feature.evolution.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
                 {feature.evolution.map((step, i) => (
                   <motion.li key={step.title} {...reveal} transition={{ duration: 0.5, delay: i * 0.08 }}>
                     <span className="text-sm font-medium tabular-nums text-[#cc0058]">{String(i + 1).padStart(2, "0")}</span>
-                    <h5 className="mt-2 text-xl font-normal leading-snug text-gray-900">{step.title}</h5>
-                    <p className="mt-2 text-sm leading-relaxed text-gray-600">{step.text}</p>
+                    <h5 className="type-h3 mt-2 text-gray-900">{step.title}</h5>
+                    <p className="type-caption mt-2 text-gray-600">{step.text}</p>
                   </motion.li>
                 ))}
               </ol>
@@ -371,8 +371,8 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
           )}
 
           <motion.div {...reveal} className="mt-16 max-w-3xl">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-[#cc0058]">Qué aprendí</h4>
-            <p className="lead mt-3 text-gray-700">{feature.learned}</p>
+            <h4 className="type-eyebrow text-[#cc0058]">Qué aprendí</h4>
+            <p className="type-s1 mt-3 text-gray-700">{feature.learned}</p>
           </motion.div>
         </section>
       ))}
@@ -396,7 +396,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
             decoding="async"
             className="w-full rounded-xl ring-1 ring-gray-200"
           />
-          <figcaption className="mt-4 max-w-3xl text-sm leading-relaxed text-gray-600">{data.cover.caption}</figcaption>
+          <figcaption className="type-caption mt-4 max-w-3xl text-gray-600">{data.cover.caption}</figcaption>
         </motion.figure>
       )}
 
@@ -409,7 +409,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
             </motion.h2>
           )}
           {data.screensIntro && (
-            <motion.p {...reveal} className="mb-10 max-w-3xl text-base leading-relaxed text-gray-700">
+            <motion.p {...reveal} className="type-s1 mb-10 max-w-3xl text-gray-700">
               {data.screensIntro}
             </motion.p>
           )}
@@ -437,9 +437,9 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
 
           <div className={`relative grid gap-14 ${data.decisionsImage ? "lg:grid-cols-[1.25fr_1fr] lg:items-start lg:gap-20" : ""}`}>
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#ff006e]">{data.decisionsEyebrow}</p>
-              <h2 className="display-block text-white">{data.decisionsTitle}</h2>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-gray-300">{data.decisionsIntro}</p>
+              <p className="type-eyebrow mb-4 text-[#ff006e]">{data.decisionsEyebrow}</p>
+              <h2 className="type-h2 text-white">{data.decisionsTitle}</h2>
+              <p className="type-s2 mt-5 max-w-xl text-gray-300">{data.decisionsIntro}</p>
 
               <ul className="mt-12 divide-y divide-white/10 border-t border-white/10">
                 {data.decisions.map((decision) => {
@@ -448,7 +448,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
                     <li key={decision.title} className="grid gap-4 py-8 sm:grid-cols-[2rem_1fr] sm:gap-6">
                       <Icon className="mt-1 h-5 w-5 text-[#00e5ff]" aria-hidden="true" />
                       <div>
-                        <h3 className="text-xl font-normal leading-snug text-white">{decision.title}</h3>
+                        <h3 className="type-h3 text-white">{decision.title}</h3>
                         {(() => {
                           const sentences = splitSentences(decision.text);
                           // A single sentence reads as a paragraph, not a one-bullet list.
@@ -475,8 +475,8 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
               {/* A transversal solution, presented as a statement rather than a question */}
               {data.transversal && (
                 <div className="border-t border-[#00e5ff]/30 pt-8">
-                  <h3 className="text-xl font-normal leading-snug text-white">{data.transversal.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-gray-300">{data.transversal.text}</p>
+                  <h3 className="type-h3 text-white">{data.transversal.title}</h3>
+                  <p className="type-caption mt-3 text-gray-300">{data.transversal.text}</p>
                 </div>
               )}
             </div>
@@ -490,7 +490,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
                   decoding="async"
                   className="aspect-[3/4] w-full rounded-xl object-cover"
                 />
-                <figcaption className="mt-4 text-sm leading-relaxed text-gray-300">{data.decisionsImage.caption}</figcaption>
+                <figcaption className="type-caption mt-4 text-gray-300">{data.decisionsImage.caption}</figcaption>
               </figure>
             )}
           </div>
@@ -504,7 +504,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
             {data.prototypesTitle ?? "Prototipos"}
           </motion.h2>
           {data.prototypesNote && (
-            <motion.p {...reveal} className="mb-10 max-w-3xl text-base leading-relaxed text-gray-700">
+            <motion.p {...reveal} className="type-s1 mb-10 max-w-3xl text-gray-700">
               {data.prototypesNote}
             </motion.p>
           )}
@@ -517,7 +517,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
                   rel="noopener noreferrer"
                   className="group flex items-center justify-between gap-4 py-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cc0058]"
                 >
-                  <span className="display-block text-gray-900 transition-transform duration-300 group-hover:translate-x-1">{item.label}</span>
+                  <span className="type-h3 text-gray-900 transition-transform duration-300 group-hover:translate-x-1">{item.label}</span>
                   <ArrowUpRight
                     className="h-5 w-5 shrink-0 text-[#cc0058] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                     aria-hidden="true"
@@ -540,7 +540,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
             {data.evidence.map((item, i) => (
               <motion.figure key={item.caption} {...reveal} transition={{ duration: 0.5, delay: i * 0.1 }}>
                 <img src={item.src} alt={item.alt} loading="lazy" decoding="async" className="aspect-[4/5] w-full rounded-xl object-cover" />
-                <figcaption className="mt-4 text-sm leading-relaxed text-gray-600">{item.caption}</figcaption>
+                <figcaption className="type-caption mt-4 text-gray-600">{item.caption}</figcaption>
               </motion.figure>
             ))}
           </div>
@@ -551,7 +551,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
       {data.result && (
         <motion.div {...reveal} id="resultado" className="max-w-3xl scroll-mt-28">
           <h2 className={`${h2} mb-5`}>{data.result.title}</h2>
-          <p className="lead text-gray-700">{data.result.text}</p>
+          <p className="type-s1 text-gray-700">{data.result.text}</p>
         </motion.div>
       )}
     </div>
@@ -564,7 +564,7 @@ export function CaseStudyLearned({ data }: { data: CaseStudy }) {
   return (
     <motion.div {...reveal} id="aprendi" className="max-w-3xl scroll-mt-28">
       <h2 className={`${h2} mb-5`}>Qué aprendí</h2>
-      <p className="lead text-gray-700">{data.learned}</p>
+      <p className="type-s1 text-gray-700">{data.learned}</p>
     </motion.div>
   );
 }
