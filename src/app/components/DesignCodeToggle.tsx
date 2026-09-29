@@ -9,7 +9,7 @@ type Mode = "design" | "code";
 const profile = {
   name: "Florencia Acuña",
   role: "Product Designer",
-  focus: "Diseño pensando en sistemas completos: cómo un producto puede crecer, escalar y sostener nuevas soluciones en el tiempo.",
+  focus: "Diseño pensando en las personas y en cómo se construye el producto.",
   skills: ["Product Design", "Design Systems", "Discovery", "Prototipado", "IA aplicada"],
 };
 
@@ -17,7 +17,7 @@ export function DesignCodeToggle() {
   const [mode, setMode] = useState<Mode>("design");
 
   return (
-    <section className="relative py-14 lg:py-20 bg-[#fafafa]/90">
+    <section className="relative py-20 lg:py-36 bg-[#fafafa]/90">
       <div className="relative max-w-2xl mx-auto px-6">
         <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
           <Sticker name="flag" size={58} rotate={-8} className="absolute -left-12 top-0 lg:-left-28" />
@@ -34,12 +34,12 @@ export function DesignCodeToggle() {
           transition={{ duration: 0.5 }}
           className="text-center mb-8"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight leading-tight">
+          <h2 className="display-section text-gray-900">
             Diseño conectando{" "}
             <span className="text-gradient-brand">experiencia, negocio y tecnología.</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-base text-gray-600">
-            Estudié programación, y esa base me ayuda a entender los productos de forma más integral y a diseñar con una mirada técnica.
+            Estudié programación y eso me ayuda a diseñar con una mirada más técnica.
           </p>
         </motion.div>
 

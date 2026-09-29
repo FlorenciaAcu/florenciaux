@@ -8,7 +8,6 @@ import { FeaturedProjects } from "./components/FeaturedProjects";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { KnowledgeSection } from "./components/KnowledgeSection";
 import { Footer } from "./components/Footer";
-import { ProyectosPage } from "./components/ProyectosPage";
 import { ExperiencePage } from "./components/ExperiencePage";
 import { CaseStudyPage } from "./components/CaseStudyPage";
 import { GlobalImagePreloader } from "./components/GlobalImagePreloader";
@@ -38,13 +37,14 @@ interface Route {
 function parseHash(): Route {
   const hash = window.location.hash.replace("#", "") || "/";
 
-  if (hash.startsWith("/caso/")) {
-    return { page: "/caso/:slug", slug: hash.replace("/caso/", "") };
-  }
+  // "/proyectos/:slug" es un caso (CEMICO, Buscador Agrícola, Juan Gas, Audagno, InfoCasas).
   if (hash.startsWith("/proyectos/")) {
     return { page: "/proyectos/:slug", slug: hash.replace("/proyectos/", "") };
   }
-  if (hash === "/trayectoria") return { page: "/trayectoria" };
+  // "/experiencia/:slug" es el detalle de una experiencia laboral (Cintelink, Consultoría, Folcode).
+  if (hash.startsWith("/experiencia/")) {
+    return { page: "/experiencia/:slug", slug: hash.replace("/experiencia/", "") };
+  }
 
   // Section URLs — render home page and scroll to section
   const sectionSlug = hash.replace("/", "");
@@ -89,7 +89,7 @@ function AppRoutes() {
     }
   }, [route]);
 
-  if (route.page === "/caso/:slug" && route.slug) {
+  if (route.page === "/proyectos/:slug" && route.slug) {
     return (
       <>
         <SEOHead />
@@ -100,27 +100,13 @@ function AppRoutes() {
     );
   }
 
-  if (route.page === "/proyectos/:slug" && route.slug) {
+  if (route.page === "/experiencia/:slug" && route.slug) {
     return (
       <>
         <SEOHead />
         <GlobalImagePreloader />
         <FixedBackdrop />
         <ExperiencePage slug={route.slug} />
-      </>
-    );
-  }
-
-  if (route.page === "/trayectoria") {
-    return (
-      <>
-        <SEOHead
-          title="Trayectoria — Florencia Acuña, Product Designer"
-          description="Experiencia profesional y proyectos de Florencia Acuña: consultoría en productos digitales, Cintelink y Folcode."
-        />
-        <GlobalImagePreloader />
-        <FixedBackdrop />
-        <ProyectosPage />
       </>
     );
   }

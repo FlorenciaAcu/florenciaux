@@ -1,11 +1,6 @@
 import consolaDashboard from "../../imports/cintelink-consola-dashboard.jpg";
-import consolaCampo from "../../imports/cintelink-consola-campo.jpg";
-import appExpo from "../../imports/27-2022-_MG_2698.jpg";
 import pantallaVistaGeneral from "../../imports/cintelink-pantalla-vista-general.jpg";
-import pantallaAnalitica from "../../imports/cintelink-pantalla-analitica.jpg";
-import pantallaStock from "../../imports/cintelink-pantalla-stock.jpg";
 import aneloConsola from "../../imports/anelo-tablet-consola.jpg";
-import aneloVale from "../../imports/anelo-tablet-vale.jpg";
 
 export interface ExperienceProject {
   name: string;
@@ -26,16 +21,47 @@ export interface CaseStudyImage {
 }
 
 export interface CaseStudyDecision {
-  icon: "metrics" | "data" | "device" | "physical" | "taxonomy" | "discovery" | "evaluate" | "sides" | "contact" | "context";
+  icon: "metrics" | "data" | "device" | "physical" | "taxonomy" | "discovery" | "evaluate" | "sides" | "contact" | "context" | "build";
   title: string;
   text: string;
+}
+
+/** `aspect` is the frame's Tailwind aspect class, chosen so every image in the group fits at the same scale.
+ *  `grid` overrides the default column layout (e.g. a single narrow image). */
+export interface CaseStudyScreenGroup {
+  title?: string;
+  intro?: string;
+  aspect: string;
+  grid?: string;
+  images: CaseStudyImage[];
+}
+
+/** One feature told in depth inside a case: what the product needed, what was already defined, what I designed,
+ *  how the solution evolved, and the evidence. Empty `evidence` renders nothing (no placeholders). */
+export interface CaseStudyFeature {
+  title: string;
+  /** What the product needed to solve. */
+  context: string;
+  /** Business or product rules that already existed: not the designer's decisions. */
+  given: string[];
+  /** What the designer designed to solve it inside the experience. */
+  did: string[];
+  /** A set of alternatives or states worth showing as small cards (e.g. four interaction models). */
+  options?: { title: string; intro?: string; items: { title: string; text: string }[] };
+  evolutionTitle?: string;
+  evolution?: { title: string; text: string }[];
+  evidence?: CaseStudyScreenGroup[];
+  learned: string;
 }
 
 /** Narrative blocks for an experience that deserves more than a bio + project list.
  *  Everything here is written from the designer's perspective: no internal company detail (NDA). */
 export interface CaseStudy {
   /** The three things to take away, shown right under the header. Everything else is detail. */
-  highlights?: { label: string; text: string }[];
+  /** What I designed, as a list (the scope). Shown in "Mi trabajo" under "Qué diseñé". */
+  designed?: string[];
+  /** Quick facts (industry, company, platforms…) as a hairline key-value list next to "what it is". Only what is confirmed. */
+  meta?: { label: string; value: string }[];
   aboutTitle: string;
   /** Paragraphs separated by a blank line. Plain language: assume the reader knows nothing about the product or the industry. */
   about: string;
@@ -45,20 +71,25 @@ export interface CaseStudy {
   terms?: { term: string; definition: string }[];
   roleTitle: string;
   role: string[];
-  decisionsEyebrow: string;
-  decisionsTitle: string;
-  decisionsIntro: string;
-  decisions: CaseStudyDecision[];
+  /** Label of the `role` row inside "Mi trabajo" (default: "Cómo trabajé" when `designed` exists, otherwise "Qué hice"). */
+  roleLabel?: string;
+  /** Secondary projects can skip the decisions block entirely: don't invent decisions to fill it. */
+  decisionsEyebrow?: string;
+  decisionsTitle?: string;
+  decisionsIntro?: string;
+  decisions?: CaseStudyDecision[];
   /** A transversal solution presented as a statement, not a question (e.g. a design system shared across products). */
   transversal?: { title: string; text: string };
   decisionsImage?: CaseStudyImage;
+  /** One representative image, full width, right after the intro (few and strategic: no galleries). */
+  cover?: CaseStudyImage;
   evidenceTitle?: string;
   evidence?: CaseStudyImage[];
   screensTitle?: string;
   screensIntro?: string;
-  /** `aspect` is the frame's Tailwind aspect class, chosen so every image in the group fits at the same scale.
-   *  `grid` overrides the default column layout (e.g. a single narrow image). */
-  screenGroups?: { title: string; intro?: string; aspect: string; grid?: string; images: CaseStudyImage[] }[];
+  screenGroups?: CaseStudyScreenGroup[];
+  /** Features told in depth, for secondary projects built around a few concrete pieces of work. */
+  features?: CaseStudyFeature[];
   /** Links to navigable prototypes, used when there are no screenshots yet. */
   prototypesTitle?: string;
   prototypesNote?: string;
@@ -79,7 +110,13 @@ export interface Experience {
   website?: { label: string; url: string };
   tagline?: string;
   sector?: string;
+  /** Home summary (and, when there is no `workText`, the text of "Mi trabajo"). */
   bio: string[];
+  /** Short "what it is", shown like "Qué es Cintelink" in the cases. */
+  aboutTitle?: string;
+  about?: string;
+  /** Text of "Mi trabajo" on the experience page, when it must differ from the home summary. */
+  workText?: string[];
   projects: ExperienceProject[];
   caseStudy?: CaseStudy;
 }
@@ -89,9 +126,12 @@ export const experiences: Experience[] = [
     slug: "consultoria",
     role: "Product Designer",
     company: "Consultoría en productos digitales",
+    aboutTitle: "Qué es la consultoría",
+    about: "Es mi trabajo independiente diseñando productos digitales y MVPs, en colaboración con clientes y equipos, en distintas etapas del producto.",
+    workText: ["Incorporo herramientas como Claude, Figma Make y Lovable para explorar alternativas, documentar y crear prototipos funcionales."],
     period: "Abril 2025 – Actualidad",
     bio: [
-      "Diseño productos digitales y MVPs en etapas tempranas para clientes de España, Estados Unidos, Países Bajos y Chile, apoyándome en IA (Claude, Figma Make, Lovable) para explorar, documentar y prototipar más rápido.",
+      "Diseño productos digitales y MVPs de forma independiente, colaborando con clientes y equipos en distintas etapas del producto. Además, incorporo herramientas como Claude, Figma Make y Lovable para explorar alternativas, documentar y crear prototipos funcionales.",
     ],
     projects: [
       {
@@ -109,20 +149,20 @@ export const experiences: Experience[] = [
       {
         name: "Juan Gas GNC",
         slug: "juan-gas-gnc",
-        brief: "MVP de fidelización para que clientes recurrentes de una estación de GNC pudieran consultar su saldo y acceder a beneficios.",
-        tags: ["MVP", "Fidelización", "UX/UI"],
+        brief: "Diseñé e implementé la consulta de puntos de Juan Gas GNC Club, conectando la experiencia digital con los datos que ya existían en la estación.",
+        tags: ["MVP", "Fidelización", "Product Design", "Implementación"],
       },
       {
-        name: "Juan Audagno",
+        name: "AUDAGNO – Abogado",
         slug: "juan-audagno",
-        brief: "Web profesional para generar confianza y facilitar el contacto de un estudio legal.",
-        tags: ["Web institucional", "Legal", "Conversión"],
+        brief: "Diseñé e implementé el sitio web de un estudio jurídico de La Plata, con contacto por WhatsApp y un formulario de consultas que llega por correo.",
+        tags: ["Sitio web", "Legal", "UX/UI", "Implementación"],
       },
       {
         name: "InfoCasas",
-        slug: undefined,
-        brief: "Proyecto para el sector real estate. Contenido en construcción.",
-        tags: ["Real estate", "SaaS"],
+        slug: "infocasas",
+        brief: "Diseñé flujos de suscripciones, planes y publicaciones para la plataforma web y la app, como Product Designer para HitOcean.",
+        tags: ["Real estate", "Suscripciones", "UX/UI"],
       },
     ],
   },
@@ -136,7 +176,7 @@ export const experiences: Experience[] = [
     tagline: "Plataforma para gestionar y controlar operaciones de abastecimiento de combustible.",
     sector: "Combustible",
     bio: [
-      "Diseñé la plataforma de Cintelink, la aplicación de despacho para tablet y los dashboards operativos de un producto que conecta la gestión digital del combustible con lo que ocurre físicamente en cada carga.",
+      "Diseñé la plataforma de Cintelink y su versión responsive, la aplicación de despacho para tablet, los dashboards operativos y la app demo de las exposiciones, y construí el Design System con su manual de voz y tono: un producto que conecta la gestión digital del combustible con lo que ocurre físicamente en cada carga.",
     ],
     projects: [
       {
@@ -185,33 +225,28 @@ export const experiences: Experience[] = [
     caseStudy: {
       learned:
         "Aprendí a diseñar productos digitales que forman parte de una operación física, donde entender el contexto de uso es clave para tomar decisiones de diseño.",
-      highlights: [
-        { label: "Rol", text: "Product Designer" },
-        { label: "Qué diseñé", text: "La plataforma, la aplicación de despacho para tablet y los dashboards operativos." },
-        { label: "Lo más importante", text: "Entender la relación entre la experiencia digital y una operación física real." },
+      meta: [
+        { label: "Rol", value: "Product Designer" },
+        { label: "Industria", value: "Combustible" },
+        { label: "Período", value: "Junio 2022 – Marzo 2025" },
       ],
       aboutTitle: "Qué es Cintelink",
       about:
-        "Cintelink es una plataforma para gestionar y controlar operaciones de abastecimiento de combustible. Conecta la gestión digital con lo que ocurre físicamente durante una carga: autorizaciones, vehículos, conductores, dispositivos y transacciones.\n\nLa usan distintos perfiles de la operación y de la gestión del combustible: según el producto o el flujo, operadores, conductores y perfiles administrativos o de gestión.",
+        "Cintelink es una plataforma para gestionar y controlar operaciones de abastecimiento de combustible. Conecta la gestión digital con lo que ocurre físicamente durante una carga: autorizaciones, vehículos, conductores, dispositivos y transacciones.",
       challengeTitle: "El desafío",
       challenge:
-        "La plataforma no funciona de manera aislada: lo que sucede en el sistema está conectado con personas, dispositivos y procesos de carga de combustible. Diseñar estos productos requería entender la relación entre la experiencia digital y una operación física real.",
-      terms: [
-        { term: "Despacho", definition: "la operación en la que se realiza una carga de combustible y queda registrada en el sistema." },
-        { term: "Consola", definition: "la interfaz o dispositivo desde donde se controla o visualiza parte de la operación de carga." },
-        { term: "Cargadero", definition: "el punto físico donde se realiza la carga o despacho de combustible." },
-      ],
+        "La plataforma no funciona de manera aislada: lo que sucede en el sistema está conectado con personas, dispositivos y procesos de carga de combustible.",
       roleTitle: "Mi trabajo",
+      roleLabel: "Cómo trabajé",
       role: [
-        "Trabajo en conjunto y constante con el equipo de desarrollo y con producto.",
-        "Definición funcional junto a negocio y usuarios.",
-        "Diseño de flujos e interfaces.",
+        "Trabajé en conjunto y de forma constante con el equipo de desarrollo y con producto.",
+        "Definí las funcionalidades junto a negocio y usuarios.",
         "También colaboré con el equipo de Smart Contracts en funcionalidades vinculadas a la trazabilidad y seguridad de las operaciones.",
       ],
       decisionsEyebrow: "Decisiones de diseño",
       decisionsTitle: "Diseñar pantallas que conviven con dispositivos IoT",
       decisionsIntro:
-        "Mucho de lo que diseñé se usaba junto a dispositivos físicos conectados a la plataforma (dispositivos IoT). Eso cambiaba las preguntas de diseño: no alcanzaba con que la interfaz se viera bien cuando todo funcionaba. Estas son algunas de las preguntas que nos hacíamos junto al equipo.",
+        "Los dispositivos IoT son dispositivos físicos conectados a la plataforma. Eso cambiaba las preguntas de diseño: no alcanzaba con que la interfaz se viera bien cuando todo funcionaba. Estas son algunas de las preguntas que nos hacíamos junto al equipo.",
       decisions: [
         {
           icon: "metrics",
@@ -234,55 +269,20 @@ export const experiences: Experience[] = [
         alt: "Consola instalada frente a una pantalla que muestra un dashboard con el nivel de cuatro tanques",
         caption: "Dashboard sobre su consola: la pantalla y el dispositivo formaban una única experiencia.",
       },
-      evidenceTitle: "Cómo se veía en la práctica",
-      evidence: [
-        {
-          src: appExpo,
-          alt: "Una persona usando la app demo desde un celular, frente a una pantalla, en una feria",
-          caption: "Expo Transporte: la app en el celular, donde empezaba la demo y se iniciaba la operación.",
-        },
-        {
-          src: consolaCampo,
-          alt: "Consola montada en una pared, con pantalla, teclado y lector",
-          caption: "Consola en contexto operativo: parte de la experiencia se resolvía en el propio dispositivo.",
-        },
-      ],
-      screensTitle: "Algunas pantallas",
+      cover: {
+        src: pantallaVistaGeneral,
+        alt: "Vista general de la plataforma: mapa con el estado de las estaciones y métricas de transacciones",
+        caption: "Vista general de la plataforma: el estado de las estaciones en el mapa y las métricas de consumo.",
+      },
       screenGroups: [
         {
-          title: "Plataforma web",
-          aspect: "aspect-[1280/989]",
-          images: [
-            {
-              src: pantallaVistaGeneral,
-              alt: "Vista general de la plataforma: mapa con el estado de las estaciones y métricas de transacciones",
-              caption: "Vista general: el estado de las estaciones en el mapa y las métricas de consumo.",
-            },
-            {
-              src: pantallaAnalitica,
-              alt: "Pantalla de Transacciones de consumo con métricas, filtros, un gráfico de consumo diario por producto y el comienzo de la tabla de transacciones",
-              caption: "Analítica y datos: métricas, consumo diario por producto y el detalle de las transacciones.",
-            },
-            {
-              src: pantallaStock,
-              alt: "Pantalla de Stock de productos con el nivel de cada tanque y sus alertas",
-              caption: "Stock de productos: nivel de cada tanque y sus alertas, incluso cuando un dispositivo está desconectado.",
-            },
-          ],
-        },
-        {
-          title: "Aplicación de despacho para tablet",
           aspect: "aspect-[8/5]",
+          grid: "max-w-3xl",
           images: [
             {
               src: aneloConsola,
               alt: "Pantalla de la app en tablet con el mensaje Acercate a la consola para operar",
-              caption: "Cuando toca operar en la consola, la pantalla lo indica.",
-            },
-            {
-              src: aneloVale,
-              alt: "Pantalla de la app en tablet con el mensaje Generando vale, esto puede tomar unos segundos",
-              caption: "Estado de carga mientras se genera el vale: explica qué está pasando.",
+              caption: "Aplicación de despacho, en la tablet: cuando toca operar en la consola, la pantalla lo indica.",
             },
           ],
         },
@@ -297,6 +297,8 @@ export const experiences: Experience[] = [
     slug: "folcode",
     role: "UX Designer / Product Designer",
     company: "Folcode (now Bridgenext)",
+    aboutTitle: "Qué es Folcode",
+    about: "Folcode, hoy Bridgenext, es la empresa en la que trabajé en proyectos como el sitio institucional, CloudLabs y Respública.",
     period: "Enero 2020 – Marzo 2022",
     bio: [
       "Comencé como Pasante Scrum Master y evolucioné hacia UX/Product Design, liderando procesos para distintos proyectos: relevamiento con stakeholders, flujos, story maps y prototipos de alta fidelidad.",

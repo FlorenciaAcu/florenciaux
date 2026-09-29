@@ -44,7 +44,7 @@ export function DetailHero({ title, tagline, onBack, backLabel, sticker, locatio
           </button>
 
           <div className="relative">
-            <h1 className="max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+            <h1 className="display-section max-w-4xl text-white">
               <span className="relative inline-block">
                 {title}
 

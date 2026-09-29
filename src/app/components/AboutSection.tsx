@@ -20,7 +20,7 @@ const interests: { name: StickerName; label: string; rotate: number }[] = [
 
 export function AboutSection() {
   return (
-    <section id="sobre-mi" className="py-12 lg:py-20 bg-[#fafafa]/90">
+    <section id="sobre-mi" className="py-20 lg:py-36 bg-[#fafafa]/90">
       <div className="max-w-7xl mx-auto px-6">
 
         <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
@@ -32,7 +32,7 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55 }}
-              className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8 tracking-tight"
+              className="display-section text-gray-900 mb-10"
             >
               Sobre mí
             </motion.h2>
@@ -45,13 +45,7 @@ export function AboutSection() {
               className="space-y-5 text-gray-600 text-base leading-relaxed"
             >
               <p>
-                Product Designer con más de 5 años de experiencia en productos digitales, plataformas web, SaaS y MVPs. Trabajo desde la investigación y definición del problema hasta el diseño de flujos, interfaces y prototipos funcionales.
-              </p>
-              <p>
-                Me enfoco en transformar necesidades complejas en soluciones claras, usables y accionables, colaborando con equipos de producto, negocio y tecnología.
-              </p>
-              <p>
-                Uso herramientas de IA —Claude, Figma Make, Lovable— para explorar, prototipar y construir primeras versiones más rápido, sin perder criterio de producto ni viabilidad técnica.
+                Soy Product Designer con más de 5 años de experiencia diseñando plataformas web, aplicaciones y MVPs. Trabajé dentro de equipos de producto y desarrollo, y también como consultora independiente.
               </p>
               <p>
                 Cuando no estoy diseñando, me encontrás nadando, en Pilates o TPA, tomando un mate cocido —acá le decimos "yerbiado"— o pidiendo pizza con papas fritas.

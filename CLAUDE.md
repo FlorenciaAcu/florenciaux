@@ -51,7 +51,8 @@ src/
     data/experiences.ts     contenido de trayectoria
 ```
 
-Rutas: `#/`, `#/proyectos/:slug`, `#/caso/:slug`, `#/trayectoria`, más secciones del home
+Rutas: `#/`, `#/proyectos/:slug` (casos: CEMICO, Buscador Agrícola, Juan Gas, Audagno, InfoCasas),
+`#/experiencia/:slug` (experiencia laboral: Cintelink, Consultoría, Folcode), más secciones del home
 (`#/sobre-mi`, `#/proyectos`, `#/servicios`, `#/experiencia`, `#/contacto`).
 
 ## Reglas del proyecto

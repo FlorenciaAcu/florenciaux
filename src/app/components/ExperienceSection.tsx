@@ -19,12 +19,12 @@ export function ExperienceSection() {
   });
 
   const navigateTo = (slug: string) => {
-    window.location.hash = `#/proyectos/${slug}`;
+    window.location.hash = `#/experiencia/${slug}`;
     setTimeout(() => window.scrollTo(0, 0), 100);
   };
 
   return (
-    <section id="experiencia" className="py-12 lg:py-20 bg-[#fafafa]/90">
+    <section id="experiencia" className="py-20 lg:py-36 bg-[#fafafa]/90">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -33,7 +33,7 @@ export function ExperienceSection() {
           transition={{ duration: 0.55 }}
           className="mb-5"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight">
+          <h2 className="display-section text-gray-900">
             Experiencia
           </h2>
         </motion.div>
@@ -42,7 +42,7 @@ export function ExperienceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-lg text-gray-600 leading-relaxed mb-8 lg:mb-12"
+          className="lead text-gray-600 max-w-3xl mb-14 lg:mb-20"
         >
           Más de cinco años trabajando en equipos de producto, consultando con clientes de distintas industrias y construyendo desde el problema hasta la solución.
         </motion.p>
@@ -60,7 +60,7 @@ export function ExperienceSection() {
             {experiences.map((exp, i) => (
               <motion.a
                 key={exp.slug}
-                href={`#/proyectos/${exp.slug}`}
+                href={`#/experiencia/${exp.slug}`}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}

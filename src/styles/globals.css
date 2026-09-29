@@ -323,3 +323,48 @@ html.custom-cursor-active * {
 html {
   font-size: var(--font-size);
 }
+
+/* Display type: hierarchy by SIZE, not by weight. Big, light, tightly tracked (the "Apple" feel). */
+.display-hero {
+  font-size: clamp(3.25rem, 9vw, 7.5rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  font-weight: 300;
+}
+.display-section {
+  font-size: clamp(2.5rem, 6vw, 4.75rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-weight: 300;
+}
+.display-block {
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+}
+.lead {
+  font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+  line-height: 1.45;
+  font-weight: 300;
+}
+.hero-title {
+  font-size: clamp(2.75rem, 5.8vw, 5.25rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 300;
+}
+
+/* Only two typefaces on the whole site: Space Grotesk (display and "code" details) and IBM Plex Sans (text).
+   The monospace utility used by the code toggle and the process input/output maps to Space Grotesk instead of a system font. */
+.font-mono {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Weight scale for IBM Plex Sans, one step lighter so the text matches the light display type:
+   running text 300 (small text keeps 400 to stay readable), "medium" 400, "semibold/bold" 500. */
+body { font-weight: 300; }
+.text-xs, .text-sm, .text-\[11px\], .text-\[13px\] { font-weight: 400; }
+.font-medium { font-weight: 400 !important; }
+.font-semibold, .font-bold { font-weight: 500 !important; }

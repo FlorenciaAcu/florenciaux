@@ -3,7 +3,7 @@ import { Footer } from "./Footer";
 import { DetailHero } from "./DetailHero";
 import { detailSticker } from "./Stickers";
 import { ClosingCTA } from "./ClosingCTA";
-import { CaseStudyDetails, CaseStudyLearned, ExperienceIntro } from "./CaseStudyBlocks";
+import { buildOutline, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro } from "./CaseStudyBlocks";
 import { getProjectBySlug } from "../data/projects";
 import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
@@ -39,9 +39,12 @@ export function CaseStudyPage({ slug }: Props) {
   };
 
   const handleBackToProjects = () => {
-    window.location.hash = "#/trayectoria";
+    window.location.hash = "#/proyectos";
     setTimeout(() => window.scrollTo(0, 0), 100);
   };
+
+  // Every case gets the sticky "on this page" index.
+  const outline = project?.caseStudy ? buildOutline(project.caseStudy) : null;
 
   if (!project) {
     return (
@@ -81,10 +84,19 @@ export function CaseStudyPage({ slug }: Props) {
 
         {project.caseStudy ? (
           /* Same structure as the experience pages: "Mi trabajo" first, then the case blocks. */
-          <div className="max-w-7xl mx-auto px-6 py-12 space-y-12 lg:space-y-16">
-            <ExperienceIntro data={project.caseStudy} period={project.duration ?? ""} intro={project.roleIntro ?? []} />
-            <CaseStudyDetails data={project.caseStudy} />
-            <CaseStudyLearned data={project.caseStudy} />
+          <div className={`max-w-7xl mx-auto px-6 pt-12 pb-28 lg:pb-44 ${outline ? "lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14" : ""}`}>
+            {outline && (
+              <aside className="hidden lg:block">
+                <div className="sticky top-28">
+                  <CaseOutline items={outline} />
+                </div>
+              </aside>
+            )}
+            <div className="min-w-0 space-y-20 lg:space-y-32">
+              <ExperienceIntro data={project.caseStudy} period={project.duration ?? ""} intro={project.roleIntro ?? []} />
+              <CaseStudyDetails data={project.caseStudy} />
+              <CaseStudyLearned data={project.caseStudy} />
+            </div>
           </div>
         ) : (
           <>

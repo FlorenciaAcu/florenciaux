@@ -1,7 +1,11 @@
 import type { CaseStudy } from "./experiences";
 import buscadorHome from "../../imports/buscador-home.jpg";
-import buscadorListado from "../../imports/buscador-listado-empresas.jpg";
 import buscadorPerfil from "../../imports/buscador-perfil-empresa.jpg";
+import juangasQrEnEstacion from "../../imports/juangas-qr-en-estacion.jpg";
+import juangasCartelQr from "../../imports/juangas-cartel-qr.png";
+import juangasConsultaMobile from "../../imports/juangas-consulta-mobile.png";
+import audagnoDesktopHome from "../../imports/audagno-desktop-home.jpg";
+import audagnoDesktopContacto from "../../imports/audagno-desktop-contacto.jpg";
 
 export interface ProjectDetail {
   /** Full case written from the designer's perspective. Projects without it use the placeholder layout. */
@@ -21,7 +25,7 @@ export interface ProjectDetail {
   role: string;
   description: string;
   tags: string[];
-  year: string;
+  year?: string;
   imageCount: number;
 }
 
@@ -44,28 +48,34 @@ export const projects: ProjectDetail[] = [
     location: "Neuquén, Argentina",
     website: { label: "portalsalud.grupocemico.com.ar", url: "https://portalsalud.grupocemico.com.ar/#/auth/login" },
     caseStudy: {
-      highlights: [
-        { label: "Rol", text: "Product Designer" },
-        { label: "Qué diseñé", text: "Productos digitales para pacientes, personal de admisión, colaboradores y auditores externos, dentro del ecosistema de Grupo CEMICO." },
-        { label: "Lo más importante", text: "Entender cómo lo digital forma parte de una experiencia de salud que también sucede fuera de la pantalla." },
+      designed: [
+        "Un Design System compartido.",
+        "El Anunciador de Pacientes.",
+        "La Auditoría Médica Externa.",
+        "El Portal del Paciente.",
+        "El Portal Institucional.",
+      ],
+      meta: [
+        { label: "Rol", value: "Product Designer" },
+        { label: "Industria", value: "Salud" },
       ],
       aboutTitle: "Qué es CEMICO",
       about:
         "CEMICO es un grupo de clínicas de Neuquén, Argentina, que reúne distintos productos digitales dentro de su ecosistema de salud. Conviven ahí perfiles muy distintos: pacientes, personal de admisión y recepción, colaboradores internos y auditores médicos externos de obras sociales y prepagas.",
       challengeTitle: "El desafío",
       challenge:
-        "En CEMICO, la experiencia no termina en la interfaz. Muchos de los productos digitales forman parte de servicios que continúan dentro de las clínicas, en los que participan pacientes, personal de admisión, profesionales y otras áreas.\n\nPor eso, al diseñar estos productos fue necesario considerar no solamente qué sucede en pantalla, sino también qué ocurre antes, durante y después de cada interacción digital. Un turno termina en una atención presencial, una llegada a la clínica conecta un tótem con Admisión y una sala de espera, y distintos procesos clínicos y administrativos generan la información que después aparece en las interfaces.",
+        "En CEMICO, la experiencia no termina en la interfaz. Muchos de los productos digitales forman parte de servicios que continúan dentro de las clínicas, en los que participan pacientes, personal de admisión, profesionales y otras áreas.\n\nPor eso hubo que considerar qué ocurre antes, durante y después de cada interacción digital: un turno termina en una atención presencial, y la llegada a la clínica conecta un tótem con Admisión y una sala de espera.",
       roleTitle: "Mi trabajo",
       role: [
-        "Product Designer en cinco frentes del ecosistema: Design System, Anunciador de Pacientes, Auditoría Médica Externa, Portal del Paciente y Portal Institucional.",
-        "Arquitectura de información, flujos y definición de estados para cada producto.",
-        "Documentación funcional para acompañar la implementación: comportamientos, reglas, estados y mensajes del sistema.",
-        "Prototipos funcionales y navegables con Figma Make, publicados para que pudieran recorrerse y probarse antes de la implementación.",
+        "Definí la arquitectura de información, los flujos y los estados de cada producto.",
+        "Documenté el funcionamiento para acompañar la implementación: comportamientos, reglas, estados y mensajes del sistema.",
+        "Preparé manuales y guías de uso para distintos perfiles, incluyendo personal de Admisión, pacientes y colaboradores.",
+        "Construí prototipos funcionales y navegables con Figma Make, publicados para que pudieran recorrerse y probarse antes de la implementación.",
       ],
       decisionsEyebrow: "Decisiones de diseño",
       decisionsTitle: "Diseñar para un mismo ecosistema, con contextos muy distintos",
       decisionsIntro:
-        "CEMICO reúne productos para pacientes, personal de admisión, colaboradores y auditores externos. Estas son algunas de las preguntas que me hice al diseñarlos.",
+        "Estas son algunas de las preguntas que me hice al diseñar estos productos.",
       decisions: [
         {
           icon: "physical",
@@ -96,9 +106,11 @@ export const projects: ProjectDetail[] = [
         { label: "Auditoría Médica Externa", url: "https://modulo-auditoria-externa.figma.site" },
       ],
       result: {
-        title: "Resultado",
-        text: "De este trabajo salieron un Design System compartido, los flujos y las interfaces del Anunciador de Pacientes, de la Auditoría Médica Externa y del Portal del Paciente, además de la documentación funcional que acompañó su implementación —comportamientos, estados, reglas y mensajes del sistema— y manuales y guías para quienes iban a usar cada producto.",
+        title: "Qué quedó definido",
+        text: "El trabajo dejó definida una base común para los distintos productos, junto con los flujos, los estados y los comportamientos de cada experiencia. Esas definiciones quedaron documentadas para acompañar su implementación, y los prototipos permitieron recorrer varias de ellas antes de implementarlas.",
       },
+      learned:
+        "Aprendí a diseñar productos digitales de salud entendiendo que la experiencia no termina en la pantalla, sino que continúa en distintos momentos del servicio presencial.",
     },
   },
   {
@@ -123,28 +135,28 @@ export const projects: ProjectDetail[] = [
     caseStudy: {
       learned:
         "Aprendí a diseñar un marketplace para una industria específica, donde entender cómo se organiza y se busca la oferta es parte central de la experiencia.",
-      highlights: [
-        { label: "Rol", text: "Product Designer" },
-        { label: "Qué diseñé", text: "La búsqueda y la navegación, las fichas de producto y el flujo de contacto con el proveedor." },
-        { label: "Lo más importante", text: "Facilitar la búsqueda y el contacto entre quienes buscan y quienes ofrecen." },
+      meta: [
+        { label: "Rol", value: "Product Designer" },
+        { label: "Industria", value: "Agtech" },
+        { label: "Duración", value: "2 meses" },
+        { label: "Para", value: "Agro360" },
       ],
       aboutTitle: "Qué es Buscador Agrícola",
       about:
-        "Buscador Agrícola es un marketplace especializado en el sector agrícola chileno: reúne en un solo lugar productos, insumos, semillas, maquinaria, servicios y terrenos.\n\nEstá pensado para quienes necesitan encontrar oferta especializada —como productores, proveedores y profesionales del sector— y para quienes la ofrecen. Fue un MVP para Agro360, una organización chilena vinculada al sector agrícola.",
-      challengeTitle: "El problema",
+        "Buscador Agrícola es un marketplace especializado en el sector agrícola chileno: reúne en un solo lugar productos, insumos, semillas, maquinaria, servicios y terrenos.\n\nFue un MVP para Agro360, una organización chilena vinculada al sector agrícola, pensado para quienes buscan oferta especializada y para quienes la ofrecen.",
       challenge:
-        "La oferta estaba dispersa y no había un espacio común y especializado donde buscar productos, insumos, maquinaria, servicios y otras soluciones del agro con criterios propios del sector, como categoría, cultivo o ubicación. El desafío fue diseñar una experiencia de búsqueda para esa oferta amplia y especializada.",
+        "La oferta estaba dispersa y no había un espacio común y especializado donde buscar productos, insumos, maquinaria, servicios y otras soluciones del agro con criterios propios del sector, como categoría, cultivo o ubicación. Había que diseñar una experiencia de búsqueda para esa oferta amplia y especializada.",
       roleTitle: "Mi trabajo",
       role: [
-        "Arquitectura de información, búsqueda y navegación.",
-        "Categorías y filtros por cultivo y ubicación, y resultados en listado y en mapa.",
-        "Fichas de productos y perfil de las empresas.",
-        "Pantalla y flujo de contacto con el proveedor.",
+        "Diseñé la arquitectura de información, la búsqueda y la navegación.",
+        "Diseñé las categorías y los filtros por cultivo y ubicación, y los resultados en listado y en mapa.",
+        "Diseñé las fichas de producto y el perfil de las empresas.",
+        "Diseñé la pantalla y el flujo de contacto con el proveedor.",
       ],
       decisionsEyebrow: "Decisiones de diseño",
       decisionsTitle: "Un mismo buscador para una oferta muy distinta",
       decisionsIntro:
-        "Buscador Agrícola reúne productos, maquinaria, servicios y terrenos en una misma plataforma. Estas son algunas de las preguntas que me hice al diseñarlo.",
+        "Estas son algunas de las preguntas que me hice al diseñarlo.",
       decisions: [
         {
           icon: "discovery",
@@ -162,41 +174,27 @@ export const projects: ProjectDetail[] = [
           text: "El producto necesitaba captar e identificar tanto la demanda como la oferta, así que parte de la información del proveedor se muestra recién al registrarse. Mi trabajo fue resolver desde UX cómo incorporar el registro dentro del recorrido hacia el contacto, sin perder de vista que la persona había llegado para encontrar una solución.",
         },
       ],
-      decisionsImage: {
+      cover: {
         src: buscadorHome,
-        alt: "Home de Buscador Agrícola: buscador principal, empresas, categorías destacadas y últimos productos agregados",
+        alt: "Home de Buscador Agrícola: el buscador, empresas, categorías destacadas y los últimos productos agregados",
         caption: "Home: el buscador es lo primero; debajo, empresas, categorías destacadas y los últimos productos agregados.",
       },
-      screensTitle: "Algunas pantallas",
       screenGroups: [
         {
-          title: "Listado de empresas",
-          aspect: "aspect-[1200/747]",
-          grid: "max-w-5xl",
-          images: [
-            {
-              src: buscadorListado,
-              alt: "Listado de empresas de Buscador Agrícola, con un buscador por nombre, filtros por categoría y región de cobertura y una grilla de empresas con su logo",
-              caption: "Se puede buscar por nombre y filtrar por categoría y región de cobertura.",
-            },
-          ],
-        },
-        {
-          title: "Perfil de una empresa",
           aspect: "aspect-[1200/1167]",
           grid: "max-w-5xl",
           images: [
             {
               src: buscadorPerfil,
               alt: "Perfil de una empresa en Buscador Agrícola: información y ubicación, botón de contacto, filtros y los productos que ofrece",
-              caption: "Su información, ubicación y cobertura, el acceso al contacto y los productos que ofrece, con filtros por categoría, estado y región.",
+              caption: "Perfil de una empresa: su información, ubicación y cobertura, el acceso al contacto y los productos que ofrece, con filtros por categoría, estado y región.",
             },
           ],
         },
       ],
-      prototypesTitle: "Antes del lanzamiento",
+      prototypesTitle: "Prototipos",
       prototypesNote:
-        "Antes del lanzamiento del MVP, construí esta landing con Figma Make para presentar la propuesta y captar interés mientras se desarrollaba el producto.",
+        "Mientras se desarrollaba el MVP, construí esta landing con Figma Make para presentar la propuesta y captar interés.",
       prototypes: [{ label: "Waitlist de Buscador Agrícola", url: "https://buscadoragricolacl.figma.site" }],
       result: {
         title: "Resultado",
@@ -207,34 +205,300 @@ export const projects: ProjectDetail[] = [
   {
     slug: "juan-gas-gnc",
     name: "Juan Gas GNC Club",
-    tagline: "Diseñé e implementé JuanGas GNC Club, un sistema de fidelización que automatiza la gestión de puntos y permite a los clientes consultar su saldo ingresando la patente de su vehículo, integrándose con el sistema que ya utilizaba la estación.",
+    tagline: "Diseñé e implementé la consulta de puntos de Juan Gas GNC Club, conectando la experiencia digital con los datos que ya existían en la estación.",
     context:
-      "Juan Gas GNC Club es una iniciativa de fidelización de una estación de servicio de GNC. Los clientes recurrentes cargaban combustible frecuentemente pero no tenían visibilidad de los beneficios acumulados ni una forma de acceder a ellos fácilmente. La oportunidad era crear un primer producto digital que acercara esa información y fortaleciera la relación entre la estación y sus clientes.",
+      "Juan Gas GNC Club es el programa de fidelización de Juan Gas GNC, una estación de servicio de San Juan, Argentina. Los clientes acumulan puntos por cada carga y los canjean por premios; los puntos no vencen.",
     sector: "Combustible",
     challenge:
-      "El negocio necesitaba una solución simple, funcional y rápida de implementar. No era el momento para una plataforma compleja: era el momento para un MVP claro que resolviera lo esencial — consultar saldo, entender beneficios y sentir que el programa tiene valor — sin fricción.",
-    role: "Product Designer. Trabajé en la definición del alcance del MVP, los flujos principales, el diseño de interfaz y el prototipado para validar que fuera clara y usable por el perfil de usuarios reales.",
+      "El Club ya existía, pero los clientes no tenían una forma simple de consultar sus puntos, y esa información vivía en una herramienta interna de la estación, no en algo pensado para que la vieran ellos.",
+    role: "Product Designer. Diseñé la experiencia de consulta, y también implementé la integración de datos y la aplicación web.",
     description:
-      "Opté por una interfaz muy simple y directa: pocas pantallas, jerarquía clara, lenguaje cercano. El saldo debía ser lo primero que el usuario ve. Los beneficios debían explicarse en lenguaje cotidiano, no técnico. La experiencia funciona bien en mobile, dado que la mayoría de los clientes accederían desde el celular.",
-    tags: ["MVP", "Fidelización", "UX/UI", "Service Design"],
+      "Diseñé una consulta de saldo por patente, pensada para mobile y con acceso por QR desde la estación, y desarrollé la integración que conecta esa consulta con los datos existentes del negocio.",
+    tags: ["MVP", "Fidelización", "Product Design", "Implementación"],
     year: "2025",
     imageCount: 2,
+    location: "San Juan, Argentina",
+    website: { label: "juangasgnc.vercel.app", url: "https://juangasgnc.vercel.app/" },
+    duration: "2 semanas",
+    caseStudy: {
+      learned:
+        "Aprendí a llevar una solución desde el diseño hasta su implementación, entendiendo también cómo conectar la experiencia con los datos y herramientas que ya utilizaba el negocio.",
+      meta: [
+        { label: "Rol", value: "Product Designer" },
+        { label: "Industria", value: "Combustible" },
+        { label: "Duración", value: "2 semanas" },
+      ],
+      aboutTitle: "Qué es Juan Gas GNC Club",
+      about:
+        "Juan Gas GNC es una estación de servicio de GNC en San Juan, Argentina. Juan Gas GNC Club es su programa de fidelización: los clientes acumulan puntos por cada carga de GNC y los canjean por premios. Los puntos no vencen, y la patente del vehículo funciona como identificador para consultar el saldo.",
+      challengeTitle: "El desafío",
+      challenge:
+        "El Club ya existía, pero los clientes no tenían una forma simple de consultar sus puntos: esa información estaba en Microsoft Access, una herramienta interna de la estación. Había que llevar esos datos existentes a una experiencia que el cliente pudiera consultar por sí mismo, desde el celular y con la menor cantidad de pasos.",
+      roleTitle: "Mi trabajo",
+      role: [
+        "En este proyecto trabajé desde UX/UI hasta la implementación: diseño de la experiencia, integración de datos y despliegue del producto.",
+        "Diseñé la experiencia de consulta de saldo: el flujo, la interfaz y una experiencia pensada para mobile.",
+        "Desarrollé un script en Python que sincroniza la información de Microsoft Access con Google Sheets, la fuente que consulta la web.",
+        "Desplegué la aplicación web.",
+        "Diseñé la cartelería con el código QR que se ubica en la estación, para que los clientes accedan rápido a la web.",
+      ],
+      decisionsEyebrow: "Decisiones de diseño",
+      decisionsTitle: "Del diseño a una solución funcionando",
+      decisionsIntro:
+        "Estas son algunas de las preguntas que me hice para llevarlo a una experiencia digital.",
+      decisions: [
+        {
+          icon: "data",
+          title: "¿Cómo consultar un dato que ya vivía en otro sistema?",
+          text: "La estación ya tenía la información de sus clientes en Microsoft Access. Para no partir de cero, desarrollé un script en Python que sincroniza esos datos con Google Sheets, y la web consulta esa fuente cuando alguien ingresa su patente.",
+        },
+        {
+          icon: "physical",
+          title: "¿Cómo diseñar una consulta con la menor fricción posible?",
+          text: "Diseñé la experiencia para resolver una sola acción —consultar el saldo— con el menor número de pasos: ingresar, escribir la patente y ver el saldo. Pensada principalmente para mobile, con acceso mediante códigos QR ubicados en la estación.",
+        },
+      ],
+      decisionsImage: {
+        src: juangasQrEnEstacion,
+        alt: "Pilar de la estación de servicio con un cartel que dice «Escaneá y consultá tu saldo» y un código QR, junto al surtidor de GNC",
+        caption: "La cartelería con el código QR, ubicada en la estación junto al surtidor.",
+      },
+      screenGroups: [
+        {
+          aspect: "aspect-[591/838]",
+          grid: "grid-cols-2 max-w-xl",
+          images: [
+            {
+              src: juangasConsultaMobile,
+              alt: "Pantalla de consulta de saldo vista desde el navegador del celular: «Consultá el saldo», un campo para ingresar la patente sin espacios y el botón Consultar",
+              caption: "Consulta Saldo: un campo para la patente y un botón.",
+            },
+            {
+              src: juangasCartelQr,
+              alt: "Cartel «Escaneá y consultá tu saldo» de Juan Gas GNC Club con un código QR y la dirección de la web",
+              caption: "Cartel con el código QR que lleva a la web de Consulta Saldo.",
+            },
+          ],
+        },
+      ],
+      result: {
+        title: "Resultado",
+        text: "La solución quedó implementada y en funcionamiento. Los clientes pueden acceder desde la web o escaneando el QR en la estación, ingresar su patente y consultar su saldo de puntos.",
+      },
+    },
   },
   {
     slug: "juan-audagno",
     name: "AUDAGNO – Abogado",
-    tagline: "Diseñé y desarrollé el sitio web de este estudio jurídico en La Plata: diseño UX, identidad visual digital, SEO local, integración con WhatsApp, formularios de consulta y herramientas de medición para fortalecer su presencia online y generar nuevas consultas.",
+    tagline: "Sitio web profesional para un estudio jurídico, diseñado e implementado de punta a punta.",
     context:
-      "Juan Audagno es un abogado que necesitaba una presencia digital profesional para presentar sus servicios, generar confianza y facilitar el contacto con potenciales clientes. No tenía sitio web propio y su posicionamiento dependía de referencias personales.",
+      "AUDAGNO – Abogado es el sitio web de un abogado de La Plata que trabaja, entre otras áreas, derecho laboral, civil y penal.",
     sector: "Legal",
-    challenge:
-      "Comunicar servicios legales de forma clara, accesible y confiable, sin caer en un tono frío o corporativo. Los potenciales clientes necesitan entender qué hace, cómo pueden contactarlo y sentir que están en buenas manos — todo en pocos segundos.",
-    role: "Product Designer. Definí la estructura de contenido, jerarquía visual, identidad sobria y revisé el lenguaje para hacerlo profesional pero accesible.",
-    description:
-      "Diseñé un sitio en una sola página con scroll fluido, donde el CTA de contacto aparece en múltiples puntos estratégicos sin ser invasivo. La paleta neutra y la tipografía clara transmiten seriedad sin rigidez.",
-    tags: ["Web institucional", "Legal", "Conversión", "UX/UI"],
-    year: "2024",
-    imageCount: 2,
+    challenge: "Presentar sus servicios y ofrecer vías claras para realizar una consulta.",
+    role: "Product Designer. Diseñé e implementé el sitio.",
+    description: "Sitio web con formulario de consulta y contacto por WhatsApp, publicado en audagnoabogado.com.",
+    tags: ["Sitio web", "Legal", "UX/UI", "Implementación"],
+    year: "2026",
+    imageCount: 0,
+    location: "La Plata, Buenos Aires, Argentina",
+    website: { label: "audagnoabogado.com", url: "https://audagnoabogado.com" },
+    duration: "2 semanas",
+    caseStudy: {
+      meta: [
+        { label: "Rol", value: "Product Designer" },
+        { label: "Industria", value: "Legal" },
+        { label: "Duración", value: "2 semanas" },
+      ],
+      aboutTitle: "Qué es AUDAGNO – Abogado",
+      about:
+        "AUDAGNO – Abogado es el sitio web de un abogado de La Plata que trabaja, entre otras áreas, derecho laboral, civil y penal.",
+      challenge: "El objetivo fue presentar los servicios del estudio y ofrecer vías claras para realizar una consulta.",
+      roleTitle: "Mi trabajo",
+      role: [
+        "Definí la estructura y la jerarquía del contenido, para que se entienda rápido quién es el profesional, qué áreas trabaja y cómo contactarlo.",
+        "Diseñé la interfaz y definí la propuesta visual del sitio, trabajando con azul navy y dorado, serif en títulos y sans serif en textos.",
+        "Diseñé el acceso a WhatsApp, con un botón flotante siempre disponible, y el formulario de consulta.",
+        "Diseñé el sitio para que funcione bien en mobile y desktop.",
+        "Implementé el sitio y lo publiqué en audagnoabogado.com.",
+        "La primera versión la entregué en una semana; el resto del tiempo fueron ajustes.",
+      ],
+      cover: {
+        src: audagnoDesktopHome,
+        alt: "Inicio del sitio de AUDAGNO – Abogado en desktop: título, texto de presentación, botones para agendar una consulta y contactar por WhatsApp, y una foto del profesional",
+        caption: "Inicio: presentación del estudio y accesos directos a la consulta y a WhatsApp.",
+      },
+      screenGroups: [
+        {
+          aspect: "aspect-[1440/900]",
+          grid: "max-w-5xl",
+          images: [
+            {
+              src: audagnoDesktopContacto,
+              alt: "Sección de contacto en desktop: datos del estudio a la izquierda y formulario de consulta a la derecha, con el botón flotante de WhatsApp",
+              caption: "Contacto: datos del estudio, formulario de consulta y botón flotante de WhatsApp.",
+            },
+          ],
+        },
+      ],
+      result: {
+        title: "Resultado",
+        text: "El sitio está publicado en audagnoabogado.com. El contacto por WhatsApp está activo y el formulario funciona: las consultas se procesan con Cloudflare Workers y llegan por correo, con la configuración de correo del dominio incluida.",
+      },
+    },
+  },
+  {
+    slug: "infocasas",
+    name: "InfoCasas",
+    tagline: "Diseñé flujos de suscripciones, planes y publicaciones para la plataforma web y la app, como Product Designer para HitOcean.",
+    context:
+      "InfoCasas es una plataforma inmobiliaria uruguaya para buscar y publicar propiedades, con presencia en distintos mercados de Latinoamérica.",
+    sector: "Real estate",
+    challenge: "Diseñar cambios sobre un producto que ya estaba en evolución.",
+    role: "Product Designer, para HitOcean.",
+    description: "Flujos de suscripciones, planes, publicaciones y gestión de inmuebles, en la plataforma web y la app.",
+    tags: ["Real estate", "Suscripciones", "UX/UI"],
+    imageCount: 0,
+    location: "Uruguay",
+    website: { label: "infocasas.com.uy", url: "https://www.infocasas.com.uy/" },
+    caseStudy: {
+      meta: [
+        { label: "Rol", value: "Product Designer" },
+        { label: "Trabajé para", value: "HitOcean" },
+        { label: "Industria", value: "Real estate" },
+        { label: "Plataformas", value: "Web y app" },
+      ],
+      aboutTitle: "Qué es InfoCasas",
+      about:
+        "InfoCasas es una plataforma inmobiliaria uruguaya para buscar y publicar propiedades, con presencia en distintos mercados de Latinoamérica.\n\nElegí contar tres de las funcionalidades en las que trabajé, relacionadas con monetización y gestión de suscripciones.",
+      roleTitle: "Mi trabajo",
+      challenge: "Diseñar cambios sobre un producto que ya estaba en evolución: cada nueva solución tenía que convivir con reglas, estados y flujos que ya formaban parte del producto.",
+      roleLabel: "Cómo trabajé",
+      role: [
+        "El proceso era iterativo: proponía alternativas, las revisábamos con el equipo y ajustaba flujos e interfaces a partir del feedback.",
+      ],
+      features: [
+        {
+          title: "Productos sueltos",
+          context:
+            "Productos sueltos permitía adquirir un producto o promoción para un inmueble de manera puntual, cuando los cupos incluidos en el plan no alcanzaban.",
+          given: [
+            "Un producto que viene del plan usa un cupo y puede removerse o reasignarse.",
+            "Un producto comprado individualmente es una compra puntual: queda asociado a esa compra y no se remueve ni se reasigna de la misma manera.",
+            "Los productos eran Destacado Black, Gold y Silver, Impulso (Bump) y Etiqueta. Bump se bloqueaba durante 24 horas después de usarlo.",
+          ],
+          did: [
+            "Trabajé sobre Administrar inmuebles: cómo acceder a estos productos, cómo aplicarlos y cómo se representan en cada inmueble.",
+            "En una de las primeras exploraciones separé un «Asignar productos» genérico en tres intenciones más claras: Destacar, Impulsar y Etiquetar.",
+            "Diseñé las cards de Black, Gold y Silver con una misma estructura para poder compararlas: nombre, disponibilidad según cupos, duración, beneficios, estado y CTA.",
+            "El CTA cambiaba según la disponibilidad: con cupo, aplicar el producto; sin cupo, ir a la compra individual.",
+            "Después de aplicar un producto, la acción no desaparecía: el inmueble tenía que dejar ver qué extras tenía activos y sus vencimientos, y diferenciar los del plan de las compras individuales.",
+          ],
+          evolution: [
+            {
+              title: "Una exploración más estructural",
+              text: "La primera propuesta introducía cambios más profundos en Administrar inmuebles. Los estados se mostraban con badges cargados de información, y esa representación no funcionaba visualmente.",
+            },
+            {
+              title: "Feedback y restricciones",
+              text: "Apareció una restricción importante: preservar la interfaz existente y no modificar flujos que ya funcionaban cuando no era necesario.",
+            },
+            {
+              title: "Integración sobre lo existente",
+              text: "La solución se volvió más contenida: chips más compactos debajo de cada inmueble, para que el listado siguiera siendo fácil de escanear.",
+            },
+          ],
+          learned:
+            "Trabajar con productos que podían provenir del plan o de una compra individual me obligó a entender primero sus estados y reglas antes de resolver cómo mostrarlos en la interfaz. También confirmé que mostrar más información no necesariamente mejora la comprensión: una primera solución cargaba demasiado los estados y terminó en una representación más simple y escaneable.",
+        },
+        {
+          title: "Self-service Upselling",
+          context:
+            "El objetivo era que una cuenta pudiera mejorar su plan por sí misma, especialmente cuando los cupos disponibles ya no acompañaban su uso.",
+          given: [
+            "El upselling no debía interrumpir la tarea principal: si alguien se quedaba sin cupos en medio de una publicación, la publicación no se bloqueaba y la mejora podía ofrecerse después.",
+            "Los planes eran Esencial, Avanzado y Elite; los cupos eran configurables y el ciclo podía ser mensual o anual.",
+            "El checkout tenía que reutilizar patrones existentes y mostrar con claridad el plan, la cantidad de cupos y el ciclo de facturación.",
+          ],
+          did: [
+            "Diseñé el flujo «Mejorar mi plan»: configuración de cupos, comparación y selección de planes, y elección entre modalidad mensual y anual.",
+            "Diseñé los estados de las cards de plan: plan actual, recomendado y seleccionado.",
+            "Diseñé el checkout, con el plan, los cupos y el ciclo a la vista.",
+            "Exploré distintos puntos de entrada al upgrade: en el Dashboard, un banner, una card adicional y un mensaje contextual sobre el rendimiento, que después se unificaron en una solución más integrada dentro de Vista rápida; también, entradas desde Administrar inmuebles.",
+          ],
+          options: {
+            title: "Cuatro modelos de interacción",
+            intro:
+              "Para resolver la configuración de plan y cupos exploré cuatro modelos de interacción distintos. No eran cuatro variaciones visuales: eran cuatro formas diferentes de resolver la interacción.",
+            items: [
+              { title: "Privy", text: "Un dropdown combinado con un slider." },
+              { title: "Aircall", text: "Una combinación de toggle e input." },
+              { title: "Zendesk", text: "Un enfoque más cercano a una tabla de comparación." },
+              { title: "Modern", text: "El slider con más protagonismo." },
+            ],
+          },
+          evolution: [
+            { title: "Cuatro alternativas", text: "Revisé las cuatro propuestas con el equipo." },
+            { title: "Dos alternativas", text: "Después de esa revisión continuaron dos: Aircall y Modern." },
+            {
+              title: "Una variante refinada",
+              text: "Trabajé sobre una Variante 2: tabs tipo pill para Mensual y Anual, slider discreto, representación de los cupos y una recomendación asociada al nivel de cupos. La arquitectura se consolidó alrededor de tier + cupos, dos dimensiones relacionadas pero distintas: el plan y la capacidad.",
+            },
+          ],
+          learned:
+            "Explorar distintos modelos de interacción antes de converger me permitió comparar soluciones concretas con el equipo y refinar la configuración de a poco. Trabajar el upselling dentro de una tarea existente me ayudó a pensar cómo incorporar una necesidad comercial sin desplazar la acción principal que la persona estaba intentando completar.",
+        },
+        {
+          title: "Self-service Churn Prevention",
+          context:
+            "El requerimiento incluía un flujo de cancelación con distintas instancias de retención antes de completar la baja.",
+          given: [
+            "Las condiciones comerciales y la estrategia de retención venían definidas por el negocio.",
+            "Una suscripción cancelada podía seguir activa hasta la fecha ya abonada.",
+          ],
+          did: [
+            "Diseñé el flujo de cancelación y la jerarquía de la acción «Cancelar suscripción».",
+            "Diseñé los estados posteriores de la suscripción, incluido el detalle de un plan cancelado.",
+            "Diseñé la reactivación: método de pago, resumen y consistencia del flujo con los componentes existentes.",
+            "Redacté el microcopy de todo el flujo.",
+            "«Cancelar suscripción» quedó como acción secundaria dentro de un menú de tres puntos, para que no compitiera con acciones principales como mejorar el plan. Cuando la suscripción está cancelada, reactivar gana relevancia.",
+            "Reactivar no abre un modal: lleva a una pantalla completa con el plan y la modalidad anteriores, el método de pago, el resumen, el total, la renovación automática, los términos y los indicadores de seguridad. Reutilicé las tarjetas de métodos de pago y mantuve la posibilidad de «Mejorar mi plan» en lugar de reactivar el mismo.",
+          ],
+          options: {
+            title: "Tres estados de la suscripción",
+            items: [
+              {
+                title: "Activa",
+                text: "El detalle normal del plan. Cancelar tiene menos prominencia que acciones principales como mejorar el plan.",
+              },
+              {
+                title: "Cancelada pero todavía vigente",
+                text: "Reutilicé el layout del Detalle de plan para comunicar que la suscripción está cancelada, que sigue activa hasta una fecha y que después se pierde el acceso a las funciones premium. Desde este estado se puede reactivar.",
+              },
+              {
+                title: "Expirada o sin plan activo",
+                text: "Se comunica que ya no hay un plan activo ni acceso premium. La posibilidad de reactivar sigue disponible.",
+              },
+            ],
+          },
+          evolution: [
+            {
+              title: "Un flujo de baja",
+              text: "La primera estructura iba de la cancelación a distintas instancias de retención, la encuesta y la confirmación. Después se ajustó para confirmar la intención de cancelar antes de mostrar las alternativas de retención, y se trabajó el microcopy de la encuesta, que sonaba demasiado duro.",
+            },
+            {
+              title: "Un escenario que faltaba",
+              text: "Durante las revisiones apareció un escenario que todavía no estaba contemplado: la reactivación.",
+            },
+            {
+              title: "El ciclo de vida de la suscripción",
+              text: "El trabajo pasó de resolver una baja a resolver qué le ocurre a la suscripción antes, durante y después de cancelarla.",
+            },
+          ],
+          learned:
+            "Este trabajo me ayudó a pensar el ciclo de vida completo de una suscripción: resolver la cancelación no era suficiente, porque durante las revisiones aparecieron estados posteriores que también necesitaban una respuesta dentro del producto. También aprendí que «cancelada» y «sin acceso» no siempre significan lo mismo: una suscripción podía estar cancelada y seguir vigente hasta una fecha, y esa diferencia tenía que quedar clara en la experiencia.",
+        },
+      ],
+    },
   },
 ];
 

@@ -175,6 +175,18 @@ const art: Record<string, ReactNode> = {
       <path d="M37 34 Q38 28 44 26" fill="none" stroke="#fff" strokeWidth={3.5} opacity={0.8} />
     </g>
   ),
+  house: (
+    <g {...line}>
+      <rect x="66" y="20" width="10" height="20" fill="#c8ccd6" />
+      <rect x="18" y="46" width="64" height="42" fill="#ffe8cf" />
+      <path d="M8 50 L50 14 L92 50 Z" fill="#ff006e" />
+      <rect x="42" y="60" width="16" height="28" rx="2" fill="#00b8d4" />
+      <circle cx="54" cy="75" r="1.8" fill={INK} stroke="none" />
+      <rect x="24" y="56" width="12" height="12" fill="#c8f0ff" strokeWidth={2.5} />
+      <rect x="64" y="56" width="12" height="12" fill="#c8f0ff" strokeWidth={2.5} />
+      <path d="M22 44 L44 24" fill="none" stroke="#fff" strokeWidth={3.5} opacity={0.6} />
+    </g>
+  ),
   scales: (
     <g {...line}>
       <path d="M20 34 L8 60 M20 34 L32 60 M80 34 L68 60 M80 34 L92 60" fill="none" strokeWidth={2.5} />
@@ -199,6 +211,7 @@ const detailStickers: Record<string, StickerName> = {
   "buscador-agricola": "agro", // agro search: wheat under a magnifier
   "juan-gas-gnc": "cylinder", // GNC cylinder
   "juan-audagno": "scales", // law firm
+  infocasas: "house", // real estate platform
 };
 
 export function detailSticker(slug: string): StickerName {

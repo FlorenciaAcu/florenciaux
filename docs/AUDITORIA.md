@@ -121,7 +121,7 @@ Quedaron en su lugar por ahora — son decisiones del rediseño, no del build.
    `<ImagePlaceholder />` tantas veces como diga `imageCount`. Nunca hubo imágenes reales de casos.
 5. **El único `<img>` de la app no tiene `alt`.** El resto de las imágenes son fondos CSS, que tampoco
    son accesibles. Para un portfolio de UX es un detalle que se nota.
-6. **El router por hash** (`#/proyectos`, `#/caso/:slug`) escrito a mano en `App.tsx` funciona, pero las
+6. **El router por hash** (`#/proyectos/:slug`, `#/experiencia/:slug`) escrito a mano en `App.tsx` funciona, pero las
    URLs con `#` no se comparten bien ni se indexan. `react-router` ya está instalado.
 7. **Contenido "próximamente".** Varios proyectos de `data/projects.ts` (CEMICO, entre otros) tienen el
    caso sin escribir.

@@ -47,9 +47,8 @@ src/
 Router por hash, escrito a mano en `App.tsx`:
 
 - `#/` — home (secciones `#/sobre-mi`, `#/proyectos`, `#/servicios`, `#/experiencia`, `#/contacto`)
-- `#/proyectos/:slug`
-- `#/caso/:slug`
-- `#/trayectoria`
+- `#/proyectos/:slug` — un proyecto/caso (CEMICO, Buscador Agrícola, Juan Gas, Audagno, InfoCasas)
+- `#/experiencia/:slug` — el detalle de una experiencia laboral (Cintelink, Consultoría, Folcode)
 
 ## Pendientes
 

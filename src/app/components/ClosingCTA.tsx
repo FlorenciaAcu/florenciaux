@@ -37,7 +37,7 @@ export function ClosingCTA() {
           transition={{ duration: 0.55 }}
         >
           <p className="text-xs font-semibold text-[#ff006e] uppercase tracking-widest mb-4">Hablemos</p>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.05] tracking-tight">
+          <h2 className="display-section text-white mb-6">
             ¿Estás construyendo o mejorando un producto digital?
           </h2>
           <p className="text-lg text-gray-300 leading-relaxed mb-10 max-w-2xl mx-auto">

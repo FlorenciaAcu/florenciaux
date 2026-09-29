@@ -77,7 +77,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={ready ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.65, delay: 0.15 }}
-              className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.25] md:leading-[1.1] tracking-tight md:mb-8"
+              className="hero-title text-white md:mb-8"
             >
               Transformo ideas en{" "}
               <span className="relative mt-3 inline-block whitespace-nowrap">
