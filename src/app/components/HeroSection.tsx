@@ -7,6 +7,22 @@ import { useSplashDone } from "./SplashLoader";
 import { CV_URL } from "../data/contact";
 import heroPhoto from "../../imports/hero-flor.jpg";
 
+function CollaboratorCursor() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none hidden md:flex items-start gap-0">
+      <svg width="18" height="20" viewBox="0 0 18 20" className="-mr-1 mt-0.5 shrink-0">
+        <path d="M2 1.5 L2 16 L6 12.2 L9 18.5 L11.6 17.3 L8.7 11 L14.2 11 Z" fill="#00e5ff" stroke="#fff" strokeWidth="1.2" strokeLinejoin="round" />
+      </svg>
+      <span
+        className="mt-4 rounded-full rounded-tl-sm bg-[#00e5ff] px-3 py-1 text-[13px] font-semibold leading-normal tracking-wide text-[#0a0a0a]"
+        style={{ fontFamily: "'Manrope', sans-serif" }}
+      >
+        Florencia
+      </span>
+    </div>
+  );
+}
+
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const ready = useSplashDone();
@@ -47,8 +63,46 @@ export function HeroSection() {
               animate={ready ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="type-h1 max-w-3xl text-white">Florencia Acuña — Product Designer</h1>
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-gray-300">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-pulse rounded-full bg-[#ff006e] opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#ff006e]" />
+                </span>
+                Florencia Acuña — Product Designer
+              </span>
             </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={ready ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.65, delay: 0.15 }}
+              className="hero-title text-white md:mb-8"
+            >
+              Transformo ideas en{" "}
+              <span className="relative mt-3 inline-block whitespace-nowrap">
+                <span className="text-gradient-brand-dark">sistemas que escalan.</span>
+                <motion.span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -inset-x-3 -inset-y-1 rounded-sm border border-[#00e5ff]"
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={ready ? { opacity: 0.9, scale: 1 } : {}}
+                  transition={{ delay: 1.1, duration: 0.4 }}
+                >
+                  {["-left-1 -top-1", "-right-1 -top-1", "-left-1 -bottom-1", "-right-1 -bottom-1"].map((pos) => (
+                    <span key={pos} className={`absolute ${pos} h-2 w-2 border border-[#00e5ff] bg-white`} />
+                  ))}
+                </motion.span>
+                <motion.span
+                  aria-hidden="true"
+                  className="absolute right-0 top-full -mr-3 mt-1 hidden md:block"
+                  initial={{ opacity: 0, x: -30, y: -20 }}
+                  animate={ready ? { opacity: 1, x: 0, y: 0 } : {}}
+                  transition={{ delay: 1.6, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <CollaboratorCursor />
+                </motion.span>
+              </span>
+            </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 14 }}
@@ -77,7 +131,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30, rotate: 5 }}
             animate={ready ? { opacity: 1, y: 0, rotate: 2 } : {}}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mx-auto w-full max-w-[300px] sm:max-w-[340px] lg:ml-auto lg:mr-0 lg:max-w-[420px]"
+            className="relative mx-auto w-full max-w-[300px] sm:max-w-[340px] lg:ml-auto lg:mr-0 lg:max-w-[500px]"
           >
             <div className="pointer-events-none absolute -inset-8 -z-10 rounded-full bg-[#ff006e]/25 blur-3xl" aria-hidden="true" />
             <div className="rounded-[2rem] bg-gradient-to-br from-[#ff006e] via-[#ff006e]/25 to-[#00e5ff] p-[2px]">

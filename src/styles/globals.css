@@ -326,13 +326,20 @@ html {
 
 /* Shared type scale. Sizes change only at breakpoints so every role stays predictable. */
 .type-display,
-.display-hero,
-.hero-title {
+.display-hero {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 3rem;
   line-height: 1;
   letter-spacing: 0;
   font-weight: 300;
+}
+
+.hero-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.875rem;
+  line-height: 1.25;
+  letter-spacing: 0;
+  font-weight: 700;
 }
 
 .type-h1,
@@ -392,10 +399,16 @@ html {
   text-transform: uppercase;
 }
 
+@media (min-width: 40rem) {
+  .hero-title {
+    font-size: 3rem;
+    line-height: 1.1;
+  }
+}
+
 @media (min-width: 48rem) {
   .type-display,
-  .display-hero,
-  .hero-title {
+  .display-hero {
     font-size: 5rem;
   }
 
@@ -421,9 +434,12 @@ html {
 
 @media (min-width: 64rem) {
   .type-display,
-  .display-hero,
-  .hero-title {
+  .display-hero {
     font-size: 6rem;
+  }
+
+  .hero-title {
+    font-size: 3.75rem;
   }
 
   .type-h1,
@@ -438,6 +454,12 @@ html {
 
   .type-h3 {
     font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  .hero-title {
+    font-size: 4.5rem;
   }
 }
 
