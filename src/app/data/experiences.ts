@@ -5,6 +5,7 @@ import aneloConsola from "../../imports/anelo-tablet-consola.jpg";
 export interface ExperienceProject {
   name: string;
   slug?: string;
+  externalLink?: { label: string; url: string };
   /** What I did (short). Also the only text shown for projects without `how`/`example`. */
   brief: string;
   /** How I approached it, from my design perspective. */
@@ -144,7 +145,7 @@ export const experiences: Experience[] = [
       {
         name: "Buscador Agrícola",
         slug: "buscador-agricola",
-        brief: "Diseñé la búsqueda, la navegación y las fichas de producto del MVP de un marketplace agrícola para Chile, y la pantalla y el flujo de contacto con la empresa.",
+        brief: "Diseñé la búsqueda, la navegación y las publicaciones del MVP de un marketplace agrícola para Chile, y la pantalla y el flujo de contacto con la empresa.",
         tags: ["Plataforma", "Agro", "Search UX"],
       },
       {
@@ -299,29 +300,49 @@ export const experiences: Experience[] = [
     role: "UX Designer / Product Designer",
     company: "Folcode",
     aboutTitle: "Qué es Folcode",
-    about: "Folcode, hoy Bridgenext, es la empresa en la que trabajé en proyectos como el sitio institucional, CloudLabs y Respública.",
+    about: "Folcode fue una empresa tecnológica de San Juan, Argentina, especializada en el desarrollo de productos y servicios digitales para distintos clientes. Durante mi etapa allí trabajé en proyectos como CloudLabs, Respública y el rediseño del sitio institucional de Folcode.",
+    workText: [
+      "Comencé en Folcode como Pasante Scrum Master. En esa primera etapa participé en tareas vinculadas con el backlog, la priorización, el relevamiento de requerimientos y las ceremonias Scrum.",
+      "Luego evolucioné hacia UX Design / Product Design. Participé y lideré procesos de diseño para distintos proyectos digitales, trabajando con stakeholders en entrevistas y workshops, user flows, personas, story maps, prototipos interactivos e interfaces de alta fidelidad.",
+    ],
     period: "Enero 2020 – Marzo 2022",
+    location: "San Juan, Argentina",
     bio: [
       "Comencé como Pasante Scrum Master y evolucioné hacia UX/Product Design, liderando procesos para distintos proyectos: relevamiento con stakeholders, flujos, story maps y prototipos de alta fidelidad.",
     ],
     projects: [
       {
-        name: "Web Folcode",
-        slug: undefined,
-        brief: "Diseño y rediseño del sitio web institucional de Folcode. Contenido en construcción.",
-        tags: ["Web institucional", "UX/UI"],
-      },
-      {
         name: "CloudLabs",
         slug: undefined,
-        brief: "Plataforma educativa gamificada para laboratorios STEM. Contenido en construcción.",
-        tags: ["EdTech", "SaaS", "UX/UI"],
+        externalLink: {
+          label: "Ver proyecto en Behance",
+          url: "https://www.behance.net/gallery/138977137/CLOUDLABS-DISENO-DE-PRODUCTO",
+        },
+        brief: "Trabajé en el rediseño de una plataforma educativa basada en laboratorios gamificados para áreas STEM, con experiencias para estudiantes, docentes e instituciones en mobile, tablet y desktop.",
+        how: "El proyecto incluyó un rediseño de la arquitectura y de la experiencia para integrar los distintos perfiles y sus sistemas dentro de una plataforma común. El desafío fue unificar la experiencia en un solo sistema, con una arquitectura más clara y escalable.",
+        tags: ["EdTech", "Rediseño de producto", "Mobile", "Tablet", "Desktop"],
       },
       {
         name: "Respública",
         slug: undefined,
-        brief: "Aplicación móvil de participación ciudadana organizada. Contenido en construcción.",
-        tags: ["Civic tech", "Mobile", "UX/UI"],
+        externalLink: {
+          label: "Ver proyecto en Behance",
+          url: "https://www.behance.net/gallery/120346403/RESPUBLICA-DISENO-DE-PRODUCTO",
+        },
+        brief: "Participé en el diseño de una aplicación móvil orientada a la participación ciudadana y el debate digital.",
+        how: "El desafío fue diseñar una aplicación que permitiera crear espacios de debate digital y medir y monitorear la participación. El proyecto incluyó flujos de creación de debates y participación, interfaces móviles, estados vacíos, validaciones, microinteracciones y prototipado. También se realizó validación con usuarios.",
+        tags: ["Participación ciudadana", "Diseño desde cero", "App móvil", "Debate digital"],
+      },
+      {
+        name: "Web Folcode",
+        slug: undefined,
+        externalLink: {
+          label: "Ver proyecto en Behance",
+          url: "https://www.behance.net/gallery/154113155/Web-Folcode-Diseno-de-producto",
+        },
+        brief: "Trabajé en el proyecto de rediseño del sitio institucional de Folcode.",
+        how: "El objetivo fue renovar el sitio para reflejar la nueva identidad de marca, presentar sus servicios y casos de éxito, y generar confianza para captar clientes. El proyecto contempló una experiencia responsive.",
+        tags: ["Web institucional", "Casos de éxito", "Responsive Design", "Servicios"],
       },
     ],
   },

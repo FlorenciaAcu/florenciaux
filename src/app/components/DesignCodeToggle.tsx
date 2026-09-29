@@ -34,7 +34,7 @@ export function DesignCodeToggle() {
           transition={{ duration: 0.5 }}
           className="text-center mb-8"
         >
-          <h2 className="display-section text-gray-900">
+          <h2 className="display-block text-gray-900">
             Diseño conectando{" "}
             <span className="text-gradient-brand">experiencia, negocio y tecnología.</span>
           </h2>

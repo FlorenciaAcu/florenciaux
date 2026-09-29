@@ -3,7 +3,6 @@ import { HeroSection } from "./components/HeroSection";
 import { DesignCodeToggle } from "./components/DesignCodeToggle";
 import { AboutSection } from "./components/AboutSection";
 import { ThinkingSection } from "./components/ThinkingSection";
-import { ValueSection } from "./components/ValueSection";
 import { FeaturedProjects } from "./components/FeaturedProjects";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { KnowledgeSection } from "./components/KnowledgeSection";
@@ -23,7 +22,6 @@ import { useState, useEffect } from "react";
 const SECTION_MAP: Record<string, string> = {
   "sobre-mi": "sobre-mi",
   "proyectos": "proyectos",
-  "servicios": "servicios",
   "experiencia": "experiencia",
   "contacto": "contacto",
 };
@@ -122,7 +120,6 @@ function AppRoutes() {
         <DesignCodeToggle />
         <AboutSection />
         <FeaturedProjects />
-        <ValueSection />
         <ProcessSection />
         <ExperienceSection />
         <ClosingCTA />

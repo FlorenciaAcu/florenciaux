@@ -32,22 +32,21 @@ export function Header() {
   const go = (hash: string) => {
     window.location.hash = hash;
     setIsMobileMenuOpen(false);
+    if (hash === "#/") window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Contact options (video call / WhatsApp) live at the bottom of the page; on pages without that block, go home and scroll there.
   const goContact = () => {
     setIsMobileMenuOpen(false);
+    window.location.hash = "#/contacto";
     const el = document.getElementById("contacto");
     if (el) el.scrollIntoView({ behavior: "smooth" });
-    else window.location.hash = "#/contacto";
   };
 
   const navItems = [
     { label: "Inicio", hash: "#/" },
     { label: "Sobre mí", hash: "#/sobre-mi" },
     { label: "Proyectos", hash: "#/proyectos" },
-    { label: "Servicios", hash: "#/servicios" },
-    { label: "Experiencia", hash: "#/experiencia" },
   ];
 
   return (
@@ -80,7 +79,7 @@ export function Header() {
             </button>
           ))}
           <Button onClick={goContact}>
-            Contactar
+            Contacto
           </Button>
         </nav>
 
@@ -134,7 +133,7 @@ export function Header() {
             ))}
             <div className="pt-6">
               <Button onClick={goContact} className="w-full">
-                Contactar
+                Contacto
               </Button>
             </div>
           </nav>

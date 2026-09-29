@@ -13,7 +13,7 @@ const secondaryProjects = secondarySlugs.map((slug) => getProjectBySlug(slug)!);
 const cardSummaries: Record<string, string> = {
   cintelink: "Plataforma, aplicación de despacho, dashboards operativos y design system, para una operación de abastecimiento.",
   cemico: "Productos digitales y un design system, para pacientes, personal de admisión, colaboradores y auditores externos.",
-  "buscador-agricola": "Búsqueda, fichas de producto y contacto con empresas, para el MVP de un marketplace agrícola.",
+  "buscador-agricola": "Búsqueda, publicaciones y contacto con empresas, para el MVP de un marketplace agrícola.",
   "juan-gas-gnc": "Consulta de saldo de puntos, para un club de fidelización, del diseño a la implementación.",
 };
 

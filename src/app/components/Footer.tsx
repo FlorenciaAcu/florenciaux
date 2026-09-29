@@ -31,7 +31,6 @@ export function Footer() {
                 { label: "Inicio", action: () => go("#/") },
                 { label: "Sobre mí", action: () => go("#/sobre-mi") },
                 { label: "Proyectos", action: () => go("#/proyectos") },
-                { label: "Servicios", action: () => go("#/servicios") },
                 { label: "Experiencia", action: () => go("#/experiencia") },
               ].map((item) => (
                 <li key={item.label}>
@@ -99,7 +98,7 @@ export function Footer() {
             <p className="text-xs text-gray-400">
               © {currentYear} Florencia Acuña. Todos los derechos reservados.
             </p>
-            <p className="text-xs text-gray-400">Diseñado con criterios de accesibilidad WCAG AA.</p>
+            <p className="text-xs text-gray-400">Diseñado teniendo en cuenta criterios de accesibilidad.</p>
           </div>
           <p className="inline-flex items-center gap-1 text-xs text-gray-400">
             Hecho con <Heart className="w-3.5 h-3.5 text-[#ff006e] fill-[#ff006e]" /> y mucho tecito <Coffee className="w-3.5 h-3.5 text-[#ff006e]" />

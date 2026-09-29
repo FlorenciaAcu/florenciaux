@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 
 const steps = [
   {
@@ -56,11 +57,28 @@ export function ProcessSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="flex flex-col gap-5"
+              className="relative flex flex-col gap-5"
             >
               <span className="text-gradient-brand text-5xl font-light leading-none tabular-nums">{step.number}</span>
               <h3 className="display-block text-gray-900">{step.title}</h3>
               <p className="text-base leading-relaxed text-gray-600">{step.description}</p>
+
+              {i < steps.length - 1 && (
+                <>
+                  <span
+                    aria-hidden="true"
+                    className="absolute -right-[38px] top-1 hidden h-9 w-9 items-center justify-center rounded-full bg-gray-900 text-cyan-300 shadow-sm lg:flex"
+                  >
+                    <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="absolute -bottom-10 left-3 flex h-7 w-7 items-center justify-center rounded-full bg-gray-900 text-cyan-300 shadow-sm lg:hidden"
+                  >
+                    <ArrowDown className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  </span>
+                </>
+              )}
             </motion.li>
           ))}
         </ol>

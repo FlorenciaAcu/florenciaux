@@ -7,9 +7,9 @@ interface SEOProps {
 }
 
 const DEFAULTS = {
-  title: "Florencia Acuña — Product Designer",
+  title: "Florencia Acuña | Product Designer",
   description:
-    "Portfolio de Florencia Acuña, Product Designer en San Juan, Argentina. Diseño productos digitales, MVPs, plataformas SaaS, sistemas internos y prototipos funcionales con foco en UX/UI, negocio, equipos e IA aplicada.",
+    "Portfolio de Florencia Acuña, Product Designer. Proyectos, experiencias y procesos de diseño de productos digitales, UX/UI e IA aplicada.",
   canonical: "https://florenciaux.com",
   ogImage: "https://florenciaux.com/og-image.png",
 };

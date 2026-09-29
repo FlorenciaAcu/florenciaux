@@ -6,7 +6,7 @@ import { ClosingCTA } from "./ClosingCTA";
 import { buildOutline, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro, splitSentences } from "./CaseStudyBlocks";
 import { getExperienceBySlug } from "../data/experiences";
 import { motion } from "motion/react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 interface Props {
   slug: string;
@@ -153,6 +153,18 @@ export function ExperiencePage({ slug }: Props) {
                     >
                       Ver detalle →
                     </button>
+                  )}
+                  {project.externalLink && (
+                    <a
+                      href={project.externalLink.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#cc0058] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cc0058]"
+                    >
+                      {project.externalLink.label}
+                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                      <span className="sr-only">(se abre en otra pestaña)</span>
+                    </a>
                   )}
                 </div>
               </motion.div>

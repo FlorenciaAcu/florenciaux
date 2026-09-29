@@ -122,7 +122,7 @@ export const projects: ProjectDetail[] = [
     sector: "Agtech",
     challenge:
       "Diseñar una experiencia de búsqueda que funcione para perfiles muy distintos —productores, compradores, proveedores de servicios— y que permita encontrar productos, maquinaria, servicios y terrenos con filtros especializados y búsqueda por ubicación geográfica, sin perder simplicidad.",
-    role: "Product Designer. Me encargué del diseño de la experiencia de búsqueda y navegación, la arquitectura de información, la estructura de resultados, las fichas de producto y la pantalla y el flujo de contacto del MVP.",
+    role: "Product Designer. Me encargué del diseño de la experiencia de búsqueda y navegación, la arquitectura de información, la estructura de resultados, las fichas de publicación y la pantalla y el flujo de contacto del MVP.",
     description:
       "Diseñé el MVP de un marketplace multitienda donde los usuarios buscan por categorías, filtros especializados y ubicación geográfica, exploran la oferta, consultan cada producto en su ficha y contactan a la empresa a través de una pantalla y un flujo de contacto.",
     tags: ["Marketplace", "Agro", "Search UX", "Consultoría"],
@@ -150,7 +150,7 @@ export const projects: ProjectDetail[] = [
       role: [
         "Diseñé la arquitectura de información, la búsqueda y la navegación.",
         "Diseñé las categorías y los filtros por cultivo y ubicación, y los resultados en listado y en mapa.",
-        "Diseñé las fichas de producto y el perfil de las empresas.",
+        "Diseñé las fichas de publicación y el perfil de las empresas.",
         "Diseñé la pantalla y el flujo de contacto con el proveedor.",
       ],
       decisionsEyebrow: "Decisiones de diseño",
