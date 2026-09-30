@@ -22,7 +22,8 @@ export interface CaseStudyImage {
 }
 
 export interface CaseStudyDecision {
-  icon: "metrics" | "data" | "device" | "physical" | "taxonomy" | "discovery" | "evaluate" | "sides" | "contact" | "context" | "build";
+  /** Legacy: no longer rendered. */
+  icon?: "metrics" | "data" | "device" | "physical" | "taxonomy" | "discovery" | "evaluate" | "sides" | "contact" | "context" | "build";
   title: string;
   text: string;
 }
@@ -43,6 +44,8 @@ export interface CaseStudyFeature {
   title: string;
   /** What the product needed to solve. */
   context: string;
+  /** How the solution was explored and iterated, told briefly. Paragraphs separated by a blank line. Shown right after `context`. */
+  exploration?: string;
   /** What the designer designed to solve it inside the experience. */
   did: string[];
   /** A set of alternatives or states worth showing as small cards (e.g. four interaction models). */
@@ -50,15 +53,14 @@ export interface CaseStudyFeature {
   evolutionTitle?: string;
   evolution?: { title: string; text: string }[];
   evidence?: CaseStudyScreenGroup[];
-  learned: string;
+  /** Optional: projects inside an experience usually leave the learning to the experience as a whole. */
+  learned?: string;
 }
 
 /** Narrative blocks for an experience that deserves more than a bio + project list.
  *  Everything here is written from the designer's perspective: no internal company detail (NDA). */
 export interface CaseStudy {
   /** The three things to take away, shown right under the header. Everything else is detail. */
-  /** What I designed, as a list (the scope). Shown in "Mi trabajo" under "Qué diseñé". */
-  designed?: string[];
   /** Quick facts (industry, company, platforms…) as a hairline key-value list next to "what it is". Only what is confirmed. */
   meta?: { label: string; value: string }[];
   aboutTitle: string;
@@ -68,13 +70,9 @@ export interface CaseStudy {
   challenge?: string;
   /** Only the concepts needed to follow the case. */
   terms?: { term: string; definition: string }[];
-  roleTitle: string;
+  /** "Cómo trabajé": my contribution and process. */
   role: string[];
-  /** Label of the `role` row inside "Mi trabajo" (default: "Cómo trabajé" when `designed` exists, otherwise "Qué hice"). */
-  roleLabel?: string;
   /** Secondary projects can skip the decisions block entirely: don't invent decisions to fill it. */
-  decisionsEyebrow?: string;
-  decisionsTitle?: string;
   decisionsIntro?: string;
   decisions?: CaseStudyDecision[];
   /** A transversal solution presented as a statement, not a question (e.g. a design system shared across products). */
@@ -109,13 +107,17 @@ export interface Experience {
   website?: { label: string; url: string };
   tagline?: string;
   sector?: string;
-  /** Home summary (and, when there is no `workText`, the text of "Mi trabajo"). */
+  /** Home summary (and, when there is no `workText`, the text of "Cómo trabajé"). */
   bio: string[];
   /** Short "what it is", shown like "Qué es Cintelink" in the cases. */
   aboutTitle?: string;
   about?: string;
-  /** Text of "Mi trabajo" on the experience page, when it must differ from the home summary. */
+  /** Text of "Cómo trabajé" on the experience page, when it must differ from the home summary. */
   workText?: string[];
+  /** "El desafío" for experiences without a written case. Paragraphs separated by a blank line. */
+  challenge?: string;
+  /** "Qué aprendí" for experiences without a written case. Paragraphs separated by a blank line. */
+  learned?: string;
   projects: ExperienceProject[];
   caseStudy?: CaseStudy;
 }
@@ -127,10 +129,14 @@ export const experiences: Experience[] = [
     company: "Consultoría en productos digitales",
     aboutTitle: "Qué es la consultoría",
     about: "Es mi trabajo independiente diseñando productos digitales y MVPs, en colaboración con clientes y equipos, en distintas etapas del producto.",
+    challenge:
+      "Trabajar de forma independiente implicó adaptarme a clientes, negocios y productos muy distintos, muchas veces con la necesidad de avanzar en poco tiempo. Cada proyecto requiere entender rápido cómo funciona el negocio, qué necesita resolver y qué es realmente prioritario antes de empezar a diseñar.\n\nAl mismo tiempo, empecé a gestionar reuniones, prioridades y entregas de varios proyectos en paralelo. Ese contexto me llevó a revisar mi propio proceso y buscar formas de entregar valor más rápido sin perder criterio de producto ni calidad en el diseño.",
     workText: [
-      "Trabajo de cerca con el cliente o el equipo en cada proyecto: propongo alternativas, las revisamos juntos y ajusto el diseño a partir de ese feedback, hasta llegar a una solución que se pueda validar o construir.",
-      "Incorporo herramientas como Claude, Figma Make y Lovable para explorar esas alternativas, documentar decisiones y crear prototipos funcionales más rápido.",
+      "En cada proyecto parto de entender el negocio, el problema y el contexto antes de definir la solución. A partir de ahí organizo el alcance, priorizo lo necesario y avanzo desde la definición hacia flujos, interfaces y prototipos.",
+      "También incorporé IA como parte de este proceso, combinando herramientas como ChatGPT, Claude y Figma según la necesidad de cada etapa. Las uso para investigar, ordenar información, explorar alternativas, documentar y acelerar la creación de prototipos.",
     ],
+    learned:
+      "Trabajar de forma independiente me enseñó a mirar cada proyecto de una manera más integral: no solo desde el diseño, sino también desde el negocio, las prioridades y la gestión del trabajo.\n\nAprendí a llevar varios proyectos y clientes en paralelo, organizar entregas y adaptar mi proceso según cada contexto. También aprendí a integrar la IA de forma más intencional, como una herramienta que complementa mi trabajo y me permite avanzar con mayor autonomía sin delegar el criterio de diseño.",
     period: "Abril 2025 – Actualidad",
     bio: [
       "Diseño productos digitales y MVPs de forma independiente, colaborando con clientes y equipos en distintas etapas del producto. Además, incorporo herramientas como Claude, Figma Make y Lovable para explorar alternativas, documentar y crear prototipos funcionales.",
@@ -238,15 +244,11 @@ export const experiences: Experience[] = [
       challengeTitle: "El desafío",
       challenge:
         "La plataforma no funciona de manera aislada: lo que sucede en el sistema está conectado con personas, dispositivos y procesos de carga de combustible.",
-      roleTitle: "Mi trabajo",
-      roleLabel: "Cómo trabajé",
       role: [
         "Trabajé en conjunto y de forma constante con el equipo de desarrollo y con producto.",
         "Participé en la definición de funcionalidades junto a negocio, usuarios y equipo de desarrollo.",
         "También colaboré con el equipo de Smart Contracts en funcionalidades vinculadas a la trazabilidad y seguridad de las operaciones.",
       ],
-      decisionsEyebrow: "Decisiones de diseño",
-      decisionsTitle: "Diseñar pantallas que conviven con dispositivos IoT",
       decisionsIntro:
         "Los dispositivos IoT son dispositivos físicos conectados a la plataforma. Eso cambiaba las preguntas de diseño: no alcanzaba con que la interfaz se viera bien cuando todo funcionaba. Estas son algunas de las preguntas que nos hacíamos junto al equipo.",
       decisions: [
@@ -301,10 +303,14 @@ export const experiences: Experience[] = [
     company: "Folcode",
     aboutTitle: "Qué es Folcode",
     about: "Folcode fue una empresa tecnológica de San Juan, Argentina, especializada en el desarrollo de productos y servicios digitales para distintos clientes. Durante mi etapa allí trabajé en proyectos como CloudLabs, Respública y el rediseño del sitio institucional de Folcode.",
+    challenge:
+      "Entré a Folcode como Pasante Scrum Master, trabajando con backlog, priorización, requerimientos y ceremonias del equipo. Con el tiempo empecé a involucrarme cada vez más en la definición de los productos y encontré en UX/Product Design un rol desde el que podía conectar mejor las necesidades del cliente, las personas usuarias y el equipo de desarrollo.\n\nEse cambio también implicó aprender a moverme entre proyectos con contextos y necesidades diferentes, entendiendo cada problema antes de llevarlo a flujos e interfaces.",
     workText: [
-      "Comencé en Folcode como Pasante Scrum Master. En esa primera etapa participé en tareas vinculadas con el backlog, la priorización, el relevamiento de requerimientos y las ceremonias Scrum.",
-      "Luego evolucioné hacia UX Design / Product Design. Participé y lideré procesos de diseño para distintos proyectos digitales, trabajando con stakeholders en entrevistas y workshops, user flows, personas, story maps, prototipos interactivos e interfaces de alta fidelidad.",
+      "Participé en proyectos desde etapas tempranas de definición, trabajando con stakeholders para entender necesidades y ordenar requerimientos antes de diseñar. Según el proyecto, trabajé con entrevistas, workshops, personas, story maps y flujos para estructurar la experiencia.",
+      "A partir de esa definición avanzaba hacia prototipos interactivos e interfaces de alta fidelidad, trabajando en conjunto con el equipo de desarrollo y ajustando las soluciones a partir del feedback y las validaciones realizadas.",
     ],
+    learned:
+      "Folcode fue donde empecé a entender el diseño como parte de un proceso de producto y no solamente como la construcción de una interfaz. Haber comenzado desde Scrum me ayudó a comprender cómo se organiza el trabajo, cómo se prioriza y cómo las decisiones de diseño conviven con las necesidades del negocio y del equipo técnico.\n\nTambién aprendí a adaptar mi proceso a productos y contextos diferentes, eligiendo las herramientas y el nivel de profundidad necesarios para cada proyecto.",
     period: "Enero 2020 – Marzo 2022",
     location: "San Juan, Argentina",
     bio: [

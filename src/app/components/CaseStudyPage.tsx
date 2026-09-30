@@ -83,7 +83,7 @@ export function CaseStudyPage({ slug }: Props) {
         />
 
         {project.caseStudy ? (
-          /* Same structure as the experience pages: "Mi trabajo" first, then the case blocks. */
+          /* Same structure as the experience pages: the intro sections first, then the case blocks. */
           <div className={`max-w-7xl mx-auto px-6 pt-12 pb-28 lg:pb-44 ${outline ? "lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14" : ""}`}>
             {outline && (
               <aside className="hidden lg:block">

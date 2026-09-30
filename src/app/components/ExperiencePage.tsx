@@ -69,12 +69,12 @@ export function ExperiencePage({ slug }: Props) {
           website={experience.website}
         />
 
-        {/* Same structure for every experience: "Mi trabajo", then the projects, then the case blocks if there are any (decisions, screens, result), and "Qué aprendí" last.
+        {/* Same structure for every experience: "El desafío" and "Cómo trabajé", then the projects, then the case blocks if there are any (decisions, screens, result), and "Qué aprendí" last.
             Like the cases, it has the sticky "on this page" index on desktop. */}
         <div className="max-w-7xl mx-auto px-6 pt-12 pb-28 lg:pb-44 lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14">
           <aside className="hidden lg:block">
             <div className="sticky top-28">
-              <CaseOutline items={buildOutline(experience.caseStudy, { projects: true, about: experience.aboutTitle })} />
+              <CaseOutline items={buildOutline(experience.caseStudy, { projects: true, about: experience.aboutTitle, challenge: !!experience.challenge, learned: !!experience.learned })} />
             </div>
           </aside>
           <div className="min-w-0">
@@ -84,13 +84,14 @@ export function ExperiencePage({ slug }: Props) {
             period={experience.period}
             intro={experience.workText ?? experience.bio}
             about={experience.about && experience.aboutTitle ? { title: experience.aboutTitle, text: experience.about } : undefined}
+            challenge={experience.challenge}
             meta={[
               { label: "Rol", value: experience.role },
               { label: "Período", value: experience.period },
             ]}
           />
 
-        {/* Projects: right after "Mi trabajo", because they are the body of the work; the case blocks (decisions, screens, result) follow */}
+        {/* Projects: right after "Cómo trabajé", because they are the body of the work; the case blocks (decisions, screens, result) follow */}
         <div id="proyectos" className="scroll-mt-28">
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
@@ -175,6 +176,7 @@ export function ExperiencePage({ slug }: Props) {
 
         {experience.caseStudy && <CaseStudyDetails data={experience.caseStudy} />}
         {experience.caseStudy && <CaseStudyLearned data={experience.caseStudy} />}
+        {!experience.caseStudy && <CaseStudyLearned data={experience} />}
         </div>
           </div>
         </div>
