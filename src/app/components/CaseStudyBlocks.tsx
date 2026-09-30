@@ -33,7 +33,7 @@ function MetaList({ meta }: { meta: { label: string; value: string }[] }) {
 
 /** "Cómo trabajé" is always narrative: each item (and each blank-line break inside one) is a paragraph. Never a bulleted list. */
 function WorkParagraphs({ items }: { items: string[] }) {
-  return <div className="max-w-3xl space-y-4">{items.map((item) => paragraphs(item, "type-body text-gray-800"))}</div>;
+  return <div className="max-w-2xl space-y-4">{items.map((item) => paragraphs(item, "type-body text-gray-800"))}</div>;
 }
 
 function paragraphs(text: string, className = "type-body text-gray-700") {
@@ -49,7 +49,7 @@ function ChallengeSection({ title, text, terms }: { title: string; text: string;
   return (
     <motion.div {...reveal} id="desafio" className="scroll-mt-28">
       <h2 className={`${h2} mb-6`}>{title}</h2>
-      <div className="max-w-3xl space-y-4">{paragraphs(text)}</div>
+      <div className="max-w-2xl space-y-4">{paragraphs(text)}</div>
       {terms && (
         <dl className="type-caption mt-6 max-w-3xl space-y-2 text-gray-700">
           {terms.map((item) => (
@@ -105,7 +105,7 @@ export function ExperienceIntro({
             <h2 className={h2}>Cómo trabajé</h2>
             {!meta && <span className="text-sm text-gray-600">{period}</span>}
           </div>
-          <div className="type-body max-w-3xl space-y-4 text-gray-800">
+          <div className="type-body max-w-2xl space-y-4 text-gray-800">
             {intro.map((line) => (
               <p key={line}>{line}</p>
             ))}
@@ -273,7 +273,7 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
     <div className="space-y-20 lg:space-y-32">
       {features.map((feature, index) => (
         <section key={feature.title} id={`feature-${index + 1}`} className={`scroll-mt-28 ${index > 0 ? "border-t border-gray-200 pt-20 lg:pt-32" : ""}`}>
-          <motion.h3 {...reveal} className="type-h2 text-gray-900">
+          <motion.h3 {...reveal} className="type-h3 text-gray-900">
             {feature.title}
           </motion.h3>
           <motion.p {...reveal} className="type-s1 mt-6 max-w-3xl text-gray-700">
@@ -399,16 +399,16 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
       {/* My design decisions: same light system as the rest of the case — h2, intro, then numbered questions. No card. */}
       {data.decisions && (
         <section id="decisiones" className="scroll-mt-28">
-          <div className={`grid gap-14 ${data.decisionsImage ? "lg:grid-cols-[1.25fr_1fr] lg:items-start lg:gap-20" : ""}`}>
+          <div className={`grid gap-14 ${data.decisionsImage ? "xl:grid-cols-[1.25fr_1fr] xl:items-start xl:gap-20" : ""}`}>
             <div>
               <motion.div {...reveal} className="max-w-3xl">
                 <h2 className={h2}>Decisiones de diseño</h2>
-                {data.decisionsIntro && <p className="type-s2 mt-5 text-gray-700">{data.decisionsIntro}</p>}
+                {data.decisionsIntro && <p className="type-s2 mt-5 max-w-2xl text-gray-700">{data.decisionsIntro}</p>}
               </motion.div>
 
               {(() => {
                 // Number column: wide when the block is full width, narrow next to an image.
-                const row = `grid gap-3 sm:grid-cols-[3rem_1fr] sm:gap-6 ${data.decisionsImage ? "" : "lg:grid-cols-[11rem_1fr] lg:gap-10"}`;
+                const row = `grid gap-3 sm:grid-cols-[3rem_1fr] sm:gap-6 ${data.decisionsImage ? "" : "xl:grid-cols-[11rem_1fr] xl:gap-10"}`;
                 return (
                   <>
                     <ol className="mt-12 divide-y divide-gray-200 border-t border-gray-200">
@@ -443,7 +443,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
             </div>
 
             {data.decisionsImage && (
-              <motion.figure {...reveal} className="mx-auto w-full max-w-sm lg:sticky lg:top-28 lg:max-w-none">
+              <motion.figure {...reveal} className="mx-auto w-full max-w-sm xl:sticky xl:top-28 xl:max-w-none">
                 <img
                   src={data.decisionsImage.src}
                   alt={data.decisionsImage.alt}
@@ -531,7 +531,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
 export function CaseStudyLearned({ data }: { data: { learned?: string } }) {
   if (!data.learned) return null;
   return (
-    <motion.div {...reveal} id="aprendi" className="max-w-3xl scroll-mt-28">
+    <motion.div {...reveal} id="aprendi" className="max-w-3xl scroll-mt-28 border-t border-gray-200 pt-12 lg:pt-16">
       <h2 className={`${h2} mb-5`}>Qué aprendí</h2>
       <div className="space-y-4">{paragraphs(data.learned, "type-s1 text-gray-700")}</div>
     </motion.div>

@@ -112,7 +112,7 @@ export function ExperiencePage({ slug }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.45, delay: i * 0.05 }}
-                className="grid gap-6 py-10 lg:grid-cols-[1fr_2fr] lg:gap-14"
+                className="grid gap-6 py-10 xl:grid-cols-[1fr_2fr] xl:gap-14"
               >
                 <div>
                   <h3 className="type-h3 text-gray-900">{project.name}</h3>

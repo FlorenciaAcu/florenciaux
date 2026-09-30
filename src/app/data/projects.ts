@@ -243,7 +243,7 @@ export const projects: ProjectDetail[] = [
       screenGroups: [
         {
           aspect: "aspect-[591/838]",
-          grid: "grid-cols-2 max-w-xl",
+          grid: "grid-cols-1 sm:grid-cols-2 max-w-xl",
           images: [
             {
               src: juangasConsultaMobile,
