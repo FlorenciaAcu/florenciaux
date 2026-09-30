@@ -1,10 +1,12 @@
 # Florencia UX — Design System
 
-Documenta lo que **existe hoy** en el portfolio, después de la consolidación técnica de la fase 1. No propone un rediseño: cuando algo es un candidato a consolidar, se marca como tal.
+Documenta las reglas **aprobadas** del portfolio (fase 1: consolidación técnica; fase 2B.1: foundations y normalización estructural de Home). Cuando algo es solo un candidato a consolidar, se marca como tal.
 
 Fuente de verdad de los tokens: `src/styles/globals.css` (importado por `src/styles/index.css`, único CSS del build).
 
 ## Principles
+
+> **Los componentes que cumplen la misma función deben compartir una regla visual. Las diferencias funcionales o editoriales pueden mantener tratamientos distintos de forma deliberada.**
 
 - **Claridad:** cada sección cumple una función editorial y tiene un solo nombre.
 - **Jerarquía:** título → pregunta o subtítulo → texto → elementos de orientación (números, eyebrows, flechas).
@@ -22,19 +24,32 @@ Dos familias, cargadas desde Google Fonts en `index.css`:
 - **Space Grotesk:** display, headings (`h1`–`h3`) y la utilidad `font-mono` (detalles "de código" y números).
 - **Manrope:** texto y UI. Peso base 300; texto chico 400; `font-medium` → 400, `font-semibold`/`font-bold` → 500.
 
-Escala compartida (clases en `globals.css`; los tamaños cambian en `md` y `lg`):
+#### Roles tipográficos
 
-| Clase | Uso | Mobile → md → lg |
-|---|---|---|
-| `type-display` / `display-hero` | Display | 3rem → 5rem → 6rem |
-| `hero-title` | Título del Hero (específico) | 1.875 → 3 (sm) → 3.75 → 4.5rem (xl) |
-| `type-h1` | Título de sección de Home | 2.5 → 3.5 → 4.25rem |
-| `type-h2` | Título de sección en detalles | 2 → 2.5 → 2.75rem |
-| `type-h3` | Subtítulos, preguntas de decisiones, nombres de proyectos | 1.375 → 1.5 → 1.75rem |
-| `type-s1` / `lead` | Texto destacado (contexto, resultado, aprendizaje) | 1.125 → 1.25rem |
-| `type-body` / `type-s2` | Texto corrido | 1rem |
-| `type-caption` | Captions, metadata | 0.875rem |
-| `type-eyebrow` | Labels en mayúsculas | 0.75rem, 500 |
+Cada función semántica tiene **un nombre principal**. Los tamaños cambian solo en `md` y `lg`.
+
+| Rol | Clase | Función | Mobile → md → lg |
+|---|---|---|---|
+| Display | `type-display` | Título protagonista de una página | 3rem → 5rem → 6rem |
+| Heading 1 | `type-h1` | Título principal de sección (Sobre mí, Proyectos destacados, Cómo trabajo, Experiencia, título del CTA) | 2.5 → 3.5 → 4.25rem |
+| Heading 2 | `type-h2` | Bloques importantes dentro de una sección o caso (ítems destacados, secciones de los detalles) | 2 → 2.5 → 2.75rem |
+| Heading 3 | `type-h3` | Subbloques, preguntas, títulos internos | 1.375 → 1.5 → 1.75rem |
+| Compact item title | `type-title-compact` | Título de ítem dentro de una lista densa (empresas en Experiencia). Space Grotesk 1rem / 500 | 1rem |
+| Lead | `type-s1` | Introducción destacada de una sección | 1.125 → 1.25rem |
+| Body | `type-body` | Texto narrativo o corrido | 1rem |
+| Caption / Meta | `type-caption` | Información secundaria: fechas, estados, captions, metadata | 0.875rem |
+| Eyebrow | `type-eyebrow` | Ver regla abajo | 0.75rem, 500, mayúsculas |
+
+- **Específico, no es regla global:** `hero-title` (1.875 → 3 en sm → 3.75 → 4.5rem en xl) pertenece al Hero, que está congelado hasta su propia fase.
+- **Deprecated:** `type-s2` es un alias de `type-body`. Se conserva solo porque lo usan los bloques de los casos (`CaseStudyBlocks.tsx`). El código nuevo usa `type-body`.
+- **Eliminados** (sin consumidores): `display-hero`, `display-section`, `display-block` y `lead`.
+
+#### Eyebrow
+
+**Eyebrow = categoría, clasificación o contexto breve que aporta información que el heading no contiene.** No es "texto chico arriba de un título".
+
+- Válido: el sector sobre cada proyecto destacado ("Combustible" sobre Cintelink); etiquetas de UI que clasifican ("Personas con acceso"); agrupaciones del Footer ("Navegación", "Contacto").
+- No válido: un kicker que repite o anuncia lo que dice el título (por eso se eliminó "Hablemos" del CTA).
 
 ### Color
 
@@ -69,15 +84,32 @@ Efectos de vidrio existentes: `.glass-panel`, `.glass-header`, `.glass-header-da
 
 ### Spacing
 
-- Secciones de Home: `py-20 lg:py-36` (`--section-y` 5rem / `--section-y-lg` 9rem).
+- **Section spacing** (secciones editoriales principales de Home): `py-20 lg:py-36` (`--section-y` 5rem / `--section-y-lg` 9rem).
+- **Section header rhythm** (cuando la sección tiene título → intro → contenido; Proyectos destacados, Cómo trabajo, Experiencia): título `mb-5`, intro `type-s1 max-w-3xl mb-14 lg:mb-20`.
+- **Excepciones deliberadas:** el Hero (`min-h-screen`, ritmo propio), el CTA de cierre (`py-16 lg:py-24`, función de cierre) y el Footer (`py-16`).
 - Detalles: bloques separados con `space-y-20 lg:space-y-32`; dentro de la intro, `space-y-16 lg:space-y-24`.
 - Filas de decisiones: `py-10 lg:py-12`; párrafos dentro de un bloque: `space-y-4`.
 
 ### Layout
 
+Cuatro conceptos distintos, que no se deben confundir:
+
+| Concepto | Qué es | Implementación |
+|---|---|---|
+| **Full-width section** | La sección ocupa todo el ancho (fondo, blobs, tema del header) | `<section>` sin max-width |
+| **PageContainer** | El único eje horizontal del sitio | Utilidad `page-container` (= `max-w-7xl mx-auto px-6`, definida con `@utility` en `globals.css`) |
+| **Reading width** | Medida de lectura dentro del contenedor | `max-w-3xl` para intros; anchos centrados propios cuando la sección es centrada |
+| **Component width** | Ancho propio de un componente | p. ej. el diálogo del CTA (`max-w-2xl`), la card del toggle (`max-w-md`) |
+
+Regla: **toda sección de Home usa `page-container` como contenedor exterior**; si su contenido es más angosto o centrado, ese ancho va *adentro* del contenedor.
+
+- CTA de cierre: `page-container` sin wrapper común; cada elemento tiene su propio ancho centrado: título `max-w-6xl` (ancho editorial; entra en 2 líneas desde ~1200px), descripción `max-w-3xl` (reading width), share card `max-w-4xl` (component width).
+- DesignCodeToggle: `page-container` → ancho centrado `max-w-[39rem]` (ídem con `max-w-2xl`).
+- Excepción pendiente: el Hero sigue con las clases de Tailwind escritas a mano (congelado).
+
 | Token | Valor | Tailwind actual |
 |---|---|---|
-| `--content-wide` | 80rem | `max-w-7xl` (contenedor de página, `px-6`) |
+| `--content-wide` | 80rem | `max-w-7xl` / `page-container` |
 | `--content-reading` | 48rem | `max-w-3xl` (medida de lectura) |
 | `--content-narrow` | 42rem | `max-w-2xl` |
 
@@ -93,7 +125,16 @@ Detalles de proyecto y experiencia: grilla `lg:grid-cols-[13rem_minmax(0,1fr)]` 
 
 También se usan `rounded-2xl` y `rounded-3xl` en paneles puntuales; candidato a consolidación futura.
 
+### Iconography
+
+- **Lucide** es el sistema base para iconografía funcional (acciones, información, navegación). Íconos decorativos junto a un texto o dentro de un control con nombre accesible llevan `aria-hidden="true"`.
+- **SVG propio** solo cuando hay una razón: marca (`IsologoFA`), ilustración (stickers, cursor del Hero) o íconos de marca de terceros (`WhatsAppIcon`).
+- **Navigation Arrow** (`NavArrow.tsx`): lleva al contenido detallado desde una fila (Proyectos destacados, Experiencia). Lucide `ArrowRight` 16px, stroke por defecto (2), en un círculo de 40px con borde gris; aparece en hover/focus de la fila (`group`), se desliza y se rellena de magenta.
+- **Process Connector** (Cómo trabajo): marca de secuencia, no de navegación. Sin círculo, más liviano (stroke 1.5, magenta al 60 %), estático; `ArrowRight` desde `lg`, `ArrowDown` cuando las etapas se apilan.
+
 ### Motion
+
+Coherencia por función: interacciones con la misma función comparten comportamiento (p. ej. la Navigation Arrow); no hace falta que interacciones distintas tengan valores idénticos.
 
 Patrones que existen (librería `motion`):
 
@@ -107,11 +148,13 @@ Patrones que existen (librería `motion`):
 | Componente | Estado | Notas |
 |---|---|---|
 | `Button` | Existente / reutilizable | |
+| `NavArrow` | Existente / reutilizable | Navigation Arrow de las filas de Proyectos destacados y Experiencia |
+| `page-container` (utilidad) | Existente / reutilizable | Contenedor de página de Home |
 | `Header` | Existente / reutilizable | Cambia a `glass-header-dark` sobre secciones con `data-header-theme="dark"` |
 | `Footer` | Existente / reutilizable | Links desde `data/contact.ts` |
 | `ClosingCTA` | Existente / reutilizable | Email y WhatsApp desde `data/contact.ts`; la agenda vive en `BookingModal` |
 | `SEOHead` | Existente / reutilizable | Ver "Metadata" |
-| Encabezados de sección (`type-h1`/`type-h2` + intro `type-s1`) | Patrón, no componente | Candidato a componente |
+| Encabezados de sección (`type-h1` + intro `type-s1` + section header rhythm) | Patrón, no componente | Candidato a componente (`SectionHeader`) |
 | Fila de proyecto destacado (`FeaturedProjects`) | Existente / específico | |
 | Fila de experiencia (`ExperienceSection`) | Existente / específico | |
 | `DetailHero` | Existente / específico | Incluye el selection frame alrededor del título. No es regla global del sistema |

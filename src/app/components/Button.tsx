@@ -28,18 +28,18 @@ const base =
 
 const variants = {
   primary: {
-    light: "bg-[#cc0058] text-white hover:bg-[#a80048] hover:shadow-[0_4px_20px_rgba(204,0,88,0.4)]",
-    dark: "bg-[#cc0058] text-white hover:bg-[#a80048] hover:shadow-[0_4px_20px_rgba(204,0,88,0.4)]",
+    light: "bg-magenta-strong text-white hover:bg-[#a80048] hover:shadow-[0_4px_20px_rgba(204,0,88,0.4)]",
+    dark: "bg-magenta-strong text-white hover:bg-[#a80048] hover:shadow-[0_4px_20px_rgba(204,0,88,0.4)]",
   },
   secondary: {
     light:
-      "border border-white/60 bg-white/30 backdrop-blur-md text-gray-800 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#cc0058]/50 hover:bg-white/50",
+      "border border-white/60 bg-white/30 backdrop-blur-md text-gray-800 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-magenta-strong/50 hover:bg-white/50",
     dark:
-      "border border-white/25 bg-white/10 backdrop-blur-md text-white shadow-[0_2px_12px_rgba(0,0,0,0.2)] hover:border-[#ff006e]/60 hover:bg-white/15",
+      "border border-white/25 bg-white/10 backdrop-blur-md text-white shadow-[0_2px_12px_rgba(0,0,0,0.2)] hover:border-magenta/60 hover:bg-white/15",
   },
   tertiary: {
-    light: "bg-transparent text-[#cc0058] px-2 hover:underline underline-offset-4",
-    dark: "bg-transparent text-[#ff006e] px-2 hover:underline underline-offset-4",
+    light: "bg-transparent text-magenta-strong px-2 hover:underline underline-offset-4",
+    dark: "bg-transparent text-magenta px-2 hover:underline underline-offset-4",
   },
 };
 

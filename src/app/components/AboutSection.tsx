@@ -20,8 +20,8 @@ const interests: { name: StickerName; label: string; rotate: number }[] = [
 
 export function AboutSection() {
   return (
-    <section id="sobre-mi" className="py-20 lg:py-36 bg-[#fafafa]/90">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="sobre-mi" className="py-20 lg:py-36 bg-surface-page/90">
+      <div className="page-container">
 
         <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
 

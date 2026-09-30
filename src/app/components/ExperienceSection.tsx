@@ -1,7 +1,7 @@
 import { motion, useScroll } from "motion/react";
 import { useRef } from "react";
 import { experiences } from "../data/experiences";
-import { ArrowRight } from "lucide-react";
+import { NavArrow } from "./NavArrow";
 
 function extractYears(period: string): string {
   const parts = period.split("–").map((s) => s.trim());
@@ -24,8 +24,8 @@ export function ExperienceSection() {
   };
 
   return (
-    <section id="experiencia" className="py-20 lg:py-36 bg-[#fafafa]/90">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="experiencia" className="py-20 lg:py-36 bg-surface-page/90">
+      <div className="page-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -52,7 +52,7 @@ export function ExperienceSection() {
           <div className="absolute left-[5px] sm:left-[7px] top-2 bottom-2 w-px bg-gray-200" />
           {/* Line that draws itself as you scroll through the section */}
           <motion.div
-            className="absolute left-[5px] sm:left-[7px] top-2 bottom-2 w-px origin-top bg-gradient-to-b from-[#cc0058] to-[#00b8d4]"
+            className="absolute left-[5px] sm:left-[7px] top-2 bottom-2 w-px origin-top bg-gradient-to-b from-magenta-strong to-cyan-strong"
             style={{ scaleY: scrollYProgress }}
           />
 
@@ -65,15 +65,14 @@ export function ExperienceSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.45, delay: i * 0.07 }}
-                whileHover={{ x: 4 }}
                 onClick={(e) => {
                   e.preventDefault();
                   navigateTo(exp.slug);
                 }}
-                className="group relative flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pl-8 sm:pl-12 -mr-3 rounded-2xl cursor-pointer transition-colors duration-150 hover:bg-[#f5f5f5] pr-[24px] py-[32px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cc0058]"
+                className="group relative flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6 pl-8 sm:pl-12 -mr-3 rounded-2xl cursor-pointer pr-[24px] py-[32px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta-strong"
               >
                 {/* Node on the timeline */}
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-[#fafafa] border-2 border-[#cc0058] z-10" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-surface-page border-2 border-magenta-strong z-10" />
 
                 <div className="shrink-0 w-20 pt-1">
                   <span className="text-xs font-semibold text-gray-600 tracking-wide tabular-nums">
@@ -81,18 +80,17 @@ export function ExperienceSection() {
                   </span>
                 </div>
                 <div className="shrink-0 w-48">
-                  <h3 className="type-s2 font-semibold text-gray-900 mb-0.5">{exp.company}</h3>
+                  <h3 className="type-title-compact text-gray-900 mb-0.5 transition-transform duration-300 group-hover:translate-x-1">{exp.company}</h3>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="space-y-2">
                     {exp.bio.map((line, idx) => (
-                      <p key={idx} className="type-caption text-gray-600">{line}</p>
+                      <p key={idx} className="type-body text-gray-600">{line}</p>
                     ))}
                   </div>
                 </div>
-                <div className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-[#fafafa] text-gray-600 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-white group-hover:bg-[#cc0058] group-hover:border-[#cc0058] group-focus-visible:opacity-100 group-focus-visible:translate-x-0 transition-all duration-300 ease-out">
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </div>
+                {/* Stacked below lg: the arrow leaves the layout (no hover on touch, and it left an empty line under each bio) */}
+                <NavArrow display="hidden lg:flex" />
               </motion.a>
             ))}
           </div>

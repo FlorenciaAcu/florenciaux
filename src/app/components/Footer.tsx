@@ -11,7 +11,7 @@ export function Footer() {
 
   return (
     <footer data-header-theme="dark" className="bg-surface-dark py-16">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="page-container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div className="space-y-3">
@@ -22,36 +22,40 @@ export function Footer() {
             <p className="text-sm text-gray-400">Product Designer · San Juan, Argentina</p>
           </div>
 
-          {/* Nav */}
-          <div className="space-y-3">
-            <p className="type-eyebrow text-gray-400 mb-4">
+          {/* Nav: a labelled navigation landmark; the group label keeps its small eyebrow look */}
+          <nav className="space-y-3" aria-labelledby="footer-nav-title">
+            <p id="footer-nav-title" className="type-eyebrow text-gray-400 mb-4">
               Navegación
             </p>
             <ul className="space-y-2">
               {[
-                { label: "Inicio", action: () => go("#/") },
-                { label: "Sobre mí", action: () => go("#/sobre-mi") },
-                { label: "Proyectos", action: () => go("#/proyectos") },
-                { label: "Experiencia", action: () => go("#/experiencia") },
+                { label: "Inicio", hash: "#/" },
+                { label: "Sobre mí", hash: "#/sobre-mi" },
+                { label: "Proyectos", hash: "#/proyectos" },
+                { label: "Experiencia", hash: "#/experiencia" },
               ].map((item) => (
                 <li key={item.label}>
-                  <button
-                    onClick={item.action}
+                  <a
+                    href={item.hash}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      go(item.hash);
+                    }}
                     className="text-sm text-gray-400 hover:text-magenta transition-colors text-left"
                   >
                     {item.label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Links */}
           <div className="space-y-3">
-            <p className="type-eyebrow text-gray-400 mb-4">
+            <p id="footer-contact-title" className="type-eyebrow text-gray-400 mb-4">
               Contacto
             </p>
-            <ul className="space-y-2">
+            <ul className="space-y-2" aria-labelledby="footer-contact-title">
               <li>
                 <a
                   href={`mailto:${EMAIL}`}

@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { IsologoFA } from "./IsologoFA";
+import { Menu, X } from "lucide-react";
 import { Button } from "./Button";
 
 export function Header() {
@@ -51,11 +52,11 @@ export function Header() {
 
   return (
     <header ref={headerRef} className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${isDark ? "glass-header-dark" : "glass-header"}`}>
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="page-container py-4 flex items-center justify-between">
         {/* Logo */}
         <button
           onClick={() => go("#/")}
-          className="flex items-center gap-2.5 rounded-full hover:opacity-80 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff006e] focus-visible:ring-offset-2"
+          className="flex items-center gap-2.5 rounded-full hover:opacity-80 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-magenta focus-visible:ring-offset-2"
           aria-label="Ir al inicio"
         >
           <IsologoFA variant={isDark ? "light" : "dark"} />
@@ -66,17 +67,22 @@ export function Header() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6">
+          {/* Links (real hash URLs); the click keeps the old behavior: close the menu and, for "Inicio", scroll to the top */}
           {navItems.map((item) => (
-            <button
+            <a
               key={item.label}
-              onClick={() => go(item.hash)}
+              href={item.hash}
+              onClick={(e) => {
+                e.preventDefault();
+                go(item.hash);
+              }}
               className={`group relative py-1 text-sm transition-colors duration-300 ${
                 isDark ? "text-white/90 hover:text-white" : "text-gray-700 hover:text-gray-900"
               }`}
             >
               {item.label}
-              <span className="absolute left-0 -bottom-0.5 h-[2px] w-full origin-left scale-x-0 bg-[#cc0058] transition-transform duration-300 ease-out group-hover:scale-x-100" />
-            </button>
+              <span className="absolute left-0 -bottom-0.5 h-[2px] w-full origin-left scale-x-0 bg-magenta-strong transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true" />
+            </a>
           ))}
           <Button onClick={goContact}>
             Contacto
@@ -89,20 +95,15 @@ export function Header() {
           className={`md:hidden relative z-50 transition-colors duration-300 ${
             isDark && !isMobileMenuOpen ? "text-white" : "text-gray-900"
           }`}
-          aria-label="Toggle mobile menu"
+          aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-menu"
         >
-          <svg
-            className={`w-6 h-6 transition-transform duration-300 ${isMobileMenuOpen ? "rotate-90" : ""}`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            {isMobileMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
+          {isMobileMenuOpen ? (
+            <X className="w-6 h-6 transition-transform duration-300 rotate-90" aria-hidden="true" />
+          ) : (
+            <Menu className="w-6 h-6 transition-transform duration-300" aria-hidden="true" />
+          )}
         </button>
       </div>
 
@@ -116,20 +117,25 @@ export function Header() {
 
       {/* Mobile menu */}
       <div
-        className={`fixed top-0 left-0 w-full h-screen z-40 bg-[#fafafa] transform transition-transform duration-300 ease-in-out md:hidden ${
+        id="mobile-menu"
+        className={`fixed top-0 left-0 w-full h-screen z-40 bg-surface-page transform transition-transform duration-300 ease-in-out md:hidden ${
           isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >
         <div className="pt-20 px-6">
           <nav className="flex flex-col">
             {navItems.map((item) => (
-              <button
+              <a
                 key={item.label}
-                onClick={() => go(item.hash)}
-                className="text-left py-5 border-b border-gray-100 text-gray-700 text-lg font-medium hover:text-[#cc0058] transition-colors"
+                href={item.hash}
+                onClick={(e) => {
+                  e.preventDefault();
+                  go(item.hash);
+                }}
+                className="text-left py-5 border-b border-gray-100 text-gray-700 text-lg font-medium hover:text-magenta-strong transition-colors"
               >
                 {item.label}
-              </button>
+              </a>
             ))}
             <div className="pt-6">
               <Button onClick={goContact} className="w-full">

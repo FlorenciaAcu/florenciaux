@@ -312,6 +312,13 @@
   border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
+/* Page container: the one horizontal axis of the site (= max-w-7xl mx-auto px-6). Sections put their own inner widths inside it. */
+@utility page-container {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
 html.custom-cursor-active,
 html.custom-cursor-active * {
   cursor: none !important;
@@ -377,8 +384,7 @@ html {
 }
 
 /* Shared type scale. Sizes change only at breakpoints so every role stays predictable. */
-.type-display,
-.display-hero {
+.type-display {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 3rem;
   line-height: 1;
@@ -394,8 +400,7 @@ html {
   font-weight: 700;
 }
 
-.type-h1,
-.display-section {
+.type-h1 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 2.5rem;
   line-height: 1.08;
@@ -403,8 +408,7 @@ html {
   font-weight: 300;
 }
 
-.type-h2,
-.display-block {
+.type-h2 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 2rem;
   line-height: 1.15;
@@ -420,20 +424,29 @@ html {
   font-weight: 400;
 }
 
-.type-s1,
-.lead {
+.type-s1 {
   font-size: 1.125rem;
   line-height: 1.6;
   letter-spacing: 0;
   font-weight: 300;
 }
 
-.type-s2,
-.type-body {
+/* Body: narrative text. `type-s2` is a deprecated alias kept only for the case study blocks; new code uses `type-body`. */
+.type-body,
+.type-s2 {
   font-size: 1rem;
   line-height: 1.65;
   letter-spacing: 0;
   font-weight: 300;
+}
+
+/* Compact item title: a heading inside a dense list (e.g. the companies in "Experiencia"). Space Grotesk comes from the h1–h3 base rule. */
+.type-title-compact {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  letter-spacing: 0;
+  font-weight: 500;
 }
 
 .type-caption {
@@ -459,18 +472,15 @@ html {
 }
 
 @media (min-width: 48rem) {
-  .type-display,
-  .display-hero {
+  .type-display {
     font-size: 5rem;
   }
 
-  .type-h1,
-  .display-section {
+  .type-h1 {
     font-size: 3.5rem;
   }
 
-  .type-h2,
-  .display-block {
+  .type-h2 {
     font-size: 2.5rem;
   }
 
@@ -478,15 +488,13 @@ html {
     font-size: 1.5rem;
   }
 
-  .type-s1,
-  .lead {
+  .type-s1 {
     font-size: 1.25rem;
   }
 }
 
 @media (min-width: 64rem) {
-  .type-display,
-  .display-hero {
+  .type-display {
     font-size: 6rem;
   }
 
@@ -494,13 +502,11 @@ html {
     font-size: 3.75rem;
   }
 
-  .type-h1,
-  .display-section {
+  .type-h1 {
     font-size: 4.25rem;
   }
 
-  .type-h2,
-  .display-block {
+  .type-h2 {
     font-size: 2.75rem;
   }
 

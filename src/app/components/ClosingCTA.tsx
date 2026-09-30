@@ -22,25 +22,25 @@ export function ClosingCTA() {
   };
 
   return (
-    <section id="contacto" aria-label="Contacto" data-header-theme="dark" className="relative overflow-hidden bg-[#0a0a0a] py-16 lg:py-24">
+    <section id="contacto" aria-label="Contacto" data-header-theme="dark" className="relative overflow-hidden bg-surface-dark py-16 lg:py-24">
       {/* Animated gradient blobs — same cinematic language as DetailHero */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="animate-blob-1 absolute -top-24 left-1/4 h-80 w-80 rounded-full bg-[#ff006e] opacity-[0.18] blur-[110px]" />
-        <div className="animate-blob-2 absolute bottom-0 -right-24 h-96 w-96 rounded-full bg-[#00e5ff] opacity-[0.16] blur-[120px]" />
+        <div className="animate-blob-1 absolute -top-24 left-1/4 h-80 w-80 rounded-full bg-magenta opacity-[0.18] blur-[110px]" />
+        <div className="animate-blob-2 absolute bottom-0 -right-24 h-96 w-96 rounded-full bg-cyan opacity-[0.16] blur-[120px]" />
       </div>
 
-      <div className="relative max-w-4xl mx-auto px-6 text-center">
+      {/* Page container (shared axis). Each element keeps its own centred width: heading = editorial width (max-w-6xl fits it in two lines from ~1200px), description = reading width, share card = component width */}
+      <div className="relative page-container text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55 }}
         >
-          <p className="type-eyebrow text-[#ff006e] mb-4">Hablemos</p>
-          <h2 className="type-h1 text-white mb-6">
+          <h2 className="type-h1 text-white mb-6 max-w-6xl mx-auto">
             ¿Estás construyendo o mejorando un producto digital?
           </h2>
-          <p className="type-s1 text-gray-300 mb-10 max-w-2xl mx-auto">
+          <p className="type-s1 text-gray-300 mb-10 max-w-3xl mx-auto">
             Puedo ayudarte a transformar una idea, necesidad o flujo en una experiencia clara, usable y lista para probar, validar o avanzar hacia desarrollo.
           </p>
         </motion.div>
@@ -51,10 +51,10 @@ export function ClosingCTA() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mx-auto max-w-2xl rounded-3xl border border-white/15 bg-[#14141c]/90 p-5 text-left shadow-[0_24px_70px_rgba(0,0,0,0.55)] sm:p-7"
+          className="mx-auto max-w-4xl rounded-3xl border border-white/15 bg-[#14141c]/90 p-5 text-left shadow-[0_24px_70px_rgba(0,0,0,0.55)] sm:p-7"
         >
           <div className="flex items-center gap-2 text-sm font-medium text-gray-200">
-            <FileText className="h-4 w-4 text-[#ff006e]" aria-hidden="true" />
+            <FileText className="h-4 w-4 text-magenta" aria-hidden="true" />
             Compartir “Tu próximo producto”
           </div>
 
@@ -76,7 +76,7 @@ export function ClosingCTA() {
                 <p className="text-sm font-semibold text-white">Vos</p>
                 <p className="text-xs text-gray-400">Tenés la idea, el problema o el flujo</p>
               </div>
-              <span className="shrink-0 rounded-md border border-[#ff006e]/50 px-2.5 py-1 text-xs text-[#ff7fb3]">Idea</span>
+              <span className="shrink-0 rounded-md border border-magenta/50 px-2.5 py-1 text-xs text-[#ff7fb3]">Idea</span>
             </li>
           </ul>
 

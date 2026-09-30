@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { NavArrow } from "./NavArrow";
 import { getExperienceBySlug } from "../data/experiences";
 import { getProjectBySlug } from "../data/projects";
 
@@ -42,8 +42,8 @@ export function FeaturedProjects() {
   };
 
   return (
-    <section id="proyectos" className="relative py-20 lg:py-36 bg-[#fafafa]/90">
-      <div className="relative max-w-7xl mx-auto px-6">
+    <section id="proyectos" className="relative py-20 lg:py-36 bg-surface-page/90">
+      <div className="relative page-container">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -78,19 +78,19 @@ export function FeaturedProjects() {
                 e.preventDefault();
                 navigate(item.route);
               }}
-              className="group cursor-pointer flex items-center gap-5 sm:gap-8 py-8 sm:py-10 lg:py-14 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cc0058]"
+              className="group cursor-pointer flex items-center gap-5 sm:gap-8 py-8 sm:py-10 lg:py-14 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
             >
               {/* Case number: purely decorative, drawn with CSS so it is not read as text */}
               <span
                 aria-hidden="true"
                 data-n={String(i + 1).padStart(2, "0")}
-                className="shrink-0 w-14 sm:w-24 text-3xl sm:text-5xl lg:text-6xl font-light text-gray-300 group-hover:text-[#cc0058] transition-colors duration-300 tabular-nums before:content-[attr(data-n)]"
+                className="shrink-0 w-14 sm:w-24 text-3xl sm:text-5xl lg:text-6xl font-light text-gray-300 group-hover:text-magenta-strong transition-colors duration-300 tabular-nums before:content-[attr(data-n)]"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               />
 
               {/* Content */}
               <div className="flex-1 min-w-0">
-                <p className="type-eyebrow text-[#cc0058] mb-1.5">
+                <p className="type-eyebrow text-magenta-strong mb-1.5">
                   {item.sector}
                 </p>
                 <h3 className="type-h2 text-gray-900 mb-2 group-hover:translate-x-1 transition-transform duration-300">
@@ -101,10 +101,8 @@ export function FeaturedProjects() {
                 </p>
               </div>
 
-              {/* Arrow — hidden by default, slides in on hover (same behavior as ExperienceSection) */}
-              <div className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full border border-gray-200 bg-[#fafafa] text-gray-600 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-white group-hover:bg-[#cc0058] group-hover:border-[#cc0058] group-focus-visible:opacity-100 group-focus-visible:translate-x-0 transition-all duration-300 ease-out">
-                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-              </div>
+              {/* Out of the layout below sm: there is no hover on touch, so it would only take width from the content */}
+              <NavArrow display="hidden sm:flex" />
             </motion.a>
           ))}
         </div>

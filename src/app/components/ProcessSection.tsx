@@ -26,8 +26,8 @@ const steps = [
 
 export function ProcessSection() {
   return (
-    <section id="proceso" className="relative py-20 lg:py-36 bg-[#fafafa]/90">
-      <div className="relative max-w-7xl mx-auto px-6">
+    <section id="proceso" className="relative py-20 lg:py-36 bg-surface-page/90">
+      <div className="relative page-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,12 +68,12 @@ export function ProcessSection() {
                 <>
                   <ArrowRight
                     aria-hidden="true"
-                    className="absolute left-[calc(100%+0.5rem)] top-3 hidden h-6 w-6 -translate-x-1/2 text-[#cc0058]/60 lg:block"
+                    className="absolute left-[calc(100%+0.5rem)] top-3 hidden h-6 w-6 -translate-x-1/2 text-magenta-strong/60 lg:block"
                     strokeWidth={1.5}
                   />
                   <ArrowDown
                     aria-hidden="true"
-                    className="absolute left-7 top-[calc(100%+1.75rem)] h-5 w-5 -translate-x-1/2 -translate-y-1/2 text-[#cc0058]/60 lg:hidden"
+                    className="absolute left-7 top-[calc(100%+1.75rem)] h-5 w-5 -translate-x-1/2 -translate-y-1/2 text-magenta-strong/60 lg:hidden"
                     strokeWidth={1.5}
                   />
                 </>

@@ -94,9 +94,9 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                   ref={closeRef}
                   onClick={() => onCloseRef.current()}
                   aria-label="Cerrar agenda"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-gray-200 transition-colors hover:border-[#ff006e] hover:text-white"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-gray-200 transition-colors hover:border-magenta hover:text-white"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
             </div>
@@ -106,7 +106,7 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                   role="status"
                   className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#14141c] px-6 text-center text-sm text-gray-300"
                 >
-                  <Loader2 className="h-6 w-6 animate-spin text-[#ff006e] motion-reduce:animate-none" aria-hidden="true" />
+                  <Loader2 className="h-6 w-6 animate-spin text-magenta motion-reduce:animate-none" aria-hidden="true" />
                   <p>Cargando la agenda…</p>
                   <a
                     href={SCHEDULE_URL}
