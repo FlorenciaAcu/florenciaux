@@ -11,10 +11,10 @@ const secondaryProjects = secondarySlugs.map((slug) => getProjectBySlug(slug)!);
 // One short line per card, all with the same shape: "lo que diseñé, para quién/qué contexto". Home-only copy: the pages keep their own taglines.
 // The sector above the name already gives the industry, so these add operational or audience detail instead of repeating it.
 const cardSummaries: Record<string, string> = {
-  cintelink: "Productos digitales para gestionar operaciones de abastecimiento de combustible, conectando la plataforma con lo que ocurre durante cada carga.",
-  cemico: "Productos digitales para distintos momentos y perfiles dentro del ecosistema de salud de Grupo CEMICO.",
+  cintelink: "Plataforma y sistema de diseño para Cintelink, una solución de gestión de combustible.",
+  cemico: "Productos digitales para pacientes, admisión, colaboradores y auditoría médica en Grupo CEMICO.",
   "buscador-agricola": "MVP de un marketplace especializado para conectar la oferta y la demanda del sector agrícola en Chile.",
-  "juan-gas-gnc": "Consulta de saldo de puntos para un club de fidelización, desde el diseño hasta la implementación.",
+  "juan-gas-gnc": "Web para consultar el saldo de puntos de Juan Gas GNC Club por patente.",
 };
 
 const caseFile = [

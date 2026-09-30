@@ -55,7 +55,7 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-8 pb-24 lg:py-12">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr] lg:gap-10">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.5fr_1fr] lg:gap-16 xl:gap-24">
           {/* Copy */}
           <div className="flex flex-col gap-5 sm:gap-8">
             <motion.div
