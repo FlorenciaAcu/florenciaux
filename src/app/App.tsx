@@ -11,6 +11,9 @@ import { ExperiencePage } from "./components/ExperiencePage";
 import { CaseStudyPage } from "./components/CaseStudyPage";
 import { GlobalImagePreloader } from "./components/GlobalImagePreloader";
 import { SEOHead } from "./components/SEOHead";
+import { getProjectBySlug } from "./data/projects";
+import { getExperienceBySlug } from "./data/experiences";
+import { experienceSeo, projectSeo } from "./data/seo";
 import { FixedBackdrop } from "./components/FixedBackdrop";
 import { ProcessSection } from "./components/ProcessSection";
 import { ClosingCTA } from "./components/ClosingCTA";
@@ -53,6 +56,16 @@ function parseHash(): Route {
   return { page: "/" };
 }
 
+// Unknown slugs fall back to the Home metadata.
+function seoForProject(slug: string) {
+  const project = getProjectBySlug(slug);
+  return project ? projectSeo(project) : {};
+}
+function seoForExperience(slug: string) {
+  const experience = getExperienceBySlug(slug);
+  return experience ? experienceSeo(experience) : {};
+}
+
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
@@ -90,7 +103,7 @@ function AppRoutes() {
   if (route.page === "/proyectos/:slug" && route.slug) {
     return (
       <>
-        <SEOHead />
+        <SEOHead {...seoForProject(route.slug)} />
         <GlobalImagePreloader />
         <FixedBackdrop />
         <CaseStudyPage slug={route.slug} />
@@ -101,7 +114,7 @@ function AppRoutes() {
   if (route.page === "/experiencia/:slug" && route.slug) {
     return (
       <>
-        <SEOHead />
+        <SEOHead {...seoForExperience(route.slug)} />
         <GlobalImagePreloader />
         <FixedBackdrop />
         <ExperiencePage slug={route.slug} />

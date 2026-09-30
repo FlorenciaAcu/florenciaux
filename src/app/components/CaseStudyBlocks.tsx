@@ -210,8 +210,8 @@ export function CaseOutline({ items }: { items: OutlineItem[] }) {
                 type="button"
                 onClick={() => go(item.id)}
                 aria-current={isActive ? "location" : undefined}
-                className={`-ml-px flex w-full gap-2.5 border-l-2 py-1.5 ${item.sub ? "pl-7" : "pl-4"} text-left text-sm leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cc0058] ${
-                  isActive ? "border-[#cc0058] font-medium text-gray-900" : "border-transparent text-gray-600 hover:text-gray-900"
+                className={`-ml-px flex w-full gap-2.5 border-l-2 py-1.5 ${item.sub ? "pl-7" : "pl-4"} text-left text-sm leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta-strong ${
+                  isActive ? "border-magenta-strong font-medium text-gray-900" : "border-transparent text-gray-600 hover:text-gray-900"
                 }`}
               >
                 {item.label}
@@ -231,7 +231,7 @@ function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
       {groups.map((group) => (
         <div key={group.title ?? group.images[0].caption}>
           {group.title && (
-            <motion.h3 {...reveal} className={`${group.intro ? "mb-2" : "mb-5"} type-eyebrow text-[#cc0058]`}>
+            <motion.h3 {...reveal} className={`${group.intro ? "mb-2" : "mb-5"} type-eyebrow text-magenta-strong`}>
               {group.title}
             </motion.h3>
           )}
@@ -286,11 +286,11 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
           )}
 
           <motion.div {...reveal} className="mt-12 max-w-3xl">
-            <h4 className="type-eyebrow text-[#cc0058]">Lo que diseñé</h4>
+            <h4 className="type-eyebrow text-magenta-strong">Lo que diseñé</h4>
             <ul className="mt-5 space-y-3">
               {feature.did.map((item) => (
                 <li key={item} className="type-body flex gap-3 text-gray-800">
-                  <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#cc0058]" aria-hidden="true" />
+                  <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-magenta-strong" aria-hidden="true" />
                   {item}
                 </li>
               ))}
@@ -299,7 +299,7 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
 
           {feature.options && (
             <div className="mt-16">
-              <motion.h4 {...reveal} className="type-eyebrow text-[#cc0058]">
+              <motion.h4 {...reveal} className="type-eyebrow text-magenta-strong">
                 {feature.options.title}
               </motion.h4>
               {feature.options.intro && (
@@ -320,13 +320,13 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
 
           {feature.evolution && (
             <div className="mt-16">
-              <motion.h4 {...reveal} className="type-eyebrow text-[#cc0058]">
+              <motion.h4 {...reveal} className="type-eyebrow text-magenta-strong">
                 {feature.evolutionTitle ?? "Cómo evolucionó"}
               </motion.h4>
               <ol className={`mt-8 grid gap-x-10 gap-y-8 ${feature.evolution.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
                 {feature.evolution.map((step, i) => (
                   <motion.li key={step.title} {...reveal} transition={{ duration: 0.5, delay: i * 0.08 }}>
-                    <span className="text-sm font-medium tabular-nums text-[#cc0058]">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="text-sm font-medium tabular-nums text-magenta-strong">{String(i + 1).padStart(2, "0")}</span>
                     <h5 className="type-h3 mt-2 text-gray-900">{step.title}</h5>
                     <p className="type-caption mt-2 text-gray-600">{step.text}</p>
                   </motion.li>
@@ -343,7 +343,7 @@ function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
 
           {feature.learned && (
             <motion.div {...reveal} className="mt-16 max-w-3xl">
-              <h4 className="type-eyebrow text-[#cc0058]">Qué aprendí</h4>
+              <h4 className="type-eyebrow text-magenta-strong">Qué aprendí</h4>
               <p className="type-s1 mt-3 text-gray-700">{feature.learned}</p>
             </motion.div>
           )}
@@ -415,7 +415,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
                       {data.decisions.map((decision, i) => {
                         return (
                           <motion.li key={decision.title} {...reveal} className={`${row} py-10 lg:py-12`}>
-                            <span className="pt-1 text-sm font-medium tabular-nums text-[#cc0058]" aria-hidden="true">
+                            <span className="pt-1 text-sm font-medium tabular-nums text-magenta-strong" aria-hidden="true">
                               {String(i + 1).padStart(2, "0")}
                             </span>
                             <div className="max-w-3xl">
@@ -476,11 +476,11 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between gap-4 py-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cc0058]"
+                  className="group flex items-center justify-between gap-4 py-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta-strong"
                 >
                   <span className="type-h3 text-gray-900 transition-transform duration-300 group-hover:translate-x-1">{item.label}</span>
                   <ArrowUpRight
-                    className="h-5 w-5 shrink-0 text-[#cc0058] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    className="h-5 w-5 shrink-0 text-magenta-strong transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                     aria-hidden="true"
                   />
                   <span className="sr-only">(se abre en otra pestaña)</span>

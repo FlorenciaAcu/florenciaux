@@ -3,17 +3,57 @@
 :root {
   --font-size: 16px;
 
-  /* ===== Brand tokens — sistema "Florencia" ===== */
-  --brand-ink: #0a0a0a;       /* negro profundo — protagonista, no solo texto */
-  --brand-primary: #ff006e;   /* magenta neón — marca, CTAs */
-  --brand-primary-dark: #cc0058; /* hover/active del magenta */
-  --brand-accent: #00e5ff;    /* cian — detalles puntuales, uso moderado */
-  --brand-surface: #fafafa;   /* fondo claro */
-  --brand-surface-alt: #f0f0f0; /* fondo claro secundario (cards, badges) */
+  /* ===== Portfolio tokens — source of truth (see docs/DESIGN_SYSTEM.md) ===== */
 
-  /* Radio consistente en toda la plataforma */
+  /* Brand */
+  --brand-magenta: #ff006e;        /* magenta neón — marca, CTAs, acento sobre fondo oscuro */
+  --brand-magenta-strong: #cc0058; /* magenta accesible sobre fondo claro: eyebrows, links, numeración, bullets */
+  --brand-cyan: #00e5ff;           /* cian — detalles puntuales, uso moderado */
+  --brand-cyan-strong: #00b8d4;    /* cian para el degradado sobre fondo claro */
+  --gradient-brand: linear-gradient(90deg, var(--brand-magenta-strong), var(--brand-cyan-strong));
+  --gradient-brand-dark: linear-gradient(90deg, var(--brand-magenta), var(--brand-cyan));
+
+  /* Surfaces */
+  --surface-page: #fafafa;      /* fondo claro de página */
+  --surface-subtle: #f0f0f0;    /* fondo claro secundario (cards, badges) */
+  --surface-elevated: #ffffff;  /* superficies blancas sobre la página */
+  --surface-dark: #0a0a0a;      /* negro profundo: footer, secciones oscuras */
+  --surface-glass: rgba(255, 255, 255, 0.55); /* .glass-panel */
+
+  /* Text (aliases of the Tailwind grays the components already use) */
+  --text-primary: var(--color-gray-900);
+  --text-secondary: var(--color-gray-700);
+  --text-muted: var(--color-gray-600);
+  --text-inverse: #ffffff;
+  --text-accent: var(--brand-magenta-strong);
+  --text-accent-inverse: var(--brand-magenta);
+
+  /* Borders */
+  --border-subtle: var(--color-gray-200);
+
+  /* Radius */
+  --radius-media: 0.75rem;  /* rounded-xl: imágenes y capturas */
+  --radius-pill: 999px;     /* botones, badges */
+
+  /* Layout: content widths already in use */
+  --content-wide: 80rem;    /* max-w-7xl: contenedor de página */
+  --content-reading: 48rem; /* max-w-3xl: medida de lectura */
+  --content-narrow: 42rem;  /* max-w-2xl: textos cortos */
+
+  /* Spacing: vertical rhythm of Home sections (py-20 lg:py-36) */
+  --section-y: 5rem;
+  --section-y-lg: 9rem;
+
+  /* Legacy brand names, kept as aliases (shadcn mapping below uses them) */
+  --brand-ink: var(--surface-dark);
+  --brand-primary: var(--brand-magenta);
+  --brand-primary-dark: var(--brand-magenta-strong);
+  --brand-accent: var(--brand-cyan);
+  --brand-surface: var(--surface-page);
+  --brand-surface-alt: var(--surface-subtle);
+
+  /* shadcn base radius (components/ui) */
   --radius: 1.25rem; /* 20px — base para cards */
-  --radius-pill: 999px; /* botones, badges */
 
   --background: var(--brand-surface);
   --foreground: var(--brand-ink);
@@ -91,6 +131,18 @@
 }
 
 @theme inline {
+  /* Semantic utilities: text-magenta-strong, bg-surface-page, bg-surface-dark… */
+  --color-magenta: var(--brand-magenta);
+  --color-magenta-strong: var(--brand-magenta-strong);
+  --color-cyan: var(--brand-cyan);
+  --color-cyan-strong: var(--brand-cyan-strong);
+  --color-surface-page: var(--surface-page);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-dark: var(--surface-dark);
+  --container-content-wide: var(--content-wide);
+  --container-content-reading: var(--content-reading);
+  --container-content-narrow: var(--content-narrow);
   --color-brand-ink: var(--brand-ink);
   --color-brand-primary: var(--brand-primary);
   --color-brand-primary-dark: var(--brand-primary-dark);
@@ -190,14 +242,14 @@
 }
 
 .text-gradient-brand {
-  background: linear-gradient(90deg, #cc0058, #00b8d4);
+  background: var(--gradient-brand);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .text-gradient-brand-dark {
-  background: linear-gradient(90deg, #ff006e, #00e5ff);
+  background: var(--gradient-brand-dark);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -205,7 +257,7 @@
 
 /* Liquid glass — Apple-style frosted panel: translucent surface, blur + saturation, hairline highlight */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--surface-glass);
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.7);

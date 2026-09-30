@@ -1,4 +1,5 @@
 import type { CaseStudy } from "./experiences";
+import type { PageSeo } from "./site";
 import buscadorHome from "../../imports/buscador-home.jpg";
 import buscadorPerfil from "../../imports/buscador-perfil-empresa.jpg";
 import juangasQrEnEstacion from "../../imports/juangas-qr-en-estacion.jpg";
@@ -8,6 +9,8 @@ import audagnoDesktopHome from "../../imports/audagno-desktop-home.jpg";
 import audagnoDesktopContacto from "../../imports/audagno-desktop-contacto.jpg";
 
 export interface ProjectDetail {
+  /** Optional metadata overrides. Without them, data/seo.ts derives title and description from the existing content. */
+  seo?: PageSeo;
   /** Full case written from the designer's perspective. Projects without it use the placeholder layout. */
   caseStudy?: CaseStudy;
   /** Shown under the title when a case study exists. */

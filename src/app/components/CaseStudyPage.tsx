@@ -48,7 +48,7 @@ export function CaseStudyPage({ slug }: Props) {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-[#fafafa]">
+      <div className="min-h-screen bg-surface-page">
         <Header />
         <main className="pt-20">
           <div className="max-w-7xl mx-auto px-6 py-40 flex flex-col items-center gap-6 text-center">
@@ -56,7 +56,7 @@ export function CaseStudyPage({ slug }: Props) {
             <button
               onClick={handleBackToProjects}
               aria-label="Volver a proyectos"
-              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-[#fafafa] text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-colors"
+              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-surface-page text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -68,7 +68,7 @@ export function CaseStudyPage({ slug }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-[#fafafa]">
+    <div className="min-h-screen bg-surface-page">
       <Header />
 
       <main className="px-[0px] pt-[64px] pb-[0px]">
@@ -118,7 +118,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="type-eyebrow text-[#cc0058] mb-3">
+            <p className="type-eyebrow text-magenta-strong mb-3">
               Contexto
             </p>
             <p className="type-body text-gray-700">
@@ -132,7 +132,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="type-eyebrow text-[#cc0058] mb-3">
+            <p className="type-eyebrow text-magenta-strong mb-3">
               Problema o reto
             </p>
             <p className="type-body text-gray-700">
@@ -148,7 +148,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="type-eyebrow text-[#cc0058] mb-3">
+            <p className="type-eyebrow text-magenta-strong mb-3">
               Mi rol
             </p>
             <p className="type-body text-gray-700">
@@ -162,7 +162,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="type-eyebrow text-[#cc0058] mb-3">
+            <p className="type-eyebrow text-magenta-strong mb-3">
               Solución
             </p>
             <p className="type-body text-gray-700">
@@ -176,7 +176,7 @@ export function CaseStudyPage({ slug }: Props) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
           >
-            <p className="type-eyebrow text-[#cc0058] mb-5">
+            <p className="type-eyebrow text-magenta-strong mb-5">
               Evidencia visual
             </p>
             <div className="space-y-4">

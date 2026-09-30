@@ -11,3 +11,6 @@ export const BOOKING_EMBED_URL =
 
 export const CV_URL =
   "https://docs.google.com/document/d/1O70FGTcqo2q0tnwgErOQUlcODUc8LEDuZI0w3G4l9do/edit?usp=sharing";
+
+export const LINKEDIN_URL = "https://www.linkedin.com/in/florencia-acuna-ux/";
+export const MEDIUM_URL = "https://medium.com/@florenciaacuna";

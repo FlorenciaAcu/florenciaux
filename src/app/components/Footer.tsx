@@ -1,5 +1,6 @@
 import { IsologoFA } from "./IsologoFA";
 import { Heart, Coffee } from "lucide-react";
+import { CV_URL, EMAIL, LINKEDIN_URL, MEDIUM_URL } from "../data/contact";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,7 +10,7 @@ export function Footer() {
   };
 
   return (
-    <footer data-header-theme="dark" className="bg-[#0a0a0a] py-16">
+    <footer data-header-theme="dark" className="bg-surface-dark py-16">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
@@ -36,7 +37,7 @@ export function Footer() {
                 <li key={item.label}>
                   <button
                     onClick={item.action}
-                    className="text-sm text-gray-400 hover:text-[#ff006e] transition-colors text-left"
+                    className="text-sm text-gray-400 hover:text-magenta transition-colors text-left"
                   >
                     {item.label}
                   </button>
@@ -53,38 +54,38 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="mailto:contact@florenciaux.com"
-                  className="text-sm text-gray-400 hover:text-[#ff006e] transition-colors"
+                  href={`mailto:${EMAIL}`}
+                  className="text-sm text-gray-400 hover:text-magenta transition-colors"
                 >
-                  contact@florenciaux.com
+                  {EMAIL}
                 </a>
               </li>
               <li>
                 <a
-                  href="https://www.linkedin.com/in/florencia-acuna-ux/"
+                  href={LINKEDIN_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-[#ff006e] transition-colors"
+                  className="text-sm text-gray-400 hover:text-magenta transition-colors"
                 >
                   LinkedIn
                 </a>
               </li>
               <li>
                 <a
-                  href="https://medium.com/@florenciaacuna"
+                  href={MEDIUM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-[#ff006e] transition-colors"
+                  className="text-sm text-gray-400 hover:text-magenta transition-colors"
                 >
                   Medium
                 </a>
               </li>
               <li>
                 <a
-                  href="https://docs.google.com/document/d/1O70FGTcqo2q0tnwgErOQUlcODUc8LEDuZI0w3G4l9do/edit?usp=sharing"
+                  href={CV_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-[#ff006e] transition-colors"
+                  className="text-sm text-gray-400 hover:text-magenta transition-colors"
                 >
                   CV
                 </a>
@@ -101,7 +102,7 @@ export function Footer() {
             <p className="text-xs text-gray-400">Diseñado teniendo en cuenta criterios de accesibilidad.</p>
           </div>
           <p className="inline-flex items-center gap-1 text-xs text-gray-400">
-            Hecho con <Heart className="w-3.5 h-3.5 text-[#ff006e] fill-[#ff006e]" /> y mucho tecito <Coffee className="w-3.5 h-3.5 text-[#ff006e]" />
+            Hecho con <Heart className="w-3.5 h-3.5 text-magenta fill-magenta" /> y mucho tecito <Coffee className="w-3.5 h-3.5 text-magenta" />
           </p>
         </div>
       </div>

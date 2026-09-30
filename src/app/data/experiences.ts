@@ -1,6 +1,7 @@
 import consolaDashboard from "../../imports/cintelink-consola-dashboard.jpg";
 import pantallaVistaGeneral from "../../imports/cintelink-pantalla-vista-general.jpg";
 import aneloConsola from "../../imports/anelo-tablet-consola.jpg";
+import type { PageSeo } from "./site";
 
 export interface ExperienceProject {
   name: string;
@@ -102,6 +103,8 @@ export interface CaseStudy {
 }
 
 export interface Experience {
+  /** Optional metadata overrides. Without them, data/seo.ts derives title and description from the existing content. */
+  seo?: PageSeo;
   slug: string;
   role: string;
   company: string;

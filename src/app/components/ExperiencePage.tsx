@@ -35,7 +35,7 @@ export function ExperiencePage({ slug }: Props) {
 
   if (!experience) {
     return (
-      <div className="min-h-screen bg-[#fafafa]">
+      <div className="min-h-screen bg-surface-page">
         <Header />
         <main className="pt-20">
           <div className="max-w-7xl mx-auto px-6 py-40 flex flex-col items-center gap-6 text-center">
@@ -43,7 +43,7 @@ export function ExperiencePage({ slug }: Props) {
             <button
               onClick={handleBack}
               aria-label="Volver a experiencia"
-              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-[#fafafa] text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-colors"
+              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-surface-page text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
@@ -55,7 +55,7 @@ export function ExperiencePage({ slug }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-[#fafafa]">
+    <div className="min-h-screen bg-surface-page">
       <Header />
 
       <main className="px-[0px] pt-[64px] pb-[0px]">
@@ -126,7 +126,7 @@ export function ExperiencePage({ slug }: Props) {
                         ...(project.example ? [{ label: "Un ejemplo", text: project.example }] : []),
                       ].map((row, index) => (
                         <div key={row.label}>
-                          <dt className="type-eyebrow mb-2 text-[#cc0058]">{row.label}</dt>
+                          <dt className="type-eyebrow mb-2 text-magenta-strong">{row.label}</dt>
                           {/* Narrative, not a list: one paragraph per row */}
                           <dd className={index === 0 ? "text-gray-800" : "text-gray-700"}>{row.text}</dd>
                         </div>
@@ -138,7 +138,7 @@ export function ExperiencePage({ slug }: Props) {
                   {project.slug && (
                     <button
                       onClick={() => navigateToCase(project.slug!)}
-                      className="mt-5 text-sm font-semibold text-[#cc0058] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cc0058]"
+                      className="mt-5 text-sm font-semibold text-magenta-strong underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
                     >
                       Ver detalle →
                     </button>
@@ -148,7 +148,7 @@ export function ExperiencePage({ slug }: Props) {
                       href={project.externalLink.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#cc0058] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cc0058]"
+                      className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-magenta-strong underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
                     >
                       {project.externalLink.label}
                       <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

@@ -62,8 +62,8 @@ Rutas: `#/`, `#/proyectos/:slug` (casos: CEMICO, Buscador Agrícola, Juan Gas, A
    la carpeta** — el código importa por nombre y no se toca.
 2. **No renombrar los hashes de `figma:asset/`.** `vite.config.ts` los resuelve contra `src/assets/`
    mediante el plugin `figmaAssetResolver`.
-3. **`src/styles/index.css` es el único CSS que entra al build.** `theme.css`, `tailwind.css`,
-   `fonts.css` y `default_shadcn_theme.css` (raíz) están sin referenciar.
+3. **`src/styles/index.css` es el único CSS que entra al build** (importa `globals.css`, donde viven los
+   tokens; ver `docs/DESIGN_SYSTEM.md`). `tailwind.css` y `fonts.css` siguen sin referenciar.
 4. **Los cambios de decisión se registran en `docs/`** en Markdown, no solo en el mensaje de commit.
 
 ## Pendientes conocidos
