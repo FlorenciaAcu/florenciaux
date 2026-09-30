@@ -63,16 +63,17 @@ export function ProcessSection() {
               <h3 className="type-h2 text-gray-900">{step.title}</h3>
               <p className="type-body text-gray-600">{step.description}</p>
 
+              {/* Connectors sit in the gap between steps, level with the numbers. Desktop: nudged left of the gap centre so the tip keeps air before the next number. Stacked: centred in gap-14 */}
               {i < steps.length - 1 && (
                 <>
                   <ArrowRight
                     aria-hidden="true"
-                    className="absolute left-[calc(50%+1.25rem)] top-4 hidden h-4 w-4 -translate-x-1/2 text-[#cc0058]/50 lg:block"
+                    className="absolute left-[calc(100%+0.5rem)] top-3 hidden h-6 w-6 -translate-x-1/2 text-[#cc0058]/60 lg:block"
                     strokeWidth={1.5}
                   />
                   <ArrowDown
                     aria-hidden="true"
-                    className="absolute -bottom-9 left-7 h-4 w-4 -translate-x-1/2 text-[#cc0058]/50 lg:hidden"
+                    className="absolute left-7 top-[calc(100%+1.75rem)] h-5 w-5 -translate-x-1/2 -translate-y-1/2 text-[#cc0058]/60 lg:hidden"
                     strokeWidth={1.5}
                   />
                 </>

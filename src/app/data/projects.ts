@@ -59,10 +59,8 @@ export const projects: ProjectDetail[] = [
       challenge:
         "En CEMICO, la experiencia no termina en la interfaz. Muchos de los productos digitales forman parte de servicios que continúan dentro de las clínicas, en los que participan pacientes, personal de admisión, profesionales y otras áreas.\n\nPor eso hubo que considerar qué ocurre antes, durante y después de cada interacción digital: un turno termina en una atención presencial, y la llegada a la clínica conecta un tótem con admisión y una sala de espera.",
       role: [
-        "Definí la arquitectura de información, los flujos y los estados de cada producto.",
-        "Documenté el funcionamiento para acompañar la implementación: comportamientos, reglas, estados y mensajes del sistema.",
-        "Preparé manuales y guías de uso para distintos perfiles, incluyendo personal de admisión, pacientes y colaboradores.",
-        "Construí prototipos funcionales para explorar los flujos, validar cómo se conectaban las distintas partes de la experiencia y comunicar las soluciones antes de avanzar hacia su implementación.",
+        "Definí la arquitectura de información, los flujos y los estados de los distintos productos del ecosistema. También documenté su funcionamiento para acompañar la implementación, incluyendo comportamientos, reglas, estados y mensajes del sistema.",
+        "Además, preparé manuales y guías de uso para distintos perfiles y construí prototipos funcionales para explorar los flujos, validar cómo se conectaban las distintas partes de la experiencia y comunicar las soluciones antes de avanzar hacia su implementación.",
       ],
       decisionsIntro:
         "Estas son algunas de las preguntas que me hice al diseñar estos productos.",
@@ -96,7 +94,7 @@ export const projects: ProjectDetail[] = [
         { label: "Módulo de auditoría médica externa", url: "https://modulo-auditoria-externa.figma.site" },
       ],
       learned:
-        "Aprendí a diseñar productos digitales de salud entendiendo que la experiencia no termina en la pantalla, sino que continúa en distintos momentos del servicio presencial.",
+        "Trabajar en distintos productos dentro de un mismo ecosistema me ayudó a mirar cada flujo no solo de forma individual, sino también por cómo se conecta con otros usuarios, interfaces y procesos.",
     },
   },
   {
@@ -120,7 +118,7 @@ export const projects: ProjectDetail[] = [
     website: { label: "buscadoragricola.cl", url: "https://buscadoragricola.cl/" },
     caseStudy: {
       learned:
-        "Aprendí a diseñar un marketplace para una industria específica, donde entender cómo se organiza y se busca la oferta es parte central de la experiencia.",
+        "Este proyecto reforzó la importancia de entender el contexto y el negocio para definir el alcance de un producto. Eso me ayudó a priorizar qué funcionalidades eran necesarias para el MVP y cuáles podían quedar para etapas posteriores.",
       meta: [
         { label: "Rol", value: "Product Designer" },
         { label: "Industria", value: "Agtech" },
@@ -133,10 +131,8 @@ export const projects: ProjectDetail[] = [
       challenge:
         "La oferta estaba dispersa y no había un espacio común y especializado donde buscar productos, insumos, maquinaria, servicios y otras soluciones del agro con criterios propios del sector, como categoría, cultivo o ubicación. Había que diseñar una experiencia de búsqueda para esa oferta amplia y especializada.",
       role: [
-        "Diseñé la arquitectura de información, la búsqueda y la navegación.",
-        "Diseñé las categorías y los filtros por cultivo y ubicación, y los resultados en listado y en mapa.",
-        "Diseñé las fichas de publicación y el perfil de las empresas.",
-        "Diseñé la pantalla y el flujo de contacto con el proveedor.",
+        "Trabajé en la arquitectura de información, la búsqueda y la navegación del marketplace. Organicé las categorías y los filtros por cultivo y ubicación, y diseñé la exploración de resultados tanto en listado como en mapa.",
+        "También diseñé las fichas de publicación, el perfil de las empresas y el flujo de contacto con el proveedor, conectando las distintas partes del recorrido desde la búsqueda hasta el contacto.",
       ],
       decisionsIntro:
         "Estas son algunas de las decisiones que tomé al diseñar la experiencia de Buscador Agrícola.",
@@ -205,11 +201,12 @@ export const projects: ProjectDetail[] = [
     duration: "2 semanas",
     caseStudy: {
       learned:
-        "Aprendí a llevar una solución desde el diseño hasta su implementación, entendiendo también cómo conectar la experiencia con los datos y herramientas que ya utilizaba el negocio.",
+        "Este proyecto reforzó la importancia de entender cómo funciona el negocio, con qué recursos cuenta y qué datos ya tiene disponibles. Trabajar con información real de consumo y comportamiento de los clientes me ayudó a pensar no solo en la experiencia del usuario, sino también en cómo esos datos pueden convertirse en información útil para entender mejor la operación y tomar decisiones.",
       meta: [
-        { label: "Rol", value: "Product Designer" },
+        { label: "Rol", value: "Product Designer · Diseño e implementación" },
         { label: "Industria", value: "Combustible" },
-        { label: "Duración", value: "2 semanas" },
+        { label: "Estado", value: "En curso" },
+        { label: "Etapa 1 · Consulta de saldo", value: "2 semanas" },
       ],
       aboutTitle: "Qué es Juan Gas GNC Club",
       about:
@@ -218,11 +215,8 @@ export const projects: ProjectDetail[] = [
       challenge:
         "El Club ya existía, pero los clientes no tenían una forma simple de consultar sus puntos: esa información estaba en Microsoft Access, una herramienta interna de la estación. Había que llevar esos datos existentes a una experiencia que el cliente pudiera consultar por sí mismo, desde el celular y con la menor cantidad de pasos.",
       role: [
-        "En este proyecto trabajé desde UX/UI hasta la implementación: diseño de la experiencia, integración de datos y despliegue del producto.",
-        "Diseñé la experiencia de consulta de saldo: el flujo, la interfaz y una experiencia pensada para mobile.",
-        "Desarrollé un script en Python que sincroniza la información de Microsoft Access con Google Sheets, la fuente que consulta la web.",
-        "Desplegué la aplicación web.",
-        "Diseñé la cartelería con el código QR que se ubica en la estación, para que los clientes accedan rápido a la web.",
+        "En este proyecto trabajé desde el diseño de la experiencia hasta la implementación. Definí el flujo de consulta de saldo y diseñé una interfaz pensada principalmente para mobile y para el acceso desde la estación.",
+        "También resolví la integración con los datos existentes: desarrollé un script en Python para sincronizar Microsoft Access con Google Sheets, desplegué la aplicación web y diseñé la cartelería con QR para facilitar el acceso.",
       ],
       decisionsIntro:
         "Estas son algunas de las decisiones que tomé para convertir el programa de fidelización de Juan Gas en una experiencia digital simple de usar en la estación.",
@@ -265,6 +259,11 @@ export const projects: ProjectDetail[] = [
         title: "Resultado",
         text: "La solución quedó implementada y en funcionamiento. Los clientes pueden acceder desde la web o escaneando el QR en la estación, ingresar su patente y consultar su saldo de puntos.",
       },
+      nextStage: {
+        title: "Etapa 2 · Datos para la operación",
+        navLabel: "Datos para la operación",
+        text: "Con la consulta de saldo en funcionamiento, empecé a trabajar con los datos que la estación ya registraba sobre cargas, clientes y canjes. Analicé patrones de consumo, frecuencia de carga, evolución mensual y canjes de premios para entender mejor la operación.\n\nA partir de este análisis estoy diseñando un dashboard operativo, actualmente en desarrollo, para organizar y consultar esta información de forma más simple.",
+      },
     },
   },
   {
@@ -280,7 +279,7 @@ export const projects: ProjectDetail[] = [
     tags: ["Sitio web", "Legal", "UX/UI", "Implementación"],
     year: "2026",
     imageCount: 0,
-    location: "Buenos Aires, Argentina",
+    location: "La Plata, Argentina",
     website: { label: "audagnoabogado.com", url: "https://audagnoabogado.com" },
     duration: "2 semanas",
     caseStudy: {
@@ -299,6 +298,10 @@ export const projects: ProjectDetail[] = [
         "Organicé la arquitectura y la jerarquía del contenido a partir de las áreas de práctica y las principales necesidades de contacto. Diseñé la experiencia y la interfaz responsive, definiendo una identidad visual basada en azul navy, dorado y blanco.\n\nAdemás del diseño, implementé y publiqué el sitio. Integré el contacto por WhatsApp y un formulario conectado mediante Cloudflare Workers para que las consultas pudieran enviarse directamente desde la web.",
       ],
       decisions: [
+        {
+          title: "¿Cómo hacer que alguien que busca un abogado en La Plata pueda llegar al sitio?",
+          text: "Trabajé el contenido y el SEO del sitio incorporando palabras clave relacionadas con sus áreas de práctica y su ubicación, como “Abogado en La Plata”. La intención era que la web no funcionara solo como una presentación profesional, sino también como un punto de entrada para personas que estuvieran buscando servicios jurídicos en la zona.",
+        },
         {
           title: "¿Cómo hacer que alguien encuentre rápidamente el servicio que necesita?",
           text: "Organicé el contenido alrededor de las áreas de práctica y trabajé la jerarquía para que la persona pudiera identificar rápidamente si su consulta estaba dentro de los servicios ofrecidos, sin tener que recorrer grandes bloques de texto.",
@@ -335,7 +338,7 @@ export const projects: ProjectDetail[] = [
         text: "El proyecto terminó con un sitio responsive diseñado, implementado y publicado, con acceso directo a WhatsApp y un formulario de contacto funcional.",
       },
       learned:
-        "Este proyecto me permitió trabajar de punta a punta, desde la organización del contenido y el diseño de la experiencia hasta la implementación y publicación del sitio.\n\nTambién me ayudó a entender mejor cómo las decisiones de diseño conviven con aspectos técnicos que aparecen al llevar una solución a producción, como dominios, formularios, integraciones y configuración del sitio.",
+        "Este proyecto me ayudó a entender la importancia de construir una presencia digital clara para un profesional independiente. No alcanza solo con tener una web: también es importante comunicar sus áreas de trabajo, facilitar el contacto y pensar cómo las personas pueden encontrarlo en buscadores. Trabajar el contenido y el posicionamiento desde el diseño me permitió entender mejor cómo una experiencia digital también puede ayudar a conectar a un profesional con potenciales clientes.",
     },
   },
   {
@@ -402,7 +405,7 @@ export const projects: ProjectDetail[] = [
         },
       ],
       learned:
-        "Trabajar sobre planes, productos y suscripciones dentro de un producto existente me ayudó a entender mejor cómo las reglas de negocio, los estados y las acciones disponibles condicionan una experiencia. También aprendí a explorar alternativas y simplificarlas a partir del feedback, buscando integrar nuevas soluciones sin perder consistencia con el producto.",
+        "Trabajar en InfoCasas me ayudó a entender mejor cómo el modelo de negocio y las estrategias comerciales influyen en las decisiones de diseño. Al trabajar sobre un producto existente, con reglas, planes y objetivos ya definidos, aprendí a profundizar más en ese contexto y a trabajar junto al equipo de producto para diseñar experiencias que redujeran fricciones para el usuario sin perder de vista las necesidades del negocio.",
     },
   },
 ];

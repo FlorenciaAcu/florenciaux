@@ -10,6 +10,8 @@ export interface ExperienceProject {
   brief: string;
   /** How I approached it, from my design perspective. */
   how?: string;
+  /** `how` is written as team work (first person plural): labelled "Cómo lo abordamos" instead of "Cómo lo abordé". */
+  howCollective?: boolean;
   /** One concrete example. */
   example?: string;
   tags: string[];
@@ -92,6 +94,9 @@ export interface CaseStudy {
   prototypesNote?: string;
   prototypes?: { label: string; url: string }[];
   result?: { title: string; text: string };
+  /** A later stage of the project, told after "Resultado" (e.g. work still in progress). Paragraphs separated by a blank line.
+   *  `navLabel` is the shorter label for the "on this page" index. */
+  nextStage?: { title: string; navLabel?: string; text: string };
   /** A short reflection in the designer's own words. */
   learned?: string;
 }
@@ -192,6 +197,7 @@ export const experiences: Experience[] = [
         slug: undefined,
         brief: "Diseñé la app demo presentada en exposiciones, como la de minería en San Juan y la Expo Transporte, para mostrar el funcionamiento del producto.",
         how: "Simplificamos la experiencia a un recorrido corto: iniciar una transacción, completar los datos necesarios, autorizarla y pasar al despacho. El objetivo era que quien se acercaba al stand entendiera en pocos minutos la relación entre la aplicación, el despacho físico y la información que se actualizaba en pantalla.",
+        howCollective: true,
         tags: ["Demo", "Mobile", "Ferias"],
       },
       {
@@ -199,6 +205,7 @@ export const experiences: Experience[] = [
         slug: undefined,
         brief: "Diseñé de forma progresiva distintas áreas de la plataforma, entre ellas Home, Gestión, Acuerdos y el área de Analítica y Datos, junto a negocio, usuarios y equipo técnico. Algunas eran productos nuevos y otras rediseños casi desde cero.",
         how: "No lo abordamos como un rediseño visual de una sola vez. Reorganizamos la información y los flujos según las tareas y el tipo de usuario: la plataforma concentraba muchas entidades, operaciones y datos, y cada perfil necesitaba encontrar y gestionar lo que correspondía a su operación.",
+        howCollective: true,
         tags: ["SaaS", "Rediseño", "Roles"],
       },
       {
@@ -206,6 +213,7 @@ export const experiences: Experience[] = [
         slug: undefined,
         brief: "Diseñé la experiencia para definir las condiciones de consumo: reglas, permisos y autorizaciones.",
         how: "Una operación involucraba varios actores y conceptos (acuerdo, autorización, unidad, chofer, patio y consumo), y podía ser difícil entender qué habilitaba un despacho. Hicimos más explícita esa relación y simplificamos el recorrido para que la autorización acompañara al usuario hasta el momento de operar en la consola.",
+        howCollective: true,
         tags: ["Permisos", "Autorizaciones", "Roles"],
       },
       {
@@ -213,6 +221,7 @@ export const experiences: Experience[] = [
         slug: undefined,
         brief: "Diseñé el dashboard que acompaña a una consola física en un cargadero.",
         how: "Priorizamos la información que el operador necesitaba para saber si podía realizar una operación: estado de los tanques, producto, volumen y alertas. Antes de interactuar con la consola o realizar una acción física, podía entender rápidamente el estado de la instalación y después seguir el progreso desde la misma pantalla.",
+        howCollective: true,
         tags: ["Dashboard", "Hardware", "Estados"],
       },
       {
@@ -227,6 +236,7 @@ export const experiences: Experience[] = [
         slug: undefined,
         brief: "Construí y mantuve el Design System de Cintelink, redacté su manual de voz y tono y diseñé los emails y otras comunicaciones del producto.",
         how: "Una decisión importante fue no pensar el sistema solo para la plataforma desktop, porque Cintelink tenía distintos productos y contextos de uso. Trabajamos en patrones y criterios que mantuvieran la consistencia entre la plataforma, su versión responsive, la aplicación de despacho para tablet y los dashboards operativos, y extendimos esa lógica al lenguaje mediante el manual de voz y tono y el sistema de comunicaciones.",
+        howCollective: true,
         tags: ["Design System", "UX Writing", "Voz y tono", "Emailing"],
       },
     ],
@@ -245,8 +255,7 @@ export const experiences: Experience[] = [
       challenge:
         "La plataforma no funciona de manera aislada: lo que sucede en el sistema está conectado con personas, dispositivos y procesos de carga de combustible.",
       role: [
-        "Trabajé en conjunto y de forma constante con el equipo de desarrollo y con producto.",
-        "Participé en la definición de funcionalidades junto a negocio, usuarios y equipo de desarrollo.",
+        "Trabajé de forma constante con los equipos de producto y desarrollo, participando en la definición de funcionalidades junto a negocio y usuarios. Ese trabajo implicaba entender tanto lo que ocurría dentro de la plataforma como el contexto operativo en el que se utilizaba.",
         "También colaboré con el equipo de Smart Contracts en funcionalidades vinculadas a la trazabilidad y seguridad de las operaciones.",
       ],
       decisionsIntro:

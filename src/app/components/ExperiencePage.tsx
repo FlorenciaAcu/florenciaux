@@ -3,7 +3,7 @@ import { Footer } from "./Footer";
 import { DetailHero } from "./DetailHero";
 import { detailSticker } from "./Stickers";
 import { ClosingCTA } from "./ClosingCTA";
-import { buildOutline, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro, splitSentences } from "./CaseStudyBlocks";
+import { buildOutline, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro } from "./CaseStudyBlocks";
 import { getExperienceBySlug } from "../data/experiences";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -122,25 +122,13 @@ export function ExperiencePage({ slug }: Props) {
                     <dl className="space-y-6 text-base leading-relaxed">
                       {[
                         { label: "Qué hice", text: project.brief },
-                        { label: "Cómo lo abordamos", text: project.how },
+                        { label: project.howCollective ? "Cómo lo abordamos" : "Cómo lo abordé", text: project.how },
                         ...(project.example ? [{ label: "Un ejemplo", text: project.example }] : []),
                       ].map((row, index) => (
                         <div key={row.label}>
                           <dt className="type-eyebrow mb-2 text-[#cc0058]">{row.label}</dt>
-                          {index === 0 ? (
-                            <dd className="text-gray-800">{row.text}</dd>
-                          ) : (
-                            <dd>
-                              <ul className="space-y-2 text-gray-700">
-                                {splitSentences(row.text).map((sentence) => (
-                                  <li key={sentence} className="flex gap-2.5">
-                                    <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#cc0058]" aria-hidden="true" />
-                                    {sentence}
-                                  </li>
-                                ))}
-                              </ul>
-                            </dd>
-                          )}
+                          {/* Narrative, not a list: one paragraph per row */}
+                          <dd className={index === 0 ? "text-gray-800" : "text-gray-700"}>{row.text}</dd>
                         </div>
                       ))}
                     </dl>

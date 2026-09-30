@@ -31,21 +31,9 @@ function MetaList({ meta }: { meta: { label: string; value: string }[] }) {
   );
 }
 
-function WorkList({ items }: { items: string[] }) {
-  // A bullet only makes sense when there is something to list: a single item reads as plain text (paragraphs split by a blank line).
-  if (items.length === 1) {
-    return <div className="max-w-3xl space-y-4">{paragraphs(items[0], "type-body text-gray-800")}</div>;
-  }
-  return (
-    <ul className="max-w-3xl space-y-3">
-      {items.map((item) => (
-        <li key={item} className="type-body flex gap-3 text-gray-800">
-          <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#cc0058]" aria-hidden="true" />
-          {item}
-        </li>
-      ))}
-    </ul>
-  );
+/** "Cómo trabajé" is always narrative: each item (and each blank-line break inside one) is a paragraph. Never a bulleted list. */
+function WorkParagraphs({ items }: { items: string[] }) {
+  return <div className="max-w-3xl space-y-4">{items.map((item) => paragraphs(item, "type-body text-gray-800"))}</div>;
 }
 
 function paragraphs(text: string, className = "type-body text-gray-700") {
@@ -146,7 +134,7 @@ export function ExperienceIntro({
             <h2 className={h2}>Cómo trabajé</h2>
             {!data.meta && <span className="text-sm text-gray-600">{period}</span>}
           </div>
-          <WorkList items={data.role} />
+          <WorkParagraphs items={data.role} />
         </motion.div>
       )}
     </div>
@@ -172,6 +160,7 @@ export function buildOutline(data: CaseStudy | undefined, opts: { projects?: boo
     if (data.prototypes) items.push({ id: "prototipos", label: data.prototypesTitle ?? "Prototipos" });
     if (data.evidence) items.push({ id: "evidencia", label: data.evidenceTitle ?? "Evidencia" });
     if (data.result) items.push({ id: "resultado", label: data.result.title });
+    if (data.nextStage) items.push({ id: "siguiente-etapa", label: data.nextStage.navLabel ?? data.nextStage.title });
     if (data.learned) items.push({ id: "aprendi", label: "Qué aprendí" });
   } else {
     if (opts.about) items.push({ id: "que-es", label: opts.about });
@@ -424,7 +413,6 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
                   <>
                     <ol className="mt-12 divide-y divide-gray-200 border-t border-gray-200">
                       {data.decisions.map((decision, i) => {
-                        const sentences = splitSentences(decision.text);
                         return (
                           <motion.li key={decision.title} {...reveal} className={`${row} py-10 lg:py-12`}>
                             <span className="pt-1 text-sm font-medium tabular-nums text-[#cc0058]" aria-hidden="true">
@@ -432,19 +420,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
                             </span>
                             <div className="max-w-3xl">
                               <h3 className="type-h3 text-gray-900">{decision.title}</h3>
-                              {/* A single sentence reads as a paragraph, not a one-bullet list. */}
-                              {sentences.length === 1 ? (
-                                <p className="type-body mt-4 text-gray-800">{sentences[0]}</p>
-                              ) : (
-                                <ul className="mt-4 space-y-3">
-                                  {sentences.map((sentence) => (
-                                    <li key={sentence} className="type-body flex gap-3 text-gray-800">
-                                      <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#cc0058]" aria-hidden="true" />
-                                      {sentence}
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
+                              <p className="type-body mt-4 text-gray-800">{decision.text}</p>
                             </div>
                           </motion.li>
                         );
@@ -537,6 +513,14 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
         <motion.div {...reveal} id="resultado" className="max-w-3xl scroll-mt-28">
           <h2 className={`${h2} mb-5`}>{data.result.title}</h2>
           <p className="type-s1 text-gray-700">{data.result.text}</p>
+        </motion.div>
+      )}
+
+      {/* A later stage of the project, after the result of the first one */}
+      {data.nextStage && (
+        <motion.div {...reveal} id="siguiente-etapa" className="max-w-3xl scroll-mt-28">
+          <h2 className={`${h2} mb-5`}>{data.nextStage.title}</h2>
+          <div className="space-y-4">{paragraphs(data.nextStage.text, "type-s1 text-gray-700")}</div>
         </motion.div>
       )}
     </div>
