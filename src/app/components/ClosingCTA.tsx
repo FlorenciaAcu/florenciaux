@@ -53,13 +53,13 @@ export function ClosingCTA() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mx-auto max-w-4xl rounded-3xl border border-white/15 bg-[#14141c]/90 p-5 text-left shadow-[0_24px_70px_rgba(0,0,0,0.55)] sm:p-7"
         >
-          <div className="flex items-center gap-2 border-b border-white/10 pb-4 text-[15px] font-medium text-white">
+          <div className="flex items-center gap-2 text-[15px] font-medium text-white">
             <FileText className="h-4 w-4 text-magenta" aria-hidden="true" />
             Compartir “Tu próximo proyecto”
           </div>
 
           <p className="type-eyebrow mt-5 text-gray-400">Personas con acceso</p>
-          <ul className="mt-1 divide-y divide-white/10">
+          <ul className="mt-1">
             <li className="flex items-center gap-3 py-3.5">
               <img src={avatar} alt="" className="h-11 w-11 shrink-0 rounded-full bg-[#2a2a36] object-cover" />
               <div className="min-w-0 flex-1">

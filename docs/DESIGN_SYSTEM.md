@@ -157,7 +157,7 @@ Patrones que existen (librería `motion`):
 | Encabezados de sección (`type-h1` + intro `type-s1` + section header rhythm) | Patrón, no componente | Candidato a componente (`SectionHeader`) |
 | Fila de proyecto destacado (`FeaturedProjects`) | Existente / específico | |
 | Fila de experiencia (`ExperienceSection`) | Existente / específico | |
-| `DetailHero` | Existente / específico | Incluye el selection frame alrededor del título. No es regla global del sistema |
+| `DetailHero` | Existente / específico | Apertura Product / Interface: frame general con handles, título limpio, sticker y metadata inferior. No es regla global del sistema |
 | `CaseOutline` + `buildOutline` | Existente / reutilizable | Índice "En esta página", solo desde `lg` |
 | `ExperienceIntro` | Existente / reutilizable | Qué es + metadata, El desafío, Cómo trabajé |
 | `MetaList` | Existente / reutilizable | Metadata clave-valor con hairlines |
