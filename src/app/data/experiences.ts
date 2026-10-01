@@ -78,8 +78,8 @@ export interface CaseStudy {
   /** Secondary projects can skip the decisions block entirely: don't invent decisions to fill it. */
   decisionsIntro?: string;
   decisions?: CaseStudyDecision[];
-  /** A transversal solution presented as a statement, not a question (e.g. a design system shared across products). */
-  transversal?: { title: string; text: string };
+  /** A titled subblock within "Cómo trabajé"; it is not a main section in the outline. */
+  workSubsection?: { title: string; text: string };
   decisionsImage?: CaseStudyImage;
   /** One representative image, full width, right after the intro (few and strategic: no galleries). */
   cover?: CaseStudyImage;

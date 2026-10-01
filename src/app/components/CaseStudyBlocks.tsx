@@ -135,6 +135,12 @@ export function ExperienceIntro({
             {!data.meta && <span className="text-sm text-gray-600">{period}</span>}
           </div>
           <WorkParagraphs items={data.role} />
+          {data.workSubsection && (
+            <div className="mt-10 max-w-2xl">
+              <h3 className="type-h3 text-gray-900">{data.workSubsection.title}</h3>
+              <p className="type-body mt-4 text-gray-800">{data.workSubsection.text}</p>
+            </div>
+          )}
         </motion.div>
       )}
     </div>
@@ -410,34 +416,21 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
                 // Number column: wide when the block is full width, narrow next to an image.
                 const row = `grid gap-3 sm:grid-cols-[3rem_1fr] sm:gap-6 ${data.decisionsImage ? "" : "xl:grid-cols-[11rem_1fr] xl:gap-10"}`;
                 return (
-                  <>
-                    <ol className="mt-12 divide-y divide-gray-200 border-t border-gray-200">
-                      {data.decisions.map((decision, i) => {
-                        return (
-                          <motion.li key={decision.title} {...reveal} className={`${row} py-10 lg:py-12`}>
-                            <span className="pt-1 text-sm font-medium tabular-nums text-magenta-strong" aria-hidden="true">
-                              {String(i + 1).padStart(2, "0")}
-                            </span>
-                            <div className="max-w-3xl">
-                              <h3 className="type-h3 text-gray-900">{decision.title}</h3>
-                              <p className="type-body mt-4 text-gray-800">{decision.text}</p>
-                            </div>
-                          </motion.li>
-                        );
-                      })}
-                    </ol>
-
-                    {/* A transversal solution, presented as a statement rather than a question */}
-                    {data.transversal && (
-                      <motion.div {...reveal} className={`${row} border-t border-gray-200 pt-10 lg:pt-12`}>
-                        <span className="hidden sm:block" aria-hidden="true" />
-                        <div className="max-w-3xl">
-                          <h3 className="type-h3 text-gray-900">{data.transversal.title}</h3>
-                          <p className="type-body mt-4 text-gray-800">{data.transversal.text}</p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </>
+                  <ol className="mt-12 divide-y divide-gray-200 border-t border-gray-200">
+                    {data.decisions.map((decision, i) => {
+                      return (
+                        <motion.li key={decision.title} {...reveal} className={`${row} py-10 lg:py-12`}>
+                          <span className="pt-1 text-sm font-medium tabular-nums text-magenta-strong" aria-hidden="true">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <div className="max-w-3xl">
+                            <h3 className="type-h3 text-gray-900">{decision.title}</h3>
+                            <p className="type-body mt-4 text-gray-800">{decision.text}</p>
+                          </div>
+                        </motion.li>
+                      );
+                    })}
+                  </ol>
                 );
               })()}
             </div>

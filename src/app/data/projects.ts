@@ -84,7 +84,7 @@ export const projects: ProjectDetail[] = [
           text: "Antes, el acceso de los auditores dependía de distintos sistemas de historia clínica y la experiencia variaba según la institución. Trabajé en una experiencia unificada para acceder a esa información, respetando las clínicas y los permisos de cada auditor. El producto distingue cuentas genéricas —compartidas por varios auditores de una obra social— de cuentas individuales, una regla que condicionó cómo diseñé los permisos y las acciones disponibles en cada caso.",
         },
       ],
-      transversal: {
+      workSubsection: {
         title: "Una base común para productos diferentes",
         text: "Definí y documenté componentes, estados y patrones compartidos para mantener criterios comunes entre los distintos productos, sin perder las particularidades de cada contexto.",
       },
