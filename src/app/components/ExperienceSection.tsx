@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { experiences } from "../data/experiences";
 
@@ -20,35 +19,21 @@ const handles = [
 ];
 
 export function ExperienceSection() {
-  const shouldReduceMotion = useReducedMotion();
-
   const navigateTo = (slug: string) => {
     window.location.hash = `#/experiencia/${slug}`;
     setTimeout(() => window.scrollTo(0, 0), 100);
   };
 
   return (
-    <section id="experiencia" className="bg-surface-page/90 pb-20 pt-12 lg:py-36">
+    <section id="experiencia" className="bg-surface-page/90 pb-20 pt-12 lg:pb-36">
       <div className="page-container">
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55 }}
-          className="mb-5"
-        >
+        <div className="mb-5">
           <h2 className="type-h1 text-gray-900">Experiencia</h2>
-        </motion.div>
+        </div>
 
-        <motion.p
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="type-s1 mb-14 max-w-3xl text-gray-600 lg:mb-20"
-        >
+        <p className="type-s1 mb-14 max-w-3xl text-gray-600 lg:mb-20">
           Más de cinco años trabajando en productos digitales, dentro de equipos de producto y desarrollo y también de forma independiente.
-        </motion.p>
+        </p>
 
         <div className="group/canvas relative border border-gray-300 transition-colors duration-300 hover:border-gray-400 focus-within:border-gray-400">
           {handles.map((position) => (

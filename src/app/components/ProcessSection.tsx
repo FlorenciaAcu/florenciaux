@@ -25,7 +25,30 @@ const steps = [
 
 const desktopPath = "M 380 40 A 300 130 0 1 1 380 300 A 300 130 0 1 1 380 40 Z";
 const mobilePath = "M 160 18 A 128 38 0 1 1 160 94 A 128 38 0 1 1 160 18 Z";
-const stageStops = [0, 0.25, 0.5, 0.75];
+const stageProgress = [0, 1 / 3, 2 / 3, 1];
+const pathStageProgress = [0, 0.25, 0.5, 0.75];
+
+function getActiveStep(progress: number) {
+  return stageProgress.reduce((closest, station, index) =>
+    Math.abs(progress - station) < Math.abs(progress - stageProgress[closest]) ? index : closest,
+  0);
+}
+
+function getPathProgress(progress: number) {
+  for (let index = 0; index < stageProgress.length - 1; index += 1) {
+    const start = stageProgress[index];
+    const end = stageProgress[index + 1];
+
+    if (progress <= end) {
+      const segmentProgress = (progress - start) / (end - start);
+      const pathStart = pathStageProgress[index];
+      const pathEnd = pathStageProgress[index + 1];
+      return pathStart + (pathEnd - pathStart) * segmentProgress;
+    }
+  }
+
+  return pathStageProgress[pathStageProgress.length - 1];
+}
 
 type ProcessPathProps = {
   path: string;
@@ -108,6 +131,7 @@ function ProcessPath({
 
 export function ProcessSection() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const desktopPathRef = useRef<SVGPathElement>(null);
   const desktopProgressRef = useRef<SVGPathElement>(null);
   const desktopMarkerRef = useRef<SVGGElement>(null);
@@ -128,8 +152,9 @@ export function ProcessSection() {
 
   useEffect(() => {
     const track = trackRef.current;
+    const sticky = stickyRef.current;
 
-    if (!track || reducedMotion) return;
+    if (!track || !sticky || reducedMotion) return;
 
     let frame = 0;
     let currentStep = 0;
@@ -146,7 +171,7 @@ export function ProcessSection() {
 
       nodes.forEach((node, index) => {
         if (!node) return;
-        const nodePoint = path.getPointAtLength(length * stageStops[index]);
+        const nodePoint = path.getPointAtLength(length * pathStageProgress[index]);
         node.setAttribute("transform", `translate(${nodePoint.x} ${nodePoint.y})`);
       });
 
@@ -169,14 +194,20 @@ export function ProcessSection() {
 
     const desktopLength = preparePath(desktopPathRef.current, desktopProgressRef.current, desktopNodeRefs.current);
     const mobileLength = preparePath(mobilePathRef.current, mobileProgressRef.current, mobileNodeRefs.current);
+    let stickyTop = 0;
+    let distance = 1;
+
+    const measure = () => {
+      stickyTop = Number.parseFloat(window.getComputedStyle(sticky).top) || 0;
+      distance = Math.max(track.offsetHeight - sticky.offsetHeight, 1);
+    };
 
     const paint = () => {
       frame = 0;
       const rect = track.getBoundingClientRect();
-      const distance = Math.max(track.offsetHeight - window.innerHeight, 1);
-      const progress = Math.min(1, Math.max(0, -rect.top / distance));
-      const pathProgress = Math.min(progress, 0.75);
-      const nextStep = Math.min(steps.length - 1, Math.floor(progress * steps.length));
+      const progress = Math.min(1, Math.max(0, (stickyTop - rect.top) / distance));
+      const pathProgress = getPathProgress(progress);
+      const nextStep = getActiveStep(progress);
 
       updatePath(
         desktopPathRef.current,
@@ -203,13 +234,19 @@ export function ProcessSection() {
       if (!frame) frame = window.requestAnimationFrame(paint);
     };
 
+    const handleResize = () => {
+      measure();
+      requestPaint();
+    };
+
+    measure();
     paint();
     window.addEventListener("scroll", requestPaint, { passive: true });
-    window.addEventListener("resize", requestPaint);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("scroll", requestPaint);
-      window.removeEventListener("resize", requestPaint);
+      window.removeEventListener("resize", handleResize);
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, [reducedMotion]);
@@ -217,31 +254,29 @@ export function ProcessSection() {
   const active = steps[activeStep];
 
   return (
-    <section id="proceso" className="relative bg-surface-page/90 pb-12 pt-20 lg:py-36">
+    <section id="proceso" className="relative bg-surface-page/90 pb-0 pt-20 lg:pt-36">
       <div className="page-container">
-        <div className="mb-5">
-          <h2 className="type-h1 text-gray-900">Cómo trabajo</h2>
-        </div>
-
-        <p className="type-s1 mb-14 max-w-3xl text-gray-600 lg:mb-20">
-          Un proceso iterativo donde cada etapa alimenta a la siguiente: lo que sale de una es lo que entra en la próxima.
-        </p>
-
-        {!reducedMotion && (
-          <ol className="sr-only">
-            {steps.map((step) => (
-              <li key={step.number}>
-                {step.number} · {step.title}. {step.description}
-              </li>
-            ))}
-          </ol>
-        )}
-
         <div
           ref={trackRef}
-          className={reducedMotion ? "hidden" : "relative h-[210svh] md:h-[250svh] lg:h-[280vh]"}
+          className={reducedMotion ? "hidden" : "relative h-[270svh] md:h-[250svh] lg:h-[250vh]"}
         >
-          <div className="sticky top-16 flex h-[calc(100svh-4rem)] items-center overflow-hidden border-y border-gray-200 py-4 lg:py-10">
+          <div ref={stickyRef} className="sticky top-16 overflow-hidden py-4 lg:top-20 lg:py-6">
+            <div className="mb-5">
+              <h2 className="type-h1 text-gray-900">Cómo trabajo</h2>
+            </div>
+
+            <p className="type-s1 mb-4 max-w-3xl text-gray-600 sm:mb-6 lg:mb-8">
+              Un proceso iterativo donde cada etapa alimenta a la siguiente: lo que sale de una es lo que entra en la próxima.
+            </p>
+
+            <ol className="sr-only">
+              {steps.map((step) => (
+                <li key={step.number}>
+                  {step.number} · {step.title}. {step.description}
+                </li>
+              ))}
+            </ol>
+
             <div className="grid w-full items-center gap-0 md:gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)] lg:gap-14">
               <div className="order-2 min-w-0 lg:order-1">
                 <ProcessPath
@@ -278,22 +313,32 @@ export function ProcessSection() {
           </div>
         </div>
 
-        <ol
-          className={`${reducedMotion ? "grid" : "hidden"} border-y border-gray-200 lg:grid-cols-4 lg:gap-10 lg:border-b-0 lg:pt-10`}
-        >
-          {steps.map((step) => (
-            <li
-              key={step.number}
-              className="grid grid-cols-[3.25rem_minmax(0,1fr)] gap-x-4 gap-y-3 border-b border-gray-200 py-6 last:border-b-0 lg:flex lg:flex-col lg:gap-5 lg:border-0 lg:py-0"
-            >
-              <span className="text-gradient-brand row-span-2 text-3xl font-light leading-none tabular-nums lg:row-auto lg:text-5xl">
-                {step.number}
-              </span>
-              <h3 className="type-h3 text-gray-900">{step.title}</h3>
-              <p className="type-body col-start-2 text-gray-600 lg:col-auto">{step.description}</p>
-            </li>
-          ))}
-        </ol>
+        {reducedMotion && (
+          <>
+            <div className="mb-5">
+              <h2 className="type-h1 text-gray-900">Cómo trabajo</h2>
+            </div>
+
+            <p className="type-s1 mb-6 max-w-3xl text-gray-600 lg:mb-8">
+              Un proceso iterativo donde cada etapa alimenta a la siguiente: lo que sale de una es lo que entra en la próxima.
+            </p>
+
+            <ol className="grid border-y border-gray-200 lg:grid-cols-4 lg:gap-10 lg:border-b-0 lg:pt-10">
+              {steps.map((step) => (
+                <li
+                  key={step.number}
+                  className="grid grid-cols-[3.25rem_minmax(0,1fr)] gap-x-4 gap-y-3 border-b border-gray-200 py-6 last:border-b-0 lg:flex lg:flex-col lg:gap-5 lg:border-0 lg:py-0"
+                >
+                  <span className="text-gradient-brand row-span-2 text-3xl font-light leading-none tabular-nums lg:row-auto lg:text-5xl">
+                    {step.number}
+                  </span>
+                  <h3 className="type-h3 text-gray-900">{step.title}</h3>
+                  <p className="type-body col-start-2 text-gray-600 lg:col-auto">{step.description}</p>
+                </li>
+              ))}
+            </ol>
+          </>
+        )}
       </div>
     </section>
   );
