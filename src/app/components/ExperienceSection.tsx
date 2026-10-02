@@ -1,22 +1,26 @@
-import { motion, useScroll } from "motion/react";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowUpRight } from "lucide-react";
 import { experiences } from "../data/experiences";
-import { NavArrow } from "./NavArrow";
+
+const journey = [...experiences].reverse();
 
 function extractYears(period: string): string {
-  const parts = period.split("–").map((s) => s.trim());
+  const parts = period.split("–").map((part) => part.trim());
   const startYear = parts[0].split(" ").pop() ?? "";
   const end = parts[1] ?? "";
   const endYear = end === "Actualidad" ? "Hoy" : end.split(" ").pop() ?? end;
   return `${startYear} – ${endYear}`;
 }
 
+const handles = [
+  "-left-1 -top-1",
+  "-right-1 -top-1",
+  "-bottom-1 -left-1",
+  "-bottom-1 -right-1",
+];
+
 export function ExperienceSection() {
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: timelineRef,
-    offset: ["start 75%", "end 40%"],
-  });
+  const shouldReduceMotion = useReducedMotion();
 
   const navigateTo = (slug: string) => {
     window.location.hash = `#/experiencia/${slug}`;
@@ -24,74 +28,88 @@ export function ExperienceSection() {
   };
 
   return (
-    <section id="experiencia" className="py-20 lg:py-36 bg-surface-page/90">
+    <section id="experiencia" className="bg-surface-page/90 pb-20 pt-12 lg:py-36">
       <div className="page-container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55 }}
           className="mb-5"
         >
-          <h2 className="type-h1 text-gray-900">
-            Experiencia
-          </h2>
+          <h2 className="type-h1 text-gray-900">Experiencia</h2>
         </motion.div>
+
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="type-s1 text-gray-600 max-w-3xl mb-14 lg:mb-20"
+          className="type-s1 mb-14 max-w-3xl text-gray-600 lg:mb-20"
         >
           Más de cinco años trabajando en productos digitales, dentro de equipos de producto y desarrollo y también de forma independiente.
         </motion.p>
 
-        <div ref={timelineRef} className="relative">
-          {/* Base line */}
-          <div className="absolute left-[5px] sm:left-[7px] top-2 bottom-2 w-px bg-gray-200" />
-          {/* Line that draws itself as you scroll through the section */}
-          <motion.div
-            className="absolute left-[5px] sm:left-[7px] top-2 bottom-2 w-px origin-top bg-gradient-to-b from-magenta-strong to-cyan-strong"
-            style={{ scaleY: scrollYProgress }}
-          />
+        <div className="group/canvas relative border border-gray-300 transition-colors duration-300 hover:border-gray-400 focus-within:border-gray-400">
+          {handles.map((position) => (
+            <span
+              key={position}
+              aria-hidden="true"
+              className={`absolute z-20 h-2 w-2 border border-gray-400 bg-surface-page transition-colors duration-300 group-hover/canvas:border-cyan-strong group-focus-within/canvas:border-cyan-strong ${position}`}
+            />
+          ))}
 
-          <div className="space-y-2">
-            {experiences.map((exp, i) => (
-              <motion.a
-                key={exp.slug}
-                href={`#/experiencia/${exp.slug}`}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.45, delay: i * 0.07 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigateTo(exp.slug);
+          <div className="grid lg:grid-cols-3">
+            {journey.map((experience, index) => (
+              <a
+                key={experience.slug}
+                href={`#/experiencia/${experience.slug}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  navigateTo(experience.slug);
                 }}
-                className="group relative flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6 pl-8 sm:pl-12 -mr-3 rounded-2xl cursor-pointer pr-[24px] py-[32px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta-strong"
+                className="group/item relative flex flex-col py-6 pl-14 pr-4 focus-visible:z-10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-magenta-strong sm:py-7 sm:pl-20 sm:pr-8 lg:min-h-[22rem] lg:justify-start lg:px-8 lg:pb-10 lg:pt-28"
               >
-                {/* Node on the timeline */}
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-surface-page border-2 border-magenta-strong z-10" />
+                <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 z-0 w-14 sm:w-20 lg:hidden">
+                  {index < journey.length - 1 && (
+                    <span className="absolute left-1/2 top-8 h-full w-px -translate-x-1/2 bg-gray-300" />
+                  )}
 
-                <div className="shrink-0 w-20 pt-1">
-                  <span className="text-xs font-semibold text-gray-600 tracking-wide tabular-nums">
-                    {extractYears(exp.period)}
-                  </span>
+                  <span
+                    className="absolute left-1/2 top-8 z-10 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 border-2 border-gray-400 bg-surface-page transition-all duration-200 group-active/item:scale-125 group-active/item:border-magenta-strong group-focus-visible/item:scale-125 group-focus-visible/item:border-magenta-strong"
+                  />
                 </div>
-                <div className="shrink-0 w-48">
-                  <h3 className="type-title-compact text-gray-900 mb-0.5 transition-transform duration-300 group-hover:translate-x-1">{exp.company}</h3>
+
+                {index < journey.length - 1 && (
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-1/2 top-16 hidden h-px w-full -translate-y-1/2 bg-gray-300 lg:block"
+                  />
+                )}
+
+                <span
+                  aria-hidden="true"
+                  className="absolute left-1/2 top-16 z-10 hidden h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 border-2 border-gray-400 bg-surface-page transition-all duration-200 group-hover/item:scale-125 group-hover/item:border-magenta-strong group-focus-visible/item:scale-125 group-focus-visible/item:border-magenta-strong lg:block"
+                />
+
+                <div className="flex items-start justify-between gap-5">
+                  <span className="type-caption font-medium tabular-nums text-gray-600">{extractYears(experience.period)}</span>
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="h-5 w-5 shrink-0 text-gray-500 transition-transform duration-200 group-hover/item:translate-x-1 group-hover/item:-translate-y-1 group-hover/item:text-magenta-strong group-focus-visible/item:translate-x-1 group-focus-visible/item:-translate-y-1 group-focus-visible/item:text-magenta-strong"
+                    strokeWidth={1.5}
+                  />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="space-y-2">
-                    {exp.bio.map((line, idx) => (
-                      <p key={idx} className="type-body text-gray-600">{line}</p>
-                    ))}
-                  </div>
+
+                <h3 className="type-h3 mt-3 text-gray-900">{experience.company}</h3>
+                <div className="mt-5 max-w-md space-y-2">
+                  {experience.bio.map((line, index) => (
+                    <p key={index} className="type-body text-gray-600">
+                      {line}
+                    </p>
+                  ))}
                 </div>
-                {/* Stacked below lg: the arrow leaves the layout (no hover on touch, and it left an empty line under each bio) */}
-                <NavArrow display="hidden lg:flex" />
-              </motion.a>
+              </a>
             ))}
           </div>
         </div>
