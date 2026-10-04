@@ -2,8 +2,8 @@ import type { CaseStudy } from "./experiences";
 import type { PageSeo } from "./site";
 import buscadorLandingWaitlist from "../../imports/buscador-landing-waitlist.webp";
 import buscadorHomeReal from "../../imports/buscador-home-real.webp";
-import audagnoDesktopHome from "../../imports/audagno-desktop-home.jpg";
-import audagnoDesktopContacto from "../../imports/audagno-desktop-contacto.jpg";
+import audagnoInicio from "../../imports/audagno-inicio.webp";
+import audagnoContacto from "../../imports/audagno-contacto.webp";
 import cemicoPortalPaciente from "../../imports/cemico-portal-paciente.webp";
 import cemicoAuditoriaExterna from "../../imports/cemico-auditoria-externa.webp";
 import juangasConsultaSaldoWeb from "../../imports/juangas-consulta-saldo-web.webp";
@@ -306,8 +306,8 @@ export const projects: ProjectDetail[] = [
         },
       ],
       images: [
-        { src: audagnoDesktopHome, alt: "Inicio del sitio de AUDAGNO – Abogado en desktop: título, texto de presentación, botones para agendar una consulta y contactar por WhatsApp, y una foto del profesional" },
-        { src: audagnoDesktopContacto, alt: "Sección de contacto en desktop: datos del estudio a la izquierda y formulario de consulta a la derecha, con el botón flotante de WhatsApp" },
+        { src: audagnoInicio, alt: "Inicio del sitio de AUDAGNO – Abogado en desktop: título, texto de presentación, botones para agendar una consulta y contactar por WhatsApp, y una foto del profesional" },
+        { src: audagnoContacto, alt: "Sección de contacto del sitio de AUDAGNO – Abogado en desktop: datos del estudio a la izquierda y formulario de consulta a la derecha" },
       ],
       learned:
         "Este proyecto me ayudó a entender la importancia de construir una presencia digital clara para un profesional independiente. No alcanza solo con tener una web: también es importante comunicar sus áreas de trabajo, facilitar el contacto y pensar cómo las personas pueden encontrarlo en buscadores. Trabajar el contenido y el posicionamiento desde el diseño me permitió entender mejor cómo una experiencia digital también puede ayudar a conectar a un profesional con potenciales clientes.",

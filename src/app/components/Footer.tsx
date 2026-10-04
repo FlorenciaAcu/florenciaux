@@ -21,7 +21,7 @@ export function Footer() {
               <IsologoFA size={28} variant="light" />
               <p className="font-semibold text-white">Florencia Acuña</p>
             </div>
-            <p className="text-sm text-gray-400">Product Designer · San Juan, Argentina</p>
+            <p className="text-sm text-gray-400">Product Designer</p>
           </div>
 
           {/* Nav: a labelled navigation landmark; the group label keeps its small eyebrow look */}
