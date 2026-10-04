@@ -73,7 +73,7 @@ export function ExperiencePage({ slug }: Props) {
         <div className="page-container pt-12 pb-28 lg:pb-44 lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14">
           <aside className="hidden lg:block">
             <div className="sticky top-28">
-              <CaseOutline items={buildOutline(experience.caseStudy, { projects: true, about: experience.aboutTitle, challenge: !!experience.challenge, learned: !!experience.learned })} />
+              <CaseOutline items={buildOutline(experience.caseStudy, { projects: true, about: experience.aboutTitle, challenge: experience.challenge ? (experience.challengeTitle ?? "El desafío") : undefined, learned: !!experience.learned })} />
             </div>
           </aside>
           <div className="min-w-0">
@@ -84,6 +84,7 @@ export function ExperiencePage({ slug }: Props) {
             intro={experience.workText ?? experience.bio}
             about={experience.about && experience.aboutTitle ? { title: experience.aboutTitle, text: experience.about } : undefined}
             challenge={experience.challenge}
+            challengeTitle={experience.challengeTitle}
             images={experience.images}
             meta={[
               { label: "Rol", value: experience.role },

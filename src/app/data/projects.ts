@@ -81,14 +81,7 @@ export const projects: ProjectDetail[] = [
         "Definí la arquitectura de información, los flujos y los estados de los distintos productos del ecosistema. También documenté su funcionamiento para acompañar la implementación, incluyendo comportamientos, reglas, estados y mensajes del sistema.",
         "Además, preparé manuales y guías de uso para distintos perfiles y construí prototipos funcionales para explorar los flujos, validar cómo se conectaban las distintas partes de la experiencia y comunicar las soluciones antes de avanzar hacia su implementación.",
       ],
-      decisionsIntro:
-        "Tres preguntas que guiaron el diseño de estos productos.",
       decisions: [
-        {
-          icon: "physical",
-          title: "¿Cómo conectar un proceso que sucede entre un tótem, admisión y la sala de espera?",
-          text: "Diseñé el anunciador de pacientes como un mismo proceso que atraviesa tres interfaces: un tótem donde la persona se anuncia al llegar, un dashboard desde el que admisión gestiona esos registros en tiempo real y una pantalla de sala de espera donde se comunica el llamado. Lo que sucede en una interfaz afecta a las demás, así que pensé el recorrido como un sistema continuo y no como pantallas aisladas. Esa continuidad también tenía que sostener casos más complejos: una misma persona podía anunciarse por más de un motivo, cada uno con su propio estado, y la fila del dashboard no se consideraba resuelta hasta completarlos todos.",
-        },
         {
           icon: "context",
           title: "¿Cómo mantener claro quién es el paciente activo cuando una cuenta permite gestionar a más de una persona?",

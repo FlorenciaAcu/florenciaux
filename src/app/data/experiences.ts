@@ -112,6 +112,8 @@ export interface Experience {
   about?: string;
   /** Text of "Cómo trabajé" on the experience page, when it must differ from the home summary. */
   workText?: string[];
+  /** Title of that block when "El desafío" does not describe it (e.g. "Mi recorrido"). */
+  challengeTitle?: string;
   /** "El desafío" for experiences without a written case. Paragraphs separated by a blank line. */
   challenge?: string;
   /** "Qué aprendí" for experiences without a written case. Paragraphs separated by a blank line. */
@@ -138,7 +140,7 @@ export const experiences: Experience[] = [
       "También incorporé IA como parte de este proceso, combinando herramientas como ChatGPT, Claude y Figma según la necesidad de cada etapa. Las uso para investigar, ordenar información, explorar alternativas, documentar y acelerar la creación de prototipos.",
     ],
     learned:
-      "Trabajar de forma independiente me enseñó a mirar cada proyecto de una manera más integral: no solo desde el diseño, sino también desde el negocio, las prioridades y la gestión del trabajo.\n\nAprendí a llevar varios proyectos y clientes en paralelo, organizar entregas y adaptar mi proceso según cada contexto. También aprendí a integrar la IA de forma más intencional, como una herramienta que complementa mi trabajo y me permite avanzar con mayor autonomía sin delegar el criterio de diseño.",
+      "Trabajar de forma independiente me enseñó a mirar cada proyecto de manera más integral: no solo desde el diseño, sino también desde el negocio y sus prioridades.\n\nCon el tiempo gané autonomía para decidir por dónde empezar, definir el alcance y distinguir qué necesitaba resolverse en cada etapa del producto. También aprendí a incorporar la IA de forma más intencional, como una herramienta que complementa mi trabajo sin reemplazar mi criterio de diseño.",
     images: [
       { src: consultoriaJuangasVerifogo, alt: "Tres pantallas móviles de proyectos: consulta de saldo de Juan Gas GNC Club, app de consultas legales ulaw y Administrar inmuebles de InfoCasas" },
       { src: consultoriaCemicoRival, alt: "Tres pantallas móviles de proyectos: landing de VerifyGo, ingreso al Portal Salud de Grupo CEMICO y la app de predicción de fútbol Rival" },
@@ -293,6 +295,7 @@ export const experiences: Experience[] = [
     role: "UX Designer / Product Designer",
     company: "Folcode",
     aboutTitle: "Qué es Folcode",
+    challengeTitle: "Mi recorrido",
     about: "Folcode fue una empresa tecnológica de San Juan, Argentina, especializada en el desarrollo de productos y servicios digitales para distintos clientes. Durante mi etapa allí trabajé en proyectos como CloudLabs, Respública y el rediseño del sitio institucional de Folcode.",
     challenge:
       "Entré a Folcode como Pasante Scrum Master, trabajando con backlog, priorización, requerimientos y ceremonias del equipo. Con el tiempo empecé a involucrarme cada vez más en la definición de los productos y encontré en UX/Product Design un rol desde el que podía conectar mejor las necesidades del cliente, las personas usuarias y el equipo de desarrollo.\n\nEse cambio también implicó aprender a moverme entre proyectos con contextos y necesidades diferentes, entendiendo cada problema antes de llevarlo a flujos e interfaces.",

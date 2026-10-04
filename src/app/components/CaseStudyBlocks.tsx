@@ -164,6 +164,7 @@ export function ExperienceIntro({
   meta,
   about,
   challenge,
+  challengeTitle,
   images,
 }: {
   data?: CaseStudy;
@@ -175,6 +176,8 @@ export function ExperienceIntro({
   meta?: { label: string; value: string }[];
   /** "El desafío" for experiences without a written case. */
   challenge?: string;
+  /** Title of the "challenge" block, when "El desafío" does not describe it. */
+  challengeTitle?: string;
   /** The first of the two images (right after "Cómo trabajé"), for experiences without a written case
    *  (cases carry their own in `data.images`). The second lives in `CaseStudyDetails`, before "Qué aprendí". */
   images?: CaseStudyImage[];
@@ -195,7 +198,7 @@ export function ExperienceIntro({
             {meta && <MetaList meta={meta} />}
           </div>
         )}
-        {challenge && <ChallengeSection title="El desafío" text={challenge} />}
+        {challenge && <ChallengeSection title={challengeTitle ?? "El desafío"} text={challenge} />}
         <motion.div {...reveal} id="como-trabaje" className="scroll-mt-28">
           <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h2 className={h2}>Cómo trabajé</h2>
@@ -252,7 +255,7 @@ export function ExperienceIntro({
 type OutlineItem = { id: string; label: string; sub?: boolean };
 
 /** The sections of a page, in the order they appear, for the sticky "on this page" index. */
-export function buildOutline(data: CaseStudy | undefined, opts: { projects?: boolean; about?: string; challenge?: boolean; learned?: boolean } = {}) {
+export function buildOutline(data: CaseStudy | undefined, opts: { projects?: boolean; about?: string; challenge?: string; learned?: boolean } = {}) {
   const items: OutlineItem[] = [];
   if (data) {
     items.push({ id: "que-es", label: data.aboutTitle });
@@ -269,7 +272,7 @@ export function buildOutline(data: CaseStudy | undefined, opts: { projects?: boo
     if (data.learned) items.push({ id: "aprendi", label: "Qué aprendí" });
   } else {
     if (opts.about) items.push({ id: "que-es", label: opts.about });
-    if (opts.challenge) items.push({ id: "desafio", label: "El desafío" });
+    if (opts.challenge) items.push({ id: "desafio", label: opts.challenge });
     items.push({ id: "como-trabaje", label: "Cómo trabajé" });
     if (opts.projects) items.push({ id: "proyectos", label: "Proyectos" });
     if (opts.learned) items.push({ id: "aprendi", label: "Qué aprendí" });
