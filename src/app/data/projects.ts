@@ -82,7 +82,7 @@ export const projects: ProjectDetail[] = [
         "Además, preparé manuales y guías de uso para distintos perfiles y construí prototipos funcionales para explorar los flujos, validar cómo se conectaban las distintas partes de la experiencia y comunicar las soluciones antes de avanzar hacia su implementación.",
       ],
       decisionsIntro:
-        "Estas son algunas de las preguntas que me hice al diseñar estos productos.",
+        "Tres preguntas que guiaron el diseño de estos productos.",
       decisions: [
         {
           icon: "physical",
@@ -283,7 +283,7 @@ export const projects: ProjectDetail[] = [
           { title: "Correo del estudio", text: "Recibe la consulta." },
         ],
       },
-      aboutTitle: "Qué es AUDAGNO – Abogado",
+      aboutTitle: "Quién es Juan Audagno",
       about:
         "Juan Audagno es un abogado de La Plata que trabaja en distintas áreas del derecho, entre ellas derecho laboral, civil y penal. El proyecto consistió en diseñar e implementar su sitio web profesional para presentar sus servicios y facilitar el contacto con potenciales clientes.",
       challenge:

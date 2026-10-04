@@ -1,6 +1,7 @@
 const KEY = "fa-consent";
 const GA_ID = "G-K0C4D7W7SH";
 const CLARITY_ID = "tiqf6172y1";
+const GTM_ID = "GTM-5XFNQ56C";
 
 export type Consent = "granted" | "denied";
 
@@ -44,6 +45,13 @@ export function loadAnalytics() {
   };
   w.gtag("js", new Date());
   w.gtag("config", GA_ID);
+
+  // Google Tag Manager: same rule as the rest, it only loads after a yes (so there is no <noscript> iframe: without JavaScript there is no consent to give).
+  w.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+  const gtm = document.createElement("script");
+  gtm.async = true;
+  gtm.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
+  document.head.appendChild(gtm);
 
   w.clarity =
     w.clarity ||

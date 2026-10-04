@@ -50,7 +50,7 @@ export function CookieConsent() {
         >
           <p className="text-sm leading-relaxed text-gray-300">
             <span className="font-semibold text-white">Sobre las cookies. </span>
-            Uso Google Analytics y Microsoft Clarity para entender cómo se recorre este sitio y mejorarlo. Solo se activan si aceptás, y podés cambiarlo cuando quieras desde el pie de página.
+            Uso Google Analytics, Google Tag Manager y Microsoft Clarity para entender cómo se recorre este sitio y mejorarlo. Solo se activan si aceptás, y podés cambiarlo cuando quieras desde el pie de página.
           </p>
           <div className="flex gap-3 sm:shrink-0">
             <Button variant="secondary" theme="dark" onClick={() => choose("granted")} className="flex-1 !px-5 !py-2.5">

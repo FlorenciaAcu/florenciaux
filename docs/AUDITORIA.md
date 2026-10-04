@@ -115,8 +115,8 @@ Quedaron en su lugar por ahora — son decisiones del rediseño, no del build.
 2. **Las fuentes se cargan con `@import url(fonts.googleapis.com)` dentro de `index.css`.** Un
    `@import` de CSS bloquea el render y encadena dos round-trips. Va mejor como `<link rel="preconnect">`
    más `<link rel="stylesheet">` en `index.html`.
-3. **Resuelto (2026-10-03): analítica con consentimiento.** Microsoft Clarity (`tiqf6172y1`) y Google
-   Analytics (`G-K0C4D7W7SH`) ya no están en `index.html`: los carga `src/app/lib/consent.ts` solo después de
+3. **Resuelto (2026-10-03): analítica con consentimiento.** Microsoft Clarity (`tiqf6172y1`), Google
+   Analytics (`G-K0C4D7W7SH`) y Google Tag Manager (`GTM-5XFNQ56C`) ya no están en `index.html`: los carga `src/app/lib/consent.ts` solo después de
    que la persona acepta el banner (`CookieConsent.tsx`). La elección queda en `localStorage` (`fa-consent`)
    y se cambia desde "Preferencias de cookies" en el pie. Si cambia de aceptar a rechazar, se borran las
    cookies de ambas herramientas y se recarga. Falta una página de política de privacidad a la que enlazar.

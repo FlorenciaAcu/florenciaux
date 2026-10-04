@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { Sticker, StickerName } from './Stickers';
 
 const photos = [
-  { src: photo2, alt: "Florencia recibiéndose como Técnica en Sistemas de Información en la UNJ", position: "object-[50%_55%]", zoom: "md:origin-[50%_62%] md:scale-[1.4] md:hover:scale-[1.46]", span: "hero" },
+  { src: photo2, alt: "Florencia recibiéndose como Técnica en Sistemas de Información en la UNSJ", position: "object-[50%_55%]", zoom: "md:origin-[50%_62%] md:scale-[1.4] md:hover:scale-[1.46]", span: "hero" },
   { src: photo1, alt: "Demo de app en evento", position: "object-center", zoom: "", span: "small" },
   { src: photo4, alt: "Reunión remota con el equipo", position: "object-center", zoom: "", span: "small" },
 ] as const;
@@ -45,9 +45,10 @@ export function AboutSection() {
               className="type-body space-y-5 text-gray-600"
             >
               <p>
-                Soy Product Designer con{" "}
-                más de cinco años de experiencia{" "}
-                diseñando plataformas web, aplicaciones y MVPs. Trabajé dentro de equipos de producto y desarrollo, y también como consultora independiente.
+                Soy Product Designer con más de cinco años de experiencia en plataformas web, aplicaciones y MVPs.
+              </p>
+              <p>
+                Trabajé dentro de equipos de producto y desarrollo, y también como consultora independiente. Me interesa entender cómo funciona cada producto, desde las necesidades de las personas hasta las reglas y los procesos que condicionan su diseño.
               </p>
               <p>
                 Cuando no estoy diseñando, me encontrás nadando, en Pilates o TPA, tomando un mate cocido —acá le decimos "yerbiado"— o pidiendo pizza.
