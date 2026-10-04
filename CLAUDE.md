@@ -44,16 +44,18 @@ src/
   assets/                   imágenes que resuelve figma:asset/<hash>.png
   imports/                  fotos personales (jpg/jpeg)
   app/
-    App.tsx                 router por hash, escrito a mano
+    App.tsx                 router por path (History API), escrito a mano; helpers en lib/router.ts
     components/             secciones de página
     components/ui/          shadcn/ui (casi todo sin usar, pero es la librería base)
     data/projects.ts        contenido de proyectos y casos
     data/experiences.ts     contenido de trayectoria
 ```
 
-Rutas: `#/`, `#/proyectos/:slug` (casos: CEMICO, Buscador Agrícola, Juan Gas, Audagno, InfoCasas),
-`#/experiencia/:slug` (experiencia laboral: Cintelink, Consultoría, Folcode), más secciones del home
-(`#/sobre-mi`, `#/proyectos`, `#/servicios`, `#/experiencia`, `#/contacto`).
+Rutas (URLs reales): `/`, `/proyectos/:slug` (casos: CEMICO, Buscador Agrícola, Juan Gas, Audagno, InfoCasas),
+`/experiencia/:slug` (experiencia laboral: Cintelink, Consultoría, Folcode), más secciones del home
+(`/sobre-mi`, `/proyectos`, `/experiencia`, `/contacto`). Los links viejos con `#/…` se convierten solos en `lib/router.ts`.
+`npm run build` corre `vite build` y después `scripts/prerender.mjs`: genera un HTML por caso (`dist/proyectos/cemico.html`)
+con su título, descripción y canonical, y el `sitemap.xml`. `vercel.json` usa `cleanUrls` y reescribe el resto a `index.html`.
 
 ## Reglas del proyecto
 

@@ -6,6 +6,7 @@ import { ClosingCTA } from "./ClosingCTA";
 import { NextCase } from "./NextCase";
 import { buildOutline, CaseImage, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro, ProjectList } from "./CaseStudyBlocks";
 import { getExperienceBySlug } from "../data/experiences";
+import { navigate, RETURN_PATH_KEY } from "../lib/router";
 import { ArrowLeft } from "lucide-react";
 
 interface Props {
@@ -17,18 +18,18 @@ export function ExperiencePage({ slug }: Props) {
 
   const handleBack = () => {
     // Vuelve a donde estaba antes de entrar (tarjeta de "Proyectos destacados" o fila de "Experiencia"); si no hay registro, a la sección Experiencia.
-    const returnHash = sessionStorage.getItem("caseReturnHash");
-    if (returnHash) {
-      sessionStorage.removeItem("caseReturnHash");
-      window.location.hash = returnHash;
+    const returnPath = sessionStorage.getItem(RETURN_PATH_KEY);
+    if (returnPath) {
+      sessionStorage.removeItem(RETURN_PATH_KEY);
+      navigate(returnPath);
     } else {
-      window.location.hash = "#/experiencia";
+      navigate("/experiencia");
     }
   };
 
   const navigateToCase = (caseSlug: string) => {
-    sessionStorage.setItem("caseReturnHash", `/experiencia/${slug}`);
-    window.location.hash = `#/proyectos/${caseSlug}`;
+    sessionStorage.setItem(RETURN_PATH_KEY, `/experiencia/${slug}`);
+    navigate(`/proyectos/${caseSlug}`);
   };
 
   if (!experience) {

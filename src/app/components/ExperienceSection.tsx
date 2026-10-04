@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { experiences } from "../data/experiences";
+import { navigate } from "../lib/router";
 
 const journey = [...experiences].reverse();
 
@@ -20,7 +21,7 @@ const handles = [
 
 export function ExperienceSection() {
   const navigateTo = (slug: string) => {
-    window.location.hash = `#/experiencia/${slug}`;
+    navigate(`/experiencia/${slug}`);
   };
 
   return (
@@ -47,7 +48,7 @@ export function ExperienceSection() {
             {journey.map((experience, index) => (
               <a
                 key={experience.slug}
-                href={`#/experiencia/${experience.slug}`}
+                href={`/experiencia/${experience.slug}`}
                 onClick={(event) => {
                   event.preventDefault();
                   navigateTo(experience.slug);

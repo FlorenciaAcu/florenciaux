@@ -2,12 +2,13 @@ import { IsologoFA } from "./IsologoFA";
 import { Heart, Coffee } from "lucide-react";
 import { CV_URL, EMAIL, LINKEDIN_URL, MEDIUM_URL } from "../data/contact";
 import { OPEN_CONSENT_EVENT } from "../lib/consent";
+import { navigate } from "../lib/router";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const go = (hash: string) => {
-    window.location.hash = hash;
+  const go = (path: string) => {
+    navigate(path);
   };
 
   return (
@@ -30,17 +31,17 @@ export function Footer() {
             </p>
             <ul className="space-y-0.5">
               {[
-                { label: "Inicio", hash: "#/" },
-                { label: "Sobre mí", hash: "#/sobre-mi" },
-                { label: "Proyectos", hash: "#/proyectos" },
-                { label: "Experiencia", hash: "#/experiencia" },
+                { label: "Inicio", path: "/" },
+                { label: "Sobre mí", path: "/sobre-mi" },
+                { label: "Proyectos", path: "/proyectos" },
+                { label: "Experiencia", path: "/experiencia" },
               ].map((item) => (
                 <li key={item.label}>
                   <a
-                    href={item.hash}
+                    href={item.path}
                     onClick={(e) => {
                       e.preventDefault();
-                      go(item.hash);
+                      go(item.path);
                     }}
                     className="inline-block py-1.5 text-sm text-gray-400 hover:text-magenta transition-colors text-left"
                   >

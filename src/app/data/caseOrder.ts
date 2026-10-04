@@ -5,7 +5,7 @@ export interface CaseLink {
   key: string;
   title: string;
   kind: "Proyecto" | "Experiencia";
-  hash: string;
+  path: string;
 }
 
 // Same reading order as the site: the experiences as they appear in "Experiencia" (oldest first), and each experience's projects
@@ -15,12 +15,12 @@ const cases: CaseLink[] = [...experiences].reverse().flatMap((experience) => [
     key: `Experiencia/${experience.slug}`,
     kind: "Experiencia" as const,
     title: getExperienceBySlug(experience.slug)?.company ?? experience.slug,
-    hash: `#/experiencia/${experience.slug}`,
+    path: `/experiencia/${experience.slug}`,
   },
   ...experience.projects.flatMap((project) => {
     const detail = project.slug ? getProjectBySlug(project.slug) : undefined;
     return detail
-      ? [{ key: `Proyecto/${detail.slug}`, kind: "Proyecto" as const, title: detail.name, hash: `#/proyectos/${detail.slug}` }]
+      ? [{ key: `Proyecto/${detail.slug}`, kind: "Proyecto" as const, title: detail.name, path: `/proyectos/${detail.slug}` }]
       : [];
   }),
 ]);

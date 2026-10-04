@@ -124,8 +124,11 @@ Quedaron en su lugar por ahora — son decisiones del rediseño, no del build.
    `<ImagePlaceholder />` tantas veces como diga `imageCount`. Nunca hubo imágenes reales de casos.
 5. **El único `<img>` de la app no tiene `alt`.** El resto de las imágenes son fondos CSS, que tampoco
    son accesibles. Para un portfolio de UX es un detalle que se nota.
-6. **El router por hash** (`#/proyectos/:slug`, `#/experiencia/:slug`) escrito a mano en `App.tsx` funciona, pero las
-   URLs con `#` no se comparten bien ni se indexan. `react-router` ya está instalado.
+6. **Resuelto (2026-10-04): URLs reales.** El router pasó de hash (`#/proyectos/cemico`) a path (`/proyectos/cemico`) con la
+   History API, sin `react-router`. Motivo: Google ignora lo que viene después del `#`, así que los 8 detalles no podían
+   indexarse. `scripts/prerender.mjs` genera en el build un HTML por detalle con su título, descripción, canonical y Open
+   Graph, y el `sitemap.xml`; `vercel.json` activa `cleanUrls` y reescribe el resto a `index.html`. Los links viejos con `#/…`
+   se redirigen en el cliente (`migrateLegacyHash`). Pendiente: títulos de los detalles más descriptivos (hoy es solo el nombre).
 7. **Contenido "próximamente".** Varios proyectos de `data/projects.ts` (CEMICO, entre otros) tienen el
    caso sin escribir.
 

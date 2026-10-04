@@ -1,5 +1,5 @@
 // Global site data: one place for the domain and the default metadata.
-export const SITE_URL = "https://florenciaux.com";
+export const SITE_URL = "https://www.florenciaux.com";
 export const SITE_NAME = "Florencia Acuña";
 
 /** The real asset lives in public/images/og-image.png. Open Graph needs an absolute URL. */
@@ -16,9 +16,5 @@ export interface PageSeo {
   image?: string;
 }
 
-/**
- * Canonical URL. The site still routes with the hash (#/proyectos/…): a fragment is not part of the URL for crawlers,
- * so every page is served from the same document and a canonical can't point at an inner page.
- * Until routes are real paths, every page declares the site root on purpose. After the migration: return absoluteUrl(path).
- */
-export const canonicalFor = (_path?: string) => SITE_URL;
+/** Canonical URL: every page has its own path now (the home is the site root). */
+export const canonicalFor = (path?: string) => (path && path !== "/" ? absoluteUrl(path) : SITE_URL);

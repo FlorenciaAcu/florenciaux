@@ -6,6 +6,7 @@ import { ClosingCTA } from "./ClosingCTA";
 import { NextCase } from "./NextCase";
 import { buildOutline, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro } from "./CaseStudyBlocks";
 import { getProjectBySlug } from "../data/projects";
+import { navigate, RETURN_PATH_KEY } from "../lib/router";
 import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 
@@ -29,17 +30,18 @@ export function CaseStudyPage({ slug }: Props) {
   const project = getProjectBySlug(slug);
 
   const handleBack = () => {
-    const returnHash = sessionStorage.getItem("caseReturnHash");
-    if (returnHash) {
-      sessionStorage.removeItem("caseReturnHash");
-      window.location.hash = returnHash;
+    const returnPath = sessionStorage.getItem(RETURN_PATH_KEY);
+    if (returnPath) {
+      sessionStorage.removeItem(RETURN_PATH_KEY);
+      navigate(returnPath);
     } else {
-      window.history.back();
+      if (document.referrer.startsWith(window.location.origin)) window.history.back();
+      else navigate("/proyectos");
     }
   };
 
   const handleBackToProjects = () => {
-    window.location.hash = "#/proyectos";
+    navigate("/proyectos");
   };
 
   // Every case gets the sticky "on this page" index.

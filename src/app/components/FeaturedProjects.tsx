@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { NavArrow } from "./NavArrow";
+import { navigate, RETURN_PATH_KEY } from "../lib/router";
 import { getExperienceBySlug } from "../data/experiences";
 import { getProjectBySlug } from "../data/projects";
 
@@ -23,21 +24,21 @@ const caseFile = [
     name: cintelink.company,
     sector: cintelink.sector ?? "",
     tagline: cardSummaries[cintelink.slug],
-    route: `#/experiencia/${cintelink.slug}`,
+    route: `/experiencia/${cintelink.slug}`,
   },
   ...secondaryProjects.map((project) => ({
     slug: project.slug,
     name: project.name,
     sector: project.sector,
     tagline: cardSummaries[project.slug],
-    route: `#/proyectos/${project.slug}`,
+    route: `/proyectos/${project.slug}`,
   })),
 ];
 
 export function FeaturedProjects() {
-  const navigate = (route: string) => {
-    sessionStorage.setItem("caseReturnHash", "/proyectos");
-    window.location.hash = route.replace("#", "");
+  const openCase = (route: string) => {
+    sessionStorage.setItem(RETURN_PATH_KEY, "/proyectos");
+    navigate(route);
   };
 
   return (
@@ -75,7 +76,7 @@ export function FeaturedProjects() {
               transition={{ duration: 0.45, delay: i * 0.08 }}
               onClick={(e) => {
                 e.preventDefault();
-                navigate(item.route);
+                openCase(item.route);
               }}
               className="group cursor-pointer flex items-center gap-5 sm:gap-8 py-8 sm:py-10 lg:py-14 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
             >

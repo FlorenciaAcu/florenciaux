@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { getNextCase, type CaseLink } from "../data/caseOrder";
+import { navigate, RETURN_PATH_KEY } from "../lib/router";
 
 /** Closes a detail page with a way forward: the next case in the portfolio. Same row language as "Proyectos destacados". */
 export function NextCase({ kind, slug }: { kind: CaseLink["kind"]; slug: string }) {
@@ -11,15 +12,15 @@ export function NextCase({ kind, slug }: { kind: CaseLink["kind"]; slug: string 
     <section aria-label="Siguiente caso" className="bg-surface-page/90 py-14 lg:py-20">
       <div className="page-container">
         <motion.a
-          href={next.hash}
+          href={next.path}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.45 }}
           onClick={(e) => {
             e.preventDefault();
-            sessionStorage.removeItem("caseReturnHash");
-            window.location.hash = next.hash.replace("#", "");
+            sessionStorage.removeItem(RETURN_PATH_KEY);
+            navigate(next.path);
           }}
           className="group flex cursor-pointer items-center justify-between gap-6 border-y border-gray-200 py-8 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong lg:py-12"
         >

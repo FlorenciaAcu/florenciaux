@@ -19,6 +19,9 @@ import { SplashLoader } from "./components/SplashLoader";
 import { CookieConsent } from "./components/CookieConsent";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { useState, useEffect } from "react";
+import { currentPath, migrateLegacyHash, NAVIGATE_EVENT } from "./lib/router";
+
+migrateLegacyHash();
 
 // Mapping from URL slug to DOM element ID
 const SECTION_MAP: Record<string, string> = {
@@ -34,8 +37,8 @@ interface Route {
   section?: string;
 }
 
-function parseHash(): Route {
-  const hash = window.location.hash.replace("#", "") || "/";
+function parsePath(): Route {
+  const hash = currentPath();
 
   // "/proyectos/:slug" es un caso (CEMICO, Buscador Agrícola, Juan Gas, Audagno, InfoCasas).
   if (hash.startsWith("/proyectos/")) {
@@ -77,14 +80,14 @@ export default function App() {
 }
 
 function AppRoutes() {
-  const [route, setRoute] = useState<Route>(() => parseHash());
+  const [route, setRoute] = useState<Route>(() => parsePath());
 
   useEffect(() => {
-    const handleChange = () => setRoute(parseHash());
-    window.addEventListener("hashchange", handleChange);
+    const handleChange = () => setRoute(parsePath());
+    window.addEventListener(NAVIGATE_EVENT, handleChange);
     window.addEventListener("popstate", handleChange);
     return () => {
-      window.removeEventListener("hashchange", handleChange);
+      window.removeEventListener(NAVIGATE_EVENT, handleChange);
       window.removeEventListener("popstate", handleChange);
     };
   }, []);

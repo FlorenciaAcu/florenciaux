@@ -35,7 +35,7 @@ src/
   assets/                   imágenes que resuelve figma:asset/<hash>.png
   imports/                  fotos personales (jpg/jpeg)
   app/
-    App.tsx                 router por hash
+    App.tsx                 router por path
     components/             secciones de página + componentes propios
     components/ui/          shadcn/ui
     data/projects.ts        contenido de proyectos y casos
@@ -44,11 +44,11 @@ src/
 
 ## Rutas
 
-Router por hash, escrito a mano en `App.tsx`:
+Router por path (History API), escrito a mano en `App.tsx`; navegación en `lib/router.ts`:
 
-- `#/` — home (secciones `#/sobre-mi`, `#/proyectos`, `#/servicios`, `#/experiencia`, `#/contacto`)
-- `#/proyectos/:slug` — un proyecto/caso (CEMICO, Buscador Agrícola, Juan Gas, Audagno, InfoCasas)
-- `#/experiencia/:slug` — el detalle de una experiencia laboral (Cintelink, Consultoría, Folcode)
+- `/` — home (secciones `/sobre-mi`, `/proyectos`, `/experiencia`, `/contacto`)
+- `/proyectos/:slug` — un proyecto/caso (CEMICO, Buscador Agrícola, Juan Gas, Audagno, InfoCasas)
+- `/experiencia/:slug` — el detalle de una experiencia laboral (Cintelink, Consultoría, Folcode)
 
 ## Pendientes
 

@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { IsologoFA } from "./IsologoFA";
 import { Menu, X } from "lucide-react";
 import { Button } from "./Button";
+import { currentPath, navigate } from "../lib/router";
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -30,29 +31,29 @@ export function Header() {
     };
   }, []);
 
-  const go = (hash: string) => {
-    // Si ya estás en home, cambiar a "#/" no dispara hashchange — por eso este caso se resuelve
-    // acá en vez de en el efecto central de App.tsx, que solo reacciona a cambios de ruta reales.
-    const current = window.location.hash;
-    const alreadyHome = hash === "#/" && (current === "" || current === "#" || current === "#/");
-    window.location.hash = hash;
+  const go = (path: string) => {
     setIsMobileMenuOpen(false);
-    if (alreadyHome) window.scrollTo({ top: 0, behavior: "smooth" });
+    // Already on the home page and asking for "Inicio": there is no route change to react to, so scroll up here.
+    if (path === "/" && currentPath() === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    navigate(path);
   };
 
   // Contact options (video call / WhatsApp) live at the bottom of the page; on pages without that block, go home and scroll there.
   const goContact = () => {
     setIsMobileMenuOpen(false);
-    window.location.hash = "#/contacto";
     const el = document.getElementById("contacto");
     if (el) el.scrollIntoView({ behavior: "smooth" });
+    else navigate("/contacto");
   };
 
   const navItems = [
-    { label: "Inicio", hash: "#/" },
-    { label: "Sobre mí", hash: "#/sobre-mi" },
-    { label: "Proyectos", hash: "#/proyectos" },
-    { label: "Experiencia", hash: "#/experiencia" },
+    { label: "Inicio", path: "/" },
+    { label: "Sobre mí", path: "/sobre-mi" },
+    { label: "Proyectos", path: "/proyectos" },
+    { label: "Experiencia", path: "/experiencia" },
   ];
 
   return (
@@ -60,7 +61,7 @@ export function Header() {
       <div className="page-container py-4 flex items-center justify-between">
         {/* Logo */}
         <button
-          onClick={() => go("#/")}
+          onClick={() => go("/")}
           className="-my-1.5 flex items-center gap-2.5 rounded-full py-1.5 hover:opacity-80 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-magenta focus-visible:ring-offset-2"
         >
           <IsologoFA variant={isDark ? "light" : "dark"} />
@@ -75,10 +76,10 @@ export function Header() {
           {navItems.map((item) => (
             <a
               key={item.label}
-              href={item.hash}
+              href={item.path}
               onClick={(e) => {
                 e.preventDefault();
-                go(item.hash);
+                go(item.path);
               }}
               className={`group relative py-1 text-sm transition-colors duration-300 ${
                 isDark ? "text-white/90 hover:text-white" : "text-gray-700 hover:text-gray-900"
@@ -131,10 +132,10 @@ export function Header() {
             {navItems.map((item) => (
               <a
                 key={item.label}
-                href={item.hash}
+                href={item.path}
                 onClick={(e) => {
                   e.preventDefault();
-                  go(item.hash);
+                  go(item.path);
                 }}
                 className="text-left py-5 border-b border-gray-100 text-gray-700 text-lg font-medium hover:text-magenta-strong transition-colors"
               >
