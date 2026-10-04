@@ -42,7 +42,7 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="type-body space-y-5 text-gray-600"
+              className="type-body bg-notebook space-y-[1.65rem] py-[1.65rem] pl-12 pr-6 text-gray-600 shadow-[0_2px_6px_rgba(10,10,10,0.08)]"
             >
               <p>
                 Soy Product Designer con más de cinco años de experiencia en plataformas web, aplicaciones y MVPs.

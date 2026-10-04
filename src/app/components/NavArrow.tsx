@@ -1,13 +1,16 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
-/** Navigation Arrow: the "go to the detail" cue at the end of a row link (Proyectos destacados, Experiencia).
- *  Hidden until the parent `group` is hovered or focused; then it slides in and fills with magenta.
- *  Not the Process Connector ("Cómo trabajo"), which is a static sequence mark without a circle. */
-export function NavArrow({ display = "flex" }: { display?: string }) {
-  // `display` lets the consuming row decide when the arrow takes part in the layout (e.g. "hidden sm:flex"); the arrow itself has no breakpoints.
+/** "This opens" cue for every row or card that is a link (Proyectos destacados and Experiencia in the home, Proyectos inside a detail).
+ *  A circle with an arrow, always visible (there is no hover on touch); on hover or focus it fills with magenta and the arrow turns white.
+ *  The arrow never moves: it stays centered. The row or card that holds it must carry `group/open`.
+ *  Not the Process Connector ("Cómo trabajo"), which is a static sequence mark without a link. */
+export function OpenCue({ className = "" }: { className?: string }) {
   return (
-    <span className={`${display} shrink-0 w-10 h-10 items-center justify-center rounded-full border border-gray-200 bg-surface-page text-gray-600 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-white group-hover:bg-magenta-strong group-hover:border-magenta-strong group-focus-visible:opacity-100 group-focus-visible:translate-x-0 transition-all duration-300 ease-out`}>
-      <ArrowRight className="w-4 h-4" aria-hidden="true" />
+    <span
+      aria-hidden="true"
+      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-surface-page text-gray-600 transition-colors duration-300 group-hover/open:border-magenta-strong group-hover/open:bg-magenta-strong group-hover/open:text-white group-focus-visible/open:border-magenta-strong group-focus-visible/open:bg-magenta-strong group-focus-visible/open:text-white group-has-[:focus-visible]/open:border-magenta-strong group-has-[:focus-visible]/open:bg-magenta-strong group-has-[:focus-visible]/open:text-white ${className}`}
+    >
+      <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
     </span>
   );
 }

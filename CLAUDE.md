@@ -15,17 +15,14 @@ El repo es **`FlorenciaAcu/florenciaux`** (público). Es el único.
 ## Cómo se trabaja acá
 
 - **Todo va directo a `main`. Nunca crear ramas nuevas ni abrir PRs** (política permanente de florenciaux.com,
-  decidida por Florcita el 2026-10-04). Si el entorno arranca en otra rama, pasar el trabajo a `main` y pushear ahí.
-
-El entorno Linux de Claude en esta máquina no arranca (lo rompió una actualización de Windows del
-8/9/2026), así que:
-
-- **Claude escribe archivos directo en la carpeta** del clone. Aparecen en VS Code.
-- **Los comandos de git los corre Florcita** desde la terminal de VS Code. Claude no puede ejecutar
-  comandos ni borrar archivos en este disco.
-- Claude tampoco puede escribir en `.git/` (bloqueado por política). Sí puede leerlo.
-
-Cuando Claude proponga borrar archivos, tiene que pasar el comando para que lo corra Florcita.
+  decidida por Florcita el 2026-10-04). Si el entorno arranca en otra rama, pasar el trabajo a `main`.
+- **Nunca hacer commit ni push sin autorización explícita de Florcita.** Cuando ella lo autoriza, los commits van
+  separados por tema y el push lo hace ella, salvo que pida que lo haga Claude.
+- **Claude escribe archivos directo en la carpeta** del clone; aparecen en VS Code.
+- Según el entorno, Claude puede o no ejecutar comandos (el entorno Linux dejó de arrancar tras una actualización de
+  Windows del 8/9/2026). Si puede, corre `tsc` y el servidor de desarrollo para verificar. Si no puede, o si hay que
+  borrar archivos, pasa el comando para que lo corra Florcita desde la terminal de VS Code.
+- `.git/` se puede leer, pero no se escribe a mano.
 
 ## Estética: reglas fijas
 
@@ -109,6 +106,13 @@ Principio general: cada detalle visual tiene que cambiar cómo se entiende el co
 - **Una franja de credibilidad** (cifras, logos) bajo el hero.
 
 ### Estructura y diseño
+- **Consistencia:** si se cambia algo en un detalle, se cambia en todos. Un elemento que aparece en dos lugares se ve y se comporta igual en ambos.
+- **Cards y diagramas:** número, título y descripción van siempre adentro de la card. En desktop los diagramas son siempre horizontales, nunca verticales; solo en pantallas chicas se colapsan en vertical.
+- **Marco de Figma (esquinas con manijas):** solo en la cabecera de los detalles y en el diagrama "Cómo se conecta". Los bloques de Proyectos son filas iguales con línea fina arriba; la flecha arriba a la derecha indica que se abre.
+- **Lo que se puede abrir se nota:** toda fila o tarjeta que es un link lleva el círculo con flecha arriba a la derecha (`OpenCue`, en `NavArrow.tsx`); al pasar el mouse el círculo se llena de magenta y el título también. Mismo comportamiento en el home y en los detalles.
+- **Sticky notes:** son los pasos del diagrama "Cómo se conecta" (como en FigJam, unidos por flechas). Los datos rápidos (Rol, Industria…) siguen como lista de líneas finas.
+- **Hoja de cuaderno:** el texto de "Sobre mí" va sobre una hoja rayada (`.bg-notebook`). El renglón es 1.65rem, igual al interlineado de `.type-body`: si se toca el interlineado, el espacio entre párrafos o el padding vertical, tienen que seguir siendo múltiplos de 1.65rem.
+- **Identidad:** el sitio transmite el escritorio de Florencia (cuaderno, sticky notes, pizarra, pestañas) y conserva los stickers.
 - **Una sola estructura:** si falta un dato, se oculta el campo. Nunca se arma una estructura alternativa para ese caso.
 - **Anchos:** los textos de los detalles y los subtítulos de la home ocupan todo el ancho (sin `max-w-*` en párrafos).
   El encabezado y el contenido de los detalles usan el mismo `page-container`.

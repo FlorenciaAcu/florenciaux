@@ -47,7 +47,7 @@ export function DetailHero({ title, tagline, onBack, backLabel, crumbs, sticker,
 
             {crumbs && (
               <nav aria-label="Ruta" className="min-w-0">
-                <ol className="flex items-center gap-2 font-mono text-xs text-gray-400">
+                <ol className="type-caption flex items-center gap-2 text-gray-400">
                   {crumbs.map((crumb, i) => {
                     const last = i === crumbs.length - 1;
                     return (
@@ -71,8 +71,9 @@ export function DetailHero({ title, tagline, onBack, backLabel, crumbs, sticker,
           </div>
 
           <div className="relative border border-white/[0.18] bg-white/[0.025] px-5 pt-8 pb-9 md:pt-12 md:pr-48 md:pb-11 md:pl-12">
-            <span className="pointer-events-none absolute -left-[0.4rem] -top-[0.4rem] h-3 w-3 border border-[#00e5ff] bg-white" aria-hidden="true" />
-            <span className="pointer-events-none absolute -right-[0.4rem] -bottom-[0.4rem] h-3 w-3 border border-[#00e5ff] bg-white" aria-hidden="true" />
+            {["-left-1 -top-1", "-right-1 -top-1", "-bottom-1 -left-1", "-bottom-1 -right-1"].map((position) => (
+              <span key={position} className={`pointer-events-none absolute h-2 w-2 border border-[#00e5ff] bg-white ${position}`} aria-hidden="true" />
+            ))}
 
             <h1 className="type-h1 max-w-3xl !text-[2.5rem] !leading-[1.08] text-white md:!text-[4rem] md:!leading-[1.05]">
               {title}

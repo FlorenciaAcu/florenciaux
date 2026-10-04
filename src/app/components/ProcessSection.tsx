@@ -64,7 +64,7 @@ export function ProcessSection() {
               <h3 className="type-h3 text-gray-900">{step.title}</h3>
               <p className="type-body col-start-2 text-gray-600 lg:col-auto">{step.description}</p>
 
-              {/* Conector al siguiente paso: mismo círculo que NavArrow, pero fijo (no es un link que se revela al hover) */}
+              {/* Conector al siguiente paso: mismo círculo que OpenCue, pero fijo (no es un link) */}
               {i < steps.length - 1 && (
                 <span
                   aria-hidden="true"

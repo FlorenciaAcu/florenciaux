@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, ArrowUpRight, Maximize2, MousePointerClick, X } from "lucide-react";
+import { OpenCue } from "./NavArrow";
 import type { CaseStudy, CaseStudyImage, CaseStudyScreenGroup, ExperienceProject } from "../data/experiences";
 
 const reveal = {
@@ -108,19 +109,23 @@ export function CaseImage({ image }: { image?: { src: string; alt: string } }) {
   );
 }
 
-/** Quick facts as a hairline key-value list (role, industry, duration…): only what is confirmed. Keys in monospace, like the properties of a code editor. */
+/** Quick facts as a hairline key-value list (role, industry, duration…): only what is confirmed. Keys in the site's own caption type, like everything else. */
 function MetaList({ meta }: { meta: { label: string; value: string }[] }) {
   return (
     <motion.dl {...reveal} transition={{ duration: 0.5, delay: 0.1 }} className="type-caption self-end border-t border-gray-200">
       {meta.map((row) => (
         <div key={row.label} className="flex items-baseline justify-between gap-6 border-b border-gray-200 py-3">
-          <dt className="font-mono text-xs text-gray-600">{row.label}</dt>
+          <dt className="type-caption text-gray-600">{row.label}</dt>
           <dd className="text-right font-medium text-gray-900">{row.value}</dd>
         </div>
       ))}
     </motion.dl>
   );
 }
+
+/** Sticky notes, like the ones of a FigJam board: the steps of "Cómo se conecta". Same colors in the same order and the same slight tilt in every detail. */
+const NOTE_COLORS = ["bg-[#fff3a6]", "bg-[#ffd6e3]", "bg-[#d3f3fa]"];
+const NOTE_TILTS = ["-1deg", "0.8deg", "-0.6deg"];
 
 /** "Cómo trabajé" is always narrative: each item (and each blank-line break inside one) is a paragraph. Never a bulleted list. */
 function WorkParagraphs({ items }: { items: string[] }) {
@@ -280,6 +285,9 @@ export function buildOutline(data: CaseStudy | undefined, opts: { projects?: boo
   return items;
 }
 
+/** Page flags like the ones used to mark a notebook: a pastel strip per section, always the same colors in the same order. */
+const FLAG_COLORS = ["bg-[#c8f0e0]", "bg-[#bfe0f2]", "bg-[#b4cdd3]", "bg-[#f2d3e6]", "bg-[#f3a5c0]"];
+
 /** Sticky "on this page" index for long cases (like the outline in Google Docs): where I am, and a way to jump.
  *  Desktop only; the sections themselves carry the ids. */
 export function CaseOutline({ items }: { items: OutlineItem[] }) {
@@ -309,17 +317,20 @@ export function CaseOutline({ items }: { items: OutlineItem[] }) {
   return (
     <nav aria-label="En esta página">
       <p className="type-eyebrow mb-3 text-gray-600">En esta página</p>
-      <ul className="border-l border-gray-200">
-        {items.map((item) => {
+      {/* Page flags on the edge of a sheet: each section is a colored strip; the one you are on is the one that sticks out. */}
+      <ul className="space-y-1.5 border-r border-gray-300">
+        {items.map((item, index) => {
           const isActive = item.id === active;
           return (
-            <li key={item.id}>
+            <li key={item.id} className="-mr-px">
               <button
                 type="button"
                 onClick={() => go(item.id)}
                 aria-current={isActive ? "location" : undefined}
-                className={`-ml-px flex w-full gap-2.5 border-l-2 py-1.5 ${item.sub ? "pl-7" : "pl-4"} text-left text-sm leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta-strong ${
-                  isActive ? "border-magenta-strong font-medium text-gray-900" : "border-transparent text-gray-600 hover:text-gray-900"
+                className={`block w-full py-2 pr-3 ${item.sub ? "pl-7" : "pl-4"} text-left text-sm leading-snug text-gray-900 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta-strong ${FLAG_COLORS[index % FLAG_COLORS.length]} ${
+                  isActive
+                    ? "font-medium shadow-[0_2px_4px_rgba(10,10,10,0.15)]"
+                    : "ml-4 w-[calc(100%-1rem)] opacity-75 hover:ml-2 hover:w-[calc(100%-0.5rem)] hover:opacity-100"
                 }`}
               >
                 {item.label}
@@ -335,6 +346,38 @@ export function CaseOutline({ items }: { items: OutlineItem[] }) {
 /** "Cómo se conecta": the pieces of the system as a sequence of nodes. Each connector draws in when it enters the viewport, then a dot keeps
  *  travelling along it (CSS, so reduced motion can switch it off). Vertical below xl, horizontal from xl. */
 function SystemMap({ map }: { map: NonNullable<CaseStudy["systemMap"]> }) {
+  const handles = ["-left-1 -top-1", "-right-1 -top-1", "-bottom-1 -left-1", "-bottom-1 -right-1"];
+  const shadow = "shadow-[0_2px_4px_rgba(10,10,10,0.12)]";
+
+  // Each step is a card with its number, title and description inside. On desktop the flow is always horizontal, never vertical:
+  // 3 steps from lg, 4 or 5 from xl. Below that it collapses to one wide card per step. Classes are written out whole so Tailwind finds them.
+  const count = map.steps.length;
+  const from = count <= 3 ? "lg" : "xl";
+  const v = {
+    lg: {
+      ol: "lg:flex-row lg:items-stretch",
+      li: "lg:block lg:min-w-0 lg:flex-1",
+      tilt: "lg:rotate-[var(--tilt)]",
+      title: "lg:mt-2",
+      text: "lg:mt-3",
+      line: "lg:mx-0 lg:h-px lg:w-9 lg:self-center",
+      fill: "lg:origin-left",
+      down: "lg:hidden",
+      right: "hidden lg:block",
+    },
+    xl: {
+      ol: "xl:flex-row xl:items-stretch",
+      li: "xl:block xl:min-w-0 xl:flex-1",
+      tilt: "xl:rotate-[var(--tilt)]",
+      title: "xl:mt-2",
+      text: "xl:mt-3",
+      line: "xl:mx-0 xl:h-px xl:w-9 xl:self-center",
+      fill: "xl:origin-left",
+      down: "xl:hidden",
+      right: "hidden xl:block",
+    },
+  }[from];
+
   return (
     <section id="sistema" className="scroll-mt-28">
       <motion.h2 {...reveal} className={`${h2} ${map.intro ? "mb-4" : "mb-10"}`}>
@@ -345,41 +388,65 @@ function SystemMap({ map }: { map: NonNullable<CaseStudy["systemMap"]> }) {
           {map.intro}
         </motion.p>
       )}
-      <ol className="flex flex-col xl:flex-row xl:items-stretch">
-        {map.steps.map((step, i) => (
-          <li key={step.title} className="relative flex flex-col xl:flex-1 xl:pr-10">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.22 }}
-              className="relative flex-1 border-t-2 border-gray-300 bg-surface-page py-5 md:grid md:grid-cols-[2rem_13rem_minmax(0,1fr)] md:items-baseline md:gap-x-4 xl:block"
-            >
-              <span className="type-eyebrow text-magenta-strong" aria-hidden="true">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="type-title-compact mt-2 text-gray-900 md:mt-0 xl:mt-2">{step.title}</h3>
-              <p className="type-caption mt-2 text-gray-600 md:mt-0 xl:mt-2">{step.text}</p>
-            </motion.div>
 
-            {i < map.steps.length - 1 && (
-              <span
-                aria-hidden="true"
-                className="relative mx-auto block h-10 w-px bg-gray-200 xl:absolute xl:right-0 xl:top-1/2 xl:mx-0 xl:h-px xl:w-10 xl:-translate-y-1/2"
-              >
-                <motion.span
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.4, delay: i * 0.22 + 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-0 origin-top bg-magenta-strong xl:origin-left"
-                />
-                <span className="system-flow-dot h-2 w-2 rounded-full bg-cyan-strong" style={{ animationDelay: `${i * 0.5 + 1}s` }} />
-              </span>
-            )}
-          </li>
+      {/* A flow as it would look in FigJam: a frame (corner handles) over a dot grid, cards joined by connectors with an arrowhead. */}
+      <motion.div
+        {...reveal}
+        className="group/canvas bg-dot-grid relative border border-gray-300 bg-surface-page p-5 transition-colors duration-300 hover:border-gray-400 sm:p-8"
+      >
+        {handles.map((position) => (
+          <span
+            key={position}
+            aria-hidden="true"
+            className={`absolute h-2 w-2 border border-gray-400 bg-surface-page transition-colors duration-300 group-hover/canvas:border-cyan-strong ${position}`}
+          />
         ))}
-      </ol>
+
+        <ol className={`flex flex-col ${v.ol}`}>
+          {map.steps.flatMap((step, i) => {
+            const items = [
+              <motion.li
+                key={step.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: i * 0.22 }}
+                style={{ "--tilt": NOTE_TILTS[i % NOTE_TILTS.length] } as CSSProperties}
+                className={`rotate-[var(--tilt)] px-5 py-5 ${shadow} transition-transform duration-200 ${NOTE_COLORS[i % NOTE_COLORS.length]} md:rotate-0 ${v.tilt} hover:rotate-0 md:grid md:grid-cols-[2rem_13rem_minmax(0,1fr)] md:items-baseline md:gap-x-4 ${v.li}`}
+              >
+                <span className="type-eyebrow text-gray-700" aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className={`type-title-compact mt-2 text-gray-900 md:mt-0 ${v.title}`}>{step.title}</h3>
+                <p className={`type-caption mt-2 text-gray-700 md:mt-0 ${v.text}`}>{step.text}</p>
+              </motion.li>,
+            ];
+
+            if (i < count - 1) {
+              items.push(
+                <li
+                  key={`${step.title}-next`}
+                  aria-hidden="true"
+                  className={`relative mx-auto block h-12 w-px flex-none bg-gray-300 ${v.line}`}
+                >
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.4, delay: i * 0.22 + 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className={`absolute inset-0 origin-top bg-magenta-strong ${v.fill}`}
+                  />
+                  {/* Arrowhead: down in the vertical flow, to the right in the horizontal one */}
+                  <span className={`absolute -bottom-px left-1/2 -translate-x-1/2 border-x-[5px] border-t-[8px] border-x-transparent border-t-magenta-strong ${v.down}`} />
+                  <span className={`absolute -right-px top-1/2 -translate-y-1/2 border-y-[5px] border-l-[8px] border-y-transparent border-l-magenta-strong ${v.right}`} />
+                  <span data-from={from} className="system-flow-dot h-2 w-2 rounded-full bg-cyan-strong" style={{ animationDelay: `${i * 0.5 + 1}s` }} />
+                </li>
+              );
+            }
+            return items;
+          })}
+        </ol>
+      </motion.div>
     </section>
   );
 }
@@ -473,13 +540,9 @@ function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
 }
 
 /** Projects of an experience, or projects inside a project, with the same structure everywhere ("Qué hice" / "Cómo lo abordé" / "Un ejemplo").
- *  A field that is missing is simply not shown. The selection frame (corner handles) is reserved for blocks you can open, like the rows of
- *  "Experiencia" in the home; projects with nowhere to go are plain rows with a hairline on top. */
+ *  A field that is missing is simply not shown. Every project is the same row (hairline on top); the arrow at the top right marks the ones that open. */
 export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[]; onOpen?: (slug: string) => void }) {
-  const handles = ["-left-1 -top-1", "-right-1 -top-1", "-bottom-1 -left-1", "-bottom-1 -right-1"];
-  // Same cue as the rows of "Experiencia": an arrow at the top right, and the whole block is the link (a stretched link, so there is one tab stop per project).
-  const arrowClass =
-    "absolute right-6 top-6 h-5 w-5 text-gray-500 transition-transform duration-200 group-hover/project:-translate-y-1 group-hover/project:translate-x-1 group-hover/project:text-magenta-strong sm:right-8 sm:top-8 xl:right-10 xl:top-10";
+  // Same cue as the cards of "Experiencia" (OpenCue): the whole row is the link (a stretched link, so there is one tab stop per project).
   const stretch = "after:absolute after:inset-0 after:content-[''] focus-visible:outline-none";
 
   return (
@@ -488,7 +551,7 @@ export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[
         Proyectos
       </motion.h2>
 
-      <ol className="space-y-6 lg:space-y-8">
+      <ol className="space-y-10 lg:space-y-12">
         {projects.map((project, i) => {
           const rows = [
             { label: "Qué hice", text: project.brief },
@@ -506,30 +569,19 @@ export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.45, delay: i * 0.05 }}
-              className={`group/project relative bg-surface-page ${
-                linkable
-                  ? "cursor-pointer border border-gray-300 transition-colors duration-300 hover:border-gray-400 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-magenta-strong"
-                  : "border-t border-gray-200 pt-8 lg:pt-10"
+              className={`group/open relative border-t border-gray-200 pt-8 lg:pt-10 ${
+                linkable ? "cursor-pointer has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-magenta-strong" : ""
               }`}
             >
-              {linkable &&
-                handles.map((position) => (
-                  <span
-                    key={position}
-                    aria-hidden="true"
-                    className={`absolute h-2 w-2 border border-gray-400 bg-surface-page transition-colors duration-300 group-hover/project:border-cyan-strong ${position}`}
-                  />
-                ))}
-
-              <div className={`grid gap-8 xl:grid-cols-[1fr_2fr] xl:gap-14 ${linkable ? "p-6 sm:p-8 xl:p-10" : ""}`}>
+              <div className="grid gap-8 xl:grid-cols-[1fr_2fr] xl:gap-14">
                 <header>
                   <span className="text-gradient-brand text-3xl font-light leading-none tabular-nums" aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="type-h3 mt-4 text-gray-900">{project.name}</h3>
+                  <h3 className="type-h3 mt-4 text-gray-900 transition-colors duration-300 group-hover/open:text-magenta-strong">{project.name}</h3>
                 </header>
 
-                <div>
+                <div className="lg:pr-14">
                   <dl className="space-y-6">
                     {rows.map((row, index) => (
                       <div key={row.label}>
@@ -543,12 +595,12 @@ export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[
 
               {project.slug && onOpen ? (
                 <button type="button" onClick={() => onOpen(project.slug!)} className={stretch}>
-                  <ArrowUpRight className={arrowClass} strokeWidth={1.5} aria-hidden="true" />
+                  <OpenCue className="absolute right-0 top-6 lg:top-8" />
                   <span className="sr-only">Ver detalle de {project.name}</span>
                 </button>
               ) : project.externalLink ? (
                 <a href={project.externalLink.url} target="_blank" rel="noopener noreferrer" title={project.externalLink.label} className={stretch}>
-                  <ArrowUpRight className={arrowClass} strokeWidth={1.5} aria-hidden="true" />
+                  <OpenCue className="absolute right-0 top-6 lg:top-8" />
                   <span className="sr-only">
                     {project.externalLink.label} (se abre en otra pestaña)
                   </span>

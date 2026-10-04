@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { NavArrow } from "./NavArrow";
+import { OpenCue } from "./NavArrow";
 import { navigate, RETURN_PATH_KEY } from "../lib/router";
 import { getExperienceBySlug } from "../data/experiences";
 import { getProjectBySlug } from "../data/projects";
@@ -78,7 +78,7 @@ export function FeaturedProjects() {
                 e.preventDefault();
                 openCase(item.route);
               }}
-              className="group cursor-pointer flex items-center gap-5 sm:gap-8 py-8 sm:py-10 lg:py-14 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
+              className="group group/open cursor-pointer flex items-center gap-5 sm:gap-8 py-8 sm:py-10 lg:py-14 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
             >
               {/* Case number: purely decorative, drawn with CSS so it is not read as text */}
               <span
@@ -101,8 +101,7 @@ export function FeaturedProjects() {
                 </p>
               </div>
 
-              {/* Out of the layout below sm: there is no hover on touch, so it would only take width from the content */}
-              <NavArrow display="hidden sm:flex" />
+              <OpenCue />
             </motion.a>
           ))}
         </div>
