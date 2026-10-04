@@ -60,7 +60,7 @@ export function SplashLoader() {
     root.style.overflow = "hidden";
     // ?splash=hold keeps the intro on screen until a click or a key, to look at it in detail
     const hold = window.location.search.includes("splash=hold");
-    const timer = hold ? undefined : window.setTimeout(finish, 2000);
+    const timer = hold ? undefined : window.setTimeout(finish, 1500);
     if (hold) {
       window.addEventListener("click", finish, { once: true });
       window.addEventListener("keydown", finish, { once: true });
@@ -82,7 +82,7 @@ export function SplashLoader() {
           aria-label="Cargando el portfolio de Florencia Acuña"
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a]"
           exit={{ y: "-100%" }}
-          transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="pointer-events-none absolute inset-0" aria-hidden="true">
             <div className="animate-blob-1 absolute -top-32 -left-24 h-[28rem] w-[28rem] rounded-full bg-[#ff006e] opacity-[0.2] blur-[110px]" />
@@ -106,7 +106,7 @@ export function SplashLoader() {
                         style={{ color: LETTER_COLORS[offset + i] }}
                         initial={{ y: "110%" }}
                         animate={{ y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.15 + (offset + i) * 0.09, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.6, delay: 0.1 + (offset + i) * 0.055, ease: [0.16, 1, 0.3, 1] }}
                       >
                         {letter}
                       </motion.span>
@@ -121,7 +121,7 @@ export function SplashLoader() {
             className="relative mt-2 text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-gray-400 sm:text-xs"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.85 }}
+            transition={{ duration: 0.5, delay: 0.65 }}
           >
             Product Designer
           </motion.p>
@@ -130,7 +130,7 @@ export function SplashLoader() {
             className="absolute bottom-0 left-0 h-[3px] w-full origin-left bg-gradient-to-r from-[#ff006e] to-[#00e5ff]"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 1.7, ease: "easeInOut" }}
+            transition={{ duration: 1.3, ease: "easeInOut" }}
           />
         </motion.div>
       )}

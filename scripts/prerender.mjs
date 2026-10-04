@@ -89,6 +89,11 @@ for (const page of pages) {
   await writeFile(file, pageHtml(page));
 }
 
+// Home sections (/sobre-mi, /proyectos, ...) and unknown paths: the same app shell, as real files, so none of them depends on a rewrite rule.
+// 404.html is what Vercel serves, with a 404 status, for a path that does not exist; the app then shows its own "not found" page.
+for (const section of ["sobre-mi", "proyectos", "experiencia", "contacto"]) await writeFile(join(dist, `${section}.html`), template);
+await writeFile(join(dist, "404.html"), template);
+
 const today = new Date().toISOString().slice(0, 10);
 const urls = [SITE_URL + "/", ...pages.map((page) => canonicalFor(page.path))];
 const sitemap =
@@ -97,4 +102,4 @@ const sitemap =
   `\n</urlset>\n`;
 await writeFile(join(dist, "sitemap.xml"), sitemap);
 
-console.log(`prerender: ${pages.length} pages + sitemap (${urls.length} URLs)`);
+console.log(`prerender: ${pages.length} pages + 4 home sections + 404 + sitemap (${urls.length} URLs)`);
