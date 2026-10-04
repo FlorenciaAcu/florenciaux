@@ -134,14 +134,30 @@ También se usan `rounded-2xl` y `rounded-3xl` en paneles puntuales; candidato a
 
 ### Motion
 
-Coherencia por función: interacciones con la misma función comparten comportamiento (p. ej. la Navigation Arrow); no hace falta que interacciones distintas tengan valores idénticos.
+Coherencia por función: interacciones con la misma función comparten comportamiento (p. ej. la Navigation Arrow); no hace falta que interacciones distintas tengan valores idénticos. Toda animación cumple una función (narrativa, orientación o feedback) — nunca es decorativa sin propósito.
+
+**Escala de duración** (candidata a token; hoy son valores literales en cada componente, documentados acá como referencia única):
+
+| Nombre | Valor | Uso |
+|---|---|---|
+| Instant | 150ms | feedback de tap/click (`whileTap`) |
+| Fast | 250ms | cambios de estado de UI: hover, focus, toggle |
+| Base | 450–550ms | entradas `whileInView` estándar (reveal de secciones) |
+| Slow | 700–800ms | momentos narrativos puntuales: splash, dibujo de un diagrama al entrar |
+
+**Easing:** `[0.16, 1, 0.3, 1]` (expo-out) es el estándar de facto para toda entrada — usarlo como token, no reescribirlo a mano por componente. Loops (`repeat: Infinity`) solo con `easeInOut`, y solo para elementos ya aceptados como movimiento continuo (p. ej. el cursor del bloque de código).
 
 Patrones que existen (librería `motion`):
 
-- **Reveal al entrar en viewport:** `opacity 0 → 1`, `y 20 → 0`, `duration 0.5` (variantes de 0.45–0.55), `viewport once`.
+- **Reveal al entrar en viewport:** `opacity 0 → 1`, `y 20 → 0`, duration *Base*, `viewport once`.
 - **Stagger:** `delay: i * 0.05–0.1` en listas.
-- **Blobs** de fondo con keyframes largos (16–24 s).
-- `prefers-reduced-motion` respetado globalmente.
+- **Tap feedback:** `whileTap={{ scale: 0.96 }}` en todos los botones (`Button.tsx`).
+- **Crossfade de contenido:** `AnimatePresence mode="wait"` al cambiar de estado sin desmontar el layout (`DesignCodeToggle`).
+- **Blobs** de fondo con keyframes CSS largos (16–24 s).
+
+**`prefers-reduced-motion`, en dos capas** (antes solo cubría una):
+1. `MotionConfig reducedMotion="user"` en `App.tsx` — cubre toda animación hecha con `motion/react` (reveals, crossfades, el marcador del círculo de "Cómo trabajo").
+2. `@media (prefers-reduced-motion: reduce)` en `globals.css` — cubre las animaciones en **CSS puro** que `MotionConfig` no alcanza: `.animate-blob-1/2/3` y `.animate-pulse` se congelan en vez de girar o titilar. Sin esta capa, alguien con la preferencia activada igual veía las manchas de fondo moviéndose sin parar.
 
 ## Components
 

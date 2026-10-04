@@ -1,6 +1,5 @@
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
-import { DesignCodeToggle } from "./components/DesignCodeToggle";
 import { AboutSection } from "./components/AboutSection";
 import { ThinkingSection } from "./components/ThinkingSection";
 import { FeaturedProjects } from "./components/FeaturedProjects";
@@ -9,7 +8,6 @@ import { KnowledgeSection } from "./components/KnowledgeSection";
 import { Footer } from "./components/Footer";
 import { ExperiencePage } from "./components/ExperiencePage";
 import { CaseStudyPage } from "./components/CaseStudyPage";
-import { GlobalImagePreloader } from "./components/GlobalImagePreloader";
 import { SEOHead } from "./components/SEOHead";
 import { getProjectBySlug } from "./data/projects";
 import { getExperienceBySlug } from "./data/experiences";
@@ -18,7 +16,8 @@ import { FixedBackdrop } from "./components/FixedBackdrop";
 import { ProcessSection } from "./components/ProcessSection";
 import { ClosingCTA } from "./components/ClosingCTA";
 import { SplashLoader } from "./components/SplashLoader";
-import { MotionConfig } from "motion/react";
+import { CookieConsent } from "./components/CookieConsent";
+import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { useState, useEffect } from "react";
 
 // Mapping from URL slug to DOM element ID
@@ -70,7 +69,9 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <SplashLoader />
+      <FixedBackdrop />
       <AppRoutes />
+      <CookieConsent />
     </MotionConfig>
   );
 }
@@ -88,6 +89,14 @@ function AppRoutes() {
     };
   }, []);
 
+  // Al cambiar de página arranca arriba — salvo que el destino sea una sección del home,
+  // que ya se encarga el efecto de abajo con su propio scroll suave.
+  useEffect(() => {
+    if (route.page !== "/" || !route.section) {
+      window.scrollTo(0, 0);
+    }
+  }, [route]);
+
   // Scroll to section when navigating to a section URL
   useEffect(() => {
     if (route.page === "/" && route.section) {
@@ -100,46 +109,59 @@ function AppRoutes() {
     }
   }, [route]);
 
+  // La clave identifica la "página" (home vs. un caso vs. una experiencia), no la sección dentro
+  // del home — moverse entre secciones no debe disparar la transición, solo cambiar de página sí.
+  let transitionKey: string;
+  let content: React.ReactNode;
+
   if (route.page === "/proyectos/:slug" && route.slug) {
-    return (
+    transitionKey = `proyectos/${route.slug}`;
+    content = (
       <>
         <SEOHead {...seoForProject(route.slug)} />
-        <GlobalImagePreloader />
-        <FixedBackdrop />
         <CaseStudyPage slug={route.slug} />
       </>
     );
-  }
-
-  if (route.page === "/experiencia/:slug" && route.slug) {
-    return (
+  } else if (route.page === "/experiencia/:slug" && route.slug) {
+    transitionKey = `experiencia/${route.slug}`;
+    content = (
       <>
         <SEOHead {...seoForExperience(route.slug)} />
-        <GlobalImagePreloader />
-        <FixedBackdrop />
         <ExperiencePage slug={route.slug} />
       </>
+    );
+  } else {
+    transitionKey = "/";
+    content = (
+      <div className="min-h-screen bg-white">
+        <SEOHead />
+        <Header />
+        <main>
+          <HeroSection />
+          <AboutSection />
+          <FeaturedProjects />
+          <ProcessSection />
+          <ExperienceSection />
+          <ClosingCTA />
+          {/* <ThinkingSection /> */}
+          {/* <KnowledgeSection /> */}
+        </main>
+        <Footer />
+      </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <SEOHead />
-      <GlobalImagePreloader />
-      <FixedBackdrop />
-      <Header />
-      <main>
-        <HeroSection />
-        <DesignCodeToggle />
-        <AboutSection />
-        <FeaturedProjects />
-        <ProcessSection />
-        <ExperienceSection />
-        <ClosingCTA />
-        {/* <ThinkingSection /> */}
-        {/* <KnowledgeSection /> */}
-      </main>
-      <Footer />
-    </div>
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={transitionKey}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {content}
+      </motion.div>
+    </AnimatePresence>
   );
 }

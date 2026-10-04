@@ -3,10 +3,10 @@ import { Footer } from "./Footer";
 import { DetailHero } from "./DetailHero";
 import { detailSticker } from "./Stickers";
 import { ClosingCTA } from "./ClosingCTA";
-import { buildOutline, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro } from "./CaseStudyBlocks";
+import { NextCase } from "./NextCase";
+import { buildOutline, CaseImage, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro, ProjectList } from "./CaseStudyBlocks";
 import { getExperienceBySlug } from "../data/experiences";
-import { motion } from "motion/react";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 interface Props {
   slug: string;
@@ -24,13 +24,11 @@ export function ExperiencePage({ slug }: Props) {
     } else {
       window.location.hash = "#/experiencia";
     }
-    setTimeout(() => window.scrollTo(0, 0), 100);
   };
 
   const navigateToCase = (caseSlug: string) => {
     sessionStorage.setItem("caseReturnHash", `/experiencia/${slug}`);
     window.location.hash = `#/proyectos/${caseSlug}`;
-    setTimeout(() => window.scrollTo(0, 0), 100);
   };
 
   if (!experience) {
@@ -38,7 +36,7 @@ export function ExperiencePage({ slug }: Props) {
       <div className="min-h-screen bg-surface-page">
         <Header />
         <main className="pt-20">
-          <div className="max-w-7xl mx-auto px-6 py-40 flex flex-col items-center gap-6 text-center">
+          <div className="page-container py-40 flex flex-col items-center gap-6 text-center">
             <p className="text-gray-600">Experiencia no encontrada.</p>
             <button
               onClick={handleBack}
@@ -71,7 +69,7 @@ export function ExperiencePage({ slug }: Props) {
 
         {/* Same structure for every experience: "El desafío" and "Cómo trabajé", then the projects, then the case blocks if there are any (decisions, screens, result), and "Qué aprendí" last.
             Like the cases, it has the sticky "on this page" index on desktop. */}
-        <div className="max-w-7xl mx-auto px-6 pt-12 pb-28 lg:pb-44 lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14">
+        <div className="page-container pt-12 pb-28 lg:pb-44 lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14">
           <aside className="hidden lg:block">
             <div className="sticky top-28">
               <CaseOutline items={buildOutline(experience.caseStudy, { projects: true, about: experience.aboutTitle, challenge: !!experience.challenge, learned: !!experience.learned })} />
@@ -85,84 +83,20 @@ export function ExperiencePage({ slug }: Props) {
             intro={experience.workText ?? experience.bio}
             about={experience.about && experience.aboutTitle ? { title: experience.aboutTitle, text: experience.about } : undefined}
             challenge={experience.challenge}
+            images={experience.images}
             meta={[
               { label: "Rol", value: experience.role },
               { label: "Período", value: experience.period },
             ]}
           />
 
-        {/* Projects: right after "Cómo trabajé", because they are the body of the work; the case blocks (decisions, screens, result) follow */}
-        <div id="proyectos" className="scroll-mt-28">
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="type-h2 mb-10 text-gray-900"
-          >
-            Proyectos
-          </motion.h2>
-
-          {/* Open rows, not cards: name and tags on the left, what I did on the right. Vertical rhythm alone separates rows: no hairlines. */}
-          <div>
-            {experience.projects.map((project, i) => (
-              <motion.div
-                key={project.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.45, delay: i * 0.05 }}
-                className="grid gap-6 py-10 xl:grid-cols-[1fr_2fr] xl:gap-14"
-              >
-                <div>
-                  <h3 className="type-h3 text-gray-900">{project.name}</h3>
-                </div>
-                <div>
-                  {project.how ? (
-                    <dl className="space-y-6 text-base leading-relaxed">
-                      {[
-                        { label: "Qué hice", text: project.brief },
-                        { label: project.howCollective ? "Cómo lo abordamos" : "Cómo lo abordé", text: project.how },
-                        ...(project.example ? [{ label: "Un ejemplo", text: project.example }] : []),
-                      ].map((row, index) => (
-                        <div key={row.label}>
-                          <dt className="type-eyebrow mb-2 text-magenta-strong">{row.label}</dt>
-                          {/* Narrative, not a list: one paragraph per row */}
-                          <dd className={index === 0 ? "text-gray-800" : "text-gray-700"}>{row.text}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  ) : (
-                    <p className="type-body text-gray-700">{project.brief}</p>
-                  )}
-                  {project.slug && (
-                    <button
-                      onClick={() => navigateToCase(project.slug!)}
-                      className="mt-5 text-sm font-semibold text-magenta-strong underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
-                    >
-                      Ver detalle →
-                    </button>
-                  )}
-                  {project.externalLink && (
-                    <a
-                      href={project.externalLink.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-magenta-strong underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
-                    >
-                      {project.externalLink.label}
-                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                      <span className="sr-only">(se abre en otra pestaña)</span>
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-        </div>
+        {/* Projects: right after "Cómo se conecta" / "Cómo trabajé", same block as the projects inside a project */}
+        <ProjectList projects={experience.projects} onOpen={navigateToCase} />
 
         {experience.caseStudy && <CaseStudyDetails data={experience.caseStudy} />}
+        {/* Sin caseStudy, CaseStudyDetails no se llama: la segunda imagen va justo antes de "Qué aprendí"
+            para que el lugar siga siendo fijo. */}
+        {!experience.caseStudy && <CaseImage image={experience.images?.[1]} />}
         {experience.caseStudy && <CaseStudyLearned data={experience.caseStudy} />}
         {!experience.caseStudy && <CaseStudyLearned data={experience} />}
         </div>
@@ -171,8 +105,8 @@ export function ExperiencePage({ slug }: Props) {
 
       </main>
 
-      {/* Bottom CTA — solo Cintelink */}
-      {slug === "cintelink" && <ClosingCTA />}
+      <NextCase kind="Experiencia" slug={slug} />
+      <ClosingCTA />
 
       <Footer />
     </div>

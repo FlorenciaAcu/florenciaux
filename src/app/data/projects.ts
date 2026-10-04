@@ -1,12 +1,15 @@
 import type { CaseStudy } from "./experiences";
 import type { PageSeo } from "./site";
-import buscadorHome from "../../imports/buscador-home.jpg";
-import buscadorPerfil from "../../imports/buscador-perfil-empresa.jpg";
-import juangasQrEnEstacion from "../../imports/juangas-qr-en-estacion.jpg";
-import juangasCartelQr from "../../imports/juangas-cartel-qr.png";
-import juangasConsultaMobile from "../../imports/juangas-consulta-mobile.png";
+import buscadorLandingWaitlist from "../../imports/buscador-landing-waitlist.webp";
+import buscadorHomeReal from "../../imports/buscador-home-real.webp";
 import audagnoDesktopHome from "../../imports/audagno-desktop-home.jpg";
 import audagnoDesktopContacto from "../../imports/audagno-desktop-contacto.jpg";
+import cemicoPortalPaciente from "../../imports/cemico-portal-paciente.webp";
+import cemicoAuditoriaExterna from "../../imports/cemico-auditoria-externa.webp";
+import juangasConsultaSaldoWeb from "../../imports/juangas-consulta-saldo-web.webp";
+import juangasDashboardOperativo from "../../imports/juangas-dashboard-operativo.webp";
+import infocasasGestionSuscripcion from "../../imports/infocasas-gestion-suscripcion.webp";
+import infocasasAdministrarInmuebles from "../../imports/infocasas-administrar-inmuebles.webp";
 
 export interface ProjectDetail {
   /** Optional metadata overrides. Without them, data/seo.ts derives title and description from the existing content. */
@@ -54,10 +57,23 @@ export const projects: ProjectDetail[] = [
       meta: [
         { label: "Rol", value: "Product Designer" },
         { label: "Industria", value: "Salud" },
+        { label: "Estado", value: "En curso" },
       ],
+      systemMap: {
+        intro: "El anunciador de pacientes es un solo proceso que atraviesa tres interfaces: lo que sucede en una afecta a las demás.",
+        steps: [
+          { title: "Tótem", text: "La persona se anuncia al llegar a la clínica." },
+          { title: "Dashboard de admisión", text: "Admisión gestiona esos registros en tiempo real." },
+          { title: "Pantalla de sala de espera", text: "Comunica el llamado a la persona." },
+        ],
+      },
       aboutTitle: "Qué es CEMICO",
       about:
         "CEMICO es un grupo de clínicas de Neuquén, Argentina, que reúne distintos productos digitales dentro de su ecosistema de salud. Conviven ahí perfiles muy distintos: pacientes, personal de admisión y recepción, colaboradores internos y auditores médicos externos de obras sociales y prepagas.",
+      images: [
+        { src: cemicoPortalPaciente, alt: "Portal del paciente de CEMICO: turnos, resultados y accesos rápidos" },
+        { src: cemicoAuditoriaExterna, alt: "Módulo de auditoría médica externa: listado de episodios de internación" },
+      ],
       challengeTitle: "El desafío",
       challenge:
         "En CEMICO, la experiencia no termina en la interfaz. Muchos de los productos digitales forman parte de servicios que continúan dentro de las clínicas, en los que participan pacientes, personal de admisión, profesionales y otras áreas.\n\nPor eso hubo que considerar qué ocurre antes, durante y después de cada interacción digital: un turno termina en una atención presencial, y la llegada a la clínica conecta un tótem con admisión y una sala de espera.",
@@ -126,11 +142,23 @@ export const projects: ProjectDetail[] = [
         { label: "Rol", value: "Product Designer" },
         { label: "Industria", value: "Agtech" },
         { label: "Duración", value: "2 meses" },
-        { label: "Para", value: "Agro360" },
       ],
+      systemMap: {
+        intro: "El recorrido que conecté, desde que alguien busca hasta que contacta a una empresa.",
+        steps: [
+          { title: "Búsqueda", text: "Por categoría, cultivo y ubicación." },
+          { title: "Resultados", text: "En listado o en mapa." },
+          { title: "Ficha", text: "Imágenes, especificaciones, información técnica y ubicación." },
+          { title: "Contacto", text: "El acceso va junto al registro, para no perder la demanda." },
+        ],
+      },
       aboutTitle: "Qué es Buscador Agrícola",
       about:
         "Buscador Agrícola es un marketplace especializado en el sector agrícola chileno: reúne en un solo lugar productos, insumos, semillas, maquinaria, servicios y terrenos.\n\nFue un MVP para Agro360, una organización chilena vinculada al sector agrícola, pensado para quienes buscan oferta especializada y para quienes la ofrecen.",
+      images: [
+        { src: buscadorLandingWaitlist, alt: "Landing de waitlist de Buscador Agrícola, hecha con Figma Make para captar interés mientras se desarrollaba el MVP" },
+        { src: buscadorHomeReal, alt: "Home de Buscador Agrícola: buscador, empresas más confiables del agro y categorías destacadas" },
+      ],
       challenge:
         "La oferta estaba dispersa y no había un espacio común y especializado donde buscar productos, insumos, maquinaria, servicios y otras soluciones del agro con criterios propios del sector, como categoría, cultivo o ubicación. Había que diseñar una experiencia de búsqueda para esa oferta amplia y especializada.",
       role: [
@@ -156,32 +184,10 @@ export const projects: ProjectDetail[] = [
           text: "El contacto era una acción central del MVP, pero mostrar todos los datos del proveedor desde el primer momento permitía que la interacción continuara por fuera de la plataforma sin identificar a la persona interesada. Por eso trabajé el acceso al contacto junto con el registro, buscando facilitar la conexión sin perder la posibilidad de captar esa demanda dentro de Buscador Agrícola.",
         },
       ],
-      cover: {
-        src: buscadorHome,
-        alt: "Home de Buscador Agrícola: el buscador, empresas, categorías destacadas y los últimos productos agregados",
-        caption: "Home: el buscador es lo primero; debajo, empresas, categorías destacadas y los últimos productos agregados.",
-      },
-      screenGroups: [
-        {
-          aspect: "aspect-[1200/1167]",
-          grid: "max-w-5xl",
-          images: [
-            {
-              src: buscadorPerfil,
-              alt: "Perfil de una empresa en Buscador Agrícola: información y ubicación, botón de contacto, filtros y los productos que ofrece",
-              caption: "Perfil de una empresa: su información, ubicación y cobertura, el acceso al contacto y los productos que ofrece, con filtros por categoría, estado y región.",
-            },
-          ],
-        },
-      ],
       prototypesTitle: "Prototipos",
       prototypesNote:
         "Mientras se desarrollaba el MVP, construí esta landing con Figma Make para presentar la propuesta y captar interés.",
       prototypes: [{ label: "Waitlist de Buscador Agrícola", url: "https://buscadoragricolacl.figma.site" }],
-      result: {
-        title: "Resultado",
-        text: "El MVP se desarrolló y hoy Buscador Agrícola está en producción, disponible en buscadoragricola.cl.",
-      },
     },
   },
   {
@@ -209,64 +215,41 @@ export const projects: ProjectDetail[] = [
         { label: "Rol", value: "Product Designer · Diseño e implementación" },
         { label: "Industria", value: "Combustible" },
         { label: "Estado", value: "En curso" },
-        { label: "Etapa 1 · Consulta de saldo", value: "2 semanas" },
       ],
+      systemMap: {
+        intro: "Los datos ya existían en la estación. El trabajo fue conectarlos con algo que el cliente pueda consultar solo.",
+        steps: [
+          { title: "Microsoft Access", text: "Donde la estación registra cargas, clientes y canjes." },
+          { title: "Script en Python", text: "Sincroniza esos datos con Google Sheets." },
+          { title: "Google Sheets", text: "La fuente que consulta la web." },
+          { title: "Web de consulta", text: "El cliente ingresa su patente, desde la web o escaneando el QR, y ve su saldo." },
+        ],
+      },
       aboutTitle: "Qué es Juan Gas GNC Club",
       about:
         "Juan Gas GNC es una estación de servicio de GNC en San Juan, Argentina. Juan Gas GNC Club es su programa de fidelización: los clientes acumulan puntos por cada carga de GNC y los canjean por premios. Los puntos no vencen, y la patente del vehículo funciona como identificador para consultar el saldo.",
       challengeTitle: "El desafío",
       challenge:
-        "El Club ya existía, pero los clientes no tenían una forma simple de consultar sus puntos: esa información estaba en Microsoft Access, una herramienta interna de la estación. Había que llevar esos datos existentes a una experiencia que el cliente pudiera consultar por sí mismo, desde el celular y con la menor cantidad de pasos.",
+        "Juan Gas GNC Club ya existía, pero sus datos vivían en Microsoft Access, una herramienta pensada para el día a día de la estación y no para que los clientes la usaran directamente. El desafío fue llevar esa información a experiencias digitales simples, de a una etapa a la vez.",
       role: [
-        "En este proyecto trabajé desde el diseño de la experiencia hasta la implementación. Definí el flujo de consulta de saldo y diseñé una interfaz pensada principalmente para mobile y para el acceso desde la estación.",
-        "También resolví la integración con los datos existentes: desarrollé un script en Python para sincronizar Microsoft Access con Google Sheets, desplegué la aplicación web y diseñé la cartelería con QR para facilitar el acceso.",
+        "En este proyecto trabajé desde el diseño de la experiencia hasta la implementación, resolviendo también la integración con los datos existentes del negocio.",
       ],
-      decisionsIntro:
-        "Estas son algunas de las decisiones que tomé para convertir el programa de fidelización de Juan Gas en una experiencia digital simple de usar en la estación.",
-      decisions: [
+      images: [
+        { src: juangasConsultaSaldoWeb, alt: "Consulta de saldo de Juan Gas GNC Club en desktop: campo para ingresar la patente y botón Consultar" },
+        { src: juangasDashboardOperativo, alt: "Dashboard operativo de Juan Gas GNC Club: métricas y gráficos de consumo y operación" },
+      ],
+      projects: [
         {
-          icon: "data",
-          title: "¿Cómo consultar un dato que ya vivía en otro sistema?",
-          text: "La estación ya tenía la información de sus clientes en Microsoft Access. Para no partir de cero, desarrollé un script en Python que sincroniza esos datos con Google Sheets, y la web consulta esa fuente cuando alguien ingresa su patente.",
+          name: "Consulta de saldo",
+          brief: "Definí el flujo de consulta de saldo y diseñé una interfaz pensada principalmente para mobile y para el acceso desde la estación.",
+          how: "El Club ya existía, pero los clientes no tenían una forma simple de consultar sus puntos: esa información estaba en Microsoft Access, una herramienta interna de la estación. Había que llevar esos datos existentes a una experiencia que el cliente pudiera consultar por sí mismo, desde el celular y con la menor cantidad de pasos.\n\nDesarrollé un script en Python que sincroniza los datos de Microsoft Access con Google Sheets, la fuente que consulta la web. Desplegué la aplicación web y diseñé la cartelería con el código QR para facilitar el acceso desde la estación.",
         },
         {
-          icon: "physical",
-          title: "¿Cómo diseñar una consulta con la menor fricción posible?",
-          text: "Diseñé la experiencia para resolver una sola acción —consultar el saldo— con el menor número de pasos: ingresar, escribir la patente y ver el saldo. La experiencia fue pensada principalmente para mobile, con acceso mediante códigos QR ubicados en la estación.",
+          name: "Datos para la operación",
+          brief: "Con la consulta de saldo en funcionamiento, empecé a trabajar con los datos que la estación ya registraba sobre cargas, clientes y canjes.",
+          how: "Analicé patrones de consumo, frecuencia de carga, evolución mensual y canjes de premios para entender mejor la operación. Estoy diseñando un dashboard operativo, actualmente en desarrollo, para organizar y consultar esta información de forma más simple.",
         },
       ],
-      decisionsImage: {
-        src: juangasQrEnEstacion,
-        alt: "Pilar de la estación de servicio con un cartel que dice «Escaneá y consultá tu saldo» y un código QR, junto al surtidor de GNC",
-        caption: "La cartelería con el código QR, ubicada en la estación junto al surtidor.",
-      },
-      screenGroups: [
-        {
-          aspect: "aspect-[591/838]",
-          grid: "grid-cols-1 sm:grid-cols-2 max-w-xl",
-          images: [
-            {
-              src: juangasConsultaMobile,
-              alt: "Pantalla de consulta de saldo vista desde el navegador del celular: «Consultá el saldo», un campo para ingresar la patente sin espacios y el botón Consultar",
-              caption: "Consulta de saldo por patente, resuelta en una única acción.",
-            },
-            {
-              src: juangasCartelQr,
-              alt: "Cartel «Escaneá y consultá tu saldo» de Juan Gas GNC Club con un código QR y la dirección de la web",
-              caption: "Cartel con el código QR que lleva a la web de Consulta saldo.",
-            },
-          ],
-        },
-      ],
-      result: {
-        title: "Resultado",
-        text: "La solución quedó implementada y en funcionamiento. Los clientes pueden acceder desde la web o escaneando el QR en la estación, ingresar su patente y consultar su saldo de puntos.",
-      },
-      nextStage: {
-        title: "Etapa 2 · Datos para la operación",
-        navLabel: "Datos para la operación",
-        text: "Con la consulta de saldo en funcionamiento, empecé a trabajar con los datos que la estación ya registraba sobre cargas, clientes y canjes. Analicé patrones de consumo, frecuencia de carga, evolución mensual y canjes de premios para entender mejor la operación.\n\nA partir de este análisis estoy diseñando un dashboard operativo, actualmente en desarrollo, para organizar y consultar esta información de forma más simple.",
-      },
     },
   },
   {
@@ -291,7 +274,16 @@ export const projects: ProjectDetail[] = [
         { label: "Industria", value: "Legal" },
         { label: "Duración", value: "2 semanas" },
       ],
-      aboutTitle: "Quién es Juan Audagno",
+      systemMap: {
+        intro: "Cómo llega una consulta desde el sitio hasta el estudio.",
+        steps: [
+          { title: "Áreas de práctica", text: "La persona identifica rápido si su consulta encaja." },
+          { title: "Formulario o WhatsApp", text: "WhatsApp visible durante el recorrido y un formulario como alternativa." },
+          { title: "Cloudflare Workers", text: "Envían la consulta del formulario desde la web." },
+          { title: "Correo del estudio", text: "Recibe la consulta." },
+        ],
+      },
+      aboutTitle: "Qué es AUDAGNO – Abogado",
       about:
         "Juan Audagno es un abogado de La Plata que trabaja en distintas áreas del derecho, entre ellas derecho laboral, civil y penal. El proyecto consistió en diseñar e implementar su sitio web profesional para presentar sus servicios y facilitar el contacto con potenciales clientes.",
       challenge:
@@ -300,6 +292,8 @@ export const projects: ProjectDetail[] = [
       role: [
         "Organicé la arquitectura y la jerarquía del contenido a partir de las áreas de práctica y las principales necesidades de contacto. Diseñé la experiencia y la interfaz responsive, definiendo una identidad visual basada en azul navy, dorado y blanco.\n\nAdemás del diseño, implementé y publiqué el sitio. Integré el contacto por WhatsApp y un formulario conectado mediante Cloudflare Workers para que las consultas pudieran enviarse directamente desde la web.",
       ],
+      decisionsIntro:
+        "Estas son algunas de las decisiones que tomé para transformar la presencia online del estudio en un sitio claro y fácil de recorrer.",
       decisions: [
         {
           title: "¿Cómo hacer que alguien que busca un abogado en La Plata pueda llegar al sitio?",
@@ -318,28 +312,10 @@ export const projects: ProjectDetail[] = [
           text: "Trabajé con una paleta navy, dorado y blanco, combinando tipografía serif en títulos con sans serif en textos para construir una identidad sobria y contemporánea manteniendo una lectura clara.",
         },
       ],
-      cover: {
-        src: audagnoDesktopHome,
-        alt: "Inicio del sitio de AUDAGNO – Abogado en desktop: título, texto de presentación, botones para agendar una consulta y contactar por WhatsApp, y una foto del profesional",
-        caption: "Inicio: presentación del estudio y accesos directos a la consulta y a WhatsApp.",
-      },
-      screenGroups: [
-        {
-          aspect: "aspect-[1440/900]",
-          grid: "max-w-5xl",
-          images: [
-            {
-              src: audagnoDesktopContacto,
-              alt: "Sección de contacto en desktop: datos del estudio a la izquierda y formulario de consulta a la derecha, con el botón flotante de WhatsApp",
-              caption: "Contacto: datos del estudio, formulario de consulta y botón flotante de WhatsApp.",
-            },
-          ],
-        },
+      images: [
+        { src: audagnoDesktopHome, alt: "Inicio del sitio de AUDAGNO – Abogado en desktop: título, texto de presentación, botones para agendar una consulta y contactar por WhatsApp, y una foto del profesional" },
+        { src: audagnoDesktopContacto, alt: "Sección de contacto en desktop: datos del estudio a la izquierda y formulario de consulta a la derecha, con el botón flotante de WhatsApp" },
       ],
-      result: {
-        title: "Resultado",
-        text: "El proyecto terminó con un sitio responsive diseñado, implementado y publicado, con acceso directo a WhatsApp y un formulario de contacto funcional.",
-      },
       learned:
         "Este proyecto me ayudó a entender la importancia de construir una presencia digital clara para un profesional independiente. No alcanza solo con tener una web: también es importante comunicar sus áreas de trabajo, facilitar el contacto y pensar cómo las personas pueden encontrarlo en buscadores. Trabajar el contenido y el posicionamiento desde el diseño me permitió entender mejor cómo una experiencia digital también puede ayudar a conectar a un profesional con potenciales clientes.",
     },
@@ -361,10 +337,18 @@ export const projects: ProjectDetail[] = [
     caseStudy: {
       meta: [
         { label: "Rol", value: "Product Designer" },
-        { label: "Trabajé para", value: "HitOcean" },
         { label: "Industria", value: "Real estate" },
-        { label: "Plataformas", value: "Web y app" },
+        { label: "Duración", value: "4 meses" },
       ],
+      systemMap: {
+        intro: "Los tres proyectos en los que trabajé giran alrededor de la misma suscripción.",
+        steps: [
+          { title: "Plan y cupos", text: "Lo que incluye la suscripción y cuánto queda disponible." },
+          { title: "Cupos que no alcanzan", text: "Un producto suelto para un inmueble o una mejora de plan." },
+          { title: "Cancelación", text: "Con instancias de retención antes de completar la baja." },
+          { title: "Reactivación", text: "Recupera el plan anterior, el método de pago y el resumen." },
+        ],
+      },
       aboutTitle: "Qué es InfoCasas",
       about:
         "InfoCasas es una plataforma inmobiliaria de Uruguay que conecta a personas y profesionales con propiedades en venta y alquiler. Trabajé en el producto como Product Designer para HitOcean, participando en distintos proyectos de la plataforma web y la app.",
@@ -374,37 +358,25 @@ export const projects: ProjectDetail[] = [
       role: [
         "En cada proyecto partí de entender el flujo existente, las reglas de negocio y los estados que podían atravesar los usuarios. A partir de ese contexto trabajé alternativas de experiencia, flujos e interfaces, reutilizando patrones del producto siempre que era posible.\n\nLas propuestas se revisaban e iteraban con el equipo antes de profundizar la solución. Según el problema, exploré distintas variantes para comparar recorridos y encontrar una forma clara de integrar la nueva funcionalidad sin romper la experiencia existente.",
       ],
-      features: [
+      images: [
+        { src: infocasasGestionSuscripcion, alt: "Gestión de suscripción en InfoCasas: detalle del plan, qué incluye y método de pago" },
+        { src: infocasasAdministrarInmuebles, alt: "Administrar inmuebles en InfoCasas: listado de publicaciones con estado, métricas y productos aplicados" },
+      ],
+      projects: [
         {
-          title: "Productos sueltos",
-          context:
-            "La funcionalidad de Productos sueltos permitía adquirir un producto o promoción para un inmueble de manera puntual cuando los cupos incluidos en el plan no alcanzaban.",
-          did: [
-            "Trabajé sobre Administrar inmuebles: cómo acceder a estos productos, aplicarlos y representar los que estaban activos en cada inmueble.",
-            "Separé una acción genérica de «Asignar productos» en tres intenciones más claras: Destacar, Impulsar y Etiquetar.",
-            "Diseñé una estructura común para comparar las distintas opciones y entender su disponibilidad.",
-          ],
+          name: "Productos sueltos",
+          brief: "La funcionalidad de Productos sueltos permitía adquirir un producto o promoción para un inmueble de manera puntual cuando los cupos incluidos en el plan no alcanzaban. Trabajé sobre Administrar inmuebles: cómo acceder a estos productos, aplicarlos y representar los que estaban activos en cada inmueble.",
+          how: "Separé una acción genérica de «Asignar productos» en tres intenciones más claras: Destacar, Impulsar y Etiquetar. Diseñé una estructura común para comparar las distintas opciones y entender su disponibilidad.",
         },
         {
-          title: "Mejora de plan",
-          context:
-            "El objetivo era que una cuenta pudiera mejorar su plan por sí misma, especialmente cuando los cupos disponibles ya no acompañaban su uso.",
-          exploration:
-            "Exploré cuatro modelos de interacción para comparar distintas formas de mostrar los cupos disponibles y las opciones para mejorar el plan. Después de revisar las alternativas con el equipo, profundicé las dos que mejor resolvían el recorrido.\n\nA partir del feedback, seguí iterando para simplificar la comparación entre planes y hacer más clara la relación entre el plan actual, los cupos disponibles y las opciones para pasar a uno superior.",
-          did: [
-            "Trabajé las interfaces para consultar el plan y los cupos, comparar alternativas y avanzar hacia la mejora del plan.",
-            "También diseñé el checkout, manteniendo visibles el plan, los cupos y el ciclo de facturación.",
-          ],
+          name: "Mejora de plan",
+          brief: "El objetivo era que una cuenta pudiera mejorar su plan por sí misma, especialmente cuando los cupos disponibles ya no acompañaban su uso. Trabajé las interfaces para consultar el plan y los cupos, comparar alternativas y avanzar hacia la mejora del plan. También diseñé el checkout, manteniendo visibles el plan, los cupos y el ciclo de facturación.",
+          how: "Exploré cuatro modelos de interacción para comparar distintas formas de mostrar los cupos disponibles y las opciones para mejorar el plan. Después de revisar las alternativas con el equipo, profundicé las dos que mejor resolvían el recorrido.\n\nA partir del feedback, seguí iterando para simplificar la comparación entre planes y hacer más clara la relación entre el plan actual, los cupos disponibles y las opciones para pasar a uno superior.",
         },
         {
-          title: "Cancelación y reactivación",
-          context:
-            "El requerimiento incluía un flujo de cancelación con distintas instancias de retención antes de completar la baja.",
-          did: [
-            "Diseñé el flujo de cancelación, su microcopy y los distintos estados que podía atravesar una suscripción después de la baja.",
-            "Trabajé la jerarquía de las acciones para que cancelar no compitiera con acciones principales y reactivar ganara relevancia cuando correspondía.",
-            "Para la reactivación diseñé una pantalla completa que recupera el plan anterior, el método de pago y el resumen, reutilizando patrones existentes del producto. También mantuve la posibilidad de mejorar el plan en lugar de reactivar el mismo.",
-          ],
+          name: "Cancelación y reactivación",
+          brief: "El requerimiento incluía un flujo de cancelación con distintas instancias de retención antes de completar la baja. Diseñé el flujo de cancelación, su microcopy y los distintos estados que podía atravesar una suscripción después de la baja.",
+          how: "Trabajé la jerarquía de las acciones para que cancelar no compitiera con acciones principales y reactivar ganara relevancia cuando correspondía. Para la reactivación diseñé una pantalla completa que recupera el plan anterior, el método de pago y el resumen, reutilizando patrones existentes del producto. También mantuve la posibilidad de mejorar el plan en lugar de reactivar el mismo.",
         },
       ],
       learned:

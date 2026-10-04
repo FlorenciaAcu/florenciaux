@@ -13,11 +13,11 @@ interface SEOProps {
 }
 
 const DEFAULTS = {
-  title: "Florencia Acuña | Product Designer",
+  title: "Florencia Acuña | Diseño UX/UI y Product Design en Argentina",
   description:
-    "Portfolio de Florencia Acuña, Product Designer. Proyectos, experiencias y procesos de diseño de productos digitales, UX/UI e IA aplicada.",
+    "Product Designer en Argentina. Diseño UX/UI de sitios web, apps y rediseño de productos digitales, con foco en experiencia de usuario, negocio y equipos.",
   ogDescription:
-    "Diseño productos digitales y prototipos funcionales con foco en experiencia de usuario, negocio, equipos e IA aplicada.",
+    "Diseño UX/UI de sitios web, apps y rediseño de productos digitales, con foco en experiencia de usuario, negocio, equipos e IA aplicada.",
 };
 
 function setMeta(name: string, content: string, attr: "name" | "property" = "name") {
@@ -115,6 +115,10 @@ export function SEOHead({ title, description, path, image }: SEOProps) {
         "Plataformas SaaS",
         "Design Systems",
         "Experiencia de usuario",
+        "Diseño de experiencia",
+        "Diseño de sitios web",
+        "Diseño de apps",
+        "Rediseño de apps",
       ],
     });
   }, [resolvedTitle, resolvedDesc, resolvedOgDesc, resolvedCanonical, resolvedImage]);

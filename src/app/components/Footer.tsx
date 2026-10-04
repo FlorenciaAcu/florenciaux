@@ -1,6 +1,7 @@
 import { IsologoFA } from "./IsologoFA";
 import { Heart, Coffee } from "lucide-react";
 import { CV_URL, EMAIL, LINKEDIN_URL, MEDIUM_URL } from "../data/contact";
+import { OPEN_CONSENT_EVENT } from "../lib/consent";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -27,7 +28,7 @@ export function Footer() {
             <p id="footer-nav-title" className="type-eyebrow text-gray-400 mb-4">
               Navegación
             </p>
-            <ul className="space-y-2">
+            <ul className="space-y-0.5">
               {[
                 { label: "Inicio", hash: "#/" },
                 { label: "Sobre mí", hash: "#/sobre-mi" },
@@ -41,7 +42,7 @@ export function Footer() {
                       e.preventDefault();
                       go(item.hash);
                     }}
-                    className="text-sm text-gray-400 hover:text-magenta transition-colors text-left"
+                    className="inline-block py-1.5 text-sm text-gray-400 hover:text-magenta transition-colors text-left"
                   >
                     {item.label}
                   </a>
@@ -55,11 +56,11 @@ export function Footer() {
             <p id="footer-contact-title" className="type-eyebrow text-gray-400 mb-4">
               Contacto
             </p>
-            <ul className="space-y-2" aria-labelledby="footer-contact-title">
+            <ul className="space-y-0.5" aria-labelledby="footer-contact-title">
               <li>
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="text-sm text-gray-400 hover:text-magenta transition-colors"
+                  className="inline-block py-1.5 text-sm text-gray-400 hover:text-magenta transition-colors"
                 >
                   {EMAIL}
                 </a>
@@ -69,7 +70,7 @@ export function Footer() {
                   href={LINKEDIN_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-magenta transition-colors"
+                  className="inline-block py-1.5 text-sm text-gray-400 hover:text-magenta transition-colors"
                 >
                   LinkedIn
                 </a>
@@ -79,7 +80,7 @@ export function Footer() {
                   href={MEDIUM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-magenta transition-colors"
+                  className="inline-block py-1.5 text-sm text-gray-400 hover:text-magenta transition-colors"
                 >
                   Medium
                 </a>
@@ -89,7 +90,7 @@ export function Footer() {
                   href={CV_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-magenta transition-colors"
+                  className="inline-block py-1.5 text-sm text-gray-400 hover:text-magenta transition-colors"
                 >
                   CV
                 </a>
@@ -104,6 +105,13 @@ export function Footer() {
               © {currentYear} Florencia Acuña. Todos los derechos reservados.
             </p>
             <p className="text-xs text-gray-400">Diseñado teniendo en cuenta criterios de accesibilidad.</p>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event(OPEN_CONSENT_EVENT))}
+              className="py-1.5 text-xs text-gray-400 underline underline-offset-4 transition-colors hover:text-magenta"
+            >
+              Preferencias de cookies
+            </button>
           </div>
           <p className="inline-flex items-center gap-1 text-xs text-gray-400">
             Hecho con <Heart className="w-3.5 h-3.5 text-magenta fill-magenta" /> y mucho tecito <Coffee className="w-3.5 h-3.5 text-magenta" />

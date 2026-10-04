@@ -1,1 +1,1 @@
-/* Google Fonts are loaded via index.css @import at the top */
+/* Google Fonts are loaded from <link> tags in index.html (preconnect + stylesheet), not from CSS */

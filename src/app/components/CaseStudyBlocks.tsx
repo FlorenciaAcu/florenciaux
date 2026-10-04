@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import type { CaseStudy, CaseStudyFeature, CaseStudyScreenGroup } from "../data/experiences";
+import { ArrowRight, ArrowUpRight, Maximize2, MousePointerClick, X } from "lucide-react";
+import type { CaseStudy, CaseStudyImage, CaseStudyScreenGroup, ExperienceProject } from "../data/experiences";
 
 const reveal = {
   initial: { opacity: 0, y: 20 },
@@ -16,6 +16,97 @@ export function splitSentences(text: string): string[] {
 }
 
 const h2 = "type-h2 text-gray-900";
+
+/** Full-size view of a case image: Esc or click outside closes it, focus goes to the close button and returns to the image. */
+function Lightbox({ image, onClose }: { image: { src: string; alt: string }; onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
+  useEffect(() => {
+    const opener = document.activeElement as HTMLElement | null;
+    const prevOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onCloseRef.current();
+      if (e.key === "Tab") {
+        e.preventDefault();
+        closeRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.documentElement.style.overflow = prevOverflow;
+      opener?.focus();
+    };
+  }, []);
+
+  return (
+    <motion.div
+      role="dialog"
+      aria-modal="true"
+      aria-label={image.alt}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.2 }}
+      onClick={onClose}
+      className="fixed inset-0 z-[90] flex cursor-zoom-out items-center justify-center bg-black/85 p-4 sm:p-10"
+    >
+      <button
+        ref={closeRef}
+        type="button"
+        onClick={onClose}
+        aria-label="Cerrar imagen"
+        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      >
+        <X className="h-5 w-5" aria-hidden="true" />
+      </button>
+      <motion.img
+        initial={{ scale: 0.97 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        src={image.src}
+        alt={image.alt}
+        className="max-h-full max-w-full rounded-lg object-contain"
+      />
+    </motion.div>
+  );
+}
+
+/** Honesto: nunca una imagen simulada. Dos imágenes sueltas (no en pareja), siempre en el mismo lugar en
+ *  los 8 detalles por igual: la primera justo después de "Cómo trabajé", la segunda justo antes de
+ *  "Qué aprendí" (exista o no el campo — el lugar es fijo). Muestra la foto real cuando existe (`images`)
+ *  y el placeholder "Imagen pendiente" cuando todavía no hay una. */
+export function CaseImage({ image }: { image?: { src: string; alt: string } }) {
+  const [open, setOpen] = useState(false);
+
+  return image ? (
+    <>
+      <motion.button
+        {...reveal}
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={`Ampliar imagen: ${image.alt}`}
+        className="group relative block w-full cursor-zoom-in rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
+      >
+        <img src={image.src} alt="" loading="lazy" decoding="async" className="w-full rounded-xl object-cover ring-1 ring-gray-200" />
+        <span
+          aria-hidden="true"
+          className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+        >
+          <Maximize2 className="h-4 w-4" />
+        </span>
+      </motion.button>
+      {open && <Lightbox image={image} onClose={() => setOpen(false)} />}
+    </>
+  ) : (
+    <div className="flex aspect-[16/9] items-center justify-center rounded-xl bg-gray-200 ring-1 ring-gray-200">
+      <p className="type-caption font-medium text-gray-600">Imagen pendiente</p>
+    </div>
+  );
+}
 
 /** Quick facts as a hairline key-value list (role, industry, duration…): only what is confirmed. */
 function MetaList({ meta }: { meta: { label: string; value: string }[] }) {
@@ -33,7 +124,7 @@ function MetaList({ meta }: { meta: { label: string; value: string }[] }) {
 
 /** "Cómo trabajé" is always narrative: each item (and each blank-line break inside one) is a paragraph. Never a bulleted list. */
 function WorkParagraphs({ items }: { items: string[] }) {
-  return <div className="max-w-2xl space-y-4">{items.map((item) => paragraphs(item, "type-body text-gray-800"))}</div>;
+  return <div className="space-y-4">{items.map((item) => paragraphs(item, "type-body text-gray-800"))}</div>;
 }
 
 function paragraphs(text: string, className = "type-body text-gray-700") {
@@ -49,9 +140,9 @@ function ChallengeSection({ title, text, terms }: { title: string; text: string;
   return (
     <motion.div {...reveal} id="desafio" className="scroll-mt-28">
       <h2 className={`${h2} mb-6`}>{title}</h2>
-      <div className="max-w-2xl space-y-4">{paragraphs(text)}</div>
+      <div className="space-y-4">{paragraphs(text)}</div>
       {terms && (
-        <dl className="type-caption mt-6 max-w-3xl space-y-2 text-gray-700">
+        <dl className="type-caption mt-6 space-y-2 text-gray-700">
           {terms.map((item) => (
             <div key={item.term}>
               <dt className="inline font-semibold text-gray-900">{item.term}: </dt>
@@ -73,6 +164,7 @@ export function ExperienceIntro({
   meta,
   about,
   challenge,
+  images,
 }: {
   data?: CaseStudy;
   period: string;
@@ -83,13 +175,17 @@ export function ExperienceIntro({
   meta?: { label: string; value: string }[];
   /** "El desafío" for experiences without a written case. */
   challenge?: string;
+  /** The first of the two images (right after "Cómo trabajé"), for experiences without a written case
+   *  (cases carry their own in `data.images`). The second lives in `CaseStudyDetails`, before "Qué aprendí". */
+  images?: CaseStudyImage[];
 }) {
   // Experiences without a written case: the same opening as the cases ("Qué es" + quick facts) and the same "Mi trabajo".
   if (!data) {
     return (
       <div className="space-y-16 lg:space-y-24">
         {(about || meta) && (
-          <div className={`grid gap-10 lg:gap-14 ${about && meta ? "lg:grid-cols-2" : "max-w-3xl"}`}>
+          <div className="space-y-10">
+
             {about && (
               <motion.div {...reveal} id="que-es" className="scroll-mt-28">
                 <h2 className={`${h2} mb-4`}>{about.title}</h2>
@@ -105,12 +201,13 @@ export function ExperienceIntro({
             <h2 className={h2}>Cómo trabajé</h2>
             {!meta && <span className="text-sm text-gray-600">{period}</span>}
           </div>
-          <div className="type-body max-w-2xl space-y-4 text-gray-800">
+          <div className="type-body space-y-4 text-gray-800">
             {intro.map((line) => (
               <p key={line}>{line}</p>
             ))}
           </div>
         </motion.div>
+        <CaseImage image={images?.[0]} />
       </div>
     );
   }
@@ -118,7 +215,7 @@ export function ExperienceIntro({
   // Reading order: what it is (+ quick facts) -> the challenge -> how I worked. The decisions and the evidence come next.
   return (
     <div className="space-y-16 lg:space-y-24">
-      <div className={`grid gap-10 lg:gap-14 ${data.meta ? "lg:grid-cols-2" : "max-w-3xl"}`}>
+      <div className="space-y-10">
         <motion.div {...reveal} id="que-es" className="scroll-mt-28">
           <h2 className={`${h2} mb-4`}>{data.aboutTitle}</h2>
           <div className="space-y-3">{paragraphs(data.about)}</div>
@@ -136,13 +233,18 @@ export function ExperienceIntro({
           </div>
           <WorkParagraphs items={data.role} />
           {data.workSubsection && (
-            <div className="mt-10 max-w-2xl">
+            <div className="mt-10">
               <h3 className="type-h3 text-gray-900">{data.workSubsection.title}</h3>
               <p className="type-body mt-4 text-gray-800">{data.workSubsection.text}</p>
             </div>
           )}
         </motion.div>
       )}
+
+      <CaseImage image={data.images?.[0]} />
+
+      {/* Siempre justo después de "Cómo trabajé" y su imagen, también en las experiencias (donde "Proyectos" viene después) */}
+      {data.systemMap && <SystemMap map={data.systemMap} />}
     </div>
   );
 }
@@ -156,16 +258,13 @@ export function buildOutline(data: CaseStudy | undefined, opts: { projects?: boo
     items.push({ id: "que-es", label: data.aboutTitle });
     if (data.challenge) items.push({ id: "desafio", label: data.challengeTitle ?? "El desafío" });
     if (data.role.length > 0) items.push({ id: "como-trabaje", label: "Cómo trabajé" });
+    if (data.systemMap) items.push({ id: "sistema", label: "Cómo se conecta" });
     if (opts.projects) items.push({ id: "proyectos", label: "Proyectos" });
     if (data.screenGroups && data.screensTitle) items.push({ id: "pantallas", label: data.screensTitle });
-    if (data.features) {
-      items.push({ id: "proyectos", label: "Proyectos" });
-      data.features.forEach((feature, i) => items.push({ id: `feature-${i + 1}`, label: feature.title, sub: true }));
-    }
+    if (data.projects) items.push({ id: "proyectos", label: "Proyectos" });
     if (data.decisions) items.push({ id: "decisiones", label: "Decisiones de diseño" });
     if (data.prototypes) items.push({ id: "prototipos", label: data.prototypesTitle ?? "Prototipos" });
     if (data.evidence) items.push({ id: "evidencia", label: data.evidenceTitle ?? "Evidencia" });
-    if (data.result) items.push({ id: "resultado", label: data.result.title });
     if (data.nextStage) items.push({ id: "siguiente-etapa", label: data.nextStage.navLabel ?? data.nextStage.title });
     if (data.learned) items.push({ id: "aprendi", label: "Qué aprendí" });
   } else {
@@ -230,6 +329,116 @@ export function CaseOutline({ items }: { items: OutlineItem[] }) {
   );
 }
 
+/** "Cómo se conecta": the pieces of the system as a sequence of nodes. Each connector draws in when it enters the viewport, then a dot keeps
+ *  travelling along it (CSS, so reduced motion can switch it off). Vertical below xl, horizontal from xl. */
+function SystemMap({ map }: { map: NonNullable<CaseStudy["systemMap"]> }) {
+  const handles = ["-left-1 -top-1", "-right-1 -top-1", "-bottom-1 -left-1", "-bottom-1 -right-1"];
+
+  return (
+    <section id="sistema" className="scroll-mt-28">
+      <motion.h2 {...reveal} className={`${h2} ${map.intro ? "mb-4" : "mb-10"}`}>
+        Cómo se conecta
+      </motion.h2>
+      {map.intro && (
+        <motion.p {...reveal} className="type-s1 mb-10 text-gray-700">
+          {map.intro}
+        </motion.p>
+      )}
+      <ol className="flex flex-col xl:flex-row xl:items-stretch">
+        {map.steps.map((step, i) => (
+          <li key={step.title} className="relative flex flex-col xl:flex-1 xl:pr-10">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: i * 0.22 }}
+              className="group/node relative flex-1 border border-gray-300 bg-surface-page px-5 py-5 transition-colors duration-300 hover:border-gray-400 md:grid md:grid-cols-[2rem_13rem_minmax(0,1fr)] md:items-baseline md:gap-x-4 xl:block"
+            >
+              {handles.map((position) => (
+                <span
+                  key={position}
+                  aria-hidden="true"
+                  className={`absolute h-2 w-2 border border-gray-400 bg-surface-page transition-colors duration-300 group-hover/node:border-cyan-strong ${position}`}
+                />
+              ))}
+              <span className="type-eyebrow text-magenta-strong" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="type-title-compact mt-2 text-gray-900 md:mt-0 xl:mt-2">{step.title}</h3>
+              <p className="type-caption mt-2 text-gray-600 md:mt-0 xl:mt-2">{step.text}</p>
+            </motion.div>
+
+            {i < map.steps.length - 1 && (
+              <span
+                aria-hidden="true"
+                className="relative mx-auto block h-10 w-px bg-gray-200 xl:absolute xl:right-0 xl:top-1/2 xl:mx-0 xl:h-px xl:w-10 xl:-translate-y-1/2"
+              >
+                <motion.span
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.4, delay: i * 0.22 + 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute inset-0 origin-top bg-magenta-strong xl:origin-left"
+                />
+                <span className="system-flow-dot h-2 w-2 rounded-full bg-cyan-strong" style={{ animationDelay: `${i * 0.5 + 1}s` }} />
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+/** A prototype you can try without leaving the case. The iframe only loads on click, so the page stays light; the link to open it in its own tab is always there. */
+function PrototypeRow({ item }: { item: { label: string; url: string } }) {
+  const [open, setOpen] = useState(false);
+  const linkClass =
+    "inline-flex items-center gap-1.5 py-2 text-sm font-semibold text-magenta-strong underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong";
+
+  return (
+    <li className="border-b border-gray-200 py-6">
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+        <span className="type-h3 text-gray-900">{item.label}</span>
+        <div className="flex items-center gap-6">
+          <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} className={linkClass.replace("inline-flex", "hidden md:inline-flex")}>
+            <MousePointerClick className="h-4 w-4" aria-hidden="true" />
+            {open ? "Cerrar prototipo" : "Probar acá"}
+          </button>
+          <a href={item.url} target="_blank" rel="noopener noreferrer" className={linkClass}>
+            Abrir en otra pestaña
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            <span className="sr-only">(se abre en otra pestaña)</span>
+          </a>
+        </div>
+      </div>
+
+      {open && (
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-6 hidden overflow-hidden rounded-xl bg-white ring-1 ring-gray-200 md:block"
+        >
+          <div className="flex items-center gap-1.5 border-b border-gray-200 bg-gray-50 px-4 py-2.5" aria-hidden="true">
+            <span className="h-2.5 w-2.5 rounded-full bg-gray-300" />
+            <span className="h-2.5 w-2.5 rounded-full bg-gray-300" />
+            <span className="h-2.5 w-2.5 rounded-full bg-gray-300" />
+            <span className="ml-3 truncate text-xs text-gray-500">{item.url.replace("https://", "")}</span>
+          </div>
+          <iframe
+            src={item.url}
+            title={`Prototipo interactivo: ${item.label}`}
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            className="block h-[70vh] min-h-[28rem] w-full"
+          />
+        </motion.div>
+      )}
+    </li>
+  );
+}
+
 /** Groups of screens as plain images (no cards): each one opens full size. Few and representative. Shared by the case's "screens" block and by each feature's evidence. */
 function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
   return (
@@ -242,7 +451,7 @@ function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
             </motion.h3>
           )}
           {group.intro && (
-            <motion.p {...reveal} className="type-s2 mb-6 max-w-3xl text-gray-700">
+            <motion.p {...reveal} className="type-s2 mb-6 text-gray-700">
               {group.intro}
             </motion.p>
           )}
@@ -269,98 +478,90 @@ function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
   );
 }
 
-/** Features told in depth: what the product needed -> what I designed -> how it evolved -> evidence -> what I learned. Open layout, no cards. */
-function CaseStudyFeatures({ features }: { features: CaseStudyFeature[] }) {
+/** Projects of an experience, or projects inside a project: one framed block each, with the same structure everywhere
+ *  ("Qué hice" / "Cómo lo abordé" / "Un ejemplo"). A field that is missing is simply not shown. Same selection-frame language as the rest of the site. */
+export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[]; onOpen?: (slug: string) => void }) {
+  const handles = ["-left-1 -top-1", "-right-1 -top-1", "-bottom-1 -left-1", "-bottom-1 -right-1"];
+  // Same cue as the rows of "Experiencia": an arrow at the top right, and the whole block is the link (a stretched link, so there is one tab stop per project).
+  const arrowClass =
+    "absolute right-6 top-6 h-5 w-5 text-gray-500 transition-transform duration-200 group-hover/project:-translate-y-1 group-hover/project:translate-x-1 group-hover/project:text-magenta-strong sm:right-8 sm:top-8 xl:right-10 xl:top-10";
+  const stretch = "after:absolute after:inset-0 after:content-[''] focus-visible:outline-none";
+
   return (
     <div id="proyectos" className="scroll-mt-28">
-      <motion.h2 {...reveal} className={`${h2} mb-12 lg:mb-16`}>
+      <motion.h2 {...reveal} className={`${h2} mb-10`}>
         Proyectos
       </motion.h2>
-    <div className="space-y-20 lg:space-y-32">
-      {features.map((feature, index) => (
-        <section key={feature.title} id={`feature-${index + 1}`} className={`scroll-mt-28 ${index > 0 ? "border-t border-gray-200 pt-20 lg:pt-32" : ""}`}>
-          <motion.h3 {...reveal} className="type-h3 text-gray-900">
-            {feature.title}
-          </motion.h3>
-          <motion.p {...reveal} className="type-s1 mt-6 max-w-3xl text-gray-700">
-            {feature.context}
-          </motion.p>
-          {feature.exploration && (
-            <motion.div {...reveal} className="mt-6 max-w-3xl space-y-4">
-              {paragraphs(feature.exploration, "type-s1 text-gray-700")}
-            </motion.div>
-          )}
 
-          <motion.div {...reveal} className="mt-12 max-w-3xl">
-            <h4 className="type-eyebrow text-magenta-strong">Lo que diseñé</h4>
-            <ul className="mt-5 space-y-3">
-              {feature.did.map((item) => (
-                <li key={item} className="type-body flex gap-3 text-gray-800">
-                  <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-magenta-strong" aria-hidden="true" />
-                  {item}
-                </li>
+      <ol className="space-y-6 lg:space-y-8">
+        {projects.map((project, i) => {
+          const rows = [
+            { label: "Qué hice", text: project.brief },
+            ...(project.how ? [{ label: project.howCollective ? "Cómo lo abordamos" : "Cómo lo abordé", text: project.how }] : []),
+            ...(project.example ? [{ label: "Un ejemplo", text: project.example }] : []),
+          ];
+
+          return (
+            <motion.li
+              key={project.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.45, delay: i * 0.05 }}
+              className={`group/project relative border border-gray-300 bg-surface-page transition-colors duration-300 hover:border-gray-400 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-magenta-strong ${
+                (project.slug && onOpen) || project.externalLink ? "cursor-pointer" : ""
+              }`}
+            >
+              {handles.map((position) => (
+                <span
+                  key={position}
+                  aria-hidden="true"
+                  className={`absolute h-2 w-2 border border-gray-400 bg-surface-page transition-colors duration-300 group-hover/project:border-cyan-strong ${position}`}
+                />
               ))}
-            </ul>
-          </motion.div>
 
-          {feature.options && (
-            <div className="mt-16">
-              <motion.h4 {...reveal} className="type-eyebrow text-magenta-strong">
-                {feature.options.title}
-              </motion.h4>
-              {feature.options.intro && (
-                <motion.p {...reveal} className="type-s2 mt-3 max-w-3xl text-gray-700">
-                  {feature.options.intro}
-                </motion.p>
-              )}
-              <ul className={`mt-8 grid gap-x-10 gap-y-8 sm:grid-cols-2 ${feature.options.items.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
-                {feature.options.items.map((item, i) => (
-                  <motion.li key={item.title} {...reveal} transition={{ duration: 0.5, delay: i * 0.06 }}>
-                    <h5 className="type-h3 text-gray-900">{item.title}</h5>
-                    <p className="type-caption mt-2 text-gray-600">{item.text}</p>
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          )}
+              <div className="grid gap-8 p-6 sm:p-8 xl:grid-cols-[1fr_2fr] xl:gap-14 xl:p-10">
+                <header>
+                  <span className="text-gradient-brand text-3xl font-light leading-none tabular-nums" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="type-h3 mt-4 text-gray-900">{project.name}</h3>
+                </header>
 
-          {feature.evolution && (
-            <div className="mt-16">
-              <motion.h4 {...reveal} className="type-eyebrow text-magenta-strong">
-                {feature.evolutionTitle ?? "Cómo evolucionó"}
-              </motion.h4>
-              <ol className={`mt-8 grid gap-x-10 gap-y-8 ${feature.evolution.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
-                {feature.evolution.map((step, i) => (
-                  <motion.li key={step.title} {...reveal} transition={{ duration: 0.5, delay: i * 0.08 }}>
-                    <span className="text-sm font-medium tabular-nums text-magenta-strong">{String(i + 1).padStart(2, "0")}</span>
-                    <h5 className="type-h3 mt-2 text-gray-900">{step.title}</h5>
-                    <p className="type-caption mt-2 text-gray-600">{step.text}</p>
-                  </motion.li>
-                ))}
-              </ol>
-            </div>
-          )}
+                <div>
+                  <dl className="space-y-6">
+                    {rows.map((row, index) => (
+                      <div key={row.label}>
+                        <dt className="type-eyebrow mb-2 text-magenta-strong">{row.label}</dt>
+                        <dd className="space-y-3">{paragraphs(row.text, index === 0 ? "type-body text-gray-900" : "type-body text-gray-700")}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              </div>
 
-          {feature.evidence && feature.evidence.length > 0 && (
-            <div className="mt-16">
-              <ScreenGroups groups={feature.evidence} />
-            </div>
-          )}
-
-          {feature.learned && (
-            <motion.div {...reveal} className="mt-16 max-w-3xl">
-              <h4 className="type-eyebrow text-magenta-strong">Qué aprendí</h4>
-              <p className="type-s1 mt-3 text-gray-700">{feature.learned}</p>
-            </motion.div>
-          )}
-        </section>
-      ))}
-    </div>
+              {project.slug && onOpen ? (
+                <button type="button" onClick={() => onOpen(project.slug!)} className={stretch}>
+                  <ArrowUpRight className={arrowClass} strokeWidth={1.5} aria-hidden="true" />
+                  <span className="sr-only">Ver detalle de {project.name}</span>
+                </button>
+              ) : project.externalLink ? (
+                <a href={project.externalLink.url} target="_blank" rel="noopener noreferrer" title={project.externalLink.label} className={stretch}>
+                  <ArrowUpRight className={arrowClass} strokeWidth={1.5} aria-hidden="true" />
+                  <span className="sr-only">
+                    {project.externalLink.label} (se abre en otra pestaña)
+                  </span>
+                </a>
+              ) : null}
+            </motion.li>
+          );
+        })}
+      </ol>
     </div>
   );
 }
 
-/** Cover image, features, my design decisions, screens, prototypes, result. Open layout: images and decisions without cards. */
+/** Cover image, projects, my design decisions, screens, prototypes. Open layout: images and decisions without cards. */
 export function CaseStudyDetails({ data }: { data: CaseStudy }) {
   return (
     <div className="space-y-20 lg:space-y-32">
@@ -376,7 +577,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
             decoding="async"
             className="w-full rounded-xl ring-1 ring-gray-200"
           />
-          <figcaption className="type-caption mt-4 max-w-3xl text-gray-600">{data.cover.caption}</figcaption>
+          <figcaption className="type-caption mt-4 text-gray-600">{data.cover.caption}</figcaption>
         </motion.figure>
       )}
 
@@ -389,7 +590,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
             </motion.h2>
           )}
           {data.screensIntro && (
-            <motion.p {...reveal} className="type-s1 mb-10 max-w-3xl text-gray-700">
+            <motion.p {...reveal} className="type-s1 mb-10 text-gray-700">
               {data.screensIntro}
             </motion.p>
           )}
@@ -400,16 +601,16 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
         </div>
       )}
 
-      {data.features && <CaseStudyFeatures features={data.features} />}
+      {data.projects && <ProjectList projects={data.projects} />}
 
       {/* My design decisions: same light system as the rest of the case — h2, intro, then numbered questions. No card. */}
       {data.decisions && (
         <section id="decisiones" className="scroll-mt-28">
           <div className={`grid gap-14 ${data.decisionsImage ? "xl:grid-cols-[1.25fr_1fr] xl:items-start xl:gap-20" : ""}`}>
             <div>
-              <motion.div {...reveal} className="max-w-3xl">
+              <motion.div {...reveal}>
                 <h2 className={h2}>Decisiones de diseño</h2>
-                {data.decisionsIntro && <p className="type-s2 mt-5 max-w-2xl text-gray-700">{data.decisionsIntro}</p>}
+                {data.decisionsIntro && <p className="type-s2 mt-5 text-gray-700">{data.decisionsIntro}</p>}
               </motion.div>
 
               {(() => {
@@ -423,7 +624,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
                           <span className="pt-1 text-sm font-medium tabular-nums text-magenta-strong" aria-hidden="true">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <div className="max-w-3xl">
+                          <div>
                             <h3 className="type-h3 text-gray-900">{decision.title}</h3>
                             <p className="type-body mt-4 text-gray-800">{decision.text}</p>
                           </div>
@@ -458,27 +659,13 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
             {data.prototypesTitle ?? "Prototipos"}
           </motion.h2>
           {data.prototypesNote && (
-            <motion.div {...reveal} className="mb-10 max-w-3xl space-y-4">
+            <motion.div {...reveal} className="mb-10 space-y-4">
               {paragraphs(data.prototypesNote, "type-s1 text-gray-700")}
             </motion.div>
           )}
           <ul className="border-t border-gray-200">
             {data.prototypes.map((item) => (
-              <li key={item.url} className="border-b border-gray-200">
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between gap-4 py-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta-strong"
-                >
-                  <span className="type-h3 text-gray-900 transition-transform duration-300 group-hover:translate-x-1">{item.label}</span>
-                  <ArrowUpRight
-                    className="h-5 w-5 shrink-0 text-magenta-strong transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                    aria-hidden="true"
-                  />
-                  <span className="sr-only">(se abre en otra pestaña)</span>
-                </a>
-              </li>
+              <PrototypeRow key={item.url} item={item} />
             ))}
           </ul>
         </div>
@@ -501,17 +688,14 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
         </div>
       )}
 
-      {/* Result */}
-      {data.result && (
-        <motion.div {...reveal} id="resultado" className="max-w-3xl scroll-mt-28">
-          <h2 className={`${h2} mb-5`}>{data.result.title}</h2>
-          <p className="type-s1 text-gray-700">{data.result.text}</p>
-        </motion.div>
-      )}
+      {/* La segunda de las dos imágenes del detalle: siempre acá, justo antes de "Qué aprendí" */}
+      <CaseImage image={data.images?.[1]} />
 
-      {/* A later stage of the project, after the result of the first one */}
+      {/* Result */}
+
+      {/* A later stage of the project, after the main content */}
       {data.nextStage && (
-        <motion.div {...reveal} id="siguiente-etapa" className="max-w-3xl scroll-mt-28">
+        <motion.div {...reveal} id="siguiente-etapa" className="scroll-mt-28">
           <h2 className={`${h2} mb-5`}>{data.nextStage.title}</h2>
           <div className="space-y-4">{paragraphs(data.nextStage.text, "type-s1 text-gray-700")}</div>
         </motion.div>
@@ -520,11 +704,11 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
   );
 }
 
-/** Reflection, in the designer's own words. Same shape as "Resultado": an h2 and a lead paragraph. It closes the case. */
+/** Reflection, in the designer's own words: an h2 and a lead paragraph. It closes the case. */
 export function CaseStudyLearned({ data }: { data: { learned?: string } }) {
   if (!data.learned) return null;
   return (
-    <motion.div {...reveal} id="aprendi" className="max-w-3xl scroll-mt-28 border-t border-gray-200 pt-12 lg:pt-16">
+    <motion.div {...reveal} id="aprendi" className="scroll-mt-28 border-t border-gray-200 pt-12 lg:pt-16">
       <h2 className={`${h2} mb-5`}>Qué aprendí</h2>
       <div className="space-y-4">{paragraphs(data.learned, "type-s1 text-gray-700")}</div>
     </motion.div>

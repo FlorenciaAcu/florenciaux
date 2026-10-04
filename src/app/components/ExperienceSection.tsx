@@ -21,7 +21,6 @@ const handles = [
 export function ExperienceSection() {
   const navigateTo = (slug: string) => {
     window.location.hash = `#/experiencia/${slug}`;
-    setTimeout(() => window.scrollTo(0, 0), 100);
   };
 
   return (
@@ -31,7 +30,7 @@ export function ExperienceSection() {
           <h2 className="type-h1 text-gray-900">Experiencia</h2>
         </div>
 
-        <p className="type-s1 mb-14 max-w-3xl text-gray-600 lg:mb-20">
+        <p className="type-s1 mb-14 text-gray-600 lg:mb-20">
           Más de cinco años trabajando en productos digitales, dentro de equipos de producto y desarrollo y también de forma independiente.
         </p>
 

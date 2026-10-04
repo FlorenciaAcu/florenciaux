@@ -1,6 +1,12 @@
 import consolaDashboard from "../../imports/cintelink-consola-dashboard.jpg";
 import pantallaVistaGeneral from "../../imports/cintelink-pantalla-vista-general.jpg";
 import aneloConsola from "../../imports/anelo-tablet-consola.jpg";
+import cintelinkUniccoGlifosato from "../../imports/cintelink-unicco-glifosato.webp";
+import cintelinkAppToken from "../../imports/cintelink-app-token.webp";
+import consultoriaJuangasVerifogo from "../../imports/consultoria-juangas-verifogo.webp";
+import consultoriaCemicoRival from "../../imports/consultoria-cemico-rival.webp";
+import folcodeLeanInception from "../../imports/folcode-lean-inception.webp";
+import folcodeServiceDesign from "../../imports/folcode-service-design.webp";
 import type { PageSeo } from "./site";
 
 export interface ExperienceProject {
@@ -15,13 +21,13 @@ export interface ExperienceProject {
   howCollective?: boolean;
   /** One concrete example. */
   example?: string;
-  tags: string[];
 }
 
 export interface CaseStudyImage {
   src: string;
   alt: string;
-  caption: string;
+  /** Opcional: algunas imágenes (p. ej. las dos de "Qué es") no llevan pie de foto. */
+  caption?: string;
 }
 
 export interface CaseStudyDecision {
@@ -41,25 +47,6 @@ export interface CaseStudyScreenGroup {
   images: CaseStudyImage[];
 }
 
-/** One feature told in depth inside a case: what the product needed, what was already defined, what I designed,
- *  how the solution evolved, and the evidence. Empty `evidence` renders nothing (no placeholders). */
-export interface CaseStudyFeature {
-  title: string;
-  /** What the product needed to solve. */
-  context: string;
-  /** How the solution was explored and iterated, told briefly. Paragraphs separated by a blank line. Shown right after `context`. */
-  exploration?: string;
-  /** What the designer designed to solve it inside the experience. */
-  did: string[];
-  /** A set of alternatives or states worth showing as small cards (e.g. four interaction models). */
-  options?: { title: string; intro?: string; items: { title: string; text: string }[] };
-  evolutionTitle?: string;
-  evolution?: { title: string; text: string }[];
-  evidence?: CaseStudyScreenGroup[];
-  /** Optional: projects inside an experience usually leave the learning to the experience as a whole. */
-  learned?: string;
-}
-
 /** Narrative blocks for an experience that deserves more than a bio + project list.
  *  Everything here is written from the designer's perspective: no internal company detail (NDA). */
 export interface CaseStudy {
@@ -69,6 +56,10 @@ export interface CaseStudy {
   aboutTitle: string;
   /** Paragraphs separated by a blank line. Plain language: assume the reader knows nothing about the product or the industry. */
   about: string;
+  /** "Cómo se conecta": the pieces of the system in the order they connect (3 to 5 steps). Only what the case already says; without it the block is hidden. */
+  systemMap?: { intro?: string; steps: { title: string; text: string }[] };
+  /** The two images right after "Qué es", siempre en el mismo lugar en los 8 detalles. Sin ellas, placeholder "Imagen pendiente". */
+  images?: CaseStudyImage[];
   challengeTitle?: string;
   challenge?: string;
   /** Only the concepts needed to follow the case. */
@@ -88,14 +79,13 @@ export interface CaseStudy {
   screensTitle?: string;
   screensIntro?: string;
   screenGroups?: CaseStudyScreenGroup[];
-  /** Features told in depth, for secondary projects built around a few concrete pieces of work. */
-  features?: CaseStudyFeature[];
+  /** Projects inside a project (features): same shape and same block as the projects of an experience ("Qué hice" / "Cómo lo abordé"). */
+  projects?: ExperienceProject[];
   /** Links to navigable prototypes, used when there are no screenshots yet. */
   prototypesTitle?: string;
   prototypesNote?: string;
   prototypes?: { label: string; url: string }[];
-  result?: { title: string; text: string };
-  /** A later stage of the project, told after "Resultado" (e.g. work still in progress). Paragraphs separated by a blank line.
+  /** A later stage of the project, told after the main content (e.g. work still in progress). Paragraphs separated by a blank line.
    *  `navLabel` is the shorter label for the "on this page" index. */
   nextStage?: { title: string; navLabel?: string; text: string };
   /** A short reflection in the designer's own words. */
@@ -126,6 +116,9 @@ export interface Experience {
   challenge?: string;
   /** "Qué aprendí" for experiences without a written case. Paragraphs separated by a blank line. */
   learned?: string;
+  /** The two images (after "Cómo trabajé" and before "Qué aprendí"), for experiences without a written case
+   *  (cases carry their own in `caseStudy.images`). */
+  images?: CaseStudyImage[];
   projects: ExperienceProject[];
   caseStudy?: CaseStudy;
 }
@@ -135,6 +128,7 @@ export const experiences: Experience[] = [
     slug: "consultoria",
     role: "Product Designer",
     company: "Consultoría en productos digitales",
+    location: "San Juan, Argentina",
     aboutTitle: "Qué es la consultoría",
     about: "Es mi trabajo independiente diseñando productos digitales y MVPs, en colaboración con clientes y equipos, en distintas etapas del producto.",
     challenge:
@@ -145,6 +139,10 @@ export const experiences: Experience[] = [
     ],
     learned:
       "Trabajar de forma independiente me enseñó a mirar cada proyecto de una manera más integral: no solo desde el diseño, sino también desde el negocio, las prioridades y la gestión del trabajo.\n\nAprendí a llevar varios proyectos y clientes en paralelo, organizar entregas y adaptar mi proceso según cada contexto. También aprendí a integrar la IA de forma más intencional, como una herramienta que complementa mi trabajo y me permite avanzar con mayor autonomía sin delegar el criterio de diseño.",
+    images: [
+      { src: consultoriaJuangasVerifogo, alt: "VerifyGo: aplicación de seguridad en obra, plataforma bilingüe para supervisores y equipos de trabajo" },
+      { src: consultoriaCemicoRival, alt: "Rival: plataforma de predicción de fútbol con estadísticas, favoritos y partidos destacados" },
+    ],
     period: "Abril 2025 – Actualidad",
     bio: [
       "Diseño productos digitales y MVPs de forma independiente, colaborando con clientes y equipos en distintas etapas del producto. Además, incorporo herramientas como Claude, Figma Make y Lovable para explorar alternativas, documentar y crear prototipos funcionales.",
@@ -154,31 +152,31 @@ export const experiences: Experience[] = [
         name: "CEMICO",
         slug: "cemico",
         brief: "Diseñé productos digitales para pacientes, personal de admisión, colaboradores y auditores externos, dentro del ecosistema de salud de Grupo CEMICO.",
-        tags: ["Salud", "Design System", "Product Design"],
+        how: "Definí la arquitectura de información, los flujos y los estados de cada producto, y construí prototipos funcionales para validarlos antes de la implementación.",
       },
       {
         name: "Buscador Agrícola",
         slug: "buscador-agricola",
         brief: "Diseñé el MVP de un marketplace especializado para conectar la oferta y la demanda del sector agrícola en Chile.",
-        tags: ["Plataforma", "Agro", "Search UX"],
+        how: "Trabajé la arquitectura de información, la búsqueda y la navegación, y diseñé las fichas de publicación y el flujo de contacto con el proveedor.",
       },
       {
-        name: "Juan Gas GNC",
+        name: "Juan Gas GNC Club",
         slug: "juan-gas-gnc",
         brief: "Diseñé e implementé la consulta de puntos de Juan Gas GNC Club, conectando la experiencia digital con los datos que ya existían en la estación.",
-        tags: ["MVP", "Fidelización", "Product Design", "Implementación"],
+        how: "Diseñé la experiencia de consulta y resolví la integración con los datos existentes, desde el flujo hasta la implementación.",
       },
       {
         name: "AUDAGNO – Abogado",
         slug: "juan-audagno",
         brief: "Diseñé e implementé el sitio web de un estudio jurídico de La Plata, con contacto por WhatsApp y un formulario de consultas que llega por correo.",
-        tags: ["Sitio web", "Legal", "UX/UI", "Implementación"],
+        how: "Organicé la arquitectura del contenido, diseñé la interfaz responsive y después implementé y publiqué el sitio.",
       },
       {
         name: "InfoCasas",
         slug: "infocasas",
         brief: "Diseñé flujos vinculados a suscripciones, planes y productos para la plataforma web y la app, como Product Designer para HitOcean.",
-        tags: ["Real estate", "Suscripciones", "UX/UI"],
+        how: "Partí de entender el flujo y las reglas existentes, y trabajé alternativas de experiencia e interfaces junto al equipo del producto.",
       },
     ],
   },
@@ -201,7 +199,6 @@ export const experiences: Experience[] = [
         brief: "Diseñé la app demo presentada en exposiciones, como la de minería en San Juan y la Expo Transporte, para mostrar el funcionamiento del producto.",
         how: "Simplificamos la experiencia a un recorrido corto: iniciar una transacción, completar los datos necesarios, autorizarla y pasar al despacho. El objetivo era que quien se acercaba al stand entendiera en pocos minutos la relación entre la aplicación, el despacho físico y la información que se actualizaba en pantalla.",
         howCollective: true,
-        tags: ["Demo", "Mobile", "Ferias"],
       },
       {
         name: "Diseño y rediseño de la plataforma",
@@ -209,7 +206,6 @@ export const experiences: Experience[] = [
         brief: "Diseñé de forma progresiva distintas áreas de la plataforma, entre ellas Home, Gestión, Acuerdos y el área de Analítica y Datos, junto a negocio, usuarios y equipo técnico. Algunas eran productos nuevos y otras rediseños casi desde cero.",
         how: "No lo abordamos como un rediseño visual de una sola vez. Reorganizamos la información y los flujos según las tareas y el tipo de usuario: la plataforma concentraba muchas entidades, operaciones y datos, y cada perfil necesitaba encontrar y gestionar lo que correspondía a su operación.",
         howCollective: true,
-        tags: ["SaaS", "Rediseño", "Roles"],
       },
       {
         name: "Acuerdos de Consumo",
@@ -217,7 +213,6 @@ export const experiences: Experience[] = [
         brief: "Diseñé la experiencia para definir las condiciones de consumo: reglas, permisos y autorizaciones.",
         how: "Una operación involucraba varios actores y conceptos (acuerdo, autorización, unidad, chofer, patio y consumo), y podía ser difícil entender qué habilitaba un despacho. Hicimos más explícita esa relación y simplificamos el recorrido para que la autorización acompañara al usuario hasta el momento de operar en la consola.",
         howCollective: true,
-        tags: ["Permisos", "Autorizaciones", "Roles"],
       },
       {
         name: "Dashboard para la operación de cargaderos — YPF Agro",
@@ -225,14 +220,12 @@ export const experiences: Experience[] = [
         brief: "Diseñé el dashboard que acompaña a una consola física en un cargadero.",
         how: "Priorizamos la información que el operador necesitaba para saber si podía realizar una operación: estado de los tanques, producto, volumen y alertas. Antes de interactuar con la consola o realizar una acción física, podía entender rápidamente el estado de la instalación y después seguir el progreso desde la misma pantalla.",
         howCollective: true,
-        tags: ["Dashboard", "Hardware", "Estados"],
       },
       {
         name: "Digitalización del despacho y remitos — Añelo",
         slug: undefined,
         brief: "Trabajé sobre el recorrido que conecta la autorización de una entrega con lo que el chofer hace en campo.",
         how: "La experiencia evolucionó para que, desde una tablet, el chofer pudiera seleccionar la entrega, enviar la autorización a la consola, realizar el despacho y recuperar después los datos de la operación para generar el comprobante y continuar el registro digital.",
-        tags: ["Journey", "Campo", "Contingencias"],
       },
       {
         name: "Design System y UX Writing",
@@ -240,17 +233,30 @@ export const experiences: Experience[] = [
         brief: "Construí y mantuve el Design System de Cintelink, redacté su manual de voz y tono y diseñé los emails y otras comunicaciones del producto.",
         how: "Una decisión importante fue no pensar el sistema solo para la plataforma desktop, porque Cintelink tenía distintos productos y contextos de uso. Trabajamos en patrones y criterios que mantuvieran la consistencia entre la plataforma, su versión responsive, la aplicación de despacho para tablet y los dashboards operativos, y extendimos esa lógica al lenguaje mediante el manual de voz y tono y el sistema de comunicaciones.",
         howCollective: true,
-        tags: ["Design System", "UX Writing", "Voz y tono", "Emailing"],
       },
     ],
     caseStudy: {
       learned:
         "Aprendí a diseñar productos digitales que forman parte de una operación física, donde entender el contexto de uso es clave para tomar decisiones de diseño.",
+      images: [
+        { src: cintelinkUniccoGlifosato, alt: "UNICCO Glifosato: dashboard de gestión de tanques de combustible con estado operativo, volumen y capacidad" },
+        { src: cintelinkAppToken, alt: "App UNICCO: flujo móvil de selección de acuerdo, cantidad a cargar, y generación de token de autorización" },
+      ],
       meta: [
         { label: "Rol", value: "Product Designer" },
         { label: "Industria", value: "Combustible" },
         { label: "Período", value: "Junio 2022 – Marzo 2025" },
       ],
+      systemMap: {
+        intro: "Lo que pasa en la plataforma está conectado con personas, dispositivos y procesos de carga. Este es el recorrido que tenía presente al diseñar cada pantalla.",
+        steps: [
+          { title: "Acuerdo", text: "Define las condiciones de consumo: reglas y permisos." },
+          { title: "Autorización", text: "Habilita un despacho concreto." },
+          { title: "Chofer u operador", text: "Selecciona la entrega desde la app o la tablet." },
+          { title: "Consola y dispositivo IoT", text: "Realizan el despacho físico." },
+          { title: "Plataforma", text: "Recupera los datos de la operación para el comprobante y el estado de la instalación." },
+        ],
+      },
       aboutTitle: "Qué es Cintelink",
       about:
         "Cintelink es una plataforma para gestionar y controlar operaciones de abastecimiento de combustible. Conecta la gestión digital con lo que ocurre físicamente durante una carga: autorizaciones, vehículos, conductores, dispositivos y transacciones.",
@@ -280,33 +286,6 @@ export const experiences: Experience[] = [
           text: "También tuve que considerar lo que pasaba fuera de la pantalla: cómo interactuaba quien operaba con el dispositivo IoT y con la plataforma o la app, y qué información necesitaba en cada momento para decidir y actuar.",
         },
       ],
-      decisionsImage: {
-        src: consolaDashboard,
-        alt: "Consola instalada frente a una pantalla que muestra un dashboard con el nivel de cuatro tanques",
-        caption: "Dashboard sobre su consola: la pantalla y el dispositivo formaban una única experiencia.",
-      },
-      cover: {
-        src: pantallaVistaGeneral,
-        alt: "Vista general de la plataforma: mapa con el estado de las estaciones y métricas de transacciones",
-        caption: "Vista general de la plataforma: el estado de las estaciones en el mapa y las métricas de consumo.",
-      },
-      screenGroups: [
-        {
-          aspect: "aspect-[8/5]",
-          grid: "max-w-3xl",
-          images: [
-            {
-              src: aneloConsola,
-              alt: "Pantalla de la app en tablet con el mensaje Acercate a la consola para operar",
-              caption: "Aplicación de despacho, en la tablet: cuando toca operar en la consola, la pantalla lo indica.",
-            },
-          ],
-        },
-      ],
-      result: {
-        title: "Resultado",
-        text: "Durante mi etapa en Cintelink, varios de los productos y funcionalidades en los que trabajé llegaron a implementarse en contextos reales de operación. Entre ellos, el rediseño de la plataforma, la app demo utilizada en exposiciones de YPF y soluciones para digitalizar procesos de despacho y remitos y acompañar la operación de cargaderos de YPF Agro.",
-      },
     },
   },
   {
@@ -323,6 +302,10 @@ export const experiences: Experience[] = [
     ],
     learned:
       "Folcode fue donde empecé a entender el diseño como parte de un proceso de producto y no solamente como la construcción de una interfaz. Haber comenzado desde Scrum me ayudó a comprender cómo se organiza el trabajo, cómo se prioriza y cómo las decisiones de diseño conviven con las necesidades del negocio y del equipo técnico.\n\nTambién aprendí a adaptar mi proceso a productos y contextos diferentes, eligiendo las herramientas y el nivel de profundidad necesarios para cada proyecto.",
+    images: [
+      { src: folcodeLeanInception, alt: "Lean Inception: workshop de lluvia de ideas, visión de producto, objetivos y definición de usuarios para CloudLabs" },
+      { src: folcodeServiceDesign, alt: "Service Design: user journey map de Folcode con audiencia, pre-servicio, e investigación de clientes potenciales" },
+    ],
     period: "Enero 2020 – Marzo 2022",
     location: "San Juan, Argentina",
     bio: [
@@ -338,7 +321,6 @@ export const experiences: Experience[] = [
         },
         brief: "Trabajé en el rediseño de CloudLabs, una plataforma educativa de laboratorios gamificados para áreas STEM.",
         how: "El proyecto buscaba unificar en un mismo sistema la experiencia de estudiantes, docentes e instituciones, contemplando mobile, tablet y desktop.",
-        tags: ["EdTech", "Rediseño de producto", "Mobile", "Tablet", "Desktop"],
       },
       {
         name: "Respública",
@@ -349,7 +331,6 @@ export const experiences: Experience[] = [
         },
         brief: "Participé en el diseño de una aplicación móvil orientada a la participación ciudadana y el debate digital.",
         how: "El desafío fue diseñar una aplicación que permitiera crear espacios de debate digital y medir y monitorear la participación. El proyecto incluyó flujos de creación de debates y participación, interfaces móviles, estados vacíos, validaciones, microinteracciones y prototipado. También se realizó validación con usuarios.",
-        tags: ["Participación ciudadana", "Diseño desde cero", "App móvil", "Debate digital"],
       },
       {
         name: "Web Folcode",
@@ -360,7 +341,6 @@ export const experiences: Experience[] = [
         },
         brief: "Trabajé en el proyecto de rediseño del sitio institucional de Folcode.",
         how: "El objetivo fue renovar el sitio para reflejar la nueva identidad de marca, presentar sus servicios y casos de éxito, y generar confianza para captar clientes. El proyecto contempló una experiencia responsive.",
-        tags: ["Web institucional", "Casos de éxito", "Responsive Design", "Servicios"],
       },
     ],
   },

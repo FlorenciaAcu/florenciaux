@@ -3,6 +3,7 @@ import { Footer } from "./Footer";
 import { DetailHero } from "./DetailHero";
 import { detailSticker } from "./Stickers";
 import { ClosingCTA } from "./ClosingCTA";
+import { NextCase } from "./NextCase";
 import { buildOutline, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro } from "./CaseStudyBlocks";
 import { getProjectBySlug } from "../data/projects";
 import { motion } from "motion/react";
@@ -32,7 +33,6 @@ export function CaseStudyPage({ slug }: Props) {
     if (returnHash) {
       sessionStorage.removeItem("caseReturnHash");
       window.location.hash = returnHash;
-      setTimeout(() => window.scrollTo(0, 0), 100);
     } else {
       window.history.back();
     }
@@ -40,7 +40,6 @@ export function CaseStudyPage({ slug }: Props) {
 
   const handleBackToProjects = () => {
     window.location.hash = "#/proyectos";
-    setTimeout(() => window.scrollTo(0, 0), 100);
   };
 
   // Every case gets the sticky "on this page" index.
@@ -51,7 +50,7 @@ export function CaseStudyPage({ slug }: Props) {
       <div className="min-h-screen bg-surface-page">
         <Header />
         <main className="pt-20">
-          <div className="max-w-7xl mx-auto px-6 py-40 flex flex-col items-center gap-6 text-center">
+          <div className="page-container py-40 flex flex-col items-center gap-6 text-center">
             <p className="text-gray-600">Proyecto no encontrado.</p>
             <button
               onClick={handleBackToProjects}
@@ -84,7 +83,7 @@ export function CaseStudyPage({ slug }: Props) {
 
         {project.caseStudy ? (
           /* Same structure as the experience pages: the intro sections first, then the case blocks. */
-          <div className={`max-w-7xl mx-auto px-6 pt-12 pb-28 lg:pb-44 ${outline ? "lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14" : ""}`}>
+          <div className={`page-container pt-12 pb-28 lg:pb-44 ${outline ? "lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14" : ""}`}>
             {outline && (
               <aside className="hidden lg:block">
                 <div className="sticky top-28">
@@ -105,7 +104,7 @@ export function CaseStudyPage({ slug }: Props) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.15 }}
-          className="max-w-7xl mx-auto px-6 pt-8 pb-2"
+          className="page-container pt-8 pb-2"
         >
           <ImagePlaceholder wide />
         </motion.div>
@@ -191,6 +190,7 @@ export function CaseStudyPage({ slug }: Props) {
 
       </main>
 
+      <NextCase kind="Proyecto" slug={slug} />
       <ClosingCTA />
 
       <Footer />

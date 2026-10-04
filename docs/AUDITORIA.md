@@ -115,8 +115,11 @@ Quedaron en su lugar por ahora — son decisiones del rediseño, no del build.
 2. **Las fuentes se cargan con `@import url(fonts.googleapis.com)` dentro de `index.css`.** Un
    `@import` de CSS bloquea el render y encadena dos round-trips. Va mejor como `<link rel="preconnect">`
    más `<link rel="stylesheet">` en `index.html`.
-3. **Microsoft Clarity está inline en el `<head>`** con el tag `tiqf6172y1`. Sin banner de consentimiento
-   ni mención en el sitio. Si el portfolio va a recibir tráfico de la UE, hace falta cubrirlo.
+3. **Resuelto (2026-10-03): analítica con consentimiento.** Microsoft Clarity (`tiqf6172y1`) y Google
+   Analytics (`G-K0C4D7W7SH`) ya no están en `index.html`: los carga `src/app/lib/consent.ts` solo después de
+   que la persona acepta el banner (`CookieConsent.tsx`). La elección queda en `localStorage` (`fa-consent`)
+   y se cambia desde "Preferencias de cookies" en el pie. Si cambia de aceptar a rechazar, se borran las
+   cookies de ambas herramientas y se recarga. Falta una página de política de privacidad a la que enlazar.
 4. **La "evidencia visual" de los casos son placeholders vacíos.** `CaseStudyPage` renderiza
    `<ImagePlaceholder />` tantas veces como diga `imageCount`. Nunca hubo imágenes reales de casos.
 5. **El único `<img>` de la app no tiene `alt`.** El resto de las imágenes son fondos CSS, que tampoco

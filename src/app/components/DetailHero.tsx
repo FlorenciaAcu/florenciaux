@@ -32,7 +32,7 @@ export function DetailHero({ title, tagline, onBack, backLabel, sticker, locatio
         <div className="animate-blob-3 absolute -bottom-16 left-1/3 h-72 w-72 rounded-full bg-[#ff006e] opacity-[0.14] blur-[100px]" />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="page-container relative">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
           <button
             onClick={onBack}
@@ -42,7 +42,7 @@ export function DetailHero({ title, tagline, onBack, backLabel, sticker, locatio
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           </button>
 
-          <div className="relative border border-white/[0.18] bg-white/[0.025] px-5 pt-8 pb-9 md:ml-[3.25rem] md:pt-12 md:pr-48 md:pb-11 md:pl-12">
+          <div className="relative border border-white/[0.18] bg-white/[0.025] px-5 pt-8 pb-9 md:pt-12 md:pr-48 md:pb-11 md:pl-12">
             <span className="pointer-events-none absolute -left-[0.4rem] -top-[0.4rem] h-3 w-3 border border-[#00e5ff] bg-white" aria-hidden="true" />
             <span className="pointer-events-none absolute -right-[0.4rem] -bottom-[0.4rem] h-3 w-3 border border-[#00e5ff] bg-white" aria-hidden="true" />
 
@@ -60,7 +60,7 @@ export function DetailHero({ title, tagline, onBack, backLabel, sticker, locatio
           </div>
 
           {(location || website) && (
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border border-t-0 border-white/[0.18] bg-black/[0.16] px-5 py-4 text-sm text-gray-300 md:ml-[3.25rem] md:px-12 md:pb-[1.125rem]">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border border-t-0 border-white/[0.18] bg-black/[0.16] px-5 py-4 text-sm text-gray-300 md:px-12 md:pb-[1.125rem]">
               {location && (
                 <span className="inline-flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-[#ff006e]" aria-hidden="true" />
@@ -72,7 +72,7 @@ export function DetailHero({ title, tagline, onBack, backLabel, sticker, locatio
                   href={website.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 font-medium text-[#00e5ff] underline-offset-4 hover:underline"
+                  className="inline-flex items-center gap-1.5 py-1.5 font-medium text-[#00e5ff] underline underline-offset-4"
                 >
                   {website.label}
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

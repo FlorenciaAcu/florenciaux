@@ -45,7 +45,9 @@ export function AboutSection() {
               className="type-body space-y-5 text-gray-600"
             >
               <p>
-                Soy Product Designer con más de 5 años de experiencia diseñando plataformas web, aplicaciones y MVPs. Trabajé dentro de equipos de producto y desarrollo, y también como consultora independiente.
+                Soy Product Designer con{" "}
+                más de cinco años de experiencia{" "}
+                diseñando plataformas web, aplicaciones y MVPs. Trabajé dentro de equipos de producto y desarrollo, y también como consultora independiente.
               </p>
               <p>
                 Cuando no estoy diseñando, me encontrás nadando, en Pilates o TPA, tomando un mate cocido —acá le decimos "yerbiado"— o pidiendo pizza.
@@ -78,7 +80,7 @@ export function AboutSection() {
                   src={photo.src}
                   alt={photo.alt}
                   className={`w-full h-full object-cover ${photo.position} ${photo.zoom} transition-transform duration-500 ease-out hover:scale-[1.06]`}
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                 />
               </motion.div>

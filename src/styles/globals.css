@@ -227,9 +227,51 @@
   50% { transform: translate(20px, 30px) scale(1.08); }
 }
 
+/* "Cómo se conecta": un punto recorre cada conector, de un nodo al siguiente (2.5rem = largo del conector). Vertical por defecto, horizontal desde xl. */
+@keyframes system-flow-y {
+  0% { transform: translate(-50%, -50%); opacity: 0; }
+  20%, 80% { opacity: 1; }
+  100% { transform: translate(-50%, calc(2.5rem - 50%)); opacity: 0; }
+}
+@keyframes system-flow-x {
+  0% { transform: translate(-50%, -50%); opacity: 0; }
+  20%, 80% { opacity: 1; }
+  100% { transform: translate(calc(2.5rem - 50%), -50%); opacity: 0; }
+}
+.system-flow-dot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  animation: system-flow-y 2.4s ease-in-out infinite;
+}
+@media (min-width: 80rem) {
+  .system-flow-dot {
+    left: 0;
+    top: 50%;
+    animation-name: system-flow-x;
+  }
+}
+
 .animate-blob-1 { animation: blob-1 20s ease-in-out infinite; }
 .animate-blob-2 { animation: blob-2 24s ease-in-out infinite; }
 .animate-blob-3 { animation: blob-3 16s ease-in-out infinite; }
+
+/* Reduced motion: las animaciones CSS puras (blobs de fondo, el pulso de los dots de estado)
+   no pasan por MotionConfig de Motion — solo cubre motion/react. Se congelan acá en su frame
+   final, en vez de solo frenarlas, porque un salto a translate(0,0) se ve peor que quedarse
+   quietas en cualquier punto del recorrido. Cero cambio visual para quien no activó la preferencia. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob-1,
+  .animate-blob-2,
+  .animate-blob-3,
+  .animate-pulse,
+  .system-flow-dot {
+    animation: none;
+  }
+  .system-flow-dot {
+    display: none;
+  }
+}
 
 .bg-dot-grid {
   background-image: radial-gradient(rgba(10, 10, 10, 0.08) 1px, transparent 1px);

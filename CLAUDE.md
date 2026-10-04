@@ -77,6 +77,8 @@ Detalle completo en [`docs/AUDITORIA.md`](docs/AUDITORIA.md).
   desde `main.tsx`.
 - Sacar `<meta name="robots" content="noindex, nofollow">` de `index.html` cuando el sitio sea público.
 - Mover la carga de fuentes de `@import url(...)` en CSS a `<link>` en `index.html`.
-- Microsoft Clarity está inline en el `<head>` sin aviso de consentimiento.
+- Clarity y Google Analytics ya cargan solo con consentimiento (`src/app/lib/consent.ts`, banner
+  `CookieConsent.tsx`). Falta una página de política de privacidad a la que enlazar.
+- Para ver el splash de inicio: `/?splash` lo fuerza y `/?splash=hold` lo deja quieto hasta un clic o tecla.
 - Escribir los casos que hoy dicen "próximamente" en `data/projects.ts`.
 - La "evidencia visual" de los casos son `<ImagePlaceholder />` vacíos, nunca hubo imágenes reales.

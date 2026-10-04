@@ -31,9 +31,13 @@ export function Header() {
   }, []);
 
   const go = (hash: string) => {
+    // Si ya estás en home, cambiar a "#/" no dispara hashchange — por eso este caso se resuelve
+    // acá en vez de en el efecto central de App.tsx, que solo reacciona a cambios de ruta reales.
+    const current = window.location.hash;
+    const alreadyHome = hash === "#/" && (current === "" || current === "#" || current === "#/");
     window.location.hash = hash;
     setIsMobileMenuOpen(false);
-    if (hash === "#/") window.scrollTo({ top: 0, behavior: "smooth" });
+    if (alreadyHome) window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Contact options (video call / WhatsApp) live at the bottom of the page; on pages without that block, go home and scroll there.
@@ -48,6 +52,7 @@ export function Header() {
     { label: "Inicio", hash: "#/" },
     { label: "Sobre mí", hash: "#/sobre-mi" },
     { label: "Proyectos", hash: "#/proyectos" },
+    { label: "Experiencia", hash: "#/experiencia" },
   ];
 
   return (
@@ -56,8 +61,7 @@ export function Header() {
         {/* Logo */}
         <button
           onClick={() => go("#/")}
-          className="flex items-center gap-2.5 rounded-full hover:opacity-80 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-magenta focus-visible:ring-offset-2"
-          aria-label="Ir al inicio"
+          className="-my-1.5 flex items-center gap-2.5 rounded-full py-1.5 hover:opacity-80 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-magenta focus-visible:ring-offset-2"
         >
           <IsologoFA variant={isDark ? "light" : "dark"} />
           <span className={`font-medium text-base transition-colors duration-300 ${isDark ? "text-white" : "text-gray-900"}`}>
@@ -92,7 +96,7 @@ export function Header() {
         {/* Mobile menu toggle */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className={`md:hidden relative z-50 transition-colors duration-300 ${
+          className={`md:hidden relative z-50 -m-2.5 p-2.5 transition-colors duration-300 ${
             isDark && !isMobileMenuOpen ? "text-white" : "text-gray-900"
           }`}
           aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}

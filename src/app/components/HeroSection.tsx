@@ -162,13 +162,13 @@ export function HeroSection() {
       {/* Scroll cue — invites the visitor to keep exploring */}
       <motion.button
         onClick={handleScrollDown}
-        aria-label="Ver más"
+        aria-label="Descubrir más"
         initial={{ opacity: 0 }}
         animate={ready ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 1.1 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-gray-300 hover:text-[#ff006e] transition-colors"
       >
-        <span className="text-xs font-medium tracking-wide">Descubrí más</span>
+        <span className="text-xs font-medium tracking-wide">Descubrir más</span>
         <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>
           <ChevronDown className="w-5 h-5" />
         </motion.div>

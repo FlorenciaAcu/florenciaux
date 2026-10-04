@@ -38,7 +38,6 @@ export function FeaturedProjects() {
   const navigate = (route: string) => {
     sessionStorage.setItem("caseReturnHash", "/proyectos");
     window.location.hash = route.replace("#", "");
-    setTimeout(() => window.scrollTo(0, 0), 100);
   };
 
   return (
@@ -59,13 +58,13 @@ export function FeaturedProjects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="type-s1 text-gray-600 max-w-3xl mb-14 lg:mb-20"
+          className="type-s1 text-gray-600 mb-14 lg:mb-20"
         >
           Cómo abordo distintos problemas de producto y las decisiones de diseño detrás de cada solución.
         </motion.p>
 
         {/* Case file — a list, not a grid. Each case is a row, not a picture card. */}
-        <div className="divide-y divide-gray-200 border-t border-b border-gray-200">
+        <div className="divide-y divide-gray-200 border-b border-gray-200">
           {caseFile.map((item, i) => (
             <motion.a
               key={item.slug}
@@ -96,7 +95,7 @@ export function FeaturedProjects() {
                 <h3 className="type-h2 text-gray-900 mb-2 group-hover:translate-x-1 transition-transform duration-300">
                   {item.name}
                 </h3>
-                <p className="type-caption hidden sm:block text-gray-600 max-w-2xl">
+                <p className="type-caption hidden sm:block text-gray-600">
                   {item.tagline}
                 </p>
               </div>
