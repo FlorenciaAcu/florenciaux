@@ -108,13 +108,13 @@ export function CaseImage({ image }: { image?: { src: string; alt: string } }) {
   );
 }
 
-/** Quick facts as a hairline key-value list (role, industry, duration…): only what is confirmed. */
+/** Quick facts as a hairline key-value list (role, industry, duration…): only what is confirmed. Keys in monospace, like the properties of a code editor. */
 function MetaList({ meta }: { meta: { label: string; value: string }[] }) {
   return (
     <motion.dl {...reveal} transition={{ duration: 0.5, delay: 0.1 }} className="type-caption self-end border-t border-gray-200">
       {meta.map((row) => (
         <div key={row.label} className="flex items-baseline justify-between gap-6 border-b border-gray-200 py-3">
-          <dt className="text-gray-600">{row.label}</dt>
+          <dt className="font-mono text-xs text-gray-600">{row.label}</dt>
           <dd className="text-right font-medium text-gray-900">{row.value}</dd>
         </div>
       ))}

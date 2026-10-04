@@ -63,6 +63,7 @@ export function ExperiencePage({ slug }: Props) {
           title={experience.company}
           onBack={handleBack}
           backLabel="Volver a experiencia"
+          crumbs={[{ label: "Experiencia", onClick: () => navigate("/experiencia") }, { label: experience.company }]}
           sticker={detailSticker(experience.slug)}
           location={experience.location}
           website={experience.website}

@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ArrowLeft, ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ChevronRight, MapPin } from "lucide-react";
 import { ReactNode } from "react";
 import { Sticker, type StickerName } from "./Stickers";
 
@@ -8,6 +8,8 @@ interface DetailHeroProps {
   tagline?: string;
   onBack: () => void;
   backLabel: string;
+  /** Path to this page, like the breadcrumb of a code editor ("Experiencia / Cintelink"). The last one is the current page. */
+  crumbs?: { label: string; onClick?: () => void }[];
   /** A personal touch that sits beside the title (desktop only). */
   sticker?: StickerName;
   /** Optional plain-text references under the title. */
@@ -17,7 +19,7 @@ interface DetailHeroProps {
 }
 
 /** Detail-page header: back button + project canvas. Optional references stay plain text — no chips. */
-export function DetailHero({ title, tagline, onBack, backLabel, sticker, location, website, children }: DetailHeroProps) {
+export function DetailHero({ title, tagline, onBack, backLabel, crumbs, sticker, location, website, children }: DetailHeroProps) {
   return (
     <div data-header-theme="dark" className="relative overflow-hidden bg-[#0a0a0a] pt-12 pb-14 md:pt-16 md:pb-[5.5rem]">
       {/* Dot grid + neon blobs — same dark language as the home hero */}
@@ -34,13 +36,39 @@ export function DetailHero({ title, tagline, onBack, backLabel, sticker, locatio
 
       <div className="page-container relative">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-          <button
-            onClick={onBack}
-            aria-label={backLabel}
-            className="mb-6 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-gray-300 transition-colors duration-200 hover:border-[#ff006e] hover:bg-[#ff006e]/10 hover:text-white md:mb-7"
-          >
-            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-          </button>
+          <div className="mb-6 flex items-center gap-4 md:mb-7">
+            <button
+              onClick={onBack}
+              aria-label={backLabel}
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 text-gray-300 transition-colors duration-200 hover:border-[#ff006e] hover:bg-[#ff006e]/10 hover:text-white"
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+            </button>
+
+            {crumbs && (
+              <nav aria-label="Ruta" className="min-w-0">
+                <ol className="flex items-center gap-2 font-mono text-xs text-gray-400">
+                  {crumbs.map((crumb, i) => {
+                    const last = i === crumbs.length - 1;
+                    return (
+                      <li key={crumb.label} className="flex min-w-0 items-center gap-2">
+                        {i > 0 && <ChevronRight className="h-3 w-3 shrink-0 text-gray-500" aria-hidden="true" />}
+                        {crumb.onClick && !last ? (
+                          <button type="button" onClick={crumb.onClick} className="py-1.5 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00e5ff]">
+                            {crumb.label}
+                          </button>
+                        ) : (
+                          <span aria-current={last ? "page" : undefined} className={`truncate ${last ? "text-white" : ""}`}>
+                            {crumb.label}
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ol>
+              </nav>
+            )}
+          </div>
 
           <div className="relative border border-white/[0.18] bg-white/[0.025] px-5 pt-8 pb-9 md:pt-12 md:pr-48 md:pb-11 md:pl-12">
             <span className="pointer-events-none absolute -left-[0.4rem] -top-[0.4rem] h-3 w-3 border border-[#00e5ff] bg-white" aria-hidden="true" />

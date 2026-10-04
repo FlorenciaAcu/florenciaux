@@ -78,6 +78,7 @@ export function CaseStudyPage({ slug }: Props) {
           tagline={project.caseStudy ? undefined : project.tagline}
           onBack={handleBack}
           backLabel="Volver"
+          crumbs={[{ label: "Proyectos", onClick: handleBackToProjects }, { label: project.name }]}
           sticker={detailSticker(project.slug)}
           location={project.location}
           website={project.website}
