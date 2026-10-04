@@ -17,6 +17,7 @@ import { ProcessSection } from "./components/ProcessSection";
 import { ClosingCTA } from "./components/ClosingCTA";
 import { SplashLoader } from "./components/SplashLoader";
 import { CookieConsent } from "./components/CookieConsent";
+import { NotFoundPage } from "./components/NotFoundPage";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { useState, useEffect } from "react";
 import { currentPath, migrateLegacyHash, NAVIGATE_EVENT } from "./lib/router";
@@ -55,7 +56,7 @@ function parsePath(): Route {
     return { page: "/", section: sectionSlug };
   }
 
-  return { page: "/" };
+  return hash === "/" ? { page: "/" } : { page: "/404" };
 }
 
 // Unknown slugs fall back to the Home metadata.
@@ -131,6 +132,14 @@ function AppRoutes() {
       <>
         <SEOHead {...seoForExperience(route.slug)} />
         <ExperiencePage slug={route.slug} />
+      </>
+    );
+  } else if (route.page === "/404") {
+    transitionKey = "404";
+    content = (
+      <>
+        <SEOHead title="Página no encontrada" />
+        <NotFoundPage />
       </>
     );
   } else {
