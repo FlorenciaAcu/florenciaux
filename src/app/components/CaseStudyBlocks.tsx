@@ -335,8 +335,6 @@ export function CaseOutline({ items }: { items: OutlineItem[] }) {
 /** "Cómo se conecta": the pieces of the system as a sequence of nodes. Each connector draws in when it enters the viewport, then a dot keeps
  *  travelling along it (CSS, so reduced motion can switch it off). Vertical below xl, horizontal from xl. */
 function SystemMap({ map }: { map: NonNullable<CaseStudy["systemMap"]> }) {
-  const handles = ["-left-1 -top-1", "-right-1 -top-1", "-bottom-1 -left-1", "-bottom-1 -right-1"];
-
   return (
     <section id="sistema" className="scroll-mt-28">
       <motion.h2 {...reveal} className={`${h2} ${map.intro ? "mb-4" : "mb-10"}`}>
@@ -355,15 +353,8 @@ function SystemMap({ map }: { map: NonNullable<CaseStudy["systemMap"]> }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.22 }}
-              className="group/node relative flex-1 border border-gray-300 bg-surface-page px-5 py-5 transition-colors duration-300 hover:border-gray-400 md:grid md:grid-cols-[2rem_13rem_minmax(0,1fr)] md:items-baseline md:gap-x-4 xl:block"
+              className="relative flex-1 border-t-2 border-gray-300 bg-surface-page py-5 md:grid md:grid-cols-[2rem_13rem_minmax(0,1fr)] md:items-baseline md:gap-x-4 xl:block"
             >
-              {handles.map((position) => (
-                <span
-                  key={position}
-                  aria-hidden="true"
-                  className={`absolute h-2 w-2 border border-gray-400 bg-surface-page transition-colors duration-300 group-hover/node:border-cyan-strong ${position}`}
-                />
-              ))}
               <span className="type-eyebrow text-magenta-strong" aria-hidden="true">
                 {String(i + 1).padStart(2, "0")}
               </span>
@@ -481,8 +472,9 @@ function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
   );
 }
 
-/** Projects of an experience, or projects inside a project: one framed block each, with the same structure everywhere
- *  ("Qué hice" / "Cómo lo abordé" / "Un ejemplo"). A field that is missing is simply not shown. Same selection-frame language as the rest of the site. */
+/** Projects of an experience, or projects inside a project, with the same structure everywhere ("Qué hice" / "Cómo lo abordé" / "Un ejemplo").
+ *  A field that is missing is simply not shown. The selection frame (corner handles) is reserved for blocks you can open, like the rows of
+ *  "Experiencia" in the home; projects with nowhere to go are plain rows with a hairline on top. */
 export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[]; onOpen?: (slug: string) => void }) {
   const handles = ["-left-1 -top-1", "-right-1 -top-1", "-bottom-1 -left-1", "-bottom-1 -right-1"];
   // Same cue as the rows of "Experiencia": an arrow at the top right, and the whole block is the link (a stretched link, so there is one tab stop per project).
@@ -504,6 +496,9 @@ export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[
             ...(project.example ? [{ label: "Un ejemplo", text: project.example }] : []),
           ];
 
+          // The selection frame means "you can click this" (same as the rows of Experiencia in the home). Projects with nowhere to go are plain rows.
+          const linkable = !!((project.slug && onOpen) || project.externalLink);
+
           return (
             <motion.li
               key={project.name}
@@ -511,19 +506,22 @@ export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.45, delay: i * 0.05 }}
-              className={`group/project relative border border-gray-300 bg-surface-page transition-colors duration-300 hover:border-gray-400 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-magenta-strong ${
-                (project.slug && onOpen) || project.externalLink ? "cursor-pointer" : ""
+              className={`group/project relative bg-surface-page ${
+                linkable
+                  ? "cursor-pointer border border-gray-300 transition-colors duration-300 hover:border-gray-400 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-magenta-strong"
+                  : "border-t border-gray-200 pt-8 lg:pt-10"
               }`}
             >
-              {handles.map((position) => (
-                <span
-                  key={position}
-                  aria-hidden="true"
-                  className={`absolute h-2 w-2 border border-gray-400 bg-surface-page transition-colors duration-300 group-hover/project:border-cyan-strong ${position}`}
-                />
-              ))}
+              {linkable &&
+                handles.map((position) => (
+                  <span
+                    key={position}
+                    aria-hidden="true"
+                    className={`absolute h-2 w-2 border border-gray-400 bg-surface-page transition-colors duration-300 group-hover/project:border-cyan-strong ${position}`}
+                  />
+                ))}
 
-              <div className="grid gap-8 p-6 sm:p-8 xl:grid-cols-[1fr_2fr] xl:gap-14 xl:p-10">
+              <div className={`grid gap-8 xl:grid-cols-[1fr_2fr] xl:gap-14 ${linkable ? "p-6 sm:p-8 xl:p-10" : ""}`}>
                 <header>
                   <span className="text-gradient-brand text-3xl font-light leading-none tabular-nums" aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}

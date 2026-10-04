@@ -184,6 +184,7 @@ Patrones que existen (librería `motion`):
 | `CaseStudyFeatures` (proyectos internos de InfoCasas) | Existente / específico | Contexto, exploración opcional, "Lo que diseñé" |
 | `CaseStudyLearned` | Existente / reutilizable | Cierre de la página |
 | Selection frame / cursor del Hero | Existente / específico | En revisión aparte. No usarlo como base del sistema |
+| Selection frame (4 handles en las esquinas) | Existente / acotado | Decisión 2026-10-04: significa "esto se puede abrir". Se usa en las filas de Experiencia del home y en los proyectos de `ProjectList` que tienen `slug` o `externalLink`. Los proyectos sin destino son filas con hairline arriba, y los nodos de "Cómo se conecta" (`SystemMap`) no llevan frame. Motivo: en el home aparecía una sola vez y en los detalles se repetía en cada proyecto y cada nodo, hasta saturar |
 
 ## Patterns
 
