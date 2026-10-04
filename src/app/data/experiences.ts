@@ -140,8 +140,8 @@ export const experiences: Experience[] = [
     learned:
       "Trabajar de forma independiente me enseñó a mirar cada proyecto de una manera más integral: no solo desde el diseño, sino también desde el negocio, las prioridades y la gestión del trabajo.\n\nAprendí a llevar varios proyectos y clientes en paralelo, organizar entregas y adaptar mi proceso según cada contexto. También aprendí a integrar la IA de forma más intencional, como una herramienta que complementa mi trabajo y me permite avanzar con mayor autonomía sin delegar el criterio de diseño.",
     images: [
-      { src: consultoriaJuangasVerifogo, alt: "VerifyGo: aplicación de seguridad en obra, plataforma bilingüe para supervisores y equipos de trabajo" },
-      { src: consultoriaCemicoRival, alt: "Rival: plataforma de predicción de fútbol con estadísticas, favoritos y partidos destacados" },
+      { src: consultoriaJuangasVerifogo, alt: "Tres pantallas móviles de proyectos: consulta de saldo de Juan Gas GNC Club, app de consultas legales ulaw y Administrar inmuebles de InfoCasas" },
+      { src: consultoriaCemicoRival, alt: "Tres pantallas móviles de proyectos: landing de VerifyGo, ingreso al Portal Salud de Grupo CEMICO y la app de predicción de fútbol Rival" },
     ],
     period: "Abril 2025 – Actualidad",
     bio: [
@@ -239,7 +239,7 @@ export const experiences: Experience[] = [
       learned:
         "Aprendí a diseñar productos digitales que forman parte de una operación física, donde entender el contexto de uso es clave para tomar decisiones de diseño.",
       images: [
-        { src: cintelinkUniccoGlifosato, alt: "UNICCO Glifosato: dashboard de gestión de tanques de combustible con estado operativo, volumen y capacidad" },
+        { src: cintelinkUniccoGlifosato, alt: "UNICCO Glifosato: dashboard con un despacho cancelado y el estado de cuatro tanques, con volumen actual y capacidad libre" },
         { src: cintelinkAppToken, alt: "App UNICCO: flujo móvil de selección de acuerdo, cantidad a cargar, y generación de token de autorización" },
       ],
       meta: [
@@ -303,7 +303,7 @@ export const experiences: Experience[] = [
     learned:
       "Folcode fue donde empecé a entender el diseño como parte de un proceso de producto y no solamente como la construcción de una interfaz. Haber comenzado desde Scrum me ayudó a comprender cómo se organiza el trabajo, cómo se prioriza y cómo las decisiones de diseño conviven con las necesidades del negocio y del equipo técnico.\n\nTambién aprendí a adaptar mi proceso a productos y contextos diferentes, eligiendo las herramientas y el nivel de profundidad necesarios para cada proyecto.",
     images: [
-      { src: folcodeLeanInception, alt: "Lean Inception: workshop de lluvia de ideas, visión de producto, objetivos y definición de usuarios para CloudLabs" },
+      { src: folcodeLeanInception, alt: "Lean Inception: tablero de Figma de un workshop con introducción, visión del producto, qué es y qué no es el producto, objetivos y user persona" },
       { src: folcodeServiceDesign, alt: "Service Design: user journey map de Folcode con audiencia, pre-servicio, e investigación de clientes potenciales" },
     ],
     period: "Enero 2020 – Marzo 2022",
