@@ -27,6 +27,14 @@ El entorno Linux de Claude en esta máquina no arranca (lo rompió una actualiza
 
 Cuando Claude proponga borrar archivos, tiene que pasar el comando para que lo corra Florcita.
 
+## Estética: reglas fijas
+
+- **Nunca chips** (ni píldoras, ni tags, ni badges redondeados) en ninguna parte del sitio. Si hace falta una
+  etiqueta, va como texto plano, con línea fina o con la tipografía de detalles. Decisión de Florcita, 2026-10-04.
+- Trabajo estético = solo forma. No se edita contenido (textos, títulos, datos, orden de secciones) salvo pedido explícito.
+- Las referencias a herramientas (Figma, Google Docs, VS Code, GitHub, Vercel, Claude Code) se usan con balance:
+  una por sección, y la misma referencia significa lo mismo en home y detalle. El marco de Figma = "se puede abrir".
+
 ## Stack
 
 React 18.3.1 · Vite 6.3.5 · Tailwind CSS 4.1.12 · shadcn/ui (Radix) · motion 12.23.24 · TypeScript 5.6.3
