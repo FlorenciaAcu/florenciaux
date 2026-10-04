@@ -71,6 +71,64 @@ con su título, descripción y canonical, y el `sitemap.xml`. `vercel.json` usa 
    tokens; ver `docs/DESIGN_SYSTEM.md`). `tailwind.css` y `fonts.css` siguen sin referenciar.
 4. **Los cambios de decisión se registran en `docs/`** en Markdown, no solo en el mensaje de commit.
 
+## Reglas editoriales y de diseño (decididas por Florencia)
+
+Son decisiones cerradas: no se reabren ni se "mejoran" sin un pedido explícito. Antes de proponer un cambio en un
+texto ya aprobado hay que cumplir tres cosas: **(1)** citar la frase exacta que presenta el problema, **(2)** explicar
+qué dificultad concreta genera para quien lee y **(3)** mostrar que un cambio mínimo lo resuelve sin perder información.
+Si no se pueden justificar las tres, se mantiene el texto actual. No se elimina nada solo porque una idea aparezca a la
+vez en un diagrama y en un párrafo: cada sección puede explicar algo distinto.
+
+Principio general: cada detalle visual tiene que cambiar cómo se entiende el contenido. Si solo adorna, no va.
+
+### Nunca debe mostrarse
+- **Chips, pills ni etiquetas de tags** (Demo, Mobile, SaaS, Rediseño…) en ningún componente.
+- **Adornos sin función:** el subrayado dibujado a mano, líneas laterales decorativas (la que se había puesto en
+  "Cómo lo abordé"), la imagen que aparecía al pasar el mouse sobre "Proyectos destacados".
+- **Pies de foto** en las imágenes de los detalles: solo la imagen.
+- **Una sección "Resultado"** en los detalles, ni resultados, métricas o afirmaciones que no estén documentados.
+- **"San Juan, Argentina" junto a "Product Designer"** (pie de página y similares): solo "Product Designer". La ubicación
+  que va bajo el título de cada detalle sí se muestra: es la del proyecto o la empresa.
+- **Filas "Para" / "Trabajé para" ni "Plataformas"** en los datos rápidos: para quién se trabajó ya se dice en "Qué es".
+- **"Imagen pendiente"** en una página publicada. Cada detalle lleva exactamente 2 imágenes: una después de
+  "Cómo trabajé" y otra justo antes de "Qué aprendí".
+- **Frases de relleno:** "Participé en otros proyectos que no se detallan aquí", "A continuación, algunos de los
+  proyectos…", "Es una selección…", "input/output" en las etapas de "Cómo trabajo".
+- **Enlaces de texto** tipo "Ver detalle →" o "Ver proyecto en Behance" dentro de las tarjetas de proyecto: la tarjeta
+  entera es el enlace y lleva la flecha arriba a la derecha (`ArrowUpRight`), igual que las de Experiencia.
+- **Tono informal** ("che", "pibe"): el tono es semiformal. Los botones y enlaces van en infinitivo ("Ver proyectos",
+  "Descubrir más").
+- **Una franja de credibilidad** (cifras, logos) bajo el hero.
+
+### Estructura y diseño
+- **Una sola estructura:** si falta un dato, se oculta el campo. Nunca se arma una estructura alternativa para ese caso.
+- **Anchos:** los textos de los detalles y los subtítulos de la home ocupan todo el ancho (sin `max-w-*` en párrafos).
+  El encabezado y el contenido de los detalles usan el mismo `page-container`.
+- **"Cómo trabajo"** es la grilla tradicional de 4 etapas, sin círculo ni animación atada al scroll.
+- **Divisores** con criterio, no por defecto.
+- **Diagramas "Cómo se conecta":** se conservan en todos los casos donde existen y van justo después de "Cómo trabajé"
+  y su imagen.
+- **Títulos de sección:** pueden responder a su contenido. AUDAGNO es "Quién es Juan Audagno" y Folcode es "Mi
+  recorrido"; no se normalizan a "Qué es…" / "El desafío".
+- **"Decisiones de diseño":** sin cantidad fija. Solo decisiones concretas con problema, intervención y valor; sin
+  justificaciones, investigaciones ni métricas inventadas; una regla de negocio no es automáticamente una decisión de
+  diseño. Si una decisión solo vuelve a describir el diagrama, no va (en CEMICO se quitó la del anunciador).
+- **Aprobados y no se tocan:** el titular del hero ("Transformo ideas en sistemas que escalan."), "Sobre mí" (incluido el
+  párrafo personal) y el "Qué aprendí" de Consultoría.
+
+### Imágenes
+- Cada texto alternativo se escribe **mirando la imagen real**, no por el nombre del archivo.
+- Cuando Florencia manda imágenes para un caso, se usan exactamente esas. Los archivos nuevos van en `src/imports/` y
+  los viejos que queden sin uso se informan para que ella los borre.
+
+### Privacidad y analítica
+- Google Analytics, Tag Manager y Clarity **solo cargan después de "Aceptar"** (`src/app/lib/consent.ts`). Nunca se
+  pegan en `index.html` ni se agrega el `<noscript>` con iframe. "Aceptar" y "Rechazar" se ven iguales.
+
+### Cómo se trabajan los cambios
+- **No hacer commit ni push sin autorización de Florencia.** Commits separados por tema; el push lo hace ella.
+- No aprovechar un pedido para modificar otras secciones, decisiones o diagramas.
+
 ## Pendientes conocidos
 
 Detalle completo en [`docs/AUDITORIA.md`](docs/AUDITORIA.md).
