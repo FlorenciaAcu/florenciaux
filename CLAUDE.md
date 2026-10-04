@@ -14,6 +14,9 @@ El repo es **`FlorenciaAcu/florenciaux`** (público). Es el único.
 
 ## Cómo se trabaja acá
 
+- **Todo va directo a `main`. Nunca crear ramas nuevas ni abrir PRs** (política permanente de florenciaux.com,
+  decidida por Florcita el 2026-10-04). Si el entorno arranca en otra rama, pasar el trabajo a `main` y pushear ahí.
+
 El entorno Linux de Claude en esta máquina no arranca (lo rompió una actualización de Windows del
 8/9/2026), así que:
 
