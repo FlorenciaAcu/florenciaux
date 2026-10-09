@@ -72,7 +72,7 @@ export function CaseStudyPage({ slug }: Props) {
     <div className="min-h-screen bg-surface-page">
       <Header />
 
-      <main className="px-[0px] pt-[64px] pb-[0px]">
+      <main>
         <DetailHero
           title={project.name}
           tagline={project.caseStudy ? undefined : project.tagline}

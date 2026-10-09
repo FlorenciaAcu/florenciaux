@@ -57,7 +57,7 @@ export function ExperiencePage({ slug }: Props) {
     <div className="min-h-screen bg-surface-page">
       <Header />
 
-      <main className="px-[0px] pt-[64px] pb-[0px]">
+      <main>
 
         <DetailHero
           title={experience.company}

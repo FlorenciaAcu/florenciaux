@@ -21,7 +21,7 @@ interface DetailHeroProps {
 /** Detail-page header: back button + project canvas. Optional references stay plain text — no chips. */
 export function DetailHero({ title, tagline, onBack, backLabel, crumbs, sticker, location, website, children }: DetailHeroProps) {
   return (
-    <div data-header-theme="dark" className="relative overflow-hidden bg-[#0a0a0a] pt-12 pb-14 md:pt-16 md:pb-[5.5rem]">
+    <div data-header-theme="dark" className="relative overflow-hidden bg-[#0a0a0a] pt-28 pb-14 md:pt-32 md:pb-[5.5rem]">
       {/* Dot grid + neon blobs — same dark language as the home hero */}
       <div
         className="bg-dot-grid-dark absolute inset-0 opacity-[0.48]"
