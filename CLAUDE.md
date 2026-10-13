@@ -128,6 +128,11 @@ Principio general: cada detalle visual tiene que cambiar cómo se entiende el co
 - **Aprobados y no se tocan:** el titular del hero ("Transformo ideas en sistemas que escalan."), "Sobre mí" (incluido el
   párrafo personal) y el "Qué aprendí" de Consultoría.
 
+### SEO
+- Los datos estructurados (Person + WebSite, con `sameAs` de LinkedIn, Medium e Instagram y los nombres alternativos) viven en un solo lugar, `structuredData()` de `src/app/data/site.ts`; los usan `SEOHead.tsx` (navegador) y `scripts/prerender.mjs` (HTML compilado). `sameAs` es solo para perfiles propios: las notas de prensa no van ahí.
+
+- Toda página tiene su canónica ya escrita en el HTML (no solo puesta por JavaScript): los casos y experiencias apuntan a sí mismos; el home y sus secciones (`/sobre-mi`, `/proyectos`, `/experiencia`, `/contacto`) apuntan a `https://www.florenciaux.com/`. Lo abierto desde una fila o tarjeta tiene que ser un `<a href>` real, no un botón, para que Google lo siga.
+
 ### Imágenes
 - Cada texto alternativo se escribe **mirando la imagen real**, no por el nombre del archivo.
 - Cuando Florencia manda imágenes para un caso, se usan exactamente esas. Los archivos nuevos van en `src/imports/` y

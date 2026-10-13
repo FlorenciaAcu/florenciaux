@@ -16,7 +16,7 @@ const bundle = await build({
       export { projects } from "./src/app/data/projects.ts";
       export { experiences } from "./src/app/data/experiences.ts";
       export { projectSeo, experienceSeo } from "./src/app/data/seo.ts";
-      export { SITE_URL, SITE_NAME, OG_IMAGE_PATH, absoluteUrl, canonicalFor } from "./src/app/data/site.ts";
+      export { SITE_URL, SITE_NAME, OG_IMAGE_PATH, absoluteUrl, canonicalFor, structuredData } from "./src/app/data/site.ts";
     `,
     resolveDir: root,
     loader: "ts",
@@ -30,7 +30,7 @@ const bundle = await build({
 });
 const code = bundle.outputFiles[0].text;
 const data = await import(`data:text/javascript;base64,${Buffer.from(code).toString("base64")}`);
-const { projects, experiences, projectSeo, experienceSeo, SITE_URL, SITE_NAME, OG_IMAGE_PATH, absoluteUrl, canonicalFor } = data;
+const { projects, experiences, projectSeo, experienceSeo, SITE_URL, SITE_NAME, OG_IMAGE_PATH, absoluteUrl, canonicalFor, structuredData } = data;
 
 const template = await readFile(join(dist, "index.html"), "utf8");
 
@@ -40,6 +40,10 @@ const clip = (text, max = 158) => {
   if (clean.length <= max) return clean;
   return clean.slice(0, max).replace(/\s+\S*$/, "") + "…";
 };
+
+/** Person + WebSite data for search engines, written into the HTML. Same id as the one SEOHead updates in the browser, so it is replaced, not duplicated. */
+const schemaTag = `<script id="schema-person" type="application/ld+json">${JSON.stringify(structuredData()).replace(/</g, "\\u003c")}</script>`;
+const withSchema = (html) => html.replace("</head>", `      ${schemaTag}\n    </head>`);
 
 /** Replaces the head tags that change per page; everything else in the template stays. */
 function pageHtml({ title, description, path, image }) {
@@ -70,7 +74,7 @@ function pageHtml({ title, description, path, image }) {
     .replace(/[ \t]*<meta\s+property="og:[^"]*"[^>]*>\r?\n?/gi, "")
     .replace(/[ \t]*<meta\s+name="twitter:[^"]*"[^>]*>\r?\n?/gi, "")
     .replace(/[ \t]*<link\s+rel="canonical"[^>]*>\r?\n?/gi, "");
-  return stripped.replace("</head>", `${head}\n    </head>`);
+  return withSchema(stripped.replace("</head>", `${head}\n    </head>`));
 }
 
 const pages = [];
@@ -91,7 +95,9 @@ for (const page of pages) {
 
 // Home sections (/sobre-mi, /proyectos, ...) and unknown paths: the same app shell, as real files, so none of them depends on a rewrite rule.
 // 404.html is what Vercel serves, with a 404 status, for a path that does not exist; the app then shows its own "not found" page.
-for (const section of ["sobre-mi", "proyectos", "experiencia", "contacto"]) await writeFile(join(dist, `${section}.html`), template);
+for (const section of ["sobre-mi", "proyectos", "experiencia", "contacto"]) await writeFile(join(dist, `${section}.html`), withSchema(template));
+// The home (index.html) carries it too.
+await writeFile(join(dist, "index.html"), withSchema(template));
 await writeFile(join(dist, "404.html"), template);
 
 const today = new Date().toISOString().slice(0, 10);

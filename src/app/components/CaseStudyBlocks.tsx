@@ -594,10 +594,19 @@ export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[
               </div>
 
               {project.slug && onOpen ? (
-                <button type="button" onClick={() => onOpen(project.slug!)} className={stretch}>
+                // A real link (not a button) so search engines and "open in a new tab" can follow it; a plain click is handled by the app.
+                <a
+                  href={`/proyectos/${project.slug}`}
+                  onClick={(event) => {
+                    if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+                    event.preventDefault();
+                    onOpen(project.slug!);
+                  }}
+                  className={stretch}
+                >
                   <OpenCue className="absolute right-0 top-6 lg:top-8" />
                   <span className="sr-only">Ver detalle de {project.name}</span>
-                </button>
+                </a>
               ) : project.externalLink ? (
                 <a href={project.externalLink.url} target="_blank" rel="noopener noreferrer" title={project.externalLink.label} className={stretch}>
                   <OpenCue className="absolute right-0 top-6 lg:top-8" />

@@ -14,3 +14,4 @@ export const CV_URL =
 
 export const LINKEDIN_URL = "https://www.linkedin.com/in/florencia-acuna-ux/";
 export const MEDIUM_URL = "https://medium.com/@florenciaacuna";
+export const INSTAGRAM_URL = "https://www.instagram.com/madebyflors/";

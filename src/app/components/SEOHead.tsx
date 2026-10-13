@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { LINKEDIN_URL, MEDIUM_URL } from "../data/contact";
-import { absoluteUrl, canonicalFor, OG_IMAGE_PATH, SITE_NAME, SITE_URL } from "../data/site";
+import { absoluteUrl, canonicalFor, OG_IMAGE_PATH, SITE_NAME, structuredData } from "../data/site";
 
 interface SEOProps {
   /** Page title without the site name: "CEMICO" becomes "CEMICO | Florencia Acuña". Omit it for Home. */
@@ -62,7 +62,7 @@ export function SEOHead({ title, description, path, image }: SEOProps) {
 
   useEffect(() => {
     // lang
-    document.documentElement.lang = "es";
+    document.documentElement.lang = "es-AR";
 
     // title
     document.title = resolvedTitle;
@@ -90,37 +90,8 @@ export function SEOHead({ title, description, path, image }: SEOProps) {
     // Canonical
     setLink("canonical", resolvedCanonical);
 
-    // Schema.org Person
-    setJsonLd({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: "Florencia Acuña",
-      url: SITE_URL,
-      jobTitle: "Product Designer",
-      description:
-        "Product Designer especializada en productos digitales, plataformas SaaS, MVPs, prototipado funcional e IA aplicada al producto. Basada en San Juan, Argentina.",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "San Juan",
-        addressCountry: "AR",
-      },
-      sameAs: [LINKEDIN_URL, MEDIUM_URL],
-      knowsAbout: [
-        "Product Design",
-        "UX/UI Design",
-        "Diseño de productos digitales",
-        "Prototipado funcional",
-        "IA aplicada al producto",
-        "MVPs",
-        "Plataformas SaaS",
-        "Design Systems",
-        "Experiencia de usuario",
-        "Diseño de experiencia",
-        "Diseño de sitios web",
-        "Diseño de apps",
-        "Rediseño de apps",
-      ],
-    });
+    // Schema.org: Person + WebSite (the same data the build writes into the HTML)
+    setJsonLd(structuredData());
   }, [resolvedTitle, resolvedDesc, resolvedOgDesc, resolvedCanonical, resolvedImage]);
 
   return null;
