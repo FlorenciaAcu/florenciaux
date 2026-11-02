@@ -113,15 +113,13 @@ export const uiEs = {
   },
   /** Páginas editoriales: lo que no está en data/referencias.ts ni data/procesoIA.ts (etiquetas, avisos y el escritorio decorativo de la portada). */
   editorial: {
-    desk: { items: ["Cuaderno", "Sticky notes", "Banderitas", "Stickers"], sticky: "Esto es muy Flor", flags: "Banderitas para ordenar ideas." },
     evolutionTabs: "Comparación entre la primera versión y la versión actual",
     moodboardDialog: "Moodboard ampliado",
     closeEnlarged: "Cerrar imagen ampliada",
     stagesList: "Las cuatro etapas del proceso",
     stagesTabs: "Etapas del proceso",
-    whatIDo: "Qué hago",
     aiInStage: "IA en esta etapa",
-    possibleResult: "Resultado posible",
+    possibleResult: "Resultado",
   },
   pending: {
     title: "Traducción pendiente",

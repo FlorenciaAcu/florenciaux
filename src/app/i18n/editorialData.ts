@@ -1,5 +1,5 @@
 import { CLOSING, CONCEPTS, CONVEY, EVOLUTION, HERO, INSPIRED, MOODBOARD, PLAYLIST, SHAPE } from "../data/referencias";
-import { AI_CTA, AI_DELIVERABLES, AI_HERO, AI_ROLES, AI_STAGES, AI_START } from "../data/procesoIA";
+import { AI_CTA, AI_DELIVERABLES, AI_HERO, AI_STAGES, AI_START, AI_TOOLS } from "../data/procesoIA";
 import { aiSeo, AI_PROCESS_PATH, PROCESS_PATH, processSeo } from "../data/seo";
 import { referenciasEn, procesoIAEn } from "../data/en/editorial.en";
 import { seoEn } from "../data/en/seo.en";
@@ -13,7 +13,7 @@ import type { Lang } from "./routes";
 export const referenciasEs = { HERO, CONVEY, SHAPE, MOODBOARD, EVOLUTION, INSPIRED, PLAYLIST, CONCEPTS, CLOSING };
 export type ReferenciasEs = typeof referenciasEs;
 
-export const procesoIAEs = { AI_HERO, AI_START, AI_STAGES, AI_ROLES, AI_DELIVERABLES, AI_CTA };
+export const procesoIAEs = { AI_HERO, AI_START, AI_STAGES, AI_TOOLS, AI_DELIVERABLES, AI_CTA };
 export type ProcesoIAEs = typeof procesoIAEs;
 
 /** El contenido en el idioma pedido. Lo que no se traduce (imágenes, enlaces) viene del español; un texto inglés que falta queda `[MISSING EN: …]`. */

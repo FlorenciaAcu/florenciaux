@@ -8,7 +8,7 @@ export const AI_HERO = {
   text: [
     "Cada proyecto comienza por entender el problema, el negocio y las personas que van a utilizar el producto. A partir de ahí defino qué necesitamos resolver y diseño las soluciones.",
   ],
-  highlight: "La IA me ayuda a explorar posibilidades. Mi criterio define cuáles tienen sentido.",
+  highlight: "La IA me ayuda a explorar posibilidades.",
 };
 
 export const AI_START = {
@@ -37,7 +37,6 @@ export interface AiStage {
 
 export const AI_STAGES = {
   title: "De la idea a la entrega",
-  text: "Trabajo de manera iterativa: cada etapa aporta información a la siguiente y, cuando es necesario, vuelvo sobre decisiones anteriores para mejorarlas.",
   stages: [
     {
       name: "Descubrir",
@@ -81,50 +80,34 @@ export const AI_STAGES = {
   ] as AiStage[],
 };
 
-/** Las dos columnas de "Qué hago yo…" comparten seis filas (grilla de 7 con el título): si cambia la cantidad, se ajusta en AIProcessPage. */
-export const AI_ROLES = {
-  title: "Qué hago yo y en qué me ayuda la IA",
-  text: "Uso la IA como apoyo en tareas concretas del proceso. Las decisiones sobre qué se diseña, para quién y por qué siguen siendo mías.",
-  mine: {
-    title: "Mi criterio",
-    items: [
-      "Entender el problema y las necesidades.",
-      "Definir prioridades.",
-      "Evaluar alternativas.",
-      "Tomar decisiones de diseño.",
-      "Revisar la calidad del resultado.",
-      "Comunicar las decisiones al cliente.",
-    ],
-  },
-  ai: {
-    title: "IA como herramienta",
-    items: [
-      "Organizar información.",
-      "Estructurar documentación y revisar textos.",
-      "Explorar propuestas.",
-      "Generar primeras versiones.",
-      "Construir prototipos.",
-      "Asistir en determinadas tareas de código.",
-    ],
-  },
-  /** Transparencia sobre las herramientas en una sola línea (lo documentado en los casos), sin tabla ni logos. */
-  tools: "Herramientas que uso: ChatGPT y Claude para organizar y documentar, Figma y Figma Make para diseñar y prototipar, Lovable según el proyecto, y Claude Code y Codex para el código.",
+export interface AiToolGroup {
+  title: string;
+  tools: string[];
+}
+
+/** Las herramientas que uso habitualmente, agrupadas por uso. No es un conjunto cerrado ni se usan todas en todos los proyectos: la frase de abajo del título lo dice. */
+export const AI_TOOLS = {
+  title: "Mi ecosistema de herramientas",
+  text: "Son las que más uso, no las únicas. También pruebo otras, como Google Stitch.",
+  groups: [
+    { title: "Organizar y documentar", tools: ["ChatGPT", "Claude"] },
+    { title: "Diseñar", tools: ["Figma Design"] },
+    { title: "Explorar y prototipar", tools: ["Figma Make", "Lovable"] },
+    { title: "Trabajar con código", tools: ["Claude Code", "Codex"] },
+  ] as AiToolGroup[],
 };
 
 export const AI_DELIVERABLES = {
   title: "Qué recibe el cliente",
-  text: "El alcance y los entregables se definen antes de comenzar. Según el trabajo acordado, una entrega puede incluir:",
+  text: "El alcance se define antes de comenzar. Según lo acordado, una entrega puede incluir:",
   items: [
     { title: "Diseño de interfaces", text: "Pantallas y recorridos según las funcionalidades definidas." },
     { title: "Prototipo navegable", text: "Una versión para explorar los principales recorridos e interacciones." },
     { title: "Componentes", text: "Elementos reutilizables y criterios visuales para mantener consistencia." },
     { title: "Documentación", text: "Reglas funcionales, estados, comportamientos y decisiones para comprender la solución." },
     { title: "Material para desarrollo", text: "Archivos y especificaciones para acompañar la implementación." },
+    { title: "Comunicación", text: "Durante el proyecto comparto avances y revisamos las propuestas juntos." },
   ],
-  shared: {
-    title: "Un proceso compartido",
-    text: "Durante el proyecto comparto avances y revisamos las propuestas juntos, para que las decisiones se tomen con información clara.",
-  },
 };
 
 export const AI_CTA = {
