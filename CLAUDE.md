@@ -14,8 +14,14 @@ El repo es **`FlorenciaAcu/florenciaux`** (público). Es el único.
 
 ## Cómo se trabaja acá
 
-- **Todo va directo a `main`. Nunca crear ramas nuevas ni abrir PRs** (política permanente de florenciaux.com,
-  decidida por Florcita el 2026-10-04). Si el entorno arranca en otra rama, pasar el trabajo a `main`.
+- **Hay dos ramas, y solo esas** (decidido por Florcita el 2026-11-02; antes todo iba a `main`). No crear otras ramas ni abrir PRs.
+  - **`main`** = producción (florenciaux.com). Español, más la infraestructura bilingüe **apagada**: `EN_PUBLISHED` y `EN_REVIEW`
+    (`src/app/i18n/routes.ts`) vacíos, y stubs vacíos en `src/app/data/en/*`, `i18n/ui.en.ts` y `homeEn`/`homeEnOverlay` de `i18n/home.ts`.
+    `scripts/check-i18n.mjs` salta los controles de inglés mientras no haya nada en inglés. El sitio público es solo español.
+  - **`develop`** = `main` + las traducciones reales al inglés y el modo revisión (`EN_REVIEW` con las 15 páginas; se ven con `npm run dev`
+    o `npm run build:review`). **Todo el trabajo en inglés va acá.** Nada en inglés se publica hasta que Florcita apruebe cada página.
+  - Cambios en español → `main`; después se traen a `develop` con un merge de `main`. **`develop` no se mergea a `main` ni se sube sin que ella lo pida.**
+  - Si el entorno arranca en otra rama, avisar antes de trabajar.
 - **Nunca hacer commit ni push sin autorización explícita de Florcita.** Cuando ella lo autoriza, los commits van
   separados por tema y el push lo hace ella, salvo que pida que lo haga Claude.
 - **Claude escribe archivos directo en la carpeta** del clone; aparecen en VS Code.
