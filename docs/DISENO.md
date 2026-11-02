@@ -260,3 +260,55 @@ Revisión editorial selectiva (mismo criterio: solo lo que el contenido ya docum
 Revisados y sin cambios por estar suficientemente claros: Juan Gas GNC Club (la consulta de puntos y el dashboard en desarrollo ya están diferenciados), InfoCasas, AUDAGNO y «Cómo integro la IA en mi proceso de diseño» (los tres ejemplos ya dicen para qué usó IA, qué hizo ella y qué aportó el prototipo).
 
 Pendiente de decidir: en CEMICO y en Consultoría, «validar» (prototipos para «validar cómo se conectaban las partes» / «validarlos antes de la implementación») no aclara con quién; el caso no documenta pruebas con usuarios.
+
+## Rediseño de «Cómo integro la IA en mi proceso» (2026-11)
+
+Solo forma; el contenido aprobado no cambia, salvo la sección nueva del ecosistema. Se respetaron las eliminaciones del mismo día (sin «Dónde lo apliqué», sin la cita y el párrafo de revisión, sin diagrama en el hero, título corto).
+
+- **Hero:** la frase central sigue siendo una sticky note, más grande y en dos renglones (lo que hace la IA / lo que decide mi criterio, este con más peso). Título del hero al tamaño de los detalles de casos.
+- **Entender el proyecto:** matriz de relevamiento de cinco celdas sobre una hoja blanca con líneas finas (negocio y personas más anchas).
+- **De la idea a la entrega:** pestañas de cuaderno pegadas a su panel; la activa se funde con la hoja. Los cuatro paneles ocupan la misma celda de la grilla, por eso la altura no salta. «Qué hago» lleva el protagonismo; la IA y el resultado van aparte.
+- **Qué hago yo…:** dos paneles asimétricos sin líneas entre renglones: «Mi criterio» (oscuro, más grande) e «IA como herramienta» (claro, acento rosa).
+- **Mi ecosistema de herramientas (nuevo, `AI_TOOLS` en `data/procesoIA.ts`):** tablero con cuatro grupos de uso habitual y «Mi criterio» al centro; las líneas punteadas (solo desktop) salen de mi criterio hacia cada grupo, no entre herramientas. Reemplaza la línea de herramientas de `AI_ROLES.tools`. Textos tomados del brief de Florencia: grupos, funciones y la frase «Las herramientas se complementan…».
+- **Qué recibe el cliente:** cinco entregables más «Un proceso compartido» en una grilla compacta, con un ícono Lucide discreto por entregable.
+- Títulos de sección con `type-h2` (un escalón menos que `type-h1`).
+- **Pendiente:** adaptar el inglés en `develop` (nueva sección `AI_TOOLS`, `AI_ROLES.tools` ya no existe, y ahí hay que borrar «Dónde lo apliqué», la cita y el diagrama de etapas del hero).
+
+### Ajuste final del rediseño de la página de IA (2026-11)
+
+- Nota amarilla del hero: de ~512 px a 275 px de ancho, texto de 14 y 18 px; es un detalle junto al título, no un segundo hero.
+- Se eliminaron las tres bajadas redundantes («De la idea a la entrega», «Qué hago yo…», «Mi ecosistema…»); los encabezados de sección quedaron solo con título, sin columna reservada.
+- «Dónde lo apliqué» **no va** en esta página (decisión de Florencia: se sacó de producción; si aparece en un brief posterior, preguntar antes de recuperarla).
+- Ecosistema: solo nombres y grupos (sin descripciones), «Mi criterio» sin texto, y una única frase inferior que aclara que el ecosistema es flexible (Google Stitch se nombra ahí, no es una ficha).
+- **Pendiente en `develop`:** el inglés de todo esto (ver la entrada anterior).
+
+### Sticky notes amarillas: un solo componente (2026-11)
+
+Todas las sticky notes amarillas sueltas usan `StickyNote` (`src/app/components/StickyNote.tsx`): mismo amarillo, padding, sombra, inclinación y texto; solo cambia el ancho y el lugar. Hoy: la frase del hero y el objetivo del relevamiento en «Cómo integro la IA en mi proceso». Las notas del diagrama «Cómo se conecta» (con número, título y texto, y colores propios) comparten color y sombra pero tienen su propio diseño. Si se agrega otra sticky note amarilla, se usa el componente.
+
+### «Cómo diseñé mi portfolio»: hero (2026-11)
+
+- Hero con un subtítulo corto de dos oraciones, como el de la página de IA (la idea profesional y la inspiración en el escritorio); sin línea secundaria. Se quitaron «Esto es muy Flor», «Banderitas para ordenar ideas», la lista de objetos del cuaderno y el sticker de Figma.
+- El cuaderno es el único protagonista visual: muestra lo que cuenta cada caso (contexto, mi participación, decisiones de diseño, aprendizajes), con la hoja de las decisiones resaltada y marcada con una banderita. Decorativo, fuera del árbol de accesibilidad.
+- «Lo que quería transmitir»: se recortó la introducción para no repetir lo del hero; quedó la parte personal y la de imaginar cómo sería trabajar conmigo. Los cuatro conceptos no cambian.
+- Escala alineada con la página de IA: títulos de sección en `type-h2`, hero en el tamaño de los detalles y mismo espaciado vertical.
+- En «Cómo integro la IA…», la nota del hero queda solo con «La IA me ayuda a explorar posibilidades.»; en las etapas se quitó la etiqueta «Qué hago» y «Resultado posible» pasa a «Resultado».
+- **Pendiente en `develop` (inglés):** ver notas de las entradas anteriores más: `ui.editorial.desk` ya no existe, `whatIDo` ya no existe, `possibleResult` = «Result», `HERO` del portfolio con `highlight` y `notebook`, y `CONVEY.text` recortado.
+
+- «Un proceso compartido» pasó a ser la sexta tarjeta de «Qué recibe el cliente», con el título «Comunicación» (ícono de mensaje) y el texto «Durante el proyecto comparto avances y revisamos las propuestas juntos.». Ya no hay texto suelto bajo el título.
+
+### «Cómo diseñé mi portfolio»: cierre sin llamada a la acción (2026-11)
+
+- La playlist salió de la referencia 03 (que conserva su título y su texto sobre cine, música y Linkin Park) y pasó al cierre, debajo de la reflexión final, como un enlace discreto: ícono de disco, «Lo que escucho mientras diseño» y flecha de enlace externo (abre Spotify en otra pestaña). Sin subtítulo ni descripción.
+- Se eliminó «Explorar mis proyectos» (y `CLOSING.cta`): la página termina sin CTA; el menú y el footer ya llevan a Proyectos, Experiencia y Contacto.
+- **Pendiente en `develop` (inglés):** `PLAYLIST` solo con `url` y `text` («What I listen to while designing»), sin `title` ni `cta`; quitar `CLOSING.cta` («Explore my projects»).
+
+### «Cómo integro la IA en mi proceso»: arquitectura definitiva (2026-11)
+
+Secuencia: hero → «Todo empieza por entender el proyecto» → «De la idea a la entrega» → «Mi ecosistema de herramientas» → «Qué recibe el cliente» → contacto.
+
+- **Se eliminó «Qué hago yo y en qué me ayuda la IA»** (los paneles «Mi criterio» e «IA como herramienta» y sus doce frases): repetía lo que ya explica cada etapa del proceso. No se trasladó ni se reemplazó (`AI_ROLES` ya no existe).
+- **«Dónde lo apliqué» sigue eliminada, a propósito.** La IA forma parte del proceso habitual, no de tres proyectos puntuales; los casos ya tienen sus páginas. No es contenido perdido en el rediseño: no recuperarla ni crear una sección de ejemplos o enlaces a casos.
+- **Ecosistema:** cuatro grupos en dos columnas (una línea fina arriba, categoría en rosa, nombres), sin rectángulo central, conectores, descripciones, íconos ni fondo punteado. La frase bajo el título —«Son las que más uso, no las únicas. También pruebo otras, como Google Stitch.»— transmite que no es un conjunto cerrado.
+- Fondos alternados: hero oscuro, relevamiento gris, proceso claro, ecosistema gris, entregables claro, contacto oscuro.
+- **Pendiente en `develop` (inglés):** borrar `AI_ROLES` y todo `AI_EXAMPLES`/«Where I applied it»; `AI_TOOLS` pasa a `{ title, text, groups }` con «These are the tools I use most often, but they're not the only ones. I also explore others, like Google Stitch.» (sin `center`, `note` ni descripciones).
