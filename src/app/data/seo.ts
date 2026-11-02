@@ -41,11 +41,11 @@ export const processSeo: PageSeo = {
   path: PROCESS_PATH,
 };
 
-/** "Cómo integro la IA en mi proceso de diseño": cómo aborda proyectos de clientes y en qué momentos usa IA. */
+/** "Cómo integro la IA en mi proceso": cómo aborda proyectos de clientes y en qué momentos usa IA. */
 export const AI_PROCESS_PATH = "/como-trabajo-con-ia";
 
 export const aiSeo: PageSeo = {
-  title: "Cómo integro la IA en mi proceso de diseño",
+  title: "Cómo integro la IA en mi proceso",
   description:
     "Conocé cómo abordo proyectos de diseño de producto, desde el relevamiento inicial hasta la entrega, y cómo incorporo herramientas de IA en distintas etapas.",
   path: AI_PROCESS_PATH,

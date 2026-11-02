@@ -77,7 +77,7 @@ function parseSpanishPath(hash: string): Omit<Route, "lang"> {
   // "Cómo diseñé mi portfolio". La dirección de cuando era privada pasa a la pública (ver el efecto en AppRoutes).
   if (hash === PROCESS_PATH || hash === LEGACY_PROCESS_PATH) return { page: "/como-disene-mi-portfolio" };
 
-  // "Cómo integro la IA en mi proceso de diseño".
+  // "Cómo integro la IA en mi proceso".
   if (hash === AI_PROCESS_PATH) return { page: AI_PROCESS_PATH };
 
   // Section URLs — render home page and scroll to section

@@ -1,16 +1,14 @@
 import { useId, useState, type KeyboardEvent } from "react";
 import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { ClosingCTA } from "./ClosingCTA";
-import { OpenCue } from "./NavArrow";
 import { DarkBackdrop, Num, Reveal } from "./ReferencesPage";
-import { handleLinkClick, navigate } from "../lib/router";
+import { navigate } from "../lib/router";
 import { useI18n } from "../i18n/useI18n";
 import { useProcesoIA } from "../i18n/editorial";
 
-/** Página pública "Cómo integro la IA en mi proceso de diseño" (ruta y SEO en data/seo.ts; contenido en data/procesoIA.ts).
+/** Página pública "Cómo integro la IA en mi proceso" (ruta y SEO en data/seo.ts; contenido en data/procesoIA.ts).
  *  Explica cómo aborda proyectos de clientes, no cómo se hizo el portfolio (eso es "Cómo diseñé mi portfolio"). Seis bloques: hero (con las mismas cuatro etapas del Home), relevamiento
  *  inicial, las cuatro etapas (con selector), qué hace ella y qué la IA, ejemplos documentados y qué recibe el cliente; cierra con el contacto de la Home.
  *  Mismo ADN que el resto del sitio: hoja de cuaderno, sticky notes, escala tipográfica y filas con línea fina. Sin stickers ni logos de herramientas. */
@@ -59,26 +57,6 @@ function Hero() {
             </p>
           </Reveal>
         </div>
-
-        <ol
-          aria-label={ui.editorial.stagesList}
-          className="relative mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-white/20 pt-6 lg:mt-16 lg:grid-cols-4 lg:gap-x-20"
-        >
-          {AI_HERO.flow.map((step, i) => (
-            <li key={step} className="relative">
-              <Num n={i} dark className="mb-3 block" />
-              <span className="type-h3 text-white">{step}</span>
-              {i < AI_HERO.flow.length - 1 && (
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute left-full top-1/2 ml-4 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 text-gray-400 lg:flex"
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </span>
-              )}
-            </li>
-          ))}
-        </ol>
       </div>
     </section>
   );
@@ -166,7 +144,6 @@ function Stages() {
               <Num n={i} className={active === i ? "" : "opacity-50"} />
               <span className={`type-h3 flex items-center gap-3 ${active === i ? "text-gray-900" : "text-gray-600"}`}>
                 {s.name}
-                {i < stages.length - 1 && <ArrowRight className="hidden h-4 w-4 text-gray-400 lg:block" strokeWidth={1.5} aria-hidden="true" />}
               </span>
             </button>
           ))}
@@ -212,7 +189,7 @@ function Stages() {
 /* ───────────── 4. Qué hago yo y en qué me ayuda la IA ───────────── */
 
 /** Dos columnas de seis filas compartidas (subgrid): lo que depende de mi criterio y lo que le delego a la IA. Debajo, las herramientas en una sola
- *  línea (transparencia, sin tabla ni logos) y la frase central junto a cómo reviso lo que propone la IA, como una sola unidad. */
+ *  línea (transparencia, sin tabla ni logos). */
 function Roles() {
   const { AI_ROLES } = useProcesoIA();
   const { mine, ai } = AI_ROLES;
@@ -239,59 +216,6 @@ function Roles() {
         </div>
 
         <p className="type-caption mt-6 text-gray-600">{AI_ROLES.tools}</p>
-
-        <Reveal className="mt-14 grid gap-6 border-t-2 border-gray-900 pt-6 lg:mt-20 lg:grid-cols-12 lg:gap-x-12">
-          <blockquote className="type-h2 text-gray-900 lg:col-span-7">{AI_ROLES.quote}</blockquote>
-          <p className="type-body text-gray-700 lg:col-span-5">{AI_ROLES.review}</p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ───────────── 5. Dónde lo apliqué ───────────── */
-
-/** Solo ejemplos con evidencia en los casos del portfolio: qué necesitaba, cómo usé IA y qué diseñé yo. Cada fila es un enlace real y lleva el círculo
- *  con flecha, como el resto del sitio. */
-function Examples() {
-  const { lp } = useI18n();
-  const { AI_EXAMPLES } = useProcesoIA();
-  const cols = [
-    { label: AI_EXAMPLES.needLabel, key: "need" as const },
-    { label: AI_EXAMPLES.aiLabel, key: "ai" as const },
-    { label: AI_EXAMPLES.mineLabel, key: "mine" as const },
-  ];
-  return (
-    <section className="bg-surface-subtle py-20 lg:py-36">
-      <div className="page-container">
-        <h2 className="type-h1 mb-5 text-gray-900">{AI_EXAMPLES.title}</h2>
-        <p className="type-s1 mb-14 text-gray-600 lg:mb-20">{AI_EXAMPLES.text}</p>
-        <ul>
-          {AI_EXAMPLES.items.map((ex) => (
-            <li key={ex.name} className="border-t border-gray-300 last:border-b">
-              <a
-                href={lp(ex.href)}
-                onClick={(e) => handleLinkClick(e, lp(ex.href))}
-                className="group/open flex items-start justify-between gap-6 py-6 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
-              >
-                <span className="grid min-w-0 flex-1 gap-4 lg:grid-cols-12 lg:gap-6">
-                  <span className="type-h3 text-gray-900 transition-colors duration-300 group-hover/open:text-magenta-strong group-focus-visible/open:text-magenta-strong lg:col-span-3">
-                    {ex.name}
-                  </span>
-                  <span className="grid gap-5 lg:col-span-9">
-                    {cols.map((c) => (
-                      <span key={c.key} className="grid gap-1 lg:grid-cols-[8.5rem_1fr] lg:gap-6">
-                        <span className="type-eyebrow text-gray-600 lg:pt-1">{c.label}</span>
-                        <span className="type-body block text-gray-700">{ex[c.key]}</span>
-                      </span>
-                    ))}
-                  </span>
-                </span>
-                <OpenCue />
-              </a>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );
@@ -303,7 +227,7 @@ function Deliverables() {
   const { AI_DELIVERABLES } = useProcesoIA();
   const { shared } = AI_DELIVERABLES;
   return (
-    <section className="bg-surface-page/90 py-20 lg:py-36">
+    <section className="bg-surface-subtle py-20 lg:py-36">
       <div className="page-container">
         <h2 className="type-h1 mb-5 text-gray-900">{AI_DELIVERABLES.title}</h2>
         <p className="type-s1 mb-14 text-gray-600 lg:mb-20">{AI_DELIVERABLES.text}</p>
@@ -336,7 +260,6 @@ export function AIProcessPage() {
         <Start />
         <Stages />
         <Roles />
-        <Examples />
         <Deliverables />
         <ClosingCTA title={AI_CTA.title} text={AI_CTA.text} cta={AI_CTA.cta} />
       </main>

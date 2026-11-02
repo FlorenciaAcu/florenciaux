@@ -174,7 +174,6 @@ compare(referenciasEs, referenciasEn, "referencias", NON_TEXT_KEYS);
 compare(procesoIAEs, procesoIAEn, "procesoIA", NON_TEXT_KEYS);
 // El modelo de proceso es uno solo: las etapas de la página de IA llevan los mismos nombres que las de "Cómo trabajo" del Home.
 const homeSteps = homeEn.process.steps.map((s) => s.title).join("|");
-if (procesoIAEn.AI_HERO.flow.join("|") !== homeSteps) fail("procesoIA.AI_HERO.flow", `las etapas del hero no coinciden con las de la Home (${homeSteps})`);
 if (procesoIAEn.AI_STAGES.stages.map((s) => s.name).join("|") !== homeSteps) fail("procesoIA.AI_STAGES", `las etapas no coinciden con las de la Home (${homeSteps})`);
 if (homeEn.process.aiLink.trim() === "") fail("home.process.aiLink", "falta el enlace a la página de IA");
 

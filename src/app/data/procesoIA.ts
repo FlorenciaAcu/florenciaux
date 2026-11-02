@@ -1,17 +1,14 @@
-/** Contenido de "Cómo integro la IA en mi proceso de diseño" (ruta y SEO en data/seo.ts). Solo lo confirmado por Florencia o documentado en
+/** Contenido de "Cómo integro la IA en mi proceso" (ruta y SEO en data/seo.ts). Solo lo confirmado por Florencia o documentado en
  *  los casos del portfolio: no hay métricas, plazos ni cantidades inventadas. Lo que falta (el documento real de relevamiento, más ejemplos
  *  con evidencia) se suma acá sin tocar el componente: cada lista admite más elementos. */
 
 export const AI_HERO = {
   eyebrow: "Mi forma de trabajar",
-  title: "Cómo integro la IA en mi proceso de diseño",
+  title: "Cómo integro la IA en mi proceso",
   text: [
-    "Cada proyecto comienza por entender el problema, el negocio y las personas que van a utilizar el producto.",
-    "A partir de ahí defino qué necesitamos resolver, diseño las soluciones y utilizo herramientas de IA para explorar alternativas, documentar y prototipar con mayor agilidad.",
+    "Cada proyecto comienza por entender el problema, el negocio y las personas que van a utilizar el producto. A partir de ahí defino qué necesitamos resolver y diseño las soluciones.",
   ],
   highlight: "La IA me ayuda a explorar posibilidades. Mi criterio define cuáles tienen sentido.",
-  /** Las mismas cuatro etapas que "Cómo trabajo" del Home y que AI_STAGES: un solo modelo de proceso. */
-  flow: ["Descubrir", "Definir", "Diseñar", "Entregar"],
 };
 
 export const AI_START = {
@@ -112,54 +109,6 @@ export const AI_ROLES = {
   },
   /** Transparencia sobre las herramientas en una sola línea (lo documentado en los casos), sin tabla ni logos. */
   tools: "Herramientas que uso: ChatGPT y Claude para organizar y documentar, Figma y Figma Make para diseñar y prototipar, Lovable según el proyecto, y Claude Code y Codex para el código.",
-  /** La frase y su contexto van juntos: es lo que más pesa de la sección. */
-  quote: "No se trata de aceptar la primera respuesta, sino de saber qué conservar, qué corregir y qué descartar.",
-  review:
-    "Reviso que lo que propone la IA sea coherente con el problema, los requerimientos, la arquitectura, los componentes y el lenguaje del producto. Lo ajusto, lo corrijo o lo descarto antes de compartirlo.",
-};
-
-export interface AiExample {
-  name: string;
-  /** Qué necesitaba resolver o explorar. */
-  need: string;
-  /** Cómo usé IA. */
-  ai: string;
-  /** Mi trabajo: lo que definí, diseñé o decidí yo (no lo que hizo la herramienta). */
-  mine: string;
-  href: string;
-}
-
-/** Solo ejemplos con evidencia en los casos del portfolio (y en "Cómo diseñé mi portfolio"). Sin resultados ni métricas, y sin afirmar revisiones
- *  que no están documentadas: "mine" apunta a trabajo de diseño que el caso describe. */
-export const AI_EXAMPLES = {
-  title: "Dónde lo apliqué",
-  text: "Tres proyectos documentados en este portfolio.",
-  needLabel: "Qué necesitaba",
-  aiLabel: "Cómo usé IA",
-  mineLabel: "Mi trabajo",
-  items: [
-    {
-      name: "CEMICO",
-      need: "Explorar los flujos de tres productos y comunicar cómo funcionarían las soluciones.",
-      ai: "Con Figma Make construí prototipos funcionales del portal del paciente, el portal institucional y el módulo de auditoría médica externa. No representan necesariamente las versiones finales implementadas.",
-      mine: "Definí los flujos, los permisos, los componentes y los estados, como detalla el caso.",
-      href: "/proyectos/cemico",
-    },
-    {
-      name: "Buscador Agrícola",
-      need: "Diseñar el MVP de un marketplace agropecuario y, mientras se desarrollaba, presentar la propuesta y captar interés.",
-      ai: "Con Figma Make construí la landing de lista de espera.",
-      mine: "Diseñé el MVP: la experiencia de búsqueda, las fichas de publicación y el recorrido de contacto, como detalla el caso.",
-      href: "/proyectos/buscador-agricola",
-    },
-    {
-      name: "Este portfolio",
-      need: "Pasar de una primera idea a un sitio propio que pudiera seguir evolucionando.",
-      ai: "Figma Make para explorar una primera versión; después, Claude Code y Codex para desarrollar el sitio en código.",
-      mine: "Las decisiones sobre la experiencia, la identidad visual y la presentación de mi trabajo.",
-      href: "/como-disene-mi-portfolio",
-    },
-  ] as AiExample[],
 };
 
 export const AI_DELIVERABLES = {
