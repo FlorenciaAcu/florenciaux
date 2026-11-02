@@ -38,6 +38,11 @@ export interface ProjectDetail {
 export const projects: ProjectDetail[] = [
   {
     slug: "cemico",
+    seo: {
+      title: "CEMICO: productos digitales de salud",
+      description:
+        "Diseño de productos digitales para pacientes, personal de admisión, colaboradores y auditores externos dentro del ecosistema de salud de Grupo CEMICO.",
+    },
     name: "CEMICO",
     tagline: "Diseñé productos digitales para pacientes, personal de admisión, colaboradores y auditores externos, dentro del ecosistema de salud de Grupo CEMICO.",
     context:
@@ -60,7 +65,7 @@ export const projects: ProjectDetail[] = [
         { label: "Estado", value: "En curso" },
       ],
       systemMap: {
-        intro: "El anunciador de pacientes es un solo proceso que atraviesa tres interfaces: lo que sucede en una afecta a las demás.",
+        intro: "El anunciador de pacientes es el proceso con el que una persona se anuncia al llegar a la clínica y recibe el llamado en la sala de espera. Atraviesa tres interfaces: lo que sucede en una afecta a las demás.",
         steps: [
           { title: "Tótem", text: "La persona se anuncia al llegar a la clínica." },
           { title: "Dashboard de admisión", text: "Admisión gestiona esos registros en tiempo real." },
@@ -111,6 +116,11 @@ export const projects: ProjectDetail[] = [
   },
   {
     slug: "buscador-agricola",
+    seo: {
+      title: "Buscador Agrícola: marketplace agropecuario",
+      description:
+        "Diseño del MVP de un marketplace multitienda que conecta productores, proveedores y profesionales del sector agropecuario chileno, de la búsqueda al contacto.",
+    },
     name: "Buscador Agrícola",
     tagline: "Marketplace multitienda para conectar productores, proveedores y profesionales del sector agropecuario chileno en un solo lugar.",
     context:
@@ -142,7 +152,7 @@ export const projects: ProjectDetail[] = [
           { title: "Búsqueda", text: "Por categoría, cultivo y ubicación." },
           { title: "Resultados", text: "En listado o en mapa." },
           { title: "Ficha", text: "Imágenes, especificaciones, información técnica y ubicación." },
-          { title: "Contacto", text: "El acceso va junto al registro, para no perder la demanda." },
+          { title: "Contacto", text: "El acceso al contacto va junto al registro, para poder identificar a la persona interesada." },
         ],
       },
       aboutTitle: "Qué es Buscador Agrícola",
@@ -174,7 +184,7 @@ export const projects: ProjectDetail[] = [
         {
           icon: "contact",
           title: "¿Cómo hacer que contactar a una empresa sea simple?",
-          text: "El contacto era una acción central del MVP, pero mostrar todos los datos del proveedor desde el primer momento permitía que la interacción continuara por fuera de la plataforma sin identificar a la persona interesada. Por eso trabajé el acceso al contacto junto con el registro, buscando facilitar la conexión sin perder la posibilidad de captar esa demanda dentro de Buscador Agrícola.",
+          text: "El contacto era una acción central del MVP. Pero mostrar todos los datos del proveedor desde el primer momento permitía que la interacción continuara por fuera de la plataforma, sin identificar a la persona interesada. Por eso trabajé el acceso al contacto junto con el registro: buscaba facilitar la conexión con el proveedor sin perder la posibilidad de identificar a esa persona y captar esa demanda dentro de Buscador Agrícola.",
         },
       ],
       prototypesTitle: "Prototipos",
@@ -185,6 +195,11 @@ export const projects: ProjectDetail[] = [
   },
   {
     slug: "juan-gas-gnc",
+    seo: {
+      title: "Juan Gas GNC Club: consulta de puntos",
+      description:
+        "Diseño e implementación de la consulta de puntos del programa de fidelización de Juan Gas GNC Club, conectada con los datos que ya existían en la estación.",
+    },
     name: "Juan Gas GNC Club",
     tagline: "Diseñé e implementé la consulta de puntos de Juan Gas GNC Club, conectando la experiencia digital con los datos que ya existían en la estación.",
     context:
@@ -247,6 +262,11 @@ export const projects: ProjectDetail[] = [
   },
   {
     slug: "juan-audagno",
+    seo: {
+      title: "AUDAGNO: sitio web de un estudio jurídico",
+      description:
+        "Diseño e implementación de punta a punta del sitio web profesional de un abogado de La Plata, para presentar sus servicios y facilitar el contacto.",
+    },
     name: "AUDAGNO – Abogado",
     tagline: "Sitio web profesional para un estudio jurídico, diseñado e implementado de punta a punta.",
     context:
@@ -315,6 +335,11 @@ export const projects: ProjectDetail[] = [
   },
   {
     slug: "infocasas",
+    seo: {
+      title: "InfoCasas: suscripciones y publicaciones",
+      description:
+        "Diseño de flujos de suscripciones, planes y publicaciones para la web y la app de InfoCasas, plataforma inmobiliaria de Uruguay, para HitOcean.",
+    },
     name: "InfoCasas",
     tagline: "Diseñé flujos de suscripciones, planes y publicaciones para la plataforma web y la app, como Product Designer para HitOcean.",
     context:

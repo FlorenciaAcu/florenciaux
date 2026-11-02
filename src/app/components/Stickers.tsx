@@ -95,6 +95,34 @@ const art: Record<string, ReactNode> = {
       </g>
     </g>
   ),
+  // Adhesive page flags ("banderitas"): the colored strips Florencia sticks on her notebook.
+  banderitas: (
+    <g {...line} transform="rotate(-16 50 50)">
+      <rect x="18" y="8" width="64" height="14" rx="2.5" fill="#a63a9b" />
+      <rect x="12" y="26" width="64" height="14" rx="2.5" fill="#ff9f6b" />
+      <rect x="22" y="44" width="64" height="14" rx="2.5" fill="#f2ff1a" />
+      <rect x="10" y="62" width="64" height="14" rx="2.5" fill="#2fb52f" />
+      <rect x="20" y="80" width="64" height="14" rx="2.5" fill="#1f4aa8" />
+    </g>
+  ),
+  // Music details (original artwork, no logos or characters from anyone else): a vinyl record and a guitar pick.
+  vinyl: (
+    <g {...line}>
+      <circle cx="50" cy="50" r="42" fill="#2b2b3a" />
+      <circle cx="50" cy="50" r="31" fill="none" stroke="#5a5a78" strokeWidth={1.5} />
+      <circle cx="50" cy="50" r="22" fill="none" stroke="#5a5a78" strokeWidth={1.5} />
+      <circle cx="50" cy="50" r="13" fill="#ff006e" />
+      <circle cx="50" cy="50" r="3" fill="#fff" stroke="none" />
+      <path d="M21 30 Q28 19 43 15" fill="none" stroke="#fff" strokeWidth={3.5} opacity={0.65} />
+    </g>
+  ),
+  pick: (
+    <g {...line}>
+      <path d="M50 10 C80 10 93 30 85 55 C78 77 58 93 50 93 C42 93 22 77 15 55 C7 30 20 10 50 10 Z" fill="#00e5ff" />
+      <path d="M27 30 Q33 21 44 18" fill="none" stroke="#fff" strokeWidth={4} opacity={0.85} />
+      <path d="M38 62 Q50 72 62 62" fill="none" strokeWidth={2.5} />
+    </g>
+  ),
   flag: (
     <g {...line}>
       <rect x="6" y="14" width="4" height="74" rx="2" fill="#5b4636" />
@@ -206,7 +234,7 @@ export type StickerName = keyof typeof art;
 const detailStickers: Record<string, StickerName> = {
   cintelink: "pump", // fuel dispenser with an IoT signal
   consultoria: "laptop", // laptop with Figma
-  folcode: "code", // software company
+  bridgenext: "code", // software company
   cemico: "health", // health sector
   "buscador-agricola": "agro", // agro search: wheat under a magnifier
   "juan-gas-gnc": "cylinder", // GNC cylinder

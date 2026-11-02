@@ -128,6 +128,11 @@ export interface Experience {
 export const experiences: Experience[] = [
   {
     slug: "consultoria",
+    seo: {
+      title: "Consultoría en productos digitales",
+      description:
+        "Mi trabajo independiente como Product Designer: diseño productos digitales y MVPs con clientes y equipos, en distintas etapas del producto.",
+    },
     role: "Product Designer",
     company: "Consultoría en productos digitales",
     location: "San Juan, Argentina",
@@ -184,6 +189,11 @@ export const experiences: Experience[] = [
   },
   {
     slug: "cintelink",
+    seo: {
+      title: "Cintelink: gestión de combustible",
+      description:
+        "Product Designer en Cintelink: diseño de la plataforma de combustible, la app de despacho para tablet, los dashboards operativos y el Design System.",
+    },
     role: "Product Designer",
     company: "Cintelink",
     period: "Junio 2022 – Marzo 2025",
@@ -264,7 +274,7 @@ export const experiences: Experience[] = [
         "Cintelink es una plataforma para gestionar y controlar operaciones de abastecimiento de combustible. Conecta la gestión digital con lo que ocurre físicamente durante una carga: autorizaciones, vehículos, conductores, dispositivos y transacciones.",
       challengeTitle: "El desafío",
       challenge:
-        "La plataforma no funciona de manera aislada: lo que sucede en el sistema está conectado con personas, dispositivos y procesos de carga de combustible.",
+        "El desafío era diseñar experiencias digitales que acompañaran operaciones de carga de combustible en las que intervenían personas, autorizaciones y dispositivos físicos. Cada interfaz debía ofrecer la información que cada persona necesitaba para su tarea y contemplar qué ocurría cuando un dato no llegaba o un dispositivo fallaba.",
       role: [
         "Trabajé de forma constante con los equipos de producto y desarrollo, participando en la definición de funcionalidades junto a negocio y usuarios. Ese trabajo implicaba entender tanto lo que ocurría dentro de la plataforma como el contexto operativo en el que se utilizaba.",
         "También colaboré con el equipo de Smart Contracts en funcionalidades vinculadas a la trazabilidad y seguridad de las operaciones.",
@@ -291,20 +301,25 @@ export const experiences: Experience[] = [
     },
   },
   {
-    slug: "folcode",
+    slug: "bridgenext",
+    seo: {
+      title: "Bridgenext: UX y Product Design",
+      description:
+        "UX Designer y Product Designer en Bridgenext, que adquirió Folcode, empresa tecnológica de San Juan: CloudLabs, Respública y un sitio institucional.",
+    },
     role: "UX Designer / Product Designer",
-    company: "Folcode",
-    aboutTitle: "Qué es Folcode",
+    company: "Bridgenext",
+    aboutTitle: "Qué es Bridgenext",
     challengeTitle: "Mi recorrido",
-    about: "Folcode fue una empresa tecnológica de San Juan, Argentina, especializada en el desarrollo de productos y servicios digitales para distintos clientes. Durante mi etapa allí trabajé en proyectos como CloudLabs, Respública y el rediseño del sitio institucional de Folcode.",
+    about: "Bridgenext adquirió Folcode, una empresa tecnológica de San Juan, Argentina, especializada en el desarrollo de productos y servicios digitales para distintos clientes. Durante mi etapa allí trabajé en proyectos como CloudLabs, Respública y el rediseño del sitio institucional de Folcode.",
     challenge:
-      "Entré a Folcode como Pasante Scrum Master, trabajando con backlog, priorización, requerimientos y ceremonias del equipo. Con el tiempo empecé a involucrarme cada vez más en la definición de los productos y encontré en UX/Product Design un rol desde el que podía conectar mejor las necesidades del cliente, las personas usuarias y el equipo de desarrollo.\n\nEse cambio también implicó aprender a moverme entre proyectos con contextos y necesidades diferentes, entendiendo cada problema antes de llevarlo a flujos e interfaces.",
+      "Entré a Bridgenext como Pasante Scrum Master, trabajando con backlog, priorización, requerimientos y ceremonias del equipo. Con el tiempo empecé a involucrarme cada vez más en la definición de los productos y encontré en UX/Product Design un rol desde el que podía conectar mejor las necesidades del cliente, las personas usuarias y el equipo de desarrollo.\n\nEse cambio también implicó aprender a moverme entre proyectos con contextos y necesidades diferentes, entendiendo cada problema antes de llevarlo a flujos e interfaces.",
     workText: [
       "Participé en proyectos desde etapas tempranas de definición, trabajando con stakeholders para entender necesidades y ordenar requerimientos antes de diseñar. Según el proyecto, trabajé con entrevistas, workshops, personas, story maps y flujos para estructurar la experiencia.",
       "A partir de esa definición avanzaba hacia prototipos interactivos e interfaces de alta fidelidad, trabajando en conjunto con el equipo de desarrollo y ajustando las soluciones a partir del feedback y las validaciones realizadas.",
     ],
     learned:
-      "Folcode fue donde empecé a entender el diseño como parte de un proceso de producto y no solamente como la construcción de una interfaz. Haber comenzado desde Scrum me ayudó a comprender cómo se organiza el trabajo, cómo se prioriza y cómo las decisiones de diseño conviven con las necesidades del negocio y del equipo técnico.\n\nTambién aprendí a adaptar mi proceso a productos y contextos diferentes, eligiendo las herramientas y el nivel de profundidad necesarios para cada proyecto.",
+      "Bridgenext fue donde empecé a entender el diseño como parte de un proceso de producto y no solamente como la construcción de una interfaz. Haber comenzado desde Scrum me ayudó a comprender cómo se organiza el trabajo, cómo se prioriza y cómo las decisiones de diseño conviven con las necesidades del negocio y del equipo técnico.\n\nTambién aprendí a adaptar mi proceso a productos y contextos diferentes, eligiendo las herramientas y el nivel de profundidad necesarios para cada proyecto.",
     images: [
       { src: folcodeLeanInception, alt: "Lean Inception: tablero de Figma de un workshop con introducción, visión del producto, qué es y qué no es el producto, objetivos y user persona" },
       { src: folcodeServiceDesign, alt: "Service Design: user journey map de Folcode con audiencia, pre-servicio, e investigación de clientes potenciales" },
