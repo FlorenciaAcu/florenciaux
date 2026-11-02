@@ -1,11 +1,10 @@
 import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, X } from "lucide-react";
+import { ArrowUpRight, Disc3, X } from "lucide-react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { OpenCue } from "./NavArrow";
 import { Sticker } from "./Stickers";
-import { handleLinkClick, navigate } from "../lib/router";
+import { navigate } from "../lib/router";
 import { useI18n } from "../i18n/useI18n";
 import type { Concept, MoodboardImage } from "../data/referencias";
 import { useReferencias } from "../i18n/editorial";
@@ -53,31 +52,31 @@ export function DarkBackdrop() {
 
 /* ───────────── 1. Hero ───────────── */
 
-/** Composición de escritorio: hoja de cuaderno con la lista, sticky notes, banderitas y stickers. Decorativa: el texto ya está en el hero.
- *  Pesa menos que el título: más chica, con sombras suaves y stickers de tamaño medio. */
-function Desk() {
-  const { ui } = useI18n();
+/** El cuaderno, como único protagonista visual: una hoja con lo que cuenta cada caso del portfolio (contexto, participación, decisiones y aprendizajes).
+ *  La hoja de las decisiones va marcada con resaltador y una banderita, porque es lo que más quería mostrar. Es solo ilustración: el texto ya está en la página, así que queda
+ *  fuera del árbol de accesibilidad. El renglón es 1.65rem, igual al interlineado de `type-body`, y las líneas de texto apoyan sobre la hoja. */
+const MARKED = 2;
+
+function Notebook() {
+  const { HERO } = useReferencias();
   return (
-    <div aria-hidden="true" className="relative mx-auto h-[19rem] w-full max-w-[28rem] sm:h-[22rem]">
-      <div className="bg-notebook absolute left-2 top-6 w-[74%] -rotate-[1deg] py-[1.65rem] pl-14 pr-4 shadow-[0_2px_6px_rgba(10,10,10,0.08)] sm:left-3">
-        <ul className="type-body text-gray-800">
-          {ui.editorial.desk.items.map((l) => (
-            <li key={l} className="h-[1.65rem]">
-              {l}
+    <div aria-hidden="true" className="w-full max-w-[24rem] pr-10 lg:ml-auto">
+      <div className="bg-notebook -rotate-[1deg] py-[1.65rem] pl-14 pr-5 shadow-[0_2px_6px_rgba(10,10,10,0.08)]">
+        <ul className="type-body">
+          {HERO.notebook.map((line, i) => (
+            <li key={line} className={`relative h-[1.65rem] ${i > 0 ? "mt-[0.4rem] sm:mt-[1.65rem]" : ""}`}>
+              {i === MARKED ? (
+                <>
+                  <span className="-mx-1 bg-[rgba(255,0,110,0.16)] px-1 font-medium text-gray-900">{line}</span>
+                  <span className="absolute left-full top-1/2 ml-5 h-4 w-10 -translate-y-1/2 bg-magenta" />
+                </>
+              ) : (
+                <span className="text-gray-700">{line}</span>
+              )}
             </li>
           ))}
-          <li className="h-[1.65rem]" />
-          <li className="h-[1.65rem]" />
         </ul>
       </div>
-      <div className="absolute right-0 top-0 w-32 rotate-[0.8deg] bg-[#fff3a6] p-3 shadow-[0_2px_4px_rgba(10,10,10,0.12)] sm:w-36">
-        <p className="type-title-compact text-gray-900">{ui.editorial.desk.sticky}</p>
-      </div>
-      <div className="absolute bottom-20 right-2 w-32 -rotate-[1deg] bg-[#ffd6e3] p-3 shadow-[0_2px_4px_rgba(10,10,10,0.12)] sm:w-36">
-        <p className="type-caption text-gray-900">{ui.editorial.desk.flags}</p>
-      </div>
-      <Sticker name="banderitas" size={84} rotate={-8} className="absolute left-0 top-[8.5rem]" />
-      <Sticker name="laptop" size={88} rotate={7} className="absolute bottom-0 right-6" />
     </div>
   );
 }
@@ -88,7 +87,7 @@ function Hero() {
   return (
     <section data-header-theme="dark" className="relative overflow-hidden bg-surface-dark pb-14 pt-28 md:pb-[5.5rem] md:pt-32">
       <DarkBackdrop />
-      <div className="page-container relative grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+      <div className="page-container relative grid items-center gap-8 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
         <div>
           <nav aria-label={ui.case.breadcrumbLabel} className="type-caption mb-8 flex items-center gap-2 text-gray-400">
             <a
@@ -104,10 +103,10 @@ function Hero() {
             <span aria-hidden="true">/</span>
             <span className="text-gray-200">{HERO.eyebrow}</span>
           </nav>
-          <h1 className="type-display mb-6 text-white">{HERO.title}</h1>
+          <h1 className="type-h1 mb-6 max-w-3xl !text-[2.5rem] !leading-[1.08] text-white md:!text-[4rem] md:!leading-[1.05]">{HERO.title}</h1>
           <p className="type-s1 text-gray-300">{HERO.text}</p>
         </div>
-        <Desk />
+        <Notebook />
       </div>
     </section>
   );
@@ -162,10 +161,10 @@ function Convey() {
     { span: "lg:col-span-7", bg: "border border-gray-300 bg-white", dark: false },
   ];
   return (
-    <section className="bg-surface-page/90 py-20 lg:py-36">
+    <section className="bg-surface-page/90 py-16 lg:py-28">
       <div className="page-container">
-        <h2 className="type-h1 mb-5 text-gray-900">{CONVEY.title}</h2>
-        <p className="type-s1 mb-14 text-gray-600 lg:mb-20">{CONVEY.text}</p>
+        <h2 className="type-h2 mb-5 text-gray-900">{CONVEY.title}</h2>
+        <p className="type-s1 mb-10 text-gray-600 lg:mb-14">{CONVEY.text}</p>
         <div className="grid gap-4 lg:grid-cols-12 lg:gap-6">
           {CONVEY.items.map((item, i) => (
             <IdeaCard
@@ -245,10 +244,10 @@ function Evolution() {
 function Shape() {
   const { SHAPE } = useReferencias();
   return (
-    <section className="bg-surface-subtle py-20 lg:py-36">
+    <section className="bg-surface-subtle py-16 lg:py-28">
       <div className="page-container">
-        <h2 className="type-h1 mb-5 text-gray-900">{SHAPE.title}</h2>
-        <p className="type-s1 mb-14 text-gray-600 lg:mb-20">{SHAPE.text}</p>
+        <h2 className="type-h2 mb-5 text-gray-900">{SHAPE.title}</h2>
+        <p className="type-s1 mb-10 text-gray-600 lg:mb-14">{SHAPE.text}</p>
         <ol className="grid gap-4 lg:grid-cols-3 lg:gap-6">
           {SHAPE.moments.map((m, i) => (
             <li key={m.title} className="flex flex-col">
@@ -330,29 +329,6 @@ function Moodboard({ images, aside }: { images: MoodboardImage[]; aside?: ReactN
   );
 }
 
-/** La playlist, como un detalle dentro de la idea 03 (la de la música). Una línea fina la separa del texto; sin tarjeta propia, sin reproductor ni autoplay.
- *  Enlace real que abre Spotify en otra pestaña. */
-function PlaylistLink() {
-  const { ui } = useI18n();
-  const { PLAYLIST } = useReferencias();
-  return (
-    <a
-      href={PLAYLIST.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group/open mt-5 block border-t border-white/20 pt-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
-    >
-      <span className="type-title-compact block text-white">{PLAYLIST.title}</span>
-      <span className="type-caption mt-1 block text-gray-300">{PLAYLIST.text}</span>
-      <span className="type-caption mt-3 inline-flex items-center gap-1.5 font-medium text-white underline underline-offset-4 transition-colors group-hover/open:text-cyan group-focus-visible/open:text-cyan">
-        {PLAYLIST.cta}
-        <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-        <span className="sr-only">{ui.case.opensInNewTab}</span>
-      </span>
-    </a>
-  );
-}
-
 /** Las seis ideas en la grilla de 12 columnas: 6/6, 6/6 y 7/5 (la última fila lleva el texto más largo en la columna ancha), ordenadas por número. Todas con el mismo patrón de tarjeta;
  *  varían los fondos. Cada fila junta tarjetas de largo parecido, así que las alturas se parecen sin forzarlas. El único sticker es el de la 04. */
 function Concepts() {
@@ -369,7 +345,6 @@ function Concepts() {
       </IdeaCard>
       <IdeaCard n={2} title={c3.title} dark className="bg-surface-dark lg:col-span-6">
         {body(c3)}
-        <PlaylistLink />
       </IdeaCard>
       <IdeaCard
         n={3}
@@ -393,14 +368,14 @@ function Concepts() {
 function Inspired() {
   const { INSPIRED, MOODBOARD } = useReferencias();
   return (
-    <section className="bg-surface-page/90 py-20 lg:py-36">
+    <section className="bg-surface-page/90 py-16 lg:py-28">
       <div className="page-container">
-        <div className="mb-14 lg:mb-20">
-          <h2 className="type-h1 mb-5 text-gray-900">{INSPIRED.title}</h2>
+        <div className="mb-10 lg:mb-14">
+          <h2 className="type-h2 mb-5 text-gray-900">{INSPIRED.title}</h2>
           <p className="type-s1 text-gray-600">{INSPIRED.text}</p>
         </div>
         <Moodboard images={MOODBOARD} />
-        <div className="mt-14 lg:mt-20">
+        <div className="mt-10 lg:mt-14">
           <Concepts />
         </div>
       </div>
@@ -410,16 +385,17 @@ function Inspired() {
 
 /* ───────────── 5. De las referencias al resultado ───────────── */
 
-/** Cierre: una conclusión. La frase final va sobre la hoja de cuaderno, que es lo que más pesa en la sección, y debajo el camino a los proyectos.
- *  La frase es un poco más grande que el texto del cuaderno pero conserva su renglón (1.65rem), así sigue apoyada en las líneas. */
+/** Cierre: una conclusión, sin llamada a la acción. La frase final va sobre la hoja de cuaderno, que es lo que más pesa en la sección, y debajo, como un detalle personal,
+ *  el acceso a la playlist (enlace real que abre Spotify en otra pestaña). La frase es un poco más grande que el texto del cuaderno pero conserva su renglón (1.65rem),
+ *  así sigue apoyada en las líneas. */
 function Closing() {
-  const { lp } = useI18n();
-  const { CLOSING } = useReferencias();
+  const { ui } = useI18n();
+  const { CLOSING, PLAYLIST } = useReferencias();
   return (
     <section data-header-theme="dark" className="relative overflow-hidden bg-surface-dark py-16 lg:py-24">
       <DarkBackdrop />
       <div className="page-container relative">
-        <h2 className="type-h1 mb-10 text-white lg:mb-14">{CLOSING.title}</h2>
+        <h2 className="type-h2 mb-10 text-white lg:mb-14">{CLOSING.title}</h2>
 
         <Reveal>
           <figure className="-rotate-1 bg-notebook py-[3.3rem] pl-14 pr-8 shadow-[0_2px_6px_rgba(10,10,10,0.08)] lg:max-w-4xl lg:pl-16 lg:pr-16">
@@ -428,12 +404,15 @@ function Closing() {
         </Reveal>
 
         <a
-          href={lp("/proyectos")}
-          onClick={(e) => handleLinkClick(e, lp("/proyectos"))}
-          className="group/open mt-10 flex items-center justify-between gap-6 border-y border-white/20 py-6 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan lg:mt-14"
+          href={PLAYLIST.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group/open type-caption mt-10 inline-flex items-center gap-2 text-gray-300 transition-colors hover:text-cyan focus-visible:text-cyan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
         >
-          <span className="type-h3 text-white transition-colors duration-300 group-hover/open:text-cyan">{CLOSING.cta}</span>
-          <OpenCue />
+          <Disc3 className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+          <span className="underline underline-offset-4">{PLAYLIST.text}</span>
+          <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+          <span className="sr-only">{ui.case.opensInNewTab}</span>
         </a>
       </div>
     </section>

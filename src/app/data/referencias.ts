@@ -6,12 +6,14 @@
 export const HERO = {
   eyebrow: "Proceso de diseño de mi portfolio",
   title: "Cómo diseñé mi portfolio",
-  text: "Quería que se sintiera como mi escritorio real: cuaderno, sticky notes, banderitas y stickers. Que quien lo vea piense: “Esto es muy Flor”.",
+  text: "Quería que mi portfolio mostrara cómo pienso y tomo decisiones de diseño, no solo proyectos terminados. Para darle identidad propia, me inspiré en mi escritorio.",
+  /** Las hojas del cuaderno del hero: lo que cuenta cada caso del portfolio (contexto, participación, decisiones y aprendizajes). La tercera, la de las decisiones, va marcada. */
+  notebook: ["Contexto", "Mi participación", "Decisiones de diseño", "Aprendizajes"],
 };
 
 export const CONVEY = {
   title: "Lo que quería transmitir",
-  text: "Quería que mi portfolio mostrara mi trabajo, pero también algo de mi personalidad. Que quien lo recorriera pudiera conocer mis proyectos, encontrar pequeños detalles que hablaran de mí y hacerse una idea de cómo sería trabajar conmigo. No solo ver los resultados, sino entender las decisiones detrás de ellos.",
+  text: "Quería que mi portfolio mostrara también algo de mi personalidad: que quien lo recorriera encontrara pequeños detalles que hablaran de mí y pudiera hacerse una idea de cómo sería trabajar conmigo.",
   items: [
     { title: "Mi escritorio real", text: "Cuaderno, sticky notes y pizarra. Elementos que forman parte de mi día a día." },
     { title: "Organizar varias tareas", text: "Banderitas para ordenar ideas, proyectos e información." },
@@ -76,12 +78,10 @@ export const INSPIRED = {
   text: "Exploré distintas formas de mostrar proyectos y dar personalidad a un portfolio.",
 };
 
-/** Detalle personal dentro de la idea 03 ("Construir una atmósfera propia"), donde se habla de la música. El enlace es real; no se describe su contenido. */
+/** Detalle personal en el cierre, debajo de la reflexión final. El enlace es real; sin descripción ni subtítulo. */
 export const PLAYLIST = {
   url: "https://open.spotify.com/playlist/3qd2y7Jg7A1CKroCHTXW7X",
-  title: "¿Qué escucho mientras diseño?",
-  text: "Mi playlist para acompañar las ideas.",
-  cta: "Escuchar mi playlist",
+  text: "Lo que escucho mientras diseño",
 };
 
 export interface Concept {
@@ -135,7 +135,6 @@ export const CONCEPTS: Concept[] = [
 /** Cierre: una conclusión, no un resumen. Los aprendizajes ya están en las seis ideas. */
 export const CLOSING = {
   title: "Un portfolio que se sintiera mío.",
-  cta: "Explorar mis proyectos",
   quote:
     "De todas esas referencias fui encontrando mi propio equilibrio: un portfolio que se sintiera mío, pero donde lo más importante siguiera siendo poder conocer mi trabajo.",
 };
