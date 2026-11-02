@@ -48,7 +48,7 @@ Router por path (History API), escrito a mano en `App.tsx`; navegación en `lib/
 
 - `/` — home (secciones `/sobre-mi`, `/proyectos`, `/experiencia`, `/contacto`)
 - `/proyectos/:slug` — un proyecto/caso (CEMICO, Buscador Agrícola, Juan Gas, Audagno, InfoCasas)
-- `/experiencia/:slug` — el detalle de una experiencia laboral (Cintelink, Consultoría, Folcode)
+- `/experiencia/:slug` — el detalle de una experiencia laboral (Cintelink, Consultoría, Bridgenext)
 
 ## Pendientes
 

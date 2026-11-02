@@ -235,3 +235,28 @@ Las cuatro tarjetas del home (Cintelink, CEMICO, Buscador Agrícola, Juan Gas GN
 ## Notas de trabajo
 - Fotos: `src/imports/` conserva los **nombres exactos** de archivo (ver CLAUDE.md). Las fotos pesadas (>1 MB) conviene optimizarlas antes de usarlas en el home.
 - El navegador de vista previa de Claude renderiza por software: con muchos `backdrop-filter` las capturas pueden salir en blanco o desfasadas. No es un bug de la página.
+
+## Folcode → Bridgenext (2026-11-01)
+Folcode fue adquirida por Bridgenext, y Florencia pidió reemplazar el nombre. La experiencia pasa a `/experiencia/bridgenext` (la dirección anterior redirige con un 308 desde `vercel.json`). Cambian la empresa, "Qué es Bridgenext" (explica que adquirió Folcode), el SEO y el sticker. Se conservan, porque nombran hechos o archivos: el proyecto "Web Folcode" y su enlace de Behance, el texto del rediseño del sitio institucional de Folcode, el texto alternativo de la imagen del journey map y los nombres de archivo `folcode-*.webp`.
+
+## Páginas editoriales: alineación con el sistema (2026-11-01)
+Auditoría de `/como-disene-mi-portfolio` y `/como-trabajo-con-ia` contra `DESIGN_SYSTEM.md` y los componentes existentes:
+- **Ritmo vertical:** secciones de contenido `py-20 lg:py-36` e intro `mb-14 lg:mb-20`, como las secciones del home. El cierre oscuro conserva `py-16 lg:py-24` (excepción del CTA). Los heroes usan el padding de `DetailHero`.
+- **Sticky notes:** mismos colores que "Cómo se conecta" (`#fff3a6`, `#ffd6e3`), inclinación de hasta 1° y sombra `0_2px_4px`. La hoja de cuaderno usa la sombra de "Sobre mí" y su texto es `type-body` (el renglón es su interlineado).
+- **Numeración:** componente `Num` (degradado del sistema; `dark` para fondo oscuro), nunca un eyebrow gris.
+- **Subbloques:** `type-h3`; `type-title-compact` queda para ítems de listas densas.
+- **Movimiento:** reveal estándar (`y 20`, 0,5 s, expo-out) y párrafos con `space-y-4`.
+- **Enlaces de texto:** un solo estilo, `TEXT_LINK_CLASS` / `PageLink` (`components/PageLink.tsx`): el mismo de "Abrir en otra pestaña" en los Prototipos de los detalles. Lo usan el acceso de "Cómo trabajo", el de "Sobre mí" y los prototipos.
+
+## Precisión narrativa de casos (2026-11)
+
+Revisión editorial selectiva (mismo criterio: solo lo que el contenido ya documenta; sin entrevistas, pruebas de usabilidad, alternativas descartadas ni métricas inventadas). Cambios, en español y en inglés con el mismo significado:
+
+- **Cintelink, «El desafío»:** ahora dice qué había que diseñar (experiencias digitales para operaciones de carga con personas, autorizaciones y dispositivos físicos; la información que cada persona necesita para su tarea; qué pasa cuando un dato no llega o un dispositivo falla). «Cuando una operación cambiaba de estado» no se incluyó: el caso no lo documenta.
+- **CEMICO, «Cómo se conecta»:** la introducción explica qué es el anunciador de pacientes (la persona se anuncia al llegar y recibe el llamado en la sala de espera), con lo que ya decían sus tres pasos.
+- **Buscador Agrícola, contacto:** el paso y la decisión usan las palabras que el caso ya tenía (registro, identificar a la persona interesada, demanda) y sin repetir «contacto/conexión».
+- **Cómo diseñé mi portfolio, «Lo que quería transmitir»:** suma la intención de poder imaginar cómo sería trabajar con ella y entender las decisiones, no solo ver los resultados.
+
+Revisados y sin cambios por estar suficientemente claros: Juan Gas GNC Club (la consulta de puntos y el dashboard en desarrollo ya están diferenciados), InfoCasas, AUDAGNO y «Cómo integro la IA en mi proceso de diseño» (los tres ejemplos ya dicen para qué usó IA, qué hizo ella y qué aportó el prototipo).
+
+Pendiente de decidir: en CEMICO y en Consultoría, «validar» (prototipos para «validar cómo se conectaban las partes» / «validarlos antes de la implementación») no aclara con quién; el caso no documenta pruebas con usuarios.

@@ -23,6 +23,8 @@ El repo es **`FlorenciaAcu/florenciaux`** (público). Es el único.
   Windows del 8/9/2026). Si puede, corre `tsc` y el servidor de desarrollo para verificar. Si no puede, o si hay que
   borrar archivos, pasa el comando para que lo corra Florcita desde la terminal de VS Code.
 - `.git/` se puede leer, pero no se escribe a mano.
+- La página pública `/como-disene-mi-portfolio` (`ReferencesPage.tsx`, contenido en `src/app/data/referencias.ts`, ruta y SEO en `src/app/data/seo.ts`) cuenta cómo se diseñó este portfolio: las ideas que inspiraron las decisiones, nunca una lista de portfolios ajenos con nombre. Se enlaza desde "Cómo trabajo" en el home, es indexable y está en el sitemap. Reglas de mantenimiento en [`docs/REFERENCIAS.md`](docs/REFERENCIAS.md).
+- La página pública `/como-trabajo-con-ia` (`AIProcessPage.tsx`, contenido en `src/app/data/procesoIA.ts`, ruta y SEO en `src/app/data/seo.ts`) explica cómo aborda proyectos de clientes y dónde usa IA; no es el caso del portfolio. Solo lleva lo confirmado por Florencia o documentado en los casos (sin métricas, plazos ni cantidades inventadas). Se enlaza desde "Cómo trabajo" en el home (`EditorialLink`). Pendiente: el documento real de relevamiento y más ejemplos con evidencia.
 
 ## Estética: reglas fijas
 
@@ -60,7 +62,7 @@ src/
 ```
 
 Rutas (URLs reales): `/`, `/proyectos/:slug` (casos: CEMICO, Buscador Agrícola, Juan Gas, Audagno, InfoCasas),
-`/experiencia/:slug` (experiencia laboral: Cintelink, Consultoría, Folcode), más secciones del home
+`/experiencia/:slug` (experiencia laboral: Cintelink, Consultoría, Bridgenext), más secciones del home
 (`/sobre-mi`, `/proyectos`, `/experiencia`, `/contacto`). Los links viejos con `#/…` se convierten solos en `lib/router.ts`.
 `npm run build` corre `vite build` y después `scripts/prerender.mjs`: genera un HTML por caso (`dist/proyectos/cemico.html`)
 con su título, descripción y canonical, y el `sitemap.xml`. `vercel.json` usa `cleanUrls` y reescribe el resto a `index.html`.
@@ -120,7 +122,7 @@ Principio general: cada detalle visual tiene que cambiar cómo se entiende el co
 - **Divisores** con criterio, no por defecto.
 - **Diagramas "Cómo se conecta":** se conservan en todos los casos donde existen y van justo después de "Cómo trabajé"
   y su imagen.
-- **Títulos de sección:** pueden responder a su contenido. AUDAGNO es "Quién es Juan Audagno" y Folcode es "Mi
+- **Títulos de sección:** pueden responder a su contenido. AUDAGNO es "Quién es Juan Audagno" y Bridgenext es "Mi
   recorrido"; no se normalizan a "Qué es…" / "El desafío".
 - **"Decisiones de diseño":** sin cantidad fija. Solo decisiones concretas con problema, intervención y valor; sin
   justificaciones, investigaciones ni métricas inventadas; una regla de negocio no es automáticamente una decisión de
@@ -139,7 +141,7 @@ Principio general: cada detalle visual tiene que cambiar cómo se entiende el co
   los viejos que queden sin uso se informan para que ella los borre.
 
 ### Privacidad y analítica
-- Google Analytics, Tag Manager y Clarity **solo cargan después de "Aceptar"** (`src/app/lib/consent.ts`). Nunca se
+- Google Analytics y Clarity **solo cargan después de "Aceptar"** (`src/app/lib/consent.ts`); no se usa Google Tag Manager. Nunca se
   pegan en `index.html` ni se agrega el `<noscript>` con iframe. "Aceptar" y "Rechazar" se ven iguales.
 
 ### Cómo se trabajan los cambios

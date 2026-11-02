@@ -116,10 +116,10 @@ Quedaron en su lugar por ahora — son decisiones del rediseño, no del build.
    `@import` de CSS bloquea el render y encadena dos round-trips. Va mejor como `<link rel="preconnect">`
    más `<link rel="stylesheet">` en `index.html`.
 3. **Resuelto (2026-10-03): analítica con consentimiento.** Microsoft Clarity (`tiqf6172y1`), Google
-   Analytics (`G-K0C4D7W7SH`) y Google Tag Manager (`GTM-5XFNQ56C`) ya no están en `index.html`: los carga `src/app/lib/consent.ts` solo después de
+   Analytics (`G-K0C4D7W7SH`) ya no están en `index.html`: los carga `src/app/lib/consent.ts` solo después de
    que la persona acepta el banner (`CookieConsent.tsx`). La elección queda en `localStorage` (`fa-consent`)
    y se cambia desde "Preferencias de cookies" en el pie. Si cambia de aceptar a rechazar, se borran las
-   cookies de ambas herramientas y se recarga. Falta una página de política de privacidad a la que enlazar.
+   cookies de ambas herramientas (en el dominio y en sus dominios padre) y se recarga. Google Tag Manager se quitó el 2026-11: no se usa (`gtag.js` es la librería de Google Analytics, no un contenedor de GTM). Falta una página de política de privacidad a la que enlazar.
 4. **La "evidencia visual" de los casos son placeholders vacíos.** `CaseStudyPage` renderiza
    `<ImagePlaceholder />` tantas veces como diga `imageCount`. Nunca hubo imágenes reales de casos.
 5. **El único `<img>` de la app no tiene `alt`.** El resto de las imágenes son fondos CSS, que tampoco
@@ -140,3 +140,10 @@ pnpm build     ✓ built in 5.03s
                dist/assets/index.js   324 kB  (gzip 102 kB)
                dist/assets/index.css   99 kB  (gzip  16 kB)
 ```
+
+## Decisión: nadie puede embeber florenciaux.com (2026-10-29)
+
+`vercel.json` envía `X-Frame-Options: DENY` y `Content-Security-Policy: frame-ancestors 'none'` en todas las rutas, igual que los
+sitios de referencia que no se pueden incrustar. Evita que otra página muestre el sitio dentro de un `<iframe>` (clickjacking y
+copias embebidas). No impide capturas ni que alguien lo copie. Si algún día hay que mostrarlo embebido en un lugar propio, hay que
+cambiar `frame-ancestors` a esa dirección. Solo se ve el efecto en Vercel, no en `npm run dev`.
