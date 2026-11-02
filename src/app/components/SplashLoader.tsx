@@ -1,5 +1,6 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { useI18n } from "../i18n/useI18n";
 
 const SEEN_KEY = "fa-splash-seen";
 const WORDS = ["FLOR", "ACUÑA"];
@@ -52,6 +53,7 @@ export function useSplashDone() {
 
 export function SplashLoader() {
   const finished = useSplashDone();
+  const { ui } = useI18n();
 
   useEffect(() => {
     if (finished) return;
@@ -79,7 +81,7 @@ export function SplashLoader() {
         <motion.div
           key="splash"
           role="status"
-          aria-label="Cargando el portfolio de Florencia Acuña"
+          aria-label={ui.splash.ariaLabel}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a]"
           exit={{ y: "-100%" }}
           transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}

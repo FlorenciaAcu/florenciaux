@@ -1,5 +1,7 @@
 // Global site data: one place for the domain and the default metadata.
 import { INSTAGRAM_URL, LINKEDIN_URL, MEDIUM_URL } from "./contact";
+import { siteEn } from "./en/site.en";
+import type { Lang } from "../i18n/routes";
 export const SITE_URL = "https://www.florenciaux.com";
 export const SITE_NAME = "Florencia Acuña";
 
@@ -18,12 +20,13 @@ export interface PageSeo {
 }
 
 /** Canonical URL: every page has its own path now (the home is the site root). */
-export const canonicalFor = (path?: string) => (path && path !== "/" ? absoluteUrl(path) : SITE_URL);
+export const canonicalFor = (path?: string) =>
+  path === "/en" ? `${SITE_URL}/en/` : path && path !== "/" ? absoluteUrl(path) : SITE_URL;
 
 /** Structured data (schema.org) for search engines: who the person is, which profiles are hers, and which site is hers.
  *  One source for both the browser (SEOHead) and the build (scripts/prerender.mjs), so the HTML that crawlers read first says the same.
  *  `sameAs` is only for her own profiles; press that mentions her does not go here. */
-export const structuredData = () => ({
+export const structuredData = (lang: Lang = "es") => ({
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -34,27 +37,29 @@ export const structuredData = () => ({
       url: SITE_URL,
       jobTitle: "Product Designer",
       description:
-        "Product Designer especializada en productos digitales, plataformas SaaS, MVPs, prototipado funcional e IA aplicada al producto. Basada en San Juan, Argentina.",
+        lang === "en"
+          ? siteEn.personDescription
+          : "Product Designer especializada en productos digitales, plataformas, MVPs, prototipado funcional e IA aplicada al producto. Basada en San Juan, Argentina.",
       address: {
         "@type": "PostalAddress",
         addressLocality: "San Juan",
         addressCountry: "AR",
       },
       sameAs: [LINKEDIN_URL, MEDIUM_URL, INSTAGRAM_URL],
-      knowsAbout: [
+      knowsAbout: lang === "en" ? siteEn.knowsAbout : [
         "Product Design",
         "UX/UI Design",
         "Diseño de productos digitales",
         "Prototipado funcional",
         "IA aplicada al producto",
         "MVPs",
-        "Plataformas SaaS",
+        "Plataformas digitales",
         "Design Systems",
         "Experiencia de usuario",
         "Diseño de experiencia",
         "Diseño de sitios web",
         "Diseño de apps",
-        "Rediseño de apps",
+        "Rediseño de plataformas",
       ],
     },
     {
@@ -63,7 +68,7 @@ export const structuredData = () => ({
       url: SITE_URL,
       name: "Florencia Acuña — Portfolio",
       alternateName: "florenciaux",
-      inLanguage: "es-AR",
+      inLanguage: lang === "en" ? "en" : "es-AR",
       about: { "@id": `${SITE_URL}/#person` },
       author: { "@id": `${SITE_URL}/#person` },
     },

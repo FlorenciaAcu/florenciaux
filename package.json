@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "node scripts/check-i18n.mjs && vite build && node scripts/prerender.mjs",
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "build:review": "node scripts/build-review.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

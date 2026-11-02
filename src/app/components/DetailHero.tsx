@@ -2,6 +2,8 @@ import { motion } from "motion/react";
 import { ArrowLeft, ArrowUpRight, ChevronRight, MapPin } from "lucide-react";
 import { ReactNode } from "react";
 import { Sticker, type StickerName } from "./Stickers";
+import { handleLinkClick } from "../lib/router";
+import { useI18n } from "../i18n/useI18n";
 
 interface DetailHeroProps {
   title: string;
@@ -9,7 +11,7 @@ interface DetailHeroProps {
   onBack: () => void;
   backLabel: string;
   /** Path to this page, like the breadcrumb of a code editor ("Experiencia / Cintelink"). The last one is the current page. */
-  crumbs?: { label: string; onClick?: () => void }[];
+  crumbs?: { label: string; href?: string }[];
   /** A personal touch that sits beside the title (desktop only). */
   sticker?: StickerName;
   /** Optional plain-text references under the title. */
@@ -20,6 +22,7 @@ interface DetailHeroProps {
 
 /** Detail-page header: back button + project canvas. Optional references stay plain text — no chips. */
 export function DetailHero({ title, tagline, onBack, backLabel, crumbs, sticker, location, website, children }: DetailHeroProps) {
+  const { ui } = useI18n();
   return (
     <div data-header-theme="dark" className="relative overflow-hidden bg-[#0a0a0a] pt-28 pb-14 md:pt-32 md:pb-[5.5rem]">
       {/* Dot grid + neon blobs — same dark language as the home hero */}
@@ -46,17 +49,21 @@ export function DetailHero({ title, tagline, onBack, backLabel, crumbs, sticker,
             </button>
 
             {crumbs && (
-              <nav aria-label="Ruta" className="min-w-0">
+              <nav aria-label={ui.case.breadcrumbLabel} className="min-w-0">
                 <ol className="type-caption flex items-center gap-2 text-gray-400">
                   {crumbs.map((crumb, i) => {
                     const last = i === crumbs.length - 1;
                     return (
                       <li key={crumb.label} className="flex min-w-0 items-center gap-2">
                         {i > 0 && <ChevronRight className="h-3 w-3 shrink-0 text-gray-500" aria-hidden="true" />}
-                        {crumb.onClick && !last ? (
-                          <button type="button" onClick={crumb.onClick} className="py-1.5 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00e5ff]">
+                        {crumb.href && !last ? (
+                          <a
+                            href={crumb.href}
+                            onClick={(e) => handleLinkClick(e, crumb.href!)}
+                            className="py-1.5 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00e5ff]"
+                          >
                             {crumb.label}
-                          </button>
+                          </a>
                         ) : (
                           <span aria-current={last ? "page" : undefined} className={`truncate ${last ? "text-white" : ""}`}>
                             {crumb.label}
@@ -105,13 +112,13 @@ export function DetailHero({ title, tagline, onBack, backLabel, crumbs, sticker,
                 >
                   {website.label}
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                  <span className="sr-only">(se abre en otra pestaña)</span>
+                  <span className="sr-only">{ui.case.opensInNewTab}</span>
                 </a>
               )}
             </div>
           )}
 
-          {tagline && <p className="type-s1 mt-6 max-w-2xl text-gray-300">{tagline}</p>}
+          {tagline && <p className="type-s1 mt-6 text-gray-300">{tagline}</p>}
 
           {children}
         </motion.div>

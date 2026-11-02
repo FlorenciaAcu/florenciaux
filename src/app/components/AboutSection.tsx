@@ -3,22 +3,28 @@ import photo2 from '../../imports/graduacion-unj-sistemas-info.jpg';
 import photo4 from '../../imports/IMG_8281.jpeg';
 import { motion } from 'motion/react';
 import { Sticker, StickerName } from './Stickers';
+import { PageLink } from './PageLink';
+import { PROCESS_PATH } from '../data/seo';
+import { useI18n } from '../i18n/useI18n';
+import { isPageAvailable } from '../i18n/routes';
 
 const photos = [
-  { src: photo2, alt: "Florencia recibiéndose como Técnica en Sistemas de Información en la UNSJ", position: "object-[50%_55%]", zoom: "md:origin-[50%_62%] md:scale-[1.4] md:hover:scale-[1.46]", span: "hero" },
-  { src: photo1, alt: "Demo de app en evento", position: "object-center", zoom: "", span: "small" },
-  { src: photo4, alt: "Reunión remota con el equipo", position: "object-center", zoom: "", span: "small" },
+  { src: photo2, position: "object-[50%_55%]", zoom: "md:origin-[50%_62%] md:scale-[1.4] md:hover:scale-[1.46]", span: "hero" },
+  { src: photo1, position: "object-center", zoom: "", span: "small" },
+  { src: photo4, position: "object-center", zoom: "", span: "small" },
 ] as const;
 
-const interests: { name: StickerName; label: string; rotate: number }[] = [
-  { name: "swim", label: "Natación", rotate: -6 },
-  { name: "pilates", label: "Pilates & TPA", rotate: 5 },
-  { name: "mug", label: "Mucho tecito", rotate: -4 },
-  { name: "pizza", label: "Pizza", rotate: 6 },
-  { name: "cat", label: "Gatos", rotate: -5 },
+const interests: { name: "swim" | "pilates" | "mug" | "pizza" | "cat"; rotate: number }[] = [
+  { name: "swim", rotate: -6 },
+  { name: "pilates", rotate: 5 },
+  { name: "mug", rotate: -4 },
+  { name: "pizza", rotate: 6 },
+  { name: "cat", rotate: -5 },
 ];
 
 export function AboutSection() {
+  const { lang, home, lp } = useI18n();
+  const t = home.about;
   return (
     <section id="sobre-mi" className="py-20 lg:py-36 bg-surface-page/90">
       <div className="page-container">
@@ -34,7 +40,7 @@ export function AboutSection() {
               transition={{ duration: 0.55 }}
               className="type-h1 text-gray-900 mb-10"
             >
-              Sobre mí
+              {t.title}
             </motion.h2>
 
             <motion.div
@@ -44,26 +50,29 @@ export function AboutSection() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="type-body bg-notebook space-y-[1.65rem] py-[1.65rem] pl-12 pr-6 text-gray-600 shadow-[0_2px_6px_rgba(10,10,10,0.08)]"
             >
-              <p>
-                Soy Product Designer con más de cinco años de experiencia en plataformas web, aplicaciones y MVPs.
-              </p>
-              <p>
-                Trabajé dentro de equipos de producto y desarrollo, y también como consultora independiente. Me interesa entender cómo funciona cada producto, desde las necesidades de las personas hasta las reglas y los procesos que condicionan su diseño.
-              </p>
-              <p>
-                Cuando no estoy diseñando, me encontrás nadando, en Pilates o TPA, tomando un mate cocido —acá le decimos "yerbiado"— o pidiendo pizza.
-              </p>
+              {t.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+              {/* El enlace solo aparece si esa página existe en este idioma: nunca lleva a una página sin traducir */}
+              {isPageAvailable(PROCESS_PATH, lang) && (
+                <p>
+                  {/* -my-2 cancela el py-2 del enlace: la línea ocupa un solo renglón y el texto sigue apoyado en las líneas de la hoja */}
+                  <PageLink href={lp(PROCESS_PATH)} className="-my-2">
+                    {t.processLink}
+                  </PageLink>
+                </p>
+              )}
             </motion.div>
 
             <div className="grid grid-cols-3 sm:grid-cols-5 gap-x-2 gap-y-7 mt-10">
-              {interests.map(({ name, label, rotate }, i) => (
-                <Sticker key={name} name={name} label={label} rotate={rotate} size={64} delay={i * 0.07} className="justify-self-center" />
+              {interests.map(({ name, rotate }, i) => (
+                <Sticker key={name} name={name} label={t.interests[name]} rotate={rotate} size={64} delay={i * 0.07} className="justify-self-center" />
               ))}
             </div>
           </div>
 
           {/* Asymmetric photo collage — one hero shot, two accents */}
-          <div className="grid grid-cols-2 gap-2.5 md:grid-rows-2 md:h-[440px] lg:h-[500px]">
+          <div className="grid grid-cols-2 gap-2.5 md:grid-rows-2 md:h-[492px] lg:h-[552px]">
             {photos.map((photo, i) => (
               <motion.div
                 key={i}
@@ -79,7 +88,7 @@ export function AboutSection() {
               >
                 <img
                   src={photo.src}
-                  alt={photo.alt}
+                  alt={t.photos[i]}
                   className={`w-full h-full object-cover ${photo.position} ${photo.zoom} transition-transform duration-500 ease-out hover:scale-[1.06]`}
                   loading="lazy"
                   decoding="async"

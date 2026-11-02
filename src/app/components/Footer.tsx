@@ -1,14 +1,16 @@
 import { IsologoFA } from "./IsologoFA";
 import { Heart, Coffee } from "lucide-react";
-import { CV_URL, EMAIL, LINKEDIN_URL, MEDIUM_URL } from "../data/contact";
+import { CV_BY_LANG, EMAIL, LINKEDIN_URL, MEDIUM_URL } from "../data/contact";
+import { useI18n } from "../i18n/useI18n";
 import { OPEN_CONSENT_EVENT } from "../lib/consent";
 import { navigate } from "../lib/router";
 
 export function Footer() {
+  const { lang, ui, lp } = useI18n();
   const currentYear = new Date().getFullYear();
 
   const go = (path: string) => {
-    navigate(path);
+    navigate(lp(path));
   };
 
   return (
@@ -27,18 +29,18 @@ export function Footer() {
           {/* Nav: a labelled navigation landmark; the group label keeps its small eyebrow look */}
           <nav className="space-y-3" aria-labelledby="footer-nav-title">
             <p id="footer-nav-title" className="type-eyebrow text-gray-400 mb-4">
-              Navegación
+              {ui.footer.navigation}
             </p>
             <ul className="space-y-0.5">
               {[
-                { label: "Inicio", path: "/" },
-                { label: "Sobre mí", path: "/sobre-mi" },
-                { label: "Proyectos", path: "/proyectos" },
-                { label: "Experiencia", path: "/experiencia" },
+                { label: ui.nav.home, path: "/" },
+                { label: ui.nav.about, path: "/sobre-mi" },
+                { label: ui.nav.projects, path: "/proyectos" },
+                { label: ui.nav.experience, path: "/experiencia" },
               ].map((item) => (
-                <li key={item.label}>
+                <li key={item.path}>
                   <a
-                    href={item.path}
+                    href={lp(item.path)}
                     onClick={(e) => {
                       e.preventDefault();
                       go(item.path);
@@ -55,7 +57,7 @@ export function Footer() {
           {/* Links */}
           <div className="space-y-3">
             <p id="footer-contact-title" className="type-eyebrow text-gray-400 mb-4">
-              Contacto
+              {ui.footer.contact}
             </p>
             <ul className="space-y-0.5" aria-labelledby="footer-contact-title">
               <li>
@@ -88,12 +90,12 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href={CV_URL}
+                  href={CV_BY_LANG[lang]}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block py-1.5 text-sm text-gray-400 hover:text-magenta transition-colors"
                 >
-                  CV
+                  {ui.footer.cv}
                 </a>
               </li>
             </ul>
@@ -103,19 +105,19 @@ export function Footer() {
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="space-y-1">
             <p className="text-xs text-gray-400">
-              © {currentYear} Florencia Acuña. Todos los derechos reservados.
+              © {currentYear} Florencia Acuña. {ui.footer.rights}
             </p>
-            <p className="text-xs text-gray-400">Diseñado teniendo en cuenta criterios de accesibilidad.</p>
+            <p className="text-xs text-gray-400">{ui.footer.accessibility}</p>
             <button
               type="button"
               onClick={() => window.dispatchEvent(new Event(OPEN_CONSENT_EVENT))}
               className="py-1.5 text-xs text-gray-400 underline underline-offset-4 transition-colors hover:text-magenta"
             >
-              Preferencias de cookies
+              {ui.footer.cookies}
             </button>
           </div>
           <p className="inline-flex items-center gap-1 text-xs text-gray-400">
-            Hecho con <Heart className="w-3.5 h-3.5 text-magenta fill-magenta" /> y mucho tecito <Coffee className="w-3.5 h-3.5 text-magenta" />
+            {ui.footer.madeWith} <Heart className="w-3.5 h-3.5 text-magenta fill-magenta" /> {ui.footer.andLotsOfTea} <Coffee className="w-3.5 h-3.5 text-magenta" />
           </p>
         </div>
       </div>

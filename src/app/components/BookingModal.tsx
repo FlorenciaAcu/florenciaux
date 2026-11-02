@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { ExternalLink, Loader2, X } from "lucide-react";
 import { BOOKING_EMBED_URL, SCHEDULE_URL } from "../data/contact";
+import { useI18n } from "../i18n/useI18n";
 
 interface BookingModalProps {
   open: boolean;
@@ -11,6 +12,8 @@ interface BookingModalProps {
 
 /** Google Calendar booking page inside a dialog, so the visitor never leaves the site. */
 export function BookingModal({ open, onClose }: BookingModalProps) {
+  const { ui } = useI18n();
+  const t = ui.booking;
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const onCloseRef = useRef(onClose);
@@ -78,7 +81,7 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
           >
             <div className="flex items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
               <h2 id="booking-title" className="text-base font-semibold text-white">
-                Agendar videollamada
+                {t.title}
               </h2>
               <div className="flex items-center gap-3">
                 <a
@@ -88,12 +91,12 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                   className="inline-flex items-center gap-1.5 text-xs text-gray-300 underline-offset-4 hover:text-white hover:underline"
                 >
                   <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                  Abrir en otra pestaña
+                  {t.openInTab}
                 </a>
                 <button
                   ref={closeRef}
                   onClick={() => onCloseRef.current()}
-                  aria-label="Cerrar agenda"
+                  aria-label={t.close}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-gray-200 transition-colors hover:border-magenta hover:text-white"
                 >
                   <X className="h-4 w-4" aria-hidden="true" />
@@ -107,20 +110,20 @@ export function BookingModal({ open, onClose }: BookingModalProps) {
                   className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#14141c] px-6 text-center text-sm text-gray-300"
                 >
                   <Loader2 className="h-6 w-6 animate-spin text-magenta motion-reduce:animate-none" aria-hidden="true" />
-                  <p>Cargando la agenda…</p>
+                  <p>{t.loading}</p>
                   <a
                     href={SCHEDULE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs text-gray-400 underline underline-offset-4 hover:text-white"
                   >
-                    ¿Tarda mucho? Abrila en otra pestaña
+                    {t.slow}
                   </a>
                 </div>
               )}
               <iframe
                 src={BOOKING_EMBED_URL}
-                title="Agenda de la videollamada inicial con Florencia Acuña"
+                title={t.iframeTitle}
                 onLoad={() => setLoaded(true)}
                 className="absolute inset-0 h-full w-full border-0 bg-white"
               />

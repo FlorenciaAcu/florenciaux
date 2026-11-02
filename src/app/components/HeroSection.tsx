@@ -4,12 +4,15 @@ import { ChevronDown } from "lucide-react";
 import { Button } from "./Button";
 import { Sticker } from "./Stickers";
 import { useSplashDone } from "./SplashLoader";
-import { CV_URL } from "../data/contact";
+import { CV_BY_LANG } from "../data/contact";
+import { useI18n } from "../i18n/useI18n";
 import heroPhoto from "../../imports/hero-flor.jpg";
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const ready = useSplashDone();
+  const { lang, home } = useI18n();
+  const t = home.hero;
 
   const handleVerProyectos = () => {
     const el = document.getElementById("proyectos");
@@ -52,7 +55,7 @@ export function HeroSection() {
                   <span className="absolute inline-flex h-full w-full animate-pulse rounded-full bg-[#ff006e] opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-[#ff006e]" />
                 </span>
-                Florencia Acuña — Product Designer
+                {t.badge}
               </span>
             </motion.div>
 
@@ -62,9 +65,9 @@ export function HeroSection() {
               transition={{ duration: 0.65, delay: 0.15 }}
               className="hero-title text-white md:mb-8"
             >
-              Transformo ideas en{" "}
+              {t.titleA}{" "}
               <span className="relative mt-3 inline-block whitespace-nowrap">
-                <span className="text-gradient-brand-dark">sistemas que escalan.</span>
+                <span className="text-gradient-brand-dark">{t.titleB}</span>
               </span>
             </motion.h1>
 
@@ -74,7 +77,7 @@ export function HeroSection() {
               transition={{ duration: 0.55, delay: 0.35 }}
               className="type-s1 text-balance text-gray-300"
             >
-              Investigo, defino y diseño con criterio de producto, y complemento mi trabajo con IA.
+              {t.subtitle}
             </motion.p>
 
             <motion.div
@@ -83,9 +86,9 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.5 }}
               className="flex flex-wrap gap-4"
             >
-              <Button onClick={handleVerProyectos}>Ver proyectos</Button>
-              <Button variant="secondary" theme="dark" href={CV_URL} target="_blank" rel="noopener noreferrer">
-                Ver CV
+              <Button onClick={handleVerProyectos}>{t.ctaProjects}</Button>
+              <Button variant="secondary" theme="dark" href={CV_BY_LANG[lang]} target="_blank" rel="noopener noreferrer">
+                {t.ctaCv}
               </Button>
             </motion.div>
           </div>
@@ -102,7 +105,7 @@ export function HeroSection() {
               <div className="relative h-[210px] overflow-hidden rounded-[calc(2rem-2px)] bg-[#111] sm:h-[260px] lg:h-[min(54vh,500px)]">
                 <img
                   src={heroPhoto}
-                  alt="Florencia Acuña trabajando en su notebook al aire libre"
+                  alt={t.photoAlt}
                   className="h-full w-full object-cover object-[50%_28%]"
                   decoding="async"
                 />
@@ -112,7 +115,7 @@ export function HeroSection() {
                     <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-[#00e5ff] opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-[#00e5ff]" />
                   </span>
-                  Disponible para nuevos proyectos
+                  {t.available}
                 </span>
               </div>
             </div>
@@ -126,13 +129,13 @@ export function HeroSection() {
       {/* Scroll cue — invites the visitor to keep exploring */}
       <motion.button
         onClick={handleScrollDown}
-        aria-label="Descubrir más"
+        aria-label={t.scroll}
         initial={{ opacity: 0 }}
         animate={ready ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 1.1 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-gray-300 hover:text-[#ff006e] transition-colors"
       >
-        <span className="text-xs font-medium tracking-wide">Descubrir más</span>
+        <span className="text-xs font-medium tracking-wide">{t.scroll}</span>
         <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>
           <ChevronDown className="w-5 h-5" />
         </motion.div>

@@ -3,8 +3,12 @@ import { IsologoFA } from "./IsologoFA";
 import { Menu, X } from "lucide-react";
 import { Button } from "./Button";
 import { currentPath, navigate } from "../lib/router";
+import { LanguageSwitch } from "./LanguageSwitch";
+import { useI18n } from "../i18n/useI18n";
+import { normalizePath } from "../i18n/routes";
 
 export function Header() {
+  const { ui, lp } = useI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
@@ -34,11 +38,11 @@ export function Header() {
   const go = (path: string) => {
     setIsMobileMenuOpen(false);
     // Already on the home page and asking for "Inicio": there is no route change to react to, so scroll up here.
-    if (path === "/" && currentPath() === "/") {
+    if (path === "/" && currentPath() === normalizePath(lp("/"))) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    navigate(path);
+    navigate(lp(path));
   };
 
   // Contact options (video call / WhatsApp) live at the bottom of the page; on pages without that block, go home and scroll there.
@@ -46,14 +50,14 @@ export function Header() {
     setIsMobileMenuOpen(false);
     const el = document.getElementById("contacto");
     if (el) el.scrollIntoView({ behavior: "smooth" });
-    else navigate("/contacto");
+    else navigate(lp("/contacto"));
   };
 
   const navItems = [
-    { label: "Inicio", path: "/" },
-    { label: "Sobre mí", path: "/sobre-mi" },
-    { label: "Proyectos", path: "/proyectos" },
-    { label: "Experiencia", path: "/experiencia" },
+    { label: ui.nav.home, path: "/" },
+    { label: ui.nav.about, path: "/sobre-mi" },
+    { label: ui.nav.projects, path: "/proyectos" },
+    { label: ui.nav.experience, path: "/experiencia" },
   ];
 
   return (
@@ -75,8 +79,8 @@ export function Header() {
           {/* Links (real hash URLs); the click keeps the old behavior: close the menu and, for "Inicio", scroll to the top */}
           {navItems.map((item) => (
             <a
-              key={item.label}
-              href={item.path}
+              key={item.path}
+              href={lp(item.path)}
               onClick={(e) => {
                 e.preventDefault();
                 go(item.path);
@@ -89,8 +93,9 @@ export function Header() {
               <span className="absolute left-0 -bottom-0.5 h-[2px] w-full origin-left scale-x-0 bg-magenta-strong transition-transform duration-300 ease-out group-hover:scale-x-100" aria-hidden="true" />
             </a>
           ))}
+          <LanguageSwitch dark={isDark} />
           <Button onClick={goContact}>
-            Contacto
+            {ui.nav.contact}
           </Button>
         </nav>
 
@@ -100,7 +105,7 @@ export function Header() {
           className={`md:hidden relative z-50 -m-2.5 p-2.5 transition-colors duration-300 ${
             isDark && !isMobileMenuOpen ? "text-white" : "text-gray-900"
           }`}
-          aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-label={isMobileMenuOpen ? ui.nav.closeMenu : ui.nav.openMenu}
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-menu"
         >
@@ -131,8 +136,8 @@ export function Header() {
           <nav className="flex flex-col">
             {navItems.map((item) => (
               <a
-                key={item.label}
-                href={item.path}
+                key={item.path}
+                href={lp(item.path)}
                 onClick={(e) => {
                   e.preventDefault();
                   go(item.path);
@@ -143,8 +148,9 @@ export function Header() {
               </a>
             ))}
             <div className="pt-6">
+              <LanguageSwitch large className="mb-5" />
               <Button onClick={goContact} className="w-full">
-                Contacto
+                {ui.nav.contact}
               </Button>
             </div>
           </nav>

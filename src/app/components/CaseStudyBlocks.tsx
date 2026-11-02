@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { motion } from "motion/react";
+import { TEXT_LINK_CLASS } from "./PageLink";
+import { useI18n } from "../i18n/useI18n";
+import type { Ui } from "../i18n/ui.es";
 import { ArrowRight, ArrowUpRight, Maximize2, MousePointerClick, X } from "lucide-react";
 import { OpenCue } from "./NavArrow";
 import type { CaseStudy, CaseStudyImage, CaseStudyScreenGroup, ExperienceProject } from "../data/experiences";
@@ -20,6 +23,7 @@ const h2 = "type-h2 text-gray-900";
 
 /** Full-size view of a case image: Esc or click outside closes it, focus goes to the close button and returns to the image. */
 function Lightbox({ image, onClose }: { image: { src: string; alt: string }; onClose: () => void }) {
+  const { ui } = useI18n();
   const closeRef = useRef<HTMLButtonElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
@@ -59,7 +63,7 @@ function Lightbox({ image, onClose }: { image: { src: string; alt: string }; onC
         ref={closeRef}
         type="button"
         onClick={onClose}
-        aria-label="Cerrar imagen"
+        aria-label={ui.case.closeImage}
         className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
         <X className="h-5 w-5" aria-hidden="true" />
@@ -81,6 +85,7 @@ function Lightbox({ image, onClose }: { image: { src: string; alt: string }; onC
  *  "Qué aprendí" (exista o no el campo — el lugar es fijo). Muestra la foto real cuando existe (`images`)
  *  y el placeholder "Imagen pendiente" cuando todavía no hay una. */
 export function CaseImage({ image }: { image?: { src: string; alt: string } }) {
+  const { ui } = useI18n();
   const [open, setOpen] = useState(false);
 
   return image ? (
@@ -89,10 +94,10 @@ export function CaseImage({ image }: { image?: { src: string; alt: string } }) {
         {...reveal}
         type="button"
         onClick={() => setOpen(true)}
-        aria-label={`Ampliar imagen: ${image.alt}`}
+        aria-label={ui.case.enlargeImage(image.alt)}
         className="group relative block w-full cursor-zoom-in rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong"
       >
-        <img src={image.src} alt="" loading="lazy" decoding="async" className="w-full rounded-xl object-cover ring-1 ring-gray-200" />
+        <img src={image.src} alt={image.alt} loading="lazy" decoding="async" className="w-full rounded-xl object-cover ring-1 ring-gray-200" />
         <span
           aria-hidden="true"
           className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
@@ -104,7 +109,7 @@ export function CaseImage({ image }: { image?: { src: string; alt: string } }) {
     </>
   ) : (
     <div className="flex aspect-[16/9] items-center justify-center rounded-xl bg-gray-200 ring-1 ring-gray-200">
-      <p className="type-caption font-medium text-gray-600">Imagen pendiente</p>
+      <p className="type-caption font-medium text-gray-600">{ui.case.imagePending}</p>
     </div>
   );
 }
@@ -187,6 +192,7 @@ export function ExperienceIntro({
    *  (cases carry their own in `data.images`). The second lives in `CaseStudyDetails`, before "Qué aprendí". */
   images?: CaseStudyImage[];
 }) {
+  const { ui } = useI18n();
   // Experiences without a written case: the same opening as the cases ("Qué es" + quick facts) and the same "Mi trabajo".
   if (!data) {
     return (
@@ -203,10 +209,10 @@ export function ExperienceIntro({
             {meta && <MetaList meta={meta} />}
           </div>
         )}
-        {challenge && <ChallengeSection title={challengeTitle ?? "El desafío"} text={challenge} />}
+        {challenge && <ChallengeSection title={challengeTitle ?? ui.case.challenge} text={challenge} />}
         <motion.div {...reveal} id="como-trabaje" className="scroll-mt-28">
           <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <h2 className={h2}>Cómo trabajé</h2>
+            <h2 className={h2}>{ui.case.howIWorked}</h2>
             {!meta && <span className="text-sm text-gray-600">{period}</span>}
           </div>
           <div className="type-body space-y-4 text-gray-800">
@@ -231,12 +237,12 @@ export function ExperienceIntro({
         {data.meta && <MetaList meta={data.meta} />}
       </div>
 
-      {data.challenge && <ChallengeSection title={data.challengeTitle ?? "El desafío"} text={data.challenge} terms={data.terms} />}
+      {data.challenge && <ChallengeSection title={data.challengeTitle ?? ui.case.challenge} text={data.challenge} terms={data.terms} />}
 
       {data.role.length > 0 && (
         <motion.div {...reveal} id="como-trabaje" className="scroll-mt-28">
           <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <h2 className={h2}>Cómo trabajé</h2>
+            <h2 className={h2}>{ui.case.howIWorked}</h2>
             {!data.meta && <span className="text-sm text-gray-600">{period}</span>}
           </div>
           <WorkParagraphs items={data.role} />
@@ -260,27 +266,28 @@ export function ExperienceIntro({
 type OutlineItem = { id: string; label: string; sub?: boolean };
 
 /** The sections of a page, in the order they appear, for the sticky "on this page" index. */
-export function buildOutline(data: CaseStudy | undefined, opts: { projects?: boolean; about?: string; challenge?: string; learned?: boolean } = {}) {
+export function buildOutline(data: CaseStudy | undefined, ui: Ui, opts: { projects?: boolean; about?: string; challenge?: string; learned?: boolean } = {}) {
+  const t = ui.case;
   const items: OutlineItem[] = [];
   if (data) {
     items.push({ id: "que-es", label: data.aboutTitle });
-    if (data.challenge) items.push({ id: "desafio", label: data.challengeTitle ?? "El desafío" });
-    if (data.role.length > 0) items.push({ id: "como-trabaje", label: "Cómo trabajé" });
-    if (data.systemMap) items.push({ id: "sistema", label: "Cómo se conecta" });
-    if (opts.projects) items.push({ id: "proyectos", label: "Proyectos" });
+    if (data.challenge) items.push({ id: "desafio", label: data.challengeTitle ?? t.challenge });
+    if (data.role.length > 0) items.push({ id: "como-trabaje", label: t.howIWorked });
+    if (data.systemMap) items.push({ id: "sistema", label: t.systemMap });
+    if (opts.projects) items.push({ id: "proyectos", label: t.projects });
     if (data.screenGroups && data.screensTitle) items.push({ id: "pantallas", label: data.screensTitle });
-    if (data.projects) items.push({ id: "proyectos", label: "Proyectos" });
-    if (data.decisions) items.push({ id: "decisiones", label: "Decisiones de diseño" });
-    if (data.prototypes) items.push({ id: "prototipos", label: data.prototypesTitle ?? "Prototipos" });
-    if (data.evidence) items.push({ id: "evidencia", label: data.evidenceTitle ?? "Evidencia" });
+    if (data.projects) items.push({ id: "proyectos", label: t.projects });
+    if (data.decisions) items.push({ id: "decisiones", label: t.designDecisions });
+    if (data.prototypes) items.push({ id: "prototipos", label: data.prototypesTitle ?? t.prototypes });
+    if (data.evidence) items.push({ id: "evidencia", label: data.evidenceTitle ?? t.evidence });
     if (data.nextStage) items.push({ id: "siguiente-etapa", label: data.nextStage.navLabel ?? data.nextStage.title });
-    if (data.learned) items.push({ id: "aprendi", label: "Qué aprendí" });
+    if (data.learned) items.push({ id: "aprendi", label: t.learned });
   } else {
     if (opts.about) items.push({ id: "que-es", label: opts.about });
     if (opts.challenge) items.push({ id: "desafio", label: opts.challenge });
-    items.push({ id: "como-trabaje", label: "Cómo trabajé" });
-    if (opts.projects) items.push({ id: "proyectos", label: "Proyectos" });
-    if (opts.learned) items.push({ id: "aprendi", label: "Qué aprendí" });
+    items.push({ id: "como-trabaje", label: t.howIWorked });
+    if (opts.projects) items.push({ id: "proyectos", label: t.projects });
+    if (opts.learned) items.push({ id: "aprendi", label: t.learned });
   }
   return items;
 }
@@ -291,6 +298,7 @@ const FLAG_COLORS = ["bg-[#c8f0e0]", "bg-[#bfe0f2]", "bg-[#b4cdd3]", "bg-[#f2d3e
 /** Sticky "on this page" index for long cases (like the outline in Google Docs): where I am, and a way to jump.
  *  Desktop only; the sections themselves carry the ids. */
 export function CaseOutline({ items }: { items: OutlineItem[] }) {
+  const { ui } = useI18n();
   const [active, setActive] = useState(items[0].id);
   const key = items.map((item) => item.id).join();
 
@@ -315,8 +323,8 @@ export function CaseOutline({ items }: { items: OutlineItem[] }) {
   };
 
   return (
-    <nav aria-label="En esta página">
-      <p className="type-eyebrow mb-3 text-gray-600">En esta página</p>
+    <nav aria-label={ui.case.onThisPage}>
+      <p className="type-eyebrow mb-3 text-gray-600">{ui.case.onThisPage}</p>
       {/* Page flags on the edge of a sheet: each section is a colored strip; the one you are on is the one that sticks out. */}
       <ul className="space-y-1.5 border-r border-gray-300">
         {items.map((item, index) => {
@@ -346,6 +354,7 @@ export function CaseOutline({ items }: { items: OutlineItem[] }) {
 /** "Cómo se conecta": the pieces of the system as a sequence of nodes. Each connector draws in when it enters the viewport, then a dot keeps
  *  travelling along it (CSS, so reduced motion can switch it off). Vertical below xl, horizontal from xl. */
 function SystemMap({ map }: { map: NonNullable<CaseStudy["systemMap"]> }) {
+  const { ui } = useI18n();
   const handles = ["-left-1 -top-1", "-right-1 -top-1", "-bottom-1 -left-1", "-bottom-1 -right-1"];
   const shadow = "shadow-[0_2px_4px_rgba(10,10,10,0.12)]";
 
@@ -381,7 +390,7 @@ function SystemMap({ map }: { map: NonNullable<CaseStudy["systemMap"]> }) {
   return (
     <section id="sistema" className="scroll-mt-28">
       <motion.h2 {...reveal} className={`${h2} ${map.intro ? "mb-4" : "mb-10"}`}>
-        Cómo se conecta
+        {ui.case.systemMap}
       </motion.h2>
       {map.intro && (
         <motion.p {...reveal} className="type-s1 mb-10 text-gray-700">
@@ -453,9 +462,9 @@ function SystemMap({ map }: { map: NonNullable<CaseStudy["systemMap"]> }) {
 
 /** A prototype you can try without leaving the case. The iframe only loads on click, so the page stays light; the link to open it in its own tab is always there. */
 function PrototypeRow({ item }: { item: { label: string; url: string } }) {
+  const { ui } = useI18n();
   const [open, setOpen] = useState(false);
-  const linkClass =
-    "inline-flex items-center gap-1.5 py-2 text-sm font-semibold text-magenta-strong underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta-strong";
+  const linkClass = TEXT_LINK_CLASS;
 
   return (
     <li className="border-b border-gray-200 py-6">
@@ -464,12 +473,12 @@ function PrototypeRow({ item }: { item: { label: string; url: string } }) {
         <div className="flex items-center gap-6">
           <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} className={linkClass.replace("inline-flex", "hidden md:inline-flex")}>
             <MousePointerClick className="h-4 w-4" aria-hidden="true" />
-            {open ? "Cerrar prototipo" : "Probar acá"}
+            {open ? ui.case.closePrototype : ui.case.tryHere}
           </button>
           <a href={item.url} target="_blank" rel="noopener noreferrer" className={linkClass}>
-            Abrir en otra pestaña
+            {ui.case.openInNewTab}
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            <span className="sr-only">(se abre en otra pestaña)</span>
+            <span className="sr-only">{ui.case.opensInNewTab}</span>
           </a>
         </div>
       </div>
@@ -489,7 +498,7 @@ function PrototypeRow({ item }: { item: { label: string; url: string } }) {
           </div>
           <iframe
             src={item.url}
-            title={`Prototipo interactivo: ${item.label}`}
+            title={ui.case.interactivePrototype(item.label)}
             loading="lazy"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
             className="block h-[70vh] min-h-[28rem] w-full"
@@ -502,6 +511,7 @@ function PrototypeRow({ item }: { item: { label: string; url: string } }) {
 
 /** Groups of screens as plain images (no cards): each one opens full size. Few and representative. Shared by the case's "screens" block and by each feature's evidence. */
 function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
+  const { ui } = useI18n();
   return (
     <div className="space-y-16">
       {groups.map((group) => (
@@ -527,7 +537,7 @@ function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
                     decoding="async"
                     className={`${group.aspect} w-full rounded-xl object-contain object-top ring-1 ring-gray-200`}
                   />
-                  <span className="sr-only">Ver pantalla completa (se abre en otra pestaña)</span>
+                  <span className="sr-only">{ui.case.viewFullScreen}</span>
                 </a>
                 <figcaption className="type-caption mt-4 text-gray-600">{item.caption}</figcaption>
               </motion.figure>
@@ -542,21 +552,22 @@ function ScreenGroups({ groups }: { groups: CaseStudyScreenGroup[] }) {
 /** Projects of an experience, or projects inside a project, with the same structure everywhere ("Qué hice" / "Cómo lo abordé" / "Un ejemplo").
  *  A field that is missing is simply not shown. Every project is the same row (hairline on top); the arrow at the top right marks the ones that open. */
 export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[]; onOpen?: (slug: string) => void }) {
+  const { lp, ui } = useI18n();
   // Same cue as the cards of "Experiencia" (OpenCue): the whole row is the link (a stretched link, so there is one tab stop per project).
   const stretch = "after:absolute after:inset-0 after:content-[''] focus-visible:outline-none";
 
   return (
     <div id="proyectos" className="scroll-mt-28">
       <motion.h2 {...reveal} className={`${h2} mb-10`}>
-        Proyectos
+        {ui.case.projects}
       </motion.h2>
 
       <ol className="space-y-10 lg:space-y-12">
         {projects.map((project, i) => {
           const rows = [
-            { label: "Qué hice", text: project.brief },
-            ...(project.how ? [{ label: project.howCollective ? "Cómo lo abordamos" : "Cómo lo abordé", text: project.how }] : []),
-            ...(project.example ? [{ label: "Un ejemplo", text: project.example }] : []),
+            { label: ui.case.whatIDid, text: project.brief },
+            ...(project.how ? [{ label: project.howCollective ? ui.case.howWeApproached : ui.case.howIApproached, text: project.how }] : []),
+            ...(project.example ? [{ label: ui.case.example, text: project.example }] : []),
           ];
 
           // The selection frame means "you can click this" (same as the rows of Experiencia in the home). Projects with nowhere to go are plain rows.
@@ -596,7 +607,7 @@ export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[
               {project.slug && onOpen ? (
                 // A real link (not a button) so search engines and "open in a new tab" can follow it; a plain click is handled by the app.
                 <a
-                  href={`/proyectos/${project.slug}`}
+                  href={lp(`/proyectos/${project.slug}`)}
                   onClick={(event) => {
                     if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
                     event.preventDefault();
@@ -605,13 +616,13 @@ export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[
                   className={stretch}
                 >
                   <OpenCue className="absolute right-0 top-6 lg:top-8" />
-                  <span className="sr-only">Ver detalle de {project.name}</span>
+                  <span className="sr-only">{ui.case.viewDetail(project.name)}</span>
                 </a>
               ) : project.externalLink ? (
                 <a href={project.externalLink.url} target="_blank" rel="noopener noreferrer" title={project.externalLink.label} className={stretch}>
                   <OpenCue className="absolute right-0 top-6 lg:top-8" />
                   <span className="sr-only">
-                    {project.externalLink.label} (se abre en otra pestaña)
+                    {project.externalLink.label} {ui.case.opensInNewTab}
                   </span>
                 </a>
               ) : null}
@@ -625,6 +636,7 @@ export function ProjectList({ projects, onOpen }: { projects: ExperienceProject[
 
 /** Cover image, projects, my design decisions, screens, prototypes. Open layout: images and decisions without cards. */
 export function CaseStudyDetails({ data }: { data: CaseStudy }) {
+  const { ui } = useI18n();
   return (
     <div className="space-y-20 lg:space-y-32">
       {/* Screenshots go together, right after the intro: the cover and the rest of the screens, one after the other */}
@@ -671,7 +683,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
           <div className={`grid gap-14 ${data.decisionsImage ? "xl:grid-cols-[1.25fr_1fr] xl:items-start xl:gap-20" : ""}`}>
             <div>
               <motion.div {...reveal}>
-                <h2 className={h2}>Decisiones de diseño</h2>
+                <h2 className={h2}>{ui.case.designDecisions}</h2>
                 {data.decisionsIntro && <p className="type-s2 mt-5 text-gray-700">{data.decisionsIntro}</p>}
               </motion.div>
 
@@ -718,7 +730,7 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
       {data.prototypes && (
         <div id="prototipos" className="scroll-mt-28">
           <motion.h2 {...reveal} className={`${h2} ${data.prototypesNote ? "mb-4" : "mb-10"}`}>
-            {data.prototypesTitle ?? "Prototipos"}
+            {data.prototypesTitle ?? ui.case.prototypes}
           </motion.h2>
           {data.prototypesNote && (
             <motion.div {...reveal} className="mb-10 space-y-4">
@@ -768,10 +780,11 @@ export function CaseStudyDetails({ data }: { data: CaseStudy }) {
 
 /** Reflection, in the designer's own words: an h2 and a lead paragraph. It closes the case. */
 export function CaseStudyLearned({ data }: { data: { learned?: string } }) {
+  const { ui } = useI18n();
   if (!data.learned) return null;
   return (
     <motion.div {...reveal} id="aprendi" className="scroll-mt-28 border-t border-gray-200 pt-12 lg:pt-16">
-      <h2 className={`${h2} mb-5`}>Qué aprendí</h2>
+      <h2 className={`${h2} mb-5`}>{ui.case.learned}</h2>
       <div className="space-y-4">{paragraphs(data.learned, "type-s1 text-gray-700")}</div>
     </motion.div>
   );

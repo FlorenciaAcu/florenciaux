@@ -5,8 +5,10 @@ import { detailSticker } from "./Stickers";
 import { ClosingCTA } from "./ClosingCTA";
 import { NextCase } from "./NextCase";
 import { buildOutline, CaseImage, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro, ProjectList } from "./CaseStudyBlocks";
-import { getExperienceBySlug } from "../data/experiences";
+import { getExperience } from "../i18n/content";
 import { navigate, RETURN_PATH_KEY } from "../lib/router";
+import { useI18n } from "../i18n/useI18n";
+import { resolveLocation } from "../i18n/routes";
 import { ArrowLeft } from "lucide-react";
 
 interface Props {
@@ -14,22 +16,24 @@ interface Props {
 }
 
 export function ExperiencePage({ slug }: Props) {
-  const experience = getExperienceBySlug(slug);
+  const { lp, lang, ui } = useI18n();
+  const experience = getExperience(slug, lang);
 
   const handleBack = () => {
     // Vuelve a donde estaba antes de entrar (tarjeta de "Proyectos destacados" o fila de "Experiencia"); si no hay registro, a la sección Experiencia.
     const returnPath = sessionStorage.getItem(RETURN_PATH_KEY);
     if (returnPath) {
       sessionStorage.removeItem(RETURN_PATH_KEY);
-      navigate(returnPath);
+      // La ruta guardada puede ser del otro idioma (se cambió de idioma estando en el detalle): se lleva al idioma actual.
+      navigate(lp(resolveLocation(returnPath).es ?? returnPath));
     } else {
-      navigate("/experiencia");
+      navigate(lp("/experiencia"));
     }
   };
 
   const navigateToCase = (caseSlug: string) => {
-    sessionStorage.setItem(RETURN_PATH_KEY, `/experiencia/${slug}`);
-    navigate(`/proyectos/${caseSlug}`);
+    sessionStorage.setItem(RETURN_PATH_KEY, lp(`/experiencia/${slug}`));
+    navigate(lp(`/proyectos/${caseSlug}`));
   };
 
   if (!experience) {
@@ -38,10 +42,10 @@ export function ExperiencePage({ slug }: Props) {
         <Header />
         <main className="pt-20">
           <div className="page-container py-40 flex flex-col items-center gap-6 text-center">
-            <p className="text-gray-600">Experiencia no encontrada.</p>
+            <p className="text-gray-600">{ui.case.experienceNotFound}</p>
             <button
               onClick={handleBack}
-              aria-label="Volver a experiencia"
+              aria-label={ui.case.backToExperience}
               className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-surface-page text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -62,8 +66,8 @@ export function ExperiencePage({ slug }: Props) {
         <DetailHero
           title={experience.company}
           onBack={handleBack}
-          backLabel="Volver a experiencia"
-          crumbs={[{ label: "Experiencia", onClick: () => navigate("/experiencia") }, { label: experience.company }]}
+          backLabel={ui.case.backToExperience}
+          crumbs={[{ label: ui.case.experienceCrumb, href: lp("/experiencia") }, { label: experience.company }]}
           sticker={detailSticker(experience.slug)}
           location={experience.location}
           website={experience.website}
@@ -74,7 +78,7 @@ export function ExperiencePage({ slug }: Props) {
         <div className="page-container pt-12 pb-28 lg:pb-44 lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14">
           <aside className="hidden lg:block">
             <div className="sticky top-28">
-              <CaseOutline items={buildOutline(experience.caseStudy, { projects: true, about: experience.aboutTitle, challenge: experience.challenge ? (experience.challengeTitle ?? "El desafío") : undefined, learned: !!experience.learned })} />
+              <CaseOutline items={buildOutline(experience.caseStudy, ui, { projects: true, about: experience.aboutTitle, challenge: experience.challenge ? (experience.challengeTitle ?? ui.case.challenge) : undefined, learned: !!experience.learned })} />
             </div>
           </aside>
           <div className="min-w-0">
@@ -88,8 +92,8 @@ export function ExperiencePage({ slug }: Props) {
             challengeTitle={experience.challengeTitle}
             images={experience.images}
             meta={[
-              { label: "Rol", value: experience.role },
-              { label: "Período", value: experience.period },
+              { label: ui.case.roleLabel, value: experience.role },
+              { label: ui.case.periodLabel, value: experience.period },
             ]}
           />
 

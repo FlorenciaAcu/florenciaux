@@ -1,30 +1,12 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
+import { EditorialLink } from "./EditorialLink";
+import { useI18n } from "../i18n/useI18n";
 
-const steps = [
-  {
-    number: "01",
-    title: "Descubrir",
-    description: "Relevamiento con stakeholders y usuarios para entender el contexto real y acotar el alcance.",
-  },
-  {
-    number: "02",
-    title: "Definir",
-    description: "Traduzco lo relevado en arquitectura de información, flujos y story maps antes de dibujar pantallas.",
-  },
-  {
-    number: "03",
-    title: "Diseñar",
-    description: "Prototipos interactivos y alta fidelidad sobre un design system. Con IA exploro y prototipo más rápido.",
-  },
-  {
-    number: "04",
-    title: "Entregar",
-    description: "Documentación y acompañamiento al equipo de desarrollo durante la implementación.",
-  },
-];
-
+/** El texto de las cuatro etapas vive en i18n/home.ts (los dos idiomas); acá solo se numeran. */
 export function ProcessSection() {
+  const { home } = useI18n();
+  const steps = home.process.steps;
   return (
     <section id="proceso" className="relative bg-surface-page/90 py-20 lg:py-36">
       <div className="page-container">
@@ -35,7 +17,7 @@ export function ProcessSection() {
           transition={{ duration: 0.55 }}
           className="mb-5"
         >
-          <h2 className="type-h1 text-gray-900">Cómo trabajo</h2>
+          <h2 className="type-h1 text-gray-900">{home.process.title}</h2>
         </motion.div>
 
         <motion.p
@@ -45,13 +27,13 @@ export function ProcessSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="type-s1 mb-6 text-gray-600 lg:mb-8"
         >
-          Un proceso iterativo donde cada etapa alimenta a la siguiente: lo que sale de una es lo que entra en la próxima.
+          {home.process.intro}
         </motion.p>
 
         <ol className="grid lg:grid-cols-4 lg:gap-x-20">
           {steps.map((step, i) => (
             <motion.li
-              key={step.number}
+              key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
@@ -59,7 +41,7 @@ export function ProcessSection() {
               className="relative grid grid-cols-[3.25rem_minmax(0,1fr)] gap-x-4 gap-y-3 border-b border-gray-200 py-6 last:border-b-0 lg:flex lg:flex-col lg:gap-5 lg:border-0 lg:py-0"
             >
               <span className="text-gradient-brand row-span-2 text-3xl font-light leading-none tabular-nums lg:row-auto lg:text-5xl">
-                {step.number}
+                {String(i + 1).padStart(2, "0")}
               </span>
               <h3 className="type-h3 text-gray-900">{step.title}</h3>
               <p className="type-body col-start-2 text-gray-600 lg:col-auto">{step.description}</p>
@@ -76,6 +58,8 @@ export function ProcessSection() {
             </motion.li>
           ))}
         </ol>
+
+        <EditorialLink page="ai" className="mt-10 lg:mt-12" />
       </div>
     </section>
   );

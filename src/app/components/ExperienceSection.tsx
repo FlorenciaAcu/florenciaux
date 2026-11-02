@@ -1,39 +1,45 @@
 import { OpenCue } from "./NavArrow";
 import { experiences } from "../data/experiences";
 import { navigate } from "../lib/router";
+import { useI18n } from "../i18n/useI18n";
+import { getExperience } from "../i18n/content";
 
 const journey = [...experiences].reverse();
 
-function extractYears(period: string): string {
+function extractYears(period: string, present: string): string {
   const parts = period.split("–").map((part) => part.trim());
   const startYear = parts[0].split(" ").pop() ?? "";
   const end = parts[1] ?? "";
-  const endYear = end === "Actualidad" ? "Hoy" : end.split(" ").pop() ?? end;
+  const endYear = end === "Actualidad" ? present : end.split(" ").pop() ?? end;
   return `${startYear} – ${endYear}`;
 }
 
 export function ExperienceSection() {
+  const { lang, home, lp } = useI18n();
   const navigateTo = (slug: string) => {
-    navigate(`/experiencia/${slug}`);
+    navigate(lp(`/experiencia/${slug}`));
   };
 
   return (
     <section id="experiencia" className="bg-surface-page/90 pb-20 pt-12 lg:pb-36">
       <div className="page-container">
         <div className="mb-5">
-          <h2 className="type-h1 text-gray-900">Experiencia</h2>
+          <h2 className="type-h1 text-gray-900">{home.experience.title}</h2>
         </div>
 
         <p className="type-s1 mb-14 text-gray-600 lg:mb-20">
-          Más de cinco años trabajando en productos digitales, dentro de equipos de producto y desarrollo y también de forma independiente.
+          {home.experience.intro}
         </p>
 
         <div className="relative">
           <div className="grid lg:grid-cols-3">
-            {journey.map((experience, index) => (
+            {journey.map((item, index) => {
+              // In English the company and the summary come from the translated experience (a missing one is shown as [MISSING EN], never filled with Spanish).
+              const experience = getExperience(item.slug, lang) ?? item;
+              return (
               <a
                 key={experience.slug}
-                href={`/experiencia/${experience.slug}`}
+                href={lp(`/experiencia/${experience.slug}`)}
                 onClick={(event) => {
                   event.preventDefault();
                   navigateTo(experience.slug);
@@ -63,7 +69,7 @@ export function ExperienceSection() {
                 />
 
                 <div className="flex items-center justify-between gap-5">
-                  <span className="type-caption font-medium tabular-nums text-gray-600">{extractYears(experience.period)}</span>
+                  <span className="type-caption font-medium tabular-nums text-gray-600">{extractYears(experience.period, home.experience.present)}</span>
                   <OpenCue />
                 </div>
 
@@ -76,7 +82,8 @@ export function ExperienceSection() {
                   ))}
                 </div>
               </a>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

@@ -1,15 +1,22 @@
 import { useEffect } from "react";
 import { LINKEDIN_URL, MEDIUM_URL } from "../data/contact";
-import { absoluteUrl, canonicalFor, OG_IMAGE_PATH, SITE_NAME, structuredData } from "../data/site";
+import { absoluteUrl, canonicalFor, OG_IMAGE_PATH, SITE_NAME, SITE_URL, structuredData } from "../data/site";
+import { siteEn } from "../data/en/site.en";
+import { isEnAvailable, resolveLocation, toLangPath } from "../i18n/routes";
+import { useLang } from "../i18n/useI18n";
 
 interface SEOProps {
   /** Page title without the site name: "CEMICO" becomes "CEMICO | Florencia Acuña". Omit it for Home. */
   title?: string;
   description?: string;
-  /** Site path of the page (see canonicalFor in data/site.ts). */
+  /** Site path of the page IN SPANISH (the equivalent in the current language is derived from it; see i18n/routes.ts). Omit it for Home. */
   path?: string;
   /** Site path of the OG image under public/. */
   image?: string;
+  /** Pages that must not appear in search results (the private references page). */
+  noindex?: boolean;
+  /** Whether the page has a language alternate (hreflang). Home sections canonicalize to the Home, so they say `false`. Default: true. */
+  alternates?: boolean;
 }
 
 const DEFAULTS = {
@@ -28,6 +35,22 @@ function setMeta(name: string, content: string, attr: "name" | "property" = "nam
     document.head.appendChild(el);
   }
   el.setAttribute("content", content);
+}
+
+function removeMeta(name: string, attr: "name" | "property" = "name") {
+  document.querySelector(`meta[${attr}="${name}"]`)?.remove();
+}
+
+/** Language alternates (hreflang): replaces whatever is there, so a page never keeps the previous page's. */
+function setAlternates(items: { hreflang: string; href: string }[]) {
+  document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
+  for (const { hreflang, href } of items) {
+    const el = document.createElement("link");
+    el.setAttribute("rel", "alternate");
+    el.setAttribute("hreflang", hreflang);
+    el.setAttribute("href", href);
+    document.head.appendChild(el);
+  }
 }
 
 function setLink(rel: string, href: string) {
@@ -52,24 +75,33 @@ function setJsonLd(data: object) {
   el.textContent = JSON.stringify(data);
 }
 
-export function SEOHead({ title, description, path, image }: SEOProps) {
-  const resolvedTitle = title ? `${title} | ${SITE_NAME}` : DEFAULTS.title;
-  const resolvedDesc = description ?? DEFAULTS.description;
+export function SEOHead({ title, description, path, image, noindex, alternates = true }: SEOProps) {
+  const lang = useLang();
+  const en = lang === "en";
+  const esPath = path ?? "/";
+  const homeTitle = en ? siteEn.homeTitle : DEFAULTS.title;
+  const resolvedTitle = title ? `${title} | ${SITE_NAME}` : homeTitle;
+  const resolvedDesc = description ?? (en ? siteEn.homeDescription : DEFAULTS.description);
   // Home keeps its own OG description; inner pages share their page description.
-  const resolvedOgDesc = description ?? DEFAULTS.ogDescription;
-  const resolvedCanonical = canonicalFor(path);
+  const resolvedOgDesc = description ?? (en ? siteEn.homeOgDescription : DEFAULTS.ogDescription);
+  const resolvedCanonical = canonicalFor(en ? toLangPath(esPath, "en") : path);
   const resolvedImage = absoluteUrl(image ?? OG_IMAGE_PATH);
+  // Reciprocal es-AR / en pair, only when the English page really exists (see isEnAvailable) and the page is not a Home section.
+  const hasPair = alternates && !noindex && isEnAvailable(resolveLocation(esPath).es ?? esPath);
+  // The Spanish Home's canonical in the HTML is "…/": the hreflang names exactly that URL.
+  const esUrl = esPath === "/" ? `${SITE_URL}/` : canonicalFor(path);
+  const enUrl = canonicalFor(toLangPath(esPath, "en"));
 
   useEffect(() => {
     // lang
-    document.documentElement.lang = "es-AR";
+    document.documentElement.lang = en ? "en" : "es-AR";
 
     // title
     document.title = resolvedTitle;
 
     // basic meta
     setMeta("description", resolvedDesc);
-    setMeta("robots", "index, follow");
+    setMeta("robots", noindex ? "noindex, nofollow" : "index, follow");
     setMeta("author", "Florencia Acuña");
 
     // Open Graph
@@ -78,7 +110,9 @@ export function SEOHead({ title, description, path, image }: SEOProps) {
     setMeta("og:description", resolvedOgDesc, "property");
     setMeta("og:url", resolvedCanonical, "property");
     setMeta("og:image", resolvedImage, "property");
-    setMeta("og:locale", "es_AR", "property");
+    setMeta("og:locale", en ? "en_US" : "es_AR", "property");
+    if (hasPair) setMeta("og:locale:alternate", en ? "es_AR" : "en_US", "property");
+    else removeMeta("og:locale:alternate", "property");
     setMeta("og:site_name", "Florencia Acuña — Portfolio", "property");
 
     // Twitter/X card
@@ -87,12 +121,13 @@ export function SEOHead({ title, description, path, image }: SEOProps) {
     setMeta("twitter:description", resolvedDesc);
     setMeta("twitter:image", resolvedImage);
 
-    // Canonical
+    // Canonical (always the page itself, in its own language) and the language pair
     setLink("canonical", resolvedCanonical);
+    setAlternates(hasPair ? [{ hreflang: "es-AR", href: esUrl }, { hreflang: "en", href: enUrl }, { hreflang: "x-default", href: esUrl }] : []);
 
     // Schema.org: Person + WebSite (the same data the build writes into the HTML)
-    setJsonLd(structuredData());
-  }, [resolvedTitle, resolvedDesc, resolvedOgDesc, resolvedCanonical, resolvedImage]);
+    setJsonLd(structuredData(lang));
+  }, [lang, en, hasPair, esUrl, enUrl, noindex, resolvedTitle, resolvedDesc, resolvedOgDesc, resolvedCanonical, resolvedImage]);
 
   return null;
 }

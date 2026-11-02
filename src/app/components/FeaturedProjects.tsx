@@ -3,42 +3,45 @@ import { OpenCue } from "./NavArrow";
 import { navigate, RETURN_PATH_KEY } from "../lib/router";
 import { getExperienceBySlug } from "../data/experiences";
 import { getProjectBySlug } from "../data/projects";
+import { useI18n } from "../i18n/useI18n";
+import { enMissing, homeEnOverlay, type HomeCopy } from "../i18n/home";
+import type { Lang } from "../i18n/routes";
 
 const cintelink = getExperienceBySlug("cintelink")!;
 
 const secondarySlugs = ["cemico", "buscador-agricola", "juan-gas-gnc"] as const;
 const secondaryProjects = secondarySlugs.map((slug) => getProjectBySlug(slug)!);
 
-// One short line per card, all with the same shape: "lo que diseñé, para quién/qué contexto". Home-only copy: the pages keep their own taglines.
+// One short line per card, all with the same shape: "lo que diseñé, para quién/qué contexto". Home-only copy (i18n/home.ts): the pages keep their own taglines.
 // The sector above the name already gives the industry, so these add operational or audience detail instead of repeating it.
-const cardSummaries: Record<string, string> = {
-  cintelink: "Plataforma y sistema de diseño para Cintelink, una solución de gestión de combustible.",
-  cemico: "Productos digitales para pacientes, admisión, colaboradores y auditoría médica en Grupo CEMICO.",
-  "buscador-agricola": "MVP de un marketplace especializado para conectar la oferta y la demanda del sector agrícola en Chile.",
-  "juan-gas-gnc": "Web para consultar el saldo de puntos de Juan Gas GNC Club por patente.",
-};
-
-const caseFile = [
-  {
-    slug: cintelink.slug,
-    name: cintelink.company,
-    sector: cintelink.sector ?? "",
-    tagline: cardSummaries[cintelink.slug],
-    route: `/experiencia/${cintelink.slug}`,
-  },
-  ...secondaryProjects.map((project) => ({
-    slug: project.slug,
-    name: project.name,
-    sector: project.sector,
-    tagline: cardSummaries[project.slug],
-    route: `/proyectos/${project.slug}`,
-  })),
-];
+// In English the sector comes from homeEnOverlay (the data files are in Spanish). `route` is always the Spanish path; the component localizes it.
+function buildCaseFile(lang: Lang, home: HomeCopy) {
+  const summaries = home.featured.summaries as Record<string, string>;
+  const sector = (slug: string, es: string) => (lang === "en" ? (homeEnOverlay.sectors[slug] ?? enMissing(`sector:${slug}`)) : es);
+  return [
+    {
+      slug: cintelink.slug,
+      name: cintelink.company,
+      sector: sector(cintelink.slug, cintelink.sector ?? ""),
+      tagline: summaries[cintelink.slug],
+      route: `/experiencia/${cintelink.slug}`,
+    },
+    ...secondaryProjects.map((project) => ({
+      slug: project.slug,
+      name: project.name,
+      sector: sector(project.slug, project.sector),
+      tagline: summaries[project.slug],
+      route: `/proyectos/${project.slug}`,
+    })),
+  ];
+}
 
 export function FeaturedProjects() {
+  const { lang, home, lp } = useI18n();
+  const caseFile = buildCaseFile(lang, home);
   const openCase = (route: string) => {
-    sessionStorage.setItem(RETURN_PATH_KEY, "/proyectos");
-    navigate(route);
+    sessionStorage.setItem(RETURN_PATH_KEY, lp("/proyectos"));
+    navigate(lp(route));
   };
 
   return (
@@ -52,7 +55,7 @@ export function FeaturedProjects() {
           transition={{ duration: 0.55 }}
           className="mb-5"
         >
-          <h2 className="type-h1 text-gray-900">Proyectos destacados</h2>
+          <h2 className="type-h1 text-gray-900">{home.featured.title}</h2>
         </motion.div>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -61,7 +64,7 @@ export function FeaturedProjects() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="type-s1 text-gray-600 mb-14 lg:mb-20"
         >
-          Cómo abordo distintos problemas de producto y las decisiones de diseño detrás de cada solución.
+          {home.featured.intro}
         </motion.p>
 
         {/* Case file — a list, not a grid. Each case is a row, not a picture card. */}
@@ -69,7 +72,7 @@ export function FeaturedProjects() {
           {caseFile.map((item, i) => (
             <motion.a
               key={item.slug}
-              href={item.route}
+              href={lp(item.route)}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}

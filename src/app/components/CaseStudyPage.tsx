@@ -5,19 +5,23 @@ import { detailSticker } from "./Stickers";
 import { ClosingCTA } from "./ClosingCTA";
 import { NextCase } from "./NextCase";
 import { buildOutline, CaseOutline, CaseStudyDetails, CaseStudyLearned, ExperienceIntro } from "./CaseStudyBlocks";
-import { getProjectBySlug } from "../data/projects";
+import { getProject } from "../i18n/content";
 import { navigate, RETURN_PATH_KEY } from "../lib/router";
+import { useI18n } from "../i18n/useI18n";
+import { resolveLocation } from "../i18n/routes";
 import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 
 function ImagePlaceholder({ wide = false }: { wide?: boolean }) {
+  const { ui } = useI18n();
+  const imagePending = ui.case.imagePending;
   return (
     <div
       className={`w-full bg-[#E8E8ED] rounded-2xl flex items-center justify-center ${
         wide ? "aspect-[21/9]" : "aspect-[16/9]"
       }`}
     >
-      <p className="text-xs text-gray-700 font-medium">Imagen pendiente</p>
+      <p className="text-xs text-gray-700 font-medium">{imagePending}</p>
     </div>
   );
 }
@@ -27,25 +31,27 @@ interface Props {
 }
 
 export function CaseStudyPage({ slug }: Props) {
-  const project = getProjectBySlug(slug);
+  const { lp, lang, ui } = useI18n();
+  const project = getProject(slug, lang);
 
   const handleBack = () => {
     const returnPath = sessionStorage.getItem(RETURN_PATH_KEY);
     if (returnPath) {
       sessionStorage.removeItem(RETURN_PATH_KEY);
-      navigate(returnPath);
+      // La ruta guardada puede ser del otro idioma (se cambió de idioma estando en el detalle): se lleva al idioma actual.
+      navigate(lp(resolveLocation(returnPath).es ?? returnPath));
     } else {
       if (document.referrer.startsWith(window.location.origin)) window.history.back();
-      else navigate("/proyectos");
+      else navigate(lp("/proyectos"));
     }
   };
 
   const handleBackToProjects = () => {
-    navigate("/proyectos");
+    navigate(lp("/proyectos"));
   };
 
   // Every case gets the sticky "on this page" index.
-  const outline = project?.caseStudy ? buildOutline(project.caseStudy) : null;
+  const outline = project?.caseStudy ? buildOutline(project.caseStudy, ui) : null;
 
   if (!project) {
     return (
@@ -53,10 +59,10 @@ export function CaseStudyPage({ slug }: Props) {
         <Header />
         <main className="pt-20">
           <div className="page-container py-40 flex flex-col items-center gap-6 text-center">
-            <p className="text-gray-600">Proyecto no encontrado.</p>
+            <p className="text-gray-600">{ui.case.projectNotFound}</p>
             <button
               onClick={handleBackToProjects}
-              aria-label="Volver a proyectos"
+              aria-label={ui.case.backToProjects}
               className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 bg-surface-page text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -77,8 +83,8 @@ export function CaseStudyPage({ slug }: Props) {
           title={project.name}
           tagline={project.caseStudy ? undefined : project.tagline}
           onBack={handleBack}
-          backLabel="Volver"
-          crumbs={[{ label: "Proyectos", onClick: handleBackToProjects }, { label: project.name }]}
+          backLabel={ui.case.back}
+          crumbs={[{ label: ui.case.projectsCrumb, href: lp("/proyectos") }, { label: project.name }]}
           sticker={detailSticker(project.slug)}
           location={project.location}
           website={project.website}
@@ -121,7 +127,7 @@ export function CaseStudyPage({ slug }: Props) {
             transition={{ duration: 0.5 }}
           >
             <p className="type-eyebrow text-magenta-strong mb-3">
-              Contexto
+              {ui.case.legacy.context}
             </p>
             <p className="type-body text-gray-700">
               {project.context}
@@ -135,7 +141,7 @@ export function CaseStudyPage({ slug }: Props) {
             transition={{ duration: 0.5 }}
           >
             <p className="type-eyebrow text-magenta-strong mb-3">
-              Problema o reto
+              {ui.case.legacy.problem}
             </p>
             <p className="type-body text-gray-700">
               {project.challenge}
@@ -151,7 +157,7 @@ export function CaseStudyPage({ slug }: Props) {
             transition={{ duration: 0.5 }}
           >
             <p className="type-eyebrow text-magenta-strong mb-3">
-              Mi rol
+              {ui.case.legacy.role}
             </p>
             <p className="type-body text-gray-700">
               {project.role}
@@ -165,7 +171,7 @@ export function CaseStudyPage({ slug }: Props) {
             transition={{ duration: 0.5 }}
           >
             <p className="type-eyebrow text-magenta-strong mb-3">
-              Solución
+              {ui.case.legacy.solution}
             </p>
             <p className="type-body text-gray-700">
               {project.description}
@@ -179,7 +185,7 @@ export function CaseStudyPage({ slug }: Props) {
             transition={{ duration: 0.5 }}
           >
             <p className="type-eyebrow text-magenta-strong mb-5">
-              Evidencia visual
+              {ui.case.legacy.evidence}
             </p>
             <div className="space-y-4">
               {Array.from({ length: project.imageCount }).map((_, i) => (
